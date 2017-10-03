@@ -1,0 +1,21 @@
+syntax = "proto3";
+package com.violet.rpc;
+
+message _Request{  
+  string token = 1;  
+  string rpc = 2;  
+  bytes data = 3;
+}
+
+message _Response{  
+  string token = 1;  
+  string rpc = 2;  
+  bytes data = 3;
+}
+
+message HelloRequest{
+  string content = 1;
+}
+message HelloResponse{
+  string greet = 1;
+}
