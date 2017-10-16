@@ -90,23 +90,10 @@ public class ThreadManager : Manager
         workerThread.Start();
         return workerThread;
     }
-
-    void OnDisable()
-    {
-        if (_current == this)
-        {
-
-            _current = null;
-        }
-    }
+    
 
 
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
+    
 
     List<Action> _currentActions = new List<Action>();
 
