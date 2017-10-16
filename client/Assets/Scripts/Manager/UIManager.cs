@@ -5,9 +5,10 @@ using System.Text;
 using UnityEngine;
 
 
-public class UIManager : ServiceModule<UIManager>
+public class UIManager : Manager
 {
-	Transform ml_Left;
+    public const string Name = "UIManager";
+    Transform ml_Left;
 	Transform ml_Top;
 	Transform ml_Right;
 	Transform ml_Bottom;
@@ -46,19 +47,26 @@ public class UIManager : ServiceModule<UIManager>
 		}
 		m_UIDataRegisted.Add(new UIData(name, resourceName, layoutStyle, windowStyle));
 	}
-	public UIManager Init()
-	{
+    private void Awake()
+    {
+        InitLayout();
+    }
+    public override void OnManagerReady()
+    {
 
-		InitLayout();
-		return Instance;
-	}
+    }
+    public override void OnManagerDestroy()
+    {
+
+    }
+
 	private void InitLayout()
 	{
-		ml_Left = GameObject.Find("_LeftAnchor").transform;
-		ml_Right = GameObject.Find("_RightAnchor").transform;
-		ml_Top = GameObject.Find("_TopAnchor").transform;
-		ml_Bottom = GameObject.Find("_BottomAnchor").transform;
-		ml_Center = GameObject.Find("_CenterAnchor").transform;
+		ml_Left = GameObject.Find(Config.UIRootPath + "_LeftAnchor").transform;
+		ml_Right = GameObject.Find(Config.UIRootPath + "_RightAnchor").transform;
+		ml_Top = GameObject.Find(Config.UIRootPath + "_TopAnchor").transform;
+		ml_Bottom = GameObject.Find(Config.UIRootPath + "_BottomAnchor").transform;
+		ml_Center = GameObject.Find(Config.UIRootPath + "_CenterAnchor").transform;
 		if (ml_Center == null)
 		{
 			Debuger.Log("null");
@@ -89,10 +97,12 @@ public class UIManager : ServiceModule<UIManager>
 			}
 		}
 		if (m_UIData == null) m_UIData = GetUIData(name);
-		if (m_UIData != null)
+        if (m_UIData != null)
 		{
-			m_UIData.gameObject = MonoBehaviour.Instantiate(ResourceManager.Instance.LoadUIPrefab(m_UIData.resourceName)) as GameObject;
-			m_UIDataMap.Add(name, m_UIData);
+			m_UIData.gameObject = MonoBehaviour.Instantiate(AppInterface.ResourceManager.LoadUI(m_UIData.resourceName)) as GameObject;
+            m_UIData.gameObject.name = name;
+
+            m_UIDataMap.Add(name, m_UIData);
 		}
 		return m_UIData;
 	}

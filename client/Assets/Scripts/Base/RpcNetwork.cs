@@ -358,7 +358,7 @@ public class RpcNetwork
         }
         catch(Exception e)
         {
-            ThreadSwitcher.RunOnMainThread(() => {
+            AppInterface.ThreadManager.RunOnMainThread(() => {
                 Debuger.Error(e.ToString());
             });
         }
@@ -379,7 +379,7 @@ public class RpcNetwork
         {
             IMessage resRpc = Activator.CreateInstance(type) as IMessage;
             resRpc.MergeFrom(response.Data);
-            ThreadSwitcher.RunOnMainThread(() =>
+            AppInterface.ThreadManager.RunOnMainThread(() =>
             {
                 currentRpc.callback(resRpc);
             });
@@ -391,31 +391,31 @@ public class RpcNetwork
         if (m_socket.Connected)
         {
             m_isReady = true;
-            ThreadSwitcher.RunOnMainThread(() =>
+            AppInterface.ThreadManager.RunOnMainThread(() =>
             {
                 Debuger.Log("connected");
             });
             //开始监听
             m_isQueue = true;
-            m_recieve = ThreadSwitcher.RunAsync(QueueRecieve);
-            m_process = ThreadSwitcher.RunAsync(QueueProcess);
+            m_recieve = AppInterface.ThreadManager.RunAsync(QueueRecieve);
+            m_process = AppInterface.ThreadManager.RunAsync(QueueProcess);
         }
     }
     private void Disconnect()
     {
-        ThreadSwitcher.RunOnMainThread(() => {
+        AppInterface.ThreadManager.RunOnMainThread(() => {
             Debuger.Log("disconnected");
         });
         while (!m_socket.Connected)
         {
-            ThreadSwitcher.RunOnMainThread(() => {
+            AppInterface.ThreadManager.RunOnMainThread(() => {
                 Debuger.Log("reconnecting");
             });
             Thread.Sleep(1000);
             Init(true);
         }
         ResendAll();
-        ThreadSwitcher.RunOnMainThread(() => {
+        AppInterface.ThreadManager.RunOnMainThread(() => {
             Debuger.Log("reconnected");
         });
     }

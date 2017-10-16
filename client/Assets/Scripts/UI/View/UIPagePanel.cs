@@ -8,7 +8,7 @@ public class UIPagePanel : UIViewBase
 	public override void OnInit()
 	{
 		base.OnInit();
-		Global.MUI.HideOverViewByPage("UIPlayerInfo");
+        AppInterface.UIManager.HideOverViewByPage("UIPlayerInfo");
 	}
 	public override void OnOpen(Intent intent)
 	{
@@ -17,7 +17,7 @@ public class UIPagePanel : UIViewBase
 	}
 	public void BackPage()
 	{
-		Global.MUI.PageBack();
+        AppInterface.UIManager.PageBack();
 	}
 	public override void OnRefresh()
 	{

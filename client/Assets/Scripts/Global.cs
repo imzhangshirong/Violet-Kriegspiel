@@ -5,33 +5,25 @@ using System.Linq;
 using System.Text;
 
 public class Global : MonoBehaviour{
-	public Debuger MDebuger;
-	private static Global m_Global;
-	public static Global Instance {
-		get {
-			return m_Global;
-		}
-	}
-	public static ModuleManager MMoudule;
-	public static GameManager MGame;
-	public static SceneManager MScene;
-	public static UIManager MUI;
-	public static ResourceManager MResource;
-
 	//某些赋值需要在UnityEngine主线程里使用
 	//初始化基础模块
 	void Awake()
 	{
-		m_Global = this;
-        ThreadSwitcher.Init();
         Debuger.Init();
         RpcNetwork.Instance.Init();
 
-        MMoudule = ModuleManager.Instance.Init();
-		MGame = GameManager.Instance;
-		MScene = SceneManager.Instance;
-		MUI = UIManager.Instance.Init();
-		MResource = ResourceManager.Instance;
+        //加载Manager
+        DontDestroyOnLoad(gameObject);
+        App.Instance.AddManager<ThreadManager>(ThreadManager.Name);
+        App.Instance.AddManager<LocalDataManager>(LocalDataManager.Name);
+        App.Instance.AddManager<NetworkManager>(NetworkManager.Name);
+        App.Instance.AddManager<ResourceManager>(ResourceManager.Name);
+        App.Instance.AddManager<SceneManager>(SceneManager.Name);
+        App.Instance.AddManager<ObjectPoolManager>(ObjectPoolManager.Name);
+        App.Instance.AddManager<EventManager>(EventManager.Name);
+        App.Instance.AddManager<UIManager>(UIManager.Name);
+        App.Instance.AddManager<GameManager>(GameManager.Name);
+        
         
 		Config.RegisteUI();
         Debuger.Log("Inited");

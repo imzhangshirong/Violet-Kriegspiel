@@ -5,11 +5,10 @@ using System.Text;
 using UnityEngine;
 using UnityEditor;
 
-public class ResourceManager : ServiceModule<ResourceManager>
+public class ResourceManager : Manager
 {
-	private Dictionary<string, UnityEngine.Object> m_resourseMap = new Dictionary<string, UnityEngine.Object>();
-	private string m_UIPath;
-	private string m_TexturePath;
+    public const string Name = "ResourceManager";
+    private Dictionary<string, UnityEngine.Object> m_resourseMap = new Dictionary<string, UnityEngine.Object>();
 	
 	public string TextByKey(string key)
 	{
@@ -17,7 +16,8 @@ public class ResourceManager : ServiceModule<ResourceManager>
 	}
 	public T Load<T>(string path,ResourceType type) where T : UnityEngine.Object
 	{
-		string fullPath = GetResourceFullPath(path, type);
+		string fullPath = path;
+        Debuger.Log(fullPath);
 		T asset = null;
 		if (m_resourseMap.ContainsKey(fullPath))
 		{
@@ -38,30 +38,12 @@ public class ResourceManager : ServiceModule<ResourceManager>
 		m_resourseMap.Add(fullPath, asset);
 		return asset;
 	}
-	public GameObject LoadUIPrefab(string path)
+	public GameObject LoadUI(string name)
 	{
-		return Load<GameObject>(Config.UIResourcePath + "/" + path, ResourceType.Resource);
+        
+        return Load<GameObject>(Config.UIResourcePath + "/" + name, ResourceType.Resource);
 	}
-	public ResourceManager Init(string UIPath, string TexturePath)
-	{
-		m_UIPath = UIPath;
-		m_TexturePath = TexturePath;
-		return Instance;
-	}
-	public string GetResourceFullPath(string ppath,ResourceType type)
-	{
-		string path = null;
-		switch (type)
-		{
-			case ResourceType.Resource:
-				path = Config.ResourceFullPath + "/" + ppath;
-			
-				break;
-			case ResourceType.BundleResource:
-				break;
-		}
-		return path;
-	}
+    
 	public Texture LoadTexture(string path, TextureType type)
 	{
 		return Load<Texture>(Config.TextureResourcePath + "/" + path, ResourceType.Resource);
