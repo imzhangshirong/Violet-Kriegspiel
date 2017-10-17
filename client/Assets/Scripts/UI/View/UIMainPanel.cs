@@ -40,6 +40,7 @@ public class UIMainPanel : UIViewBase
         RpcNetwork.Request("Hello",request,delegate(IMessage response) {
             HelloResponse res = response as HelloResponse;
             rpcResponse.text = res.Greet;
+            AppInterface.EventManager.Broadcast("_greeting", res.Greet);
         });
     }
 }

@@ -14,7 +14,7 @@ public class ResourceManager : Manager
 	{
 		return "";
 	}
-	public T Load<T>(string path,ResourceType type) where T : UnityEngine.Object
+	public T Load<T>(string path) where T : UnityEngine.Object
 	{
 		string fullPath = path;
         Debuger.Log(fullPath);
@@ -23,30 +23,23 @@ public class ResourceManager : Manager
 		{
 			return m_resourseMap[fullPath] as T;
 		}
-		switch (type)
-		{
-			case ResourceType.Resource:
-				asset = Resources.Load<T>(path);
-				if (asset == null)
-				{
-					Debuger.Error(fullPath + " not exist!");
-				}
-				break;
-			case ResourceType.BundleResource:
-				break;
-		}
-		m_resourseMap.Add(fullPath, asset);
+        asset = Resources.Load<T>(path);
+        if (asset == null)
+        {
+            Debuger.Error(fullPath + " not exist!");
+        }
+        m_resourseMap.Add(fullPath, asset);
 		return asset;
 	}
 	public GameObject LoadUI(string name)
 	{
         
-        return Load<GameObject>(Config.UIResourcePath + "/" + name, ResourceType.Resource);
+        return Load<GameObject>(Config.UIResourcePath + "/" + name);
 	}
     
-	public Texture LoadTexture(string path, TextureType type)
+	public Texture LoadTexture(string path)
 	{
-		return Load<Texture>(Config.TextureResourcePath + "/" + path, ResourceType.Resource);
+		return Load<Texture>(Config.TextureResourcePath + "/" + path);
 	}
 	/// <summary>
 	/// 返回Android或iOS设备可访问的路径
@@ -58,12 +51,4 @@ public class ResourceManager : Manager
 		string re = path;
 		return re;
 	}
-}
-public enum ResourceType{
-	Resource,
-	BundleResource,
-}
-public enum TextureType{
-	Skill,
-	Stuff,
 }

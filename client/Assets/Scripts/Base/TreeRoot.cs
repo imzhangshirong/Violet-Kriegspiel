@@ -6,53 +6,56 @@ using UnityEngine;
 
 public class TreeRoot : MonoBehaviour
 {
-	private Dictionary<string, List<TreeLeafState>> m_leafMap = new Dictionary<string, List<TreeLeafState>>();
-	private List<TreeLeafState> m_leafList = new List<TreeLeafState>();
-	public void Bind(TreeLeaf leaf,bool aActive = false)
+	private Dictionary<string, List<TreeLeaf>> m_LeafMap = new Dictionary<string, List<TreeLeaf>>();
+	private List<TreeLeaf> m_LeafList = new List<TreeLeaf>();
+    public string[] m_EventKeys;
+	public void Bind(TreeLeaf leaf)
 	{
-		m_leafList.Add(new TreeLeafState(leaf, aActive));
+        if (m_LeafList.IndexOf(leaf) == -1)
+        {
+            m_LeafList.Add(leaf);
+        }
 	}
-	public void Broadcast(string msg, params object[] args) {
-		Broadcast(null, msg, args);
+	public void Broadcast(string msg, object content) {
+		Broadcast(null, msg, content);
 	}
-	public void Broadcast(TreeLeaf fromLeaf,string msg,params object[] args){
-		foreach (var leafState in m_leafList)
+	public void Broadcast(TreeLeaf fromLeaf,string msg,object content)
+    {
+		foreach (var leaf in m_LeafList)
 		{
-			if (fromLeaf == null || (fromLeaf != null && fromLeaf != leafState.leaf))
+            if (fromLeaf == null || (fromLeaf != null && fromLeaf != leaf))
 			{
-				if (leafState.alwaysActive)
+				if (leaf.IsActive())
 				{
-					leafState.leaf.TreeData(msg, args);
-				}
-				else if (leafState.leaf.IsActive())
-				{
-					leafState.leaf.TreeData(msg, args);
+                    
+					leaf.OnMessage(msg, content);
 				}
 			}
 		}
 	}
-	private List<TreeLeafState> GetLeafList(string type)
+	private List<TreeLeaf> GetLeafList(string type)
 	{
-		if (m_leafMap.ContainsKey(type))
+		if (m_LeafMap.ContainsKey(type))
 		{
-			return m_leafMap[type];
+			return m_LeafMap[type];
 		}
 		else
 		{
-			List<TreeLeafState> list = new List<TreeLeafState>();
-			m_leafMap.Add(type, list);
+			List<TreeLeaf> list = new List<TreeLeaf>();
+			m_LeafMap.Add(type, list);
 			return list;
 		}
 	}
+
+    private void Awake()
+    {
+        //注册全局EventKey到EventManager
+        for(int i = 0; i < m_EventKeys.Length; i++)
+        {
+            AppInterface.EventManager.RegisteTreeRoot(m_EventKeys[i], this);
+        }
+        
+    }
 }
 
 
-class TreeLeafState {
-	public TreeLeaf leaf;
-	public bool alwaysActive;
-	public TreeLeafState(TreeLeaf leaf,bool aActive)
-	{
-		this.leaf = leaf;
-		this.alwaysActive = aActive;
-	}
-}

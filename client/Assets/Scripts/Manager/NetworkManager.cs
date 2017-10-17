@@ -12,7 +12,7 @@ public class NetworkManager : Manager
     
     public override void OnManagerReady()
     {
-
+        RpcNetwork.Instance.Init();
     }
     public override void OnManagerDestroy()
     {

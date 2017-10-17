@@ -10,7 +10,6 @@ public class Global : MonoBehaviour{
 	void Awake()
 	{
         Debuger.Init();
-        RpcNetwork.Instance.Init();
 
         //加载Manager
         DontDestroyOnLoad(gameObject);
