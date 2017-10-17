@@ -12,7 +12,7 @@ public class UIMainPanel : UIViewBase
     public UIInput rpcInput;
 	public override void OnInit()
 	{
-		AppInterface.UIManager.HideOverViewByPage("UIPlayerInfo2");
+		
 	}
 	public override void OnOpen(Intent intent)
 	{

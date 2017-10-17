@@ -6,9 +6,7 @@ public class Main : MonoBehaviour {
     {
     }
     void Start () {
-		AppInterface.UIManager.OpenView("UIPlayerInfo");
-        AppInterface.UIManager.OpenView("UIPlayerInfo2");
-        AppInterface.UIManager.OpenView("leftTest");
+		AppInterface.UIManager.OpenView("UITopTest");
         AppInterface.UIManager.OpenView("UIMainPanel");
 	}
 	

@@ -21,16 +21,6 @@ public class Config
     public static readonly int PageBaseDepth = 20;
 	public static readonly int OverViewBaseDepth = 1000;
 	public static readonly int ViewLevelDepth = 100;
-	/// <summary>
-	/// 注册所有的UI界面
-	/// </summary>
-	public static void RegisteUI()
-	{
-		AppInterface.UIManager.RegisteUI("UIPlayerInfo", "UIPlayerInfo", UILayoutStyle.Top, UIWindowStyle.OverView);
-        AppInterface.UIManager.RegisteUI("UIPlayerInfo2", "UIPlayerInfo2", UILayoutStyle.Top, UIWindowStyle.OverView);
-        AppInterface.UIManager.RegisteUI("leftTest", "leftTest", UILayoutStyle.Left, UIWindowStyle.OverView);
-        AppInterface.UIManager.RegisteUI("UIMainPanel", "UIMainPanel", UILayoutStyle.Center, UIWindowStyle.Page);
-        AppInterface.UIManager.RegisteUI("UIPagePanel", "UIPagePanel", UILayoutStyle.Center, UIWindowStyle.Page);
-	}
+	
     
 }

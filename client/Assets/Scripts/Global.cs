@@ -22,9 +22,12 @@ public class Global : MonoBehaviour{
         App.Instance.AddManager<EventManager>(EventManager.Name);
         App.Instance.AddManager<UIManager>(UIManager.Name);
         App.Instance.AddManager<GameManager>(GameManager.Name);
-        
-        
-		Config.RegisteUI();
+
+        //注册UI
+        AppInterface.UIManager.RegisteUI("UITopTest", "Widget/UITopTest", UILayoutStyle.Top, UIWindowStyle.OverView);
+        AppInterface.UIManager.RegisteUI("UIMainPanel", "UIMainPanel", UILayoutStyle.Center, UIWindowStyle.Page);
+        AppInterface.UIManager.RegisteUI("UIPagePanel", "UIPagePanel", UILayoutStyle.Center, UIWindowStyle.Page);
+
         Debuger.Log("Inited");
     }
     void OnApplicationQuit()
