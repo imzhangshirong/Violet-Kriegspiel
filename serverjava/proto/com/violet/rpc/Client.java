@@ -754,9 +754,9 @@ public final class Client {
         getTokenBytes();
 
     /**
-     * <code>int32 errorCode = 2;</code>
+     * <code>int32 code = 2;</code>
      */
-    int getErrorCode();
+    int getCode();
 
     /**
      * <code>string rpc = 3;</code>
@@ -787,7 +787,7 @@ public final class Client {
     }
     private _Response() {
       token_ = "";
-      errorCode_ = 0;
+      code_ = 0;
       rpc_ = "";
       data_ = com.google.protobuf.ByteString.EMPTY;
     }
@@ -828,7 +828,7 @@ public final class Client {
             }
             case 16: {
 
-              errorCode_ = input.readInt32();
+              code_ = input.readInt32();
               break;
             }
             case 26: {
@@ -900,13 +900,13 @@ public final class Client {
       }
     }
 
-    public static final int ERRORCODE_FIELD_NUMBER = 2;
-    private int errorCode_;
+    public static final int CODE_FIELD_NUMBER = 2;
+    private int code_;
     /**
-     * <code>int32 errorCode = 2;</code>
+     * <code>int32 code = 2;</code>
      */
-    public int getErrorCode() {
-      return errorCode_;
+    public int getCode() {
+      return code_;
     }
 
     public static final int RPC_FIELD_NUMBER = 3;
@@ -967,8 +967,8 @@ public final class Client {
       if (!getTokenBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, token_);
       }
-      if (errorCode_ != 0) {
-        output.writeInt32(2, errorCode_);
+      if (code_ != 0) {
+        output.writeInt32(2, code_);
       }
       if (!getRpcBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, rpc_);
@@ -987,9 +987,9 @@ public final class Client {
       if (!getTokenBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, token_);
       }
-      if (errorCode_ != 0) {
+      if (code_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, errorCode_);
+          .computeInt32Size(2, code_);
       }
       if (!getRpcBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, rpc_);
@@ -1016,8 +1016,8 @@ public final class Client {
       boolean result = true;
       result = result && getToken()
           .equals(other.getToken());
-      result = result && (getErrorCode()
-          == other.getErrorCode());
+      result = result && (getCode()
+          == other.getCode());
       result = result && getRpc()
           .equals(other.getRpc());
       result = result && getData()
@@ -1035,8 +1035,8 @@ public final class Client {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + TOKEN_FIELD_NUMBER;
       hash = (53 * hash) + getToken().hashCode();
-      hash = (37 * hash) + ERRORCODE_FIELD_NUMBER;
-      hash = (53 * hash) + getErrorCode();
+      hash = (37 * hash) + CODE_FIELD_NUMBER;
+      hash = (53 * hash) + getCode();
       hash = (37 * hash) + RPC_FIELD_NUMBER;
       hash = (53 * hash) + getRpc().hashCode();
       hash = (37 * hash) + DATA_FIELD_NUMBER;
@@ -1172,7 +1172,7 @@ public final class Client {
         super.clear();
         token_ = "";
 
-        errorCode_ = 0;
+        code_ = 0;
 
         rpc_ = "";
 
@@ -1201,7 +1201,7 @@ public final class Client {
       public com.violet.rpc.Client._Response buildPartial() {
         com.violet.rpc.Client._Response result = new com.violet.rpc.Client._Response(this);
         result.token_ = token_;
-        result.errorCode_ = errorCode_;
+        result.code_ = code_;
         result.rpc_ = rpc_;
         result.data_ = data_;
         onBuilt();
@@ -1249,8 +1249,8 @@ public final class Client {
           token_ = other.token_;
           onChanged();
         }
-        if (other.getErrorCode() != 0) {
-          setErrorCode(other.getErrorCode());
+        if (other.getCode() != 0) {
+          setCode(other.getCode());
         }
         if (!other.getRpc().isEmpty()) {
           rpc_ = other.rpc_;
@@ -1355,28 +1355,28 @@ public final class Client {
         return this;
       }
 
-      private int errorCode_ ;
+      private int code_ ;
       /**
-       * <code>int32 errorCode = 2;</code>
+       * <code>int32 code = 2;</code>
        */
-      public int getErrorCode() {
-        return errorCode_;
+      public int getCode() {
+        return code_;
       }
       /**
-       * <code>int32 errorCode = 2;</code>
+       * <code>int32 code = 2;</code>
        */
-      public Builder setErrorCode(int value) {
+      public Builder setCode(int value) {
         
-        errorCode_ = value;
+        code_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 errorCode = 2;</code>
+       * <code>int32 code = 2;</code>
        */
-      public Builder clearErrorCode() {
+      public Builder clearCode() {
         
-        errorCode_ = 0;
+        code_ = 0;
         onChanged();
         return this;
       }
@@ -2602,10 +2602,10 @@ public final class Client {
     java.lang.String[] descriptorData = {
       "\n\014Client.proto\022\016com.violet.rpc\"4\n\010_Reque" +
       "st\022\r\n\005token\030\001 \001(\t\022\013\n\003rpc\030\002 \001(\t\022\014\n\004data\030\003" +
-      " \001(\014\"H\n\t_Response\022\r\n\005token\030\001 \001(\t\022\021\n\terro" +
-      "rCode\030\002 \001(\005\022\013\n\003rpc\030\003 \001(\t\022\014\n\004data\030\004 \001(\014\"\037" +
-      "\n\014HelloRequest\022\017\n\007content\030\001 \001(\t\"\036\n\rHello" +
-      "Response\022\r\n\005greet\030\001 \001(\tb\006proto3"
+      " \001(\014\"C\n\t_Response\022\r\n\005token\030\001 \001(\t\022\014\n\004code" +
+      "\030\002 \001(\005\022\013\n\003rpc\030\003 \001(\t\022\014\n\004data\030\004 \001(\014\"\037\n\014Hel" +
+      "loRequest\022\017\n\007content\030\001 \001(\t\"\036\n\rHelloRespo" +
+      "nse\022\r\n\005greet\030\001 \001(\tb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2630,7 +2630,7 @@ public final class Client {
     internal_static_com_violet_rpc__Response_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_violet_rpc__Response_descriptor,
-        new java.lang.String[] { "Token", "ErrorCode", "Rpc", "Data", });
+        new java.lang.String[] { "Token", "Code", "Rpc", "Data", });
     internal_static_com_violet_rpc_HelloRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_com_violet_rpc_HelloRequest_fieldAccessorTable = new

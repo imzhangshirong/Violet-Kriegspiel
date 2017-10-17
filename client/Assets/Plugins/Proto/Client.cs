@@ -23,16 +23,16 @@ namespace Com.Violet.Rpc {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "CgxDbGllbnQucHJvdG8SDmNvbS52aW9sZXQucnBjIjQKCF9SZXF1ZXN0Eg0K",
-            "BXRva2VuGAEgASgJEgsKA3JwYxgCIAEoCRIMCgRkYXRhGAMgASgMIkgKCV9S",
-            "ZXNwb25zZRINCgV0b2tlbhgBIAEoCRIRCgllcnJvckNvZGUYAiABKAUSCwoD",
-            "cnBjGAMgASgJEgwKBGRhdGEYBCABKAwiHwoMSGVsbG9SZXF1ZXN0Eg8KB2Nv",
-            "bnRlbnQYASABKAkiHgoNSGVsbG9SZXNwb25zZRINCgVncmVldBgBIAEoCWIG",
-            "cHJvdG8z"));
+            "BXRva2VuGAEgASgJEgsKA3JwYxgCIAEoCRIMCgRkYXRhGAMgASgMIkMKCV9S",
+            "ZXNwb25zZRINCgV0b2tlbhgBIAEoCRIMCgRjb2RlGAIgASgFEgsKA3JwYxgD",
+            "IAEoCRIMCgRkYXRhGAQgASgMIh8KDEhlbGxvUmVxdWVzdBIPCgdjb250ZW50",
+            "GAEgASgJIh4KDUhlbGxvUmVzcG9uc2USDQoFZ3JlZXQYASABKAliBnByb3Rv",
+            "Mw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc._Request), global::Com.Violet.Rpc._Request.Parser, new[]{ "Token", "Rpc", "Data" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc._Response), global::Com.Violet.Rpc._Response.Parser, new[]{ "Token", "ErrorCode", "Rpc", "Data" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc._Response), global::Com.Violet.Rpc._Response.Parser, new[]{ "Token", "Code", "Rpc", "Data" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.HelloRequest), global::Com.Violet.Rpc.HelloRequest.Parser, new[]{ "Content" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.HelloResponse), global::Com.Violet.Rpc.HelloResponse.Parser, new[]{ "Greet" }, null, null, null)
           }));
@@ -239,7 +239,7 @@ namespace Com.Violet.Rpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public _Response(_Response other) : this() {
       token_ = other.token_;
-      errorCode_ = other.errorCode_;
+      code_ = other.code_;
       rpc_ = other.rpc_;
       data_ = other.data_;
     }
@@ -260,14 +260,14 @@ namespace Com.Violet.Rpc {
       }
     }
 
-    /// <summary>Field number for the "errorCode" field.</summary>
-    public const int ErrorCodeFieldNumber = 2;
-    private int errorCode_;
+    /// <summary>Field number for the "code" field.</summary>
+    public const int CodeFieldNumber = 2;
+    private int code_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int ErrorCode {
-      get { return errorCode_; }
+    public int Code {
+      get { return code_; }
       set {
-        errorCode_ = value;
+        code_ = value;
       }
     }
 
@@ -307,7 +307,7 @@ namespace Com.Violet.Rpc {
         return true;
       }
       if (Token != other.Token) return false;
-      if (ErrorCode != other.ErrorCode) return false;
+      if (Code != other.Code) return false;
       if (Rpc != other.Rpc) return false;
       if (Data != other.Data) return false;
       return true;
@@ -317,7 +317,7 @@ namespace Com.Violet.Rpc {
     public override int GetHashCode() {
       int hash = 1;
       if (Token.Length != 0) hash ^= Token.GetHashCode();
-      if (ErrorCode != 0) hash ^= ErrorCode.GetHashCode();
+      if (Code != 0) hash ^= Code.GetHashCode();
       if (Rpc.Length != 0) hash ^= Rpc.GetHashCode();
       if (Data.Length != 0) hash ^= Data.GetHashCode();
       return hash;
@@ -334,9 +334,9 @@ namespace Com.Violet.Rpc {
         output.WriteRawTag(10);
         output.WriteString(Token);
       }
-      if (ErrorCode != 0) {
+      if (Code != 0) {
         output.WriteRawTag(16);
-        output.WriteInt32(ErrorCode);
+        output.WriteInt32(Code);
       }
       if (Rpc.Length != 0) {
         output.WriteRawTag(26);
@@ -354,8 +354,8 @@ namespace Com.Violet.Rpc {
       if (Token.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Token);
       }
-      if (ErrorCode != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ErrorCode);
+      if (Code != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Code);
       }
       if (Rpc.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Rpc);
@@ -374,8 +374,8 @@ namespace Com.Violet.Rpc {
       if (other.Token.Length != 0) {
         Token = other.Token;
       }
-      if (other.ErrorCode != 0) {
-        ErrorCode = other.ErrorCode;
+      if (other.Code != 0) {
+        Code = other.Code;
       }
       if (other.Rpc.Length != 0) {
         Rpc = other.Rpc;
@@ -398,7 +398,7 @@ namespace Com.Violet.Rpc {
             break;
           }
           case 16: {
-            ErrorCode = input.ReadInt32();
+            Code = input.ReadInt32();
             break;
           }
           case 26: {

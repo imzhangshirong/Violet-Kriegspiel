@@ -283,7 +283,8 @@ proto.com.violet.rpc._Response.prototype.toObject = function(opt_includeInstance
 proto.com.violet.rpc._Response.toObject = function(includeInstance, msg) {
   var f, obj = {
     token: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    rpc: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    code: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    rpc: jspb.Message.getFieldWithDefault(msg, 3, ""),
     data: msg.getData_asB64()
   };
 
@@ -326,10 +327,14 @@ proto.com.violet.rpc._Response.deserializeBinaryFromReader = function(msg, reade
       msg.setToken(value);
       break;
     case 2:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setCode(value);
+      break;
+    case 3:
       var value = /** @type {string} */ (reader.readString());
       msg.setRpc(value);
       break;
-    case 3:
+    case 4:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setData(value);
       break;
@@ -369,17 +374,24 @@ proto.com.violet.rpc._Response.serializeBinaryToWriter = function(message, write
       f
     );
   }
+  f = message.getCode();
+  if (f !== 0) {
+    writer.writeInt32(
+      2,
+      f
+    );
+  }
   f = message.getRpc();
   if (f.length > 0) {
     writer.writeString(
-      2,
+      3,
       f
     );
   }
   f = message.getData_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      3,
+      4,
       f
     );
   }
@@ -402,31 +414,46 @@ proto.com.violet.rpc._Response.prototype.setToken = function(value) {
 
 
 /**
- * optional string rpc = 2;
- * @return {string}
+ * optional int32 code = 2;
+ * @return {number}
  */
-proto.com.violet.rpc._Response.prototype.getRpc = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+proto.com.violet.rpc._Response.prototype.getCode = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
-/** @param {string} value */
-proto.com.violet.rpc._Response.prototype.setRpc = function(value) {
+/** @param {number} value */
+proto.com.violet.rpc._Response.prototype.setCode = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
 
 /**
- * optional bytes data = 3;
- * @return {!(string|Uint8Array)}
+ * optional string rpc = 3;
+ * @return {string}
  */
-proto.com.violet.rpc._Response.prototype.getData = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+proto.com.violet.rpc._Response.prototype.getRpc = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.com.violet.rpc._Response.prototype.setRpc = function(value) {
+  jspb.Message.setField(this, 3, value);
 };
 
 
 /**
- * optional bytes data = 3;
+ * optional bytes data = 4;
+ * @return {!(string|Uint8Array)}
+ */
+proto.com.violet.rpc._Response.prototype.getData = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * optional bytes data = 4;
  * This is a type-conversion wrapper around `getData()`
  * @return {string}
  */
@@ -437,7 +464,7 @@ proto.com.violet.rpc._Response.prototype.getData_asB64 = function() {
 
 
 /**
- * optional bytes data = 3;
+ * optional bytes data = 4;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getData()`
@@ -451,7 +478,7 @@ proto.com.violet.rpc._Response.prototype.getData_asU8 = function() {
 
 /** @param {!(string|Uint8Array)} value */
 proto.com.violet.rpc._Response.prototype.setData = function(value) {
-  jspb.Message.setField(this, 3, value);
+  jspb.Message.setField(this, 4, value);
 };
 
 

@@ -1,7 +1,12 @@
-set PROTOCNODE=protoc --js_out=import_style=commonjs,binary:../server/proto --plugin=protoc-gen-grpc=grpc_node_plugin.exe  --proto_path=../protos
+#--plugin=protoc-gen-grpc=grpc_csharp_plugin.exe
 
-set PROTOCCSHARP=protoc --csharp_out=../client\Assets\Plugins\Proto --plugin=protoc-gen-grpc=grpc_csharp_plugin.exe --proto_path=../protos  --grpc_out=./
+set PROTOCNODE=protoc --js_out=import_style=commonjs,binary:../servernode/proto   --proto_path=../protos
+
+set PROTOCCSHARP=protoc --csharp_out=../client\Assets\Plugins\Proto  --proto_path=../protos 
+
+set PROTOCJAVA=protoc --java_out=../serverjava\proto  --proto_path=../protos
 
 %PROTOCNODE% Client.proto
 %PROTOCCSHARP% Client.proto
+%PROTOCJAVA% Client.proto
 pause
