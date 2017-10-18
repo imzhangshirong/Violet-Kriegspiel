@@ -61,7 +61,17 @@ public class RpcNetwork
 
     private static void Send(RPC rpc)
     {
-        if (m_socket.Connected) m_socket.BeginSend(rpc.sendData, 0, rpc.sendData.Length, SocketFlags.None, Sent, m_socket);
+        if (m_socket.Connected)
+        {
+            Debuger.Log(rpc.msg + " start send");
+            m_socket.BeginSend(rpc.sendData, 0, rpc.sendData.Length, SocketFlags.None, Sent, m_socket);
+        }
+    }
+
+    public static void SendUnEncode(string data)
+    {
+        byte[] bytes = System.Text.Encoding.ASCII.GetBytes(data);
+        m_socket.BeginSend(bytes, 0, bytes.Length, SocketFlags.None, Sent, m_socket);
     }
 
     private static void ResendAll()
@@ -99,6 +109,7 @@ public class RpcNetwork
         };
         lock (m_RpcQueue)
         {
+            Debuger.Log(msg+" add in Queen");
             //加入列队
             m_RpcQueue.Add(rpcData);
         }

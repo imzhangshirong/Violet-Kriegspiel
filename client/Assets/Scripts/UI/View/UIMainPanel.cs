@@ -33,7 +33,7 @@ public class UIMainPanel : UIViewBase
 		base.OnClose();
 		Debuger.Log("MainPanel close");
 	}
-    public void GRPC_TEST()
+    public void RPC_TEST()
     {
         HelloRequest request = new HelloRequest();
         request.Content = rpcInput.value;
@@ -42,5 +42,10 @@ public class UIMainPanel : UIViewBase
             rpcResponse.text = res.Greet;
             AppInterface.EventManager.Broadcast("_greeting", res.Greet);
         });
+    }
+    public void SIMPLE_TEST()
+    {
+        Debuger.Log("send string:" + rpcInput.value);
+        RpcNetwork.SendUnEncode(rpcInput.value);
     }
 }

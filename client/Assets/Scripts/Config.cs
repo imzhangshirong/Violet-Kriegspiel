@@ -8,7 +8,7 @@ using UnityEditor;
 public class Config
 {
     //网络层配置
-    public static readonly string ServerHost = "127.0.0.1";
+    public static readonly string ServerHost = "192.168.90.110";
     public static readonly int ServerHostPort = 8000;
 
     //资源配置
