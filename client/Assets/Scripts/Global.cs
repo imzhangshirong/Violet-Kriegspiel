@@ -26,6 +26,7 @@ public class Global : MonoBehaviour{
         //注册UI
         AppInterface.UIManager.RegisteUI("UITopTest", "Widget/UITopTest", UILayoutStyle.Top, UIWindowStyle.OverView);
         AppInterface.UIManager.RegisteUI("UIMainPanel", "UIMainPanel", UILayoutStyle.Center, UIWindowStyle.Page);
+        AppInterface.UIManager.RegisteUI("UIGamePanel", "Game/UIGamePanel", UILayoutStyle.Center, UIWindowStyle.Page);
         AppInterface.UIManager.RegisteUI("UIPagePanel", "UIPagePanel", UILayoutStyle.Center, UIWindowStyle.Page);
 
         Debuger.Log("Inited");

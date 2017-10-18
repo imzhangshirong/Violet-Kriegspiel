@@ -23,15 +23,12 @@ public class TreeRoot : MonoBehaviour
     {
 		foreach (var leaf in m_LeafList)
 		{
-            if (fromLeaf == null || (fromLeaf != null && fromLeaf != leaf))
-			{
-				if (leaf.IsActive())
-				{
-                    
-					leaf.OnMessage(msg, content);
-				}
-			}
-		}
+            if (leaf.IsActive())
+            {
+
+                leaf.OnMessage(msg, content);
+            }
+        }
 	}
 	private List<TreeLeaf> GetLeafList(string type)
 	{

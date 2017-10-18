@@ -277,9 +277,6 @@ public class RpcNetwork
         m_RpcQueue.Clear();
         m_socket.Close();
         m_socket = null;
-        //退出线程
-        if (m_process != null) m_process.Abort();
-        if (m_recieve != null) m_recieve.Abort();
 
     }
     private void QueueRecieve()
@@ -291,10 +288,12 @@ public class RpcNetwork
             if (m_isReady)
             {
                 byte[] buffer = new byte[blockSize];
-                m_socket.Receive(buffer);
-                lock(m_messageQueue)
+                if (m_socket.Receive(buffer) > 0)
                 {
-                    m_messageQueue.Add(buffer);
+                    lock (m_messageQueue)
+                    {
+                        m_messageQueue.Add(buffer);
+                    }
                 }
             }
         }
