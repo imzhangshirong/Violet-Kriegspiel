@@ -11,6 +11,8 @@ public class ThreadManager : Manager
     public const string Name = "ThreadManager";
     static int numThreads;
 
+    private static List<Thread> m_TreadList = new List<Thread>();
+
     private static ThreadManager _current;
     public static ThreadManager Current
     {
@@ -85,8 +87,16 @@ public class ThreadManager : Manager
 
     public Thread RunAsync(Action a)
     {
+        for(int i = m_TreadList.Count - 1; i >= 0; i--)
+        {
+            if (!m_TreadList[i].IsAlive)
+            {
+                m_TreadList.RemoveAt(i);
+            }
+        }
         Worker worker = new Worker(a);
         Thread workerThread = new Thread(worker.Run);
+        m_TreadList.Add(workerThread);
         workerThread.Start();
         return workerThread;
     }
@@ -124,5 +134,17 @@ public class ThreadManager : Manager
 
 
 
+    }
+    private void OnDestroy()
+    {
+        //自动销毁所有工作中的线程
+        for (int i = m_TreadList.Count - 1; i >= 0; i--)
+        {
+            if (m_TreadList[i].IsAlive)
+            {
+                m_TreadList[i].Abort();
+            }
+        }
+        m_TreadList.Clear();
     }
 }
