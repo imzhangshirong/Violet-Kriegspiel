@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class ChessItem : UIWidgetBase
+public class UIWChessItem : UIWidgetBase
 {
     public int chessId;
     private void Start()

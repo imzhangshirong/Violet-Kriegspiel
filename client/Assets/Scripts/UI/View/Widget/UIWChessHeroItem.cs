@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class ChessHeroItem : UIWidgetBase
+public class UIWChessHeroItem : UIWidgetBase
 {
     public UILabel name;
     public UISprite light;
@@ -18,10 +18,12 @@ public class ChessHeroItem : UIWidgetBase
     [HideInInspector]
     public int y;
     [HideInInspector]
-    public ChessHeroState state = ChessHeroState.Hide;
+    public ChessHeroState state = ChessHeroState.Died;
+    [HideInInspector]
+    public ChessHeroLabelState labelState = ChessHeroLabelState.Hide;
     [HideInInspector]
     public bool isChoosed = false;
-    public static string[] NameDefine = { "地雷", "炸弹", "工兵", "排长", "连长", "营长", "团长", "旅长", "师长", "军长", "司令", "军旗" };
+    
     private void Start()
     {
         BindEvent("_chessHeroChoosed", ChessHeroSetToNormal);
@@ -43,14 +45,22 @@ public class ChessHeroItem : UIWidgetBase
     }
     private void UpdateView()
     {
-        if (state == ChessHeroState.Hide)
+        if (state == ChessHeroState.Died)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            gameObject.SetActive(true);
+        }
+        if (labelState == ChessHeroLabelState.Hide)
         {
             name.gameObject.SetActive(false);
         }
         else
         {
             name.gameObject.SetActive(true);
-            name.text = NameDefine[chessId % 100 % NameDefine.Length];
+            name.text = ChessAgainst.ChessHeroNameDefine[chessId % 100 % ChessAgainst.ChessHeroNameDefine.Length];
         }
         if (isChoosed)
         {
@@ -81,7 +91,11 @@ public class ChessHeroItem : UIWidgetBase
 }
 public enum ChessHeroState
 {
-    Show = 0,
-    Hide = 1,
-    Label = 2,
+    Alive = 0,
+    Died = 1,
+}
+public enum ChessHeroLabelState
+{
+    Hide = 0,
+    Show = 1,
 }
