@@ -39,30 +39,25 @@ public class UIGamePanel : UIViewBase
         base.OnRefresh();
         Debuger.Log("GamePanel Refresh");
     }
-    private void OnChessClick(object content)
+    private void OnChessClick(object content)//移动
     {
         Intent intent = (Intent)content;
         int id = (int)intent.Value("id");
         GameObject go = (GameObject)intent.Value("gameObject");
         
         ChessPoint point = new ChessPoint(id % 5, id / 5);
-        Debuger.Warn("ChessItem Click:" + id + "|" +ChessGamePackage.Instance.GetFeildRoadStationByPoint(point).type);
+        Debuger.Warn("ChessItem Click:" + id +"|"+ ChessGamePackage.Instance.MyselfChooseChessId + "|" +ChessGamePackage.Instance.GetFeildRoadStationByPoint(point).type);
         if (ChessGamePackage.Instance.MyselfChooseChessId > -1 && ChessGamePackage.Instance.MyselfChooseChessId < 100)
         {
             ChessHeroData heroChoosed = ChessGamePackage.Instance.GetChessHeroDataById(ChessGamePackage.Instance.MyselfChooseChessId);
             ChessMoveData moveData = ChessAgainst.ChessHeroCanMoveTo(heroChoosed, point);
-            if(moveData.crashType > 0)
+            
+            if (moveData.crashType > 0)
             {
                 Debuger.Warn("ChessHeroItem Cant MoveTo " + point.ToString() + " : " + moveData.crashType);
             }
             else
             {
-                string re = "";
-                for(int i = 0; i < moveData.points.Length; i++)
-                {
-                    if (i > 0) re += "->";
-                    re += moveData.points[i].ToString();
-                }
                 heroChoosed.point = point;
                 if (point.y / 6 > 0)
                 {
@@ -74,43 +69,89 @@ public class UIGamePanel : UIViewBase
                 }
                 heroChoosed.gameObject.transform.localScale = Vector3.one;
                 heroChoosed.gameObject.transform.localPosition = GetChessLocalPosition(heroChoosed.point);
-                Debuger.Warn("ChessHeroItem MoveTo " + point.ToString() + ":" + re);
+                Debuger.Warn("ChessHeroItem MoveTo " + point.ToString());
             }
         }
 
     }
 
-    private void OnChessHeroClick(object content)
+    private void OnChessHeroClick(object content)//吃子移动
     {
+
         Intent intent = (Intent)content;
         int id = (int)intent.Value("id");
         GameObject go = (GameObject)intent.Value("gameObject");
         ChessHeroData hero = ChessGamePackage.Instance.GetChessHeroDataById(id);
-        if (ChessGamePackage.Instance.MyselfChooseChessId > -1 && ChessGamePackage.Instance.MyselfChooseChessId < 100 && id >= 100)
+
+        Push("_chessHeroChoosed", id);
+
+
+        if (ChessGamePackage.Instance.MyselfChooseChessId > -1 && ChessGamePackage.Instance.MyselfChooseChessId < 100 && id >= 100)//非己方的棋
         {
             ChessHeroData heroChoosed = ChessGamePackage.Instance.GetChessHeroDataById(ChessGamePackage.Instance.MyselfChooseChessId);
             ChessMoveData moveData = ChessAgainst.ChessHeroCanMoveTo(heroChoosed, hero.point);
             if (moveData.crashType > 0)
             {
+                ChessGamePackage.Instance.MyselfChooseChessId = id;
                 Debuger.Warn("ChessHeroItem Cant MoveTo " + hero.point.ToString() + " : " + moveData.crashType);
             }
             else
             {
-                string re = "";
-                for (int i = 0; i < moveData.points.Length; i++)
+                int result = ChessAgainst.ChessCanBeat(heroChoosed, hero);
+                switch (result)
                 {
-                    if (i > 0) re += "->";
-                    re += moveData.points[i].ToString();
+                    case -1:
+                        heroChoosed.state = ChessHeroState.Died;
+                        heroChoosed.gameObject.SetActive(false);
+                        break;
+                    case 0:
+                        heroChoosed.state = ChessHeroState.Died;
+                        heroChoosed.gameObject.SetActive(false);
+                        hero.state = ChessHeroState.Died;
+                        hero.gameObject.SetActive(false);
+                        break;
+                    case 1:
+                        hero.state = ChessHeroState.Died;
+                        hero.gameObject.SetActive(false);
+                        break;
+                    case 2: //胜利
+                        hero.state = ChessHeroState.Died;
+                        hero.gameObject.SetActive(false);
+                        break;
                 }
-                Debuger.Warn("ChessHeroItem MoveToBeat " + hero.point.ToString() + ":" + re);
+                heroChoosed.point = hero.point;
+                if (hero.point.y / 6 > 0)
+                {
+                    heroChoosed.gameObject.transform.parent = m_EnemyFied.transform;
+                }
+                else
+                {
+                    heroChoosed.gameObject.transform.parent = m_MyselfFied.transform;
+                }
+                heroChoosed.gameObject.transform.localScale = Vector3.one;
+                heroChoosed.gameObject.transform.localPosition = GetChessLocalPosition(heroChoosed.point);
+                if (result > 0)
+                {
+                    UIWChessHeroItem uiChess = heroChoosed.gameObject.GetComponent<UIWChessHeroItem>();
+                    uiChess.isChoosed = true;
+                    uiChess.UpdateView();
+                }
+                else
+                {
+                    ChessGamePackage.Instance.MyselfChooseChessId = -1;
+                }
+                Debuger.Warn("ChessHeroItem MoveToBeat " + hero.point.ToString() +" Beat:"+result);
             }
         }
         else
         {
+            ChessGamePackage.Instance.MyselfChooseChessId = id;
             Debuger.Warn("ChessHeroItem Click:" + id + " @" + hero.point.ToString());
         }
-        ChessGamePackage.Instance.MyselfChooseChessId = id;
     }
+
+    
+    
 
     private void PutChessHero(int type)
     {
@@ -136,6 +177,7 @@ public class UIGamePanel : UIViewBase
 
                 UIWChessHeroItem chessHeroItem = go.GetComponent<UIWChessHeroItem>();
                 chessHeroItem.treeRoot = treeRoot;
+                chessHeroItem.chessHeroId = heroData.heroTypeId;
                 treeRoot.Bind(chessHeroItem);//绑定到TreeRoot
                 chessHeroItem.chessId = baseId + i;
                 switch (type)
@@ -148,7 +190,7 @@ public class UIGamePanel : UIViewBase
                     case 1:
                         go.transform.parent = m_EnemyFied.transform;
                         chessHeroItem.state = ChessHeroState.Alive;
-                        chessHeroItem.labelState = ChessHeroLabelState.Hide;
+                        chessHeroItem.labelState = ChessHeroLabelState.Show;//
                         break;
                 }
                 go.transform.localScale = Vector3.one;

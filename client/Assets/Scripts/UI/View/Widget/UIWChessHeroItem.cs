@@ -12,6 +12,8 @@ public class UIWChessHeroItem : UIWidgetBase
     public GameObject chooseState;
 
     [HideInInspector]
+    public int chessHeroId;
+    [HideInInspector]
     public int chessId;
     [HideInInspector]
     public int x;
@@ -30,20 +32,19 @@ public class UIWChessHeroItem : UIWidgetBase
     }
     public void OnClick()
     {
+        
         Intent intent = new Intent();
         intent.Push("id", chessId);
         intent.Push("gameObject", gameObject);
         Push("_chessHeroClick", intent);
-        Push("_chessHeroChoosed", true);
-        isChoosed = true;
-        UpdateView();
     }
     private void ChessHeroSetToNormal(object content)
     {
-        isChoosed = false;
+        int id = (int)content;
+        isChoosed = (id == chessId);
         UpdateView();
     }
-    private void UpdateView()
+    public void UpdateView()
     {
         if (state == ChessHeroState.Died)
         {
@@ -60,7 +61,7 @@ public class UIWChessHeroItem : UIWidgetBase
         else
         {
             name.gameObject.SetActive(true);
-            name.text = ChessAgainst.ChessHeroNameDefine[chessId % 100 % ChessAgainst.ChessHeroNameDefine.Length];
+            name.text = ChessAgainst.ChessHeroNameDefine[chessHeroId];
         }
         if (isChoosed)
         {

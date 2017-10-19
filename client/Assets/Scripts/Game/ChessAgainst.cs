@@ -71,7 +71,7 @@ public class ChessAgainst
                 else if(roadStationS.point.x == roadStationT.point.x)
                 {
                     ChessPoint[] points = new ChessPoint[Mathf.Abs(roadStationS.point.y- roadStationT.point.y)+1];
-                    int d = (roadStationS.point.y > roadStationT.point.y) ? 1 : -1;
+                    int d = (roadStationS.point.y < roadStationT.point.y) ? 1 : -1;
                     for (int i = 1; i < points.Length - 1; i++)
                     {
                         points[i] = new ChessPoint(roadStationS.point.x, roadStationS.point.y + d * i );
@@ -94,7 +94,7 @@ public class ChessAgainst
                 {
                     ChessPoint[] points = new ChessPoint[Mathf.Abs(roadStationS.point.x - roadStationT.point.x) + 1];
 
-                    int d = (roadStationS.point.x > roadStationT.point.x) ? 1 : -1;
+                    int d = (roadStationS.point.x < roadStationT.point.x) ? 1 : -1;
                     points[0] = roadStationS.point;
                     points[points.Length - 1] = roadStationT.point;
                     for (int i = 1; i < points.Length - 1; i++)
@@ -188,10 +188,30 @@ public class ChessAgainst
         }
         return true;
     }
-
-    public static int ChessCanBeat(ChessHeroData heroS, ChessHeroData heroT) //1胜利，-1失败，0平局消失
+    //单击训练模式
+    public static int ChessCanBeat(ChessHeroData heroS, ChessHeroData heroT) //1胜利，-1失败，0平局消失，2获胜结束
     {
-        return 0;
+        Debuger.Warn("Type:"+ heroS.heroTypeId+"|"+ heroT.heroTypeId);
+        if (heroT.heroTypeId == 0) return 0;//敌方地雷
+        if (heroT.heroTypeId == 1) return 0;//敌方炸弹
+        if (heroS.heroTypeId == 1) return 0;//我方炸弹
+        if (heroS.heroTypeId == 2)//我方工兵
+        {
+            if (heroT.heroTypeId == 0) return 1;//敌方地雷
+        }
+        if (heroT.heroTypeId == 11) return 2;//敌方军旗
+        if(heroT.heroTypeId > heroS.heroTypeId)
+        {
+            return -1;
+        }
+        else if(heroT.heroTypeId < heroS.heroTypeId)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
     }
     public static bool IsBarrack(int type, int id)
     {

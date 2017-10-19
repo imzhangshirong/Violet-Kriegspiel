@@ -275,7 +275,9 @@ public class RpcNetwork
         m_isQueue = false;
         m_messageQueue.Clear();
         m_RpcQueue.Clear();
+        m_socket.Disconnect(false);
         m_socket.Close();
+        m_socket.Shutdown(SocketShutdown.Both);
         m_socket = null;
 
     }
