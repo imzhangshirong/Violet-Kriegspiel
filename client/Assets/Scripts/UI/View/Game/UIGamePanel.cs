@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ public class UIGamePanel : UIViewBase
     public GameObject m_MyselfFied;
     public GameObject m_EnemyFied;
 
+    private bool m_MyChessIsMoving;
     private GameObject m_ChessHero;
     public override void OnInit()
     {
@@ -41,6 +43,7 @@ public class UIGamePanel : UIViewBase
     }
     private void OnChessClick(object content)//移动
     {
+        if (m_MyChessIsMoving) return;//正在移动
         Intent intent = (Intent)content;
         int id = (int)intent.Value("id");
         GameObject go = (GameObject)intent.Value("gameObject");
@@ -50,98 +53,23 @@ public class UIGamePanel : UIViewBase
         if (ChessGamePackage.Instance.MyselfChooseChessId > -1 && ChessGamePackage.Instance.MyselfChooseChessId < 100)
         {
             ChessHeroData heroChoosed = ChessGamePackage.Instance.GetChessHeroDataById(ChessGamePackage.Instance.MyselfChooseChessId);
-            ChessMoveData moveData = ChessAgainst.ChessHeroCanMoveTo(heroChoosed, point);
-            
-            if (moveData.crashType > 0)
-            {
-                Debuger.Warn("ChessHeroItem Cant MoveTo " + point.ToString() + " : " + moveData.crashType);
-            }
-            else
-            {
-                heroChoosed.point = point;
-                if (point.y / 6 > 0)
-                {
-                    heroChoosed.gameObject.transform.parent = m_EnemyFied.transform;
-                }
-                else
-                {
-                    heroChoosed.gameObject.transform.parent = m_MyselfFied.transform;
-                }
-                heroChoosed.gameObject.transform.localScale = Vector3.one;
-                heroChoosed.gameObject.transform.localPosition = GetChessLocalPosition(heroChoosed.point);
-                Debuger.Warn("ChessHeroItem MoveTo " + point.ToString());
-            }
+            StartCoroutine(TweenMoveChess(heroChoosed,point));
         }
-
     }
 
     private void OnChessHeroClick(object content)//吃子移动
     {
-
+        if (m_MyChessIsMoving) return;//正在移动
         Intent intent = (Intent)content;
         int id = (int)intent.Value("id");
         GameObject go = (GameObject)intent.Value("gameObject");
         ChessHeroData hero = ChessGamePackage.Instance.GetChessHeroDataById(id);
-
         Push("_chessHeroChoosed", id);
-
 
         if (ChessGamePackage.Instance.MyselfChooseChessId > -1 && ChessGamePackage.Instance.MyselfChooseChessId < 100 && id >= 100)//非己方的棋
         {
             ChessHeroData heroChoosed = ChessGamePackage.Instance.GetChessHeroDataById(ChessGamePackage.Instance.MyselfChooseChessId);
-            ChessMoveData moveData = ChessAgainst.ChessHeroCanMoveTo(heroChoosed, hero.point);
-            if (moveData.crashType > 0)
-            {
-                ChessGamePackage.Instance.MyselfChooseChessId = id;
-                Debuger.Warn("ChessHeroItem Cant MoveTo " + hero.point.ToString() + " : " + moveData.crashType);
-            }
-            else
-            {
-                int result = ChessAgainst.ChessCanBeat(heroChoosed, hero);
-                switch (result)
-                {
-                    case -1:
-                        heroChoosed.state = ChessHeroState.Died;
-                        heroChoosed.gameObject.SetActive(false);
-                        break;
-                    case 0:
-                        heroChoosed.state = ChessHeroState.Died;
-                        heroChoosed.gameObject.SetActive(false);
-                        hero.state = ChessHeroState.Died;
-                        hero.gameObject.SetActive(false);
-                        break;
-                    case 1:
-                        hero.state = ChessHeroState.Died;
-                        hero.gameObject.SetActive(false);
-                        break;
-                    case 2: //胜利
-                        hero.state = ChessHeroState.Died;
-                        hero.gameObject.SetActive(false);
-                        break;
-                }
-                heroChoosed.point = hero.point;
-                if (hero.point.y / 6 > 0)
-                {
-                    heroChoosed.gameObject.transform.parent = m_EnemyFied.transform;
-                }
-                else
-                {
-                    heroChoosed.gameObject.transform.parent = m_MyselfFied.transform;
-                }
-                heroChoosed.gameObject.transform.localScale = Vector3.one;
-                heroChoosed.gameObject.transform.localPosition = GetChessLocalPosition(heroChoosed.point);
-                if (result > 0)
-                {
-                    UIWChessHeroItem uiChess = heroChoosed.gameObject.GetComponent<UIWChessHeroItem>();
-                    uiChess.isChoosed = true;
-                    uiChess.UpdateView();
-                }
-                else
-                {
-                    ChessGamePackage.Instance.MyselfChooseChessId = -1;
-                }
-                Debuger.Warn("ChessHeroItem MoveToBeat " + hero.point.ToString() +" Beat:"+result);
-            }
+            StartCoroutine(TweenMoveChessAndBeat(heroChoosed, hero));
         }
         else
         {
@@ -150,8 +78,99 @@ public class UIGamePanel : UIViewBase
         }
     }
 
-    
-    
+    private void ChessMoveTo(ChessHeroData hero, ChessPoint point)
+    {
+        if (point.y / 6 > 0)
+        {
+            hero.gameObject.transform.parent = m_EnemyFied.transform;
+        }
+        else
+        {
+            hero.gameObject.transform.parent = m_MyselfFied.transform;
+        }
+        hero.point = point;
+        hero.gameObject.transform.localScale = Vector3.one;
+        hero.gameObject.transform.localPosition = GetChessLocalPosition(hero.point);
+    }
+
+    IEnumerator TweenMoveChess(ChessHeroData heroChoosed, ChessPoint moveToPoint)
+    {
+        m_MyChessIsMoving = true;
+        ChessMoveData moveData = ChessAgainst.ChessHeroCanMoveTo(heroChoosed, moveToPoint);
+
+        if (moveData.crashType > 0)
+        {
+            Debuger.Warn("ChessHeroItem Cant MoveTo " + moveToPoint.ToString() + " : " + moveData.crashType);
+        }
+        else
+        {
+            float dur = 0.2f / moveData.points.Length;
+            for (int i = 0; i < moveData.points.Length; i++)
+            {
+                ChessMoveTo(heroChoosed, moveData.points[i]);
+                yield return new WaitForSeconds(dur);
+                
+            }
+            heroChoosed.point = moveToPoint;
+            Debuger.Warn("ChessHeroItem MoveTo " + moveToPoint.ToString());
+        }
+        m_MyChessIsMoving = false;
+    }
+
+    IEnumerator TweenMoveChessAndBeat(ChessHeroData heroChoosed, ChessHeroData hero)
+    {
+        m_MyChessIsMoving = true;
+        ChessMoveData moveData = ChessAgainst.ChessHeroCanMoveTo(heroChoosed, hero.point);
+        if (moveData.crashType > 0)
+        {
+            ChessGamePackage.Instance.MyselfChooseChessId = hero.id;
+            Debuger.Warn("ChessHeroItem Cant MoveTo " + hero.point.ToString() + " : " + moveData.crashType);
+        }
+        else
+        {
+            float dur = 0.2f / moveData.points.Length;
+            for (int i = 0; i < moveData.points.Length - 1; i++)
+            {
+                ChessMoveTo(heroChoosed, moveData.points[i]);
+                yield return new WaitForSeconds(dur);
+            }
+            int result = ChessAgainst.ChessCanBeat(heroChoosed, hero);
+            switch (result)
+            {
+                case -1:
+                    heroChoosed.state = ChessHeroState.Died;
+                    heroChoosed.gameObject.SetActive(false);
+                    break;
+                case 0:
+                    heroChoosed.state = ChessHeroState.Died;
+                    heroChoosed.gameObject.SetActive(false);
+                    hero.state = ChessHeroState.Died;
+                    hero.gameObject.SetActive(false);
+                    break;
+                case 1:
+                    hero.state = ChessHeroState.Died;
+                    hero.gameObject.SetActive(false);
+                    break;
+                case 2: //胜利
+                    hero.state = ChessHeroState.Died;
+                    hero.gameObject.SetActive(false);
+                    break;
+            }
+            ChessMoveTo(heroChoosed, moveData.points[moveData.points.Length - 1]);
+            if (result > 0)
+            {
+                UIWChessHeroItem uiChess = heroChoosed.gameObject.GetComponent<UIWChessHeroItem>();
+                uiChess.isChoosed = true;
+                uiChess.UpdateView();
+            }
+            else
+            {
+                ChessGamePackage.Instance.MyselfChooseChessId = -1;
+            }
+            Debuger.Warn("ChessHeroItem MoveToBeat " + hero.point.ToString() + " Beat:" + result);
+        }
+        m_MyChessIsMoving = false;
+    }
 
     private void PutChessHero(int type)
     {

@@ -12,8 +12,8 @@ public class Config
     public static readonly int ServerHostPort = 8000;
 
     //资源配置
-    public static readonly string ResourceFullPath = Application.dataPath + "/Resources";
-	public static readonly string StreamingResourceFullPath = Application.dataPath + "/StreamingAssets";
+    public static readonly string ResourceFullPath = "/Resources";
+	public static readonly string StreamingResourceFullPath = "/StreamingAssets";
     public static readonly string TextureResourcePath = "Texture";
     public static readonly string UIResourcePath = "UI";
 
