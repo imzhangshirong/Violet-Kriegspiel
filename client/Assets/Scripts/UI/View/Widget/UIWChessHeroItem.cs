@@ -10,6 +10,9 @@ public class UIWChessHeroItem : UIWidgetBase
     public UISprite light;
     public UISprite normal;
     public GameObject chooseState;
+    public GameObject willWin;
+    public GameObject willLose;
+    public GameObject willTie;
 
     [HideInInspector]
     public int chessHeroId;

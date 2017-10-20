@@ -25,6 +25,8 @@ public class Global : MonoBehaviour{
 
         //注册UI
         AppInterface.UIManager.RegisteUI("UITopTest", "Widget/UITopTest", UILayoutStyle.Top, UIWindowStyle.OverView);
+        AppInterface.UIManager.RegisteUI("UITips", "UITips", UILayoutStyle.Center, UIWindowStyle.Tips);
+
         AppInterface.UIManager.RegisteUI("UIMainPanel", "UIMainPanel", UILayoutStyle.Center, UIWindowStyle.Page);
         AppInterface.UIManager.RegisteUI("UIGamePanel", "Game/UIGamePanel", UILayoutStyle.Center, UIWindowStyle.Page);
         AppInterface.UIManager.RegisteUI("UIPagePanel", "UIPagePanel", UILayoutStyle.Center, UIWindowStyle.Page);
@@ -33,6 +35,7 @@ public class Global : MonoBehaviour{
     }
     void OnApplicationQuit()
     {
+        Debuger.Log("ReadyDestroy");
         RpcNetwork.Instance.Destroy();
         Debuger.Log("Destroied");
     }

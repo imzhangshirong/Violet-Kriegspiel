@@ -8,6 +8,8 @@ using UnityEngine;
 public class ObjectPoolManager : Manager
 {
     public const string Name = "ObjectPoolManager";
+    private Dictionary<string, GameObject> m_ObjectMap = new Dictionary<string, GameObject>();
+    private Dictionary<string, List<ObjectPoolState>> m_ObjectInstanceMap = new Dictionary<string, List<ObjectPoolState>>();
     GameObject m_ObjectPool;
     private void Awake()
     {
@@ -19,6 +21,11 @@ public class ObjectPoolManager : Manager
         m_ObjectPool.transform.localPosition = Vector3.zero;
 
     }
+    public void RegisteObject(string name,int min,int max,float cleanDuration,string resourcePath)
+    {
+        GameObject go = AppInterface.ResourceManager.Load<GameObject>(resourcePath);
+
+    }
     public override void OnManagerReady()
     {
 
@@ -27,4 +34,20 @@ public class ObjectPoolManager : Manager
     {
 
     }
+}
+
+public class PoolObjectState
+{
+    public string name;
+    public int min;
+    public int max;
+    GameObject gameObject;
+
+}
+
+public class PoolInstanceState
+{
+    public string name;
+    public int stateId;
+    public GameObject gameObject;
 }

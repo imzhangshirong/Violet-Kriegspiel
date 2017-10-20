@@ -167,7 +167,37 @@ public class UIManager : Manager
 			
 		}
 	}
-	private void HideView(UIData view)
+    private void AutoDepthOverView(int baseDepth)
+    {
+        
+        foreach (var item in m_UIDataMap)
+        {
+            UIData m_UIData = item.Value;
+            if (m_UIData.windowStyle == UIWindowStyle.OverView)
+            {
+                UIPanel panel = m_UIData.gameObject.GetComponent<UIPanel>();
+                panel.depth = baseDepth + 
+
+            }
+        }
+        if (m_UIDataMap.ContainsKey(name) && m_topPage != null && m_UIDataMap.ContainsKey(m_topPage))
+        {
+            UIData m_UIData = m_UIDataMap[name];
+            if (m_UIData.windowStyle == UIWindowStyle.OverView)
+            {
+                UIData m_UIDataPage = m_UIDataMap[m_topPage];
+                if (m_UIData.gameObject.activeSelf)
+                {
+                    m_UIDataPage.hidenOverView.Add(m_UIData);
+                    m_UIData.gameObject.SetActive(false);
+
+                }
+
+            }
+
+        }
+    }
+    private void HideView(UIData view)
 	{
 		if (view == null) return;
 		UIViewBase baseView = view.gameObject.GetComponent<UIViewBase>();
@@ -216,7 +246,13 @@ public class UIManager : Manager
 					panel.depth = m_baseOverViewDepth + Config.ViewLevelDepth * (m_StackOverView.Count - 1);
 				}
 				break;
-		}
+            case UIWindowStyle.Tips:
+                if (panel != null)
+                {
+                    panel.depth = (m_baseOverViewDepth + Config.ViewLevelDepth * (m_StackOverView.Count - 1)) * 10;
+                }
+                break;
+        }
 		if (baseView != null) baseView.OnOpen(intent);
 	}
 	public void PageBack()
@@ -250,7 +286,11 @@ public class UIManager : Manager
 			OpenView(name, intent);
 		}
 	}
-	public void OpenView(string name,Intent intent = null)
+    public void OpenView(string name)
+    {
+        OpenView(name, null);
+    }
+    public void OpenView(string name,Intent intent)
 	{
 		UIData m_UIData = LoadUI(name);
 		if (m_UIData != null && m_topPage != name && m_topOverView != name)
@@ -291,11 +331,14 @@ public class UIManager : Manager
 					m_StackOverView.Add(m_UIData);
 					m_topOverView = name;
 					break;
-			}
-			InitView(m_UIData);
+                case UIWindowStyle.Tips:
+                    break;
+            }
+			InitView(m_UIData, intent);
 			
 		}
 	}
+    
 }
 
 public enum UILayoutStyle{
@@ -309,6 +352,7 @@ public enum UILayoutStyle{
 public enum UIWindowStyle{
 	Page,
 	OverView,
+    Tips,
 }
 
 public class UIData{

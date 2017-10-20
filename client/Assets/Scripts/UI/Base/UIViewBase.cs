@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 //
+[RequireComponent(typeof(UIPanel))]
+[RequireComponent(typeof(TreeRoot))]
 public class UIViewBase : TreeLeaf
 {
 

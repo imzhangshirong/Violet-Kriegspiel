@@ -19,8 +19,10 @@ public class Config
 
     public static readonly string UIRootPath = "/UI Root/Camera/";
     public static readonly int PageBaseDepth = 20;
-	public static readonly int OverViewBaseDepth = 1000;
-	public static readonly int ViewLevelDepth = 100;
-	
-    
+	public static readonly int ViewLevelDepth = 160;
+
+    public static readonly int OverViewLevelDepth = 50;
+    public static readonly int OverViewLevelBaseDepth = 100;
+
+
 }

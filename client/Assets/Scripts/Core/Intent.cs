@@ -21,6 +21,8 @@ public class Intent
 	}
 	public object Value(string key)
 	{
-		return m_map[key];
-	}
+        if (m_map.ContainsKey(key)) return m_map[key];
+        return null;
+
+    }
 }

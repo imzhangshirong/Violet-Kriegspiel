@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
+[RequireComponent(typeof(UIEventListener))]
 public class NButtonScale : MonoBehaviour
 {
     public float duration = 0.05f;

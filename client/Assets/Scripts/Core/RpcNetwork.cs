@@ -271,14 +271,21 @@ public class RpcNetwork
     }
     public void Destroy()
     {
-        m_isReady = false;
-        m_isQueue = false;
-        m_messageQueue.Clear();
-        m_RpcQueue.Clear();
-        m_socket.Disconnect(false);
-        m_socket.Close();
-        m_socket.Shutdown(SocketShutdown.Both);
-        m_socket = null;
+        try
+        {
+            m_isReady = false;
+            m_isQueue = false;
+            m_messageQueue.Clear();
+            m_RpcQueue.Clear();
+            m_socket.Shutdown(SocketShutdown.Both);
+            m_socket.Close();
+            m_socket.Disconnect(false);
+            m_socket = null;
+        }
+        catch(Exception e)
+        {
+            Debuger.Warn(e.ToString());
+        }
 
     }
     private void QueueRecieve()

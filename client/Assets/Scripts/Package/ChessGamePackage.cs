@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class ChessGamePackage : Singleton<ChessGamePackage>, IPackage
+public class ChessGamePackage : Package<ChessGamePackage>
 {
     private Dictionary<int, ChessHeroData> m_ChessData = new Dictionary<int, ChessHeroData>();//客户端id,ChessHeroData
     private List<FieldRoadStation> m_MapRoadStations = new List<FieldRoadStation>();
+    public List<int> ChessDataIds = new List<int>();
     public int MyselfChooseChessId = -1;
     public int EnemyChooseChessId = -1;
-    public void Init(object data)
+    public override void Init(object data)
     {
         //throw new NotImplementedException();
         InitFieldMap();
@@ -67,7 +68,7 @@ public class ChessGamePackage : Singleton<ChessGamePackage>, IPackage
         }
     }
 
-    public void SetChessMap(Dictionary<int, ChessHeroData> chessMap)
+    protected void SetChessMap(Dictionary<int, ChessHeroData> chessMap)
     {
         m_ChessData = chessMap;
     }
@@ -79,6 +80,7 @@ public class ChessGamePackage : Singleton<ChessGamePackage>, IPackage
         }
         else
         {
+            ChessDataIds.Add(chessData.id);
             m_ChessData.Add(chessData.id, chessData);
         }
     }
@@ -92,6 +94,7 @@ public class ChessGamePackage : Singleton<ChessGamePackage>, IPackage
         return null;
     }
 
+    
     public ChessHeroData GetChessHeroDataByPoint(ChessPoint point)
     {
         foreach(var item in m_ChessData)
@@ -131,7 +134,7 @@ public class ChessGamePackage : Singleton<ChessGamePackage>, IPackage
         return m_MapRoadStations[id];
     }
 
-    public void Release()
+    public override void Release()
     {
         //throw new NotImplementedException();
     }

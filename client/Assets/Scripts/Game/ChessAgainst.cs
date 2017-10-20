@@ -192,7 +192,6 @@ public class ChessAgainst : MonoBehaviour
     //单击训练模式
     public static int ChessCanBeat(ChessHeroData heroS, ChessHeroData heroT) //1胜利，-1失败，0平局消失，2获胜结束
     {
-        Debuger.Warn("Type:"+ heroS.heroTypeId+"|"+ heroT.heroTypeId);
         if (heroT.heroTypeId == 1) return 0;//敌方炸弹
         if (heroS.heroTypeId == 1) return 0;//我方炸弹
         if (heroS.heroTypeId == 2)//我方工兵

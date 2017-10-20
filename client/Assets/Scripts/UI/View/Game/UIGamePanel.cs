@@ -23,6 +23,7 @@ public class UIGamePanel : UIViewBase
         //注册消息事件
         BindEvent("_chessClick", OnChessClick);
         BindEvent("_chessHeroClick", OnChessHeroClick);
+        BindEvent("_chessFieldClick", OnChessFieldClick);
     }
     public override void OnOpen(Intent intent)
     {
@@ -66,13 +67,68 @@ public class UIGamePanel : UIViewBase
         ChessHeroData hero = ChessGamePackage.Instance.GetChessHeroDataById(id);
         Push("_chessHeroChoosed", id);
 
-        if (ChessGamePackage.Instance.MyselfChooseChessId > -1 && ChessGamePackage.Instance.MyselfChooseChessId < 100 && id >= 100)//非己方的棋
+        //明棋模式提醒
+        if (id < 100)
         {
-            ChessHeroData heroChoosed = ChessGamePackage.Instance.GetChessHeroDataById(ChessGamePackage.Instance.MyselfChooseChessId);
-            StartCoroutine(TweenMoveChessAndBeat(heroChoosed, hero));
+            for (int i = 0; i < ChessGamePackage.Instance.ChessDataIds.Count; i++)
+            {
+                int chessId = ChessGamePackage.Instance.ChessDataIds[i];
+                if (chessId < 100) continue;
+                ChessHeroData heroPre = ChessGamePackage.Instance.GetChessHeroDataById(chessId);
+                UIWChessHeroItem uiChess = heroPre.gameObject.GetComponent<UIWChessHeroItem>();
+                uiChess.willLose.SetActive(false);
+                uiChess.willWin.SetActive(false);
+                uiChess.willTie.SetActive(false);
+                if (heroPre.heroTypeId > -1 && hero.heroTypeId > 0 && hero.heroTypeId < 11)
+                {
+                    int result = ChessAgainst.ChessCanBeat(hero, heroPre);
+
+                    switch (result)
+                    {
+                        case -1:
+                            uiChess.willLose.SetActive(true);
+                            break;
+                        case 0:
+                            uiChess.willTie.SetActive(true);
+                            break;
+                        case 1:
+                        case 2:
+                            uiChess.willWin.SetActive(true);
+                            break;
+                    }
+                }
+            }
         }
         else
         {
+            for (int i = 0; i < ChessGamePackage.Instance.ChessDataIds.Count; i++)
+            {
+                int chessId = ChessGamePackage.Instance.ChessDataIds[i];
+                if (chessId < 100) continue;
+                ChessHeroData heroPre = ChessGamePackage.Instance.GetChessHeroDataById(chessId);
+                UIWChessHeroItem uiChess = heroPre.gameObject.GetComponent<UIWChessHeroItem>();
+                uiChess.willLose.SetActive(false);
+                uiChess.willWin.SetActive(false);
+                uiChess.willTie.SetActive(false);
+            }
+        }
+
+
+        if (ChessGamePackage.Instance.MyselfChooseChessId < 100)
+        {
+            if(ChessGamePackage.Instance.MyselfChooseChessId > -1 && id >= 100)//之前有选择自己,当前非己方的棋
+            {
+                ChessHeroData heroChoosed = ChessGamePackage.Instance.GetChessHeroDataById(ChessGamePackage.Instance.MyselfChooseChessId);
+                StartCoroutine(TweenMoveChessAndBeat(heroChoosed, hero));
+            }
+            else
+            {
+                ChessGamePackage.Instance.MyselfChooseChessId = id;
+            }
+        }
+        else
+        {
+            
             ChessGamePackage.Instance.MyselfChooseChessId = id;
             Debuger.Warn("ChessHeroItem Click:" + id + " @" + hero.point.ToString());
         }
@@ -100,6 +156,7 @@ public class UIGamePanel : UIViewBase
 
         if (moveData.crashType > 0)
         {
+            Common.UI.OpenTips("嗷！走不过去啊！");
             Debuger.Warn("ChessHeroItem Cant MoveTo " + moveToPoint.ToString() + " : " + moveData.crashType);
         }
         else
@@ -159,9 +216,9 @@ public class UIGamePanel : UIViewBase
             ChessMoveTo(heroChoosed, moveData.points[moveData.points.Length - 1]);
             if (result > 0)
             {
-                UIWChessHeroItem uiChess = heroChoosed.gameObject.GetComponent<UIWChessHeroItem>();
-                uiChess.isChoosed = true;
-                uiChess.UpdateView();
+                //UIWChessHeroItem uiChess = heroChoosed.gameObject.GetComponent<UIWChessHeroItem>();
+                //uiChess.isChoosed = true;
+                //uiChess.UpdateView();
             }
             else
             {
@@ -228,5 +285,18 @@ public class UIGamePanel : UIViewBase
     public Vector3 GetChessLocalPosition(int x,int y)
     {
         return new Vector3(-256 + x * 128, y % 6 * 72, 0);
+    }
+    public void OnChessFieldClick(object content)
+    {
+        Push("_chessHeroChoosed", -1);
+        for (int i = 0; i < ChessGamePackage.Instance.ChessDataIds.Count; i++)
+        {
+            ChessHeroData heroPre = ChessGamePackage.Instance.GetChessHeroDataById(ChessGamePackage.Instance.ChessDataIds[i]);
+            UIWChessHeroItem uiChess = heroPre.gameObject.GetComponent<UIWChessHeroItem>();
+            uiChess.willLose.SetActive(false);
+            uiChess.willWin.SetActive(false);
+            uiChess.willTie.SetActive(false);
+        }
+        ChessGamePackage.Instance.MyselfChooseChessId = -1;
     }
 }
