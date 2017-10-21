@@ -17,7 +17,7 @@ public class UIPagePanel : UIViewBase
 	}
 	public void BackPage()
 	{
-        AppInterface.UIManager.PageBack();
+        Common.UI.BackPage();
 	}
 	public override void OnRefresh()
 	{

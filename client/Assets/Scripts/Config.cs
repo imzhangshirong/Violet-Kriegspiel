@@ -18,8 +18,9 @@ public class Config
     public static readonly string UIResourcePath = "UI";
 
     public static readonly string UIRootPath = "/UI Root/Camera/";
-    public static readonly int PageBaseDepth = 20;
-	public static readonly int ViewLevelDepth = 160;
+    public static readonly int PageBaseDepth = 100;//最开始的Depth
+	public static readonly int ViewLevelDepth = 160;//每一层之间的最大depth
+    
 
     public static readonly int OverViewLevelDepth = 50;
     public static readonly int OverViewLevelBaseDepth = 100;

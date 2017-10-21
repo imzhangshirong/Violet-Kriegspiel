@@ -45,7 +45,31 @@ public class UIMainPanel : UIViewBase
     }
     public void SIMPLE_TEST()
     {
-        Debuger.Log("send string:" + rpcInput.value);
-        RpcNetwork.SendUnEncode(rpcInput.value);
+        Common.UI.OpenAlert("Confirm", "Will Send String \""+ rpcInput.value + "\" To Server", "OK", Test, "Cancel", Nagetive, AlertWindowMode.TwoButton);
+        //Debuger.Log("send string:" + rpcInput.value);
+        //RpcNetwork.SendUnEncode(rpcInput.value);
+    }
+    void Test()
+    {
+        Common.UI.OpenAlert("Confirm", "RRRWill Send String \"" + rpcInput.value + "\" To Server", "OK", Test, "Cancel", Nagetive, AlertWindowMode.TwoButton);
+
+    }
+    void Positive()
+    {
+        try
+        {
+            Debuger.Log("send string:" + rpcInput.value);
+            RpcNetwork.SendUnEncode(rpcInput.value);
+        }
+        catch(Exception e)
+        {
+            Debuger.Warn(e.StackTrace);
+        }
+        Common.UI.BackPage();
+    }
+    void Nagetive()
+    {
+        Debuger.Log("send cancel");
+        Common.UI.BackPage();
     }
 }

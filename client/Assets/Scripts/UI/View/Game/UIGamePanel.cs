@@ -222,8 +222,9 @@ public class UIGamePanel : UIViewBase
             }
             else
             {
-                ChessGamePackage.Instance.MyselfChooseChessId = -1;
+                //ChessGamePackage.Instance.MyselfChooseChessId = -1;
             }
+            ChessGamePackage.Instance.MyselfChooseChessId = -1;
             Debuger.Warn("ChessHeroItem MoveToBeat " + hero.point.ToString() + " Beat:" + result);
         }
         m_MyChessIsMoving = false;

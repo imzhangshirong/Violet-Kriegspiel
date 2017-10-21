@@ -23,13 +23,17 @@ public class Global : MonoBehaviour{
         App.Instance.AddManager<UIManager>(UIManager.Name);
         App.Instance.AddManager<GameManager>(GameManager.Name);
 
-        //注册UI
-        AppInterface.UIManager.RegisteUI("UITopTest", "Widget/UITopTest", UILayoutStyle.Top, UIWindowStyle.OverView);
-        AppInterface.UIManager.RegisteUI("UITips", "UITips", UILayoutStyle.Center, UIWindowStyle.Tips);
+        //注册对象池
+        AppInterface.ObjectPoolManager.RegisteObject("UIAlertWindow", Config.UIResourcePath + "/UIAlertWindow", 0, 128, 10);
 
-        AppInterface.UIManager.RegisteUI("UIMainPanel", "UIMainPanel", UILayoutStyle.Center, UIWindowStyle.Page);
-        AppInterface.UIManager.RegisteUI("UIGamePanel", "Game/UIGamePanel", UILayoutStyle.Center, UIWindowStyle.Page);
-        AppInterface.UIManager.RegisteUI("UIPagePanel", "UIPagePanel", UILayoutStyle.Center, UIWindowStyle.Page);
+        //注册UI
+        AppInterface.UIManager.RegisteUI("UITopTest", "Widget/UITopTest", UILayoutStyle.Top, UIViewStyle.OverView);
+        AppInterface.UIManager.RegisteUI("UITips", "UITips", UILayoutStyle.Center, UIViewStyle.Tips);
+        AppInterface.UIManager.RegisteUI("UIAlertWindow", "UIAlertWindow", UILayoutStyle.Center, UIViewStyle.Window);
+
+        AppInterface.UIManager.RegisteUI("UIMainPanel", "UIMainPanel", UILayoutStyle.Center, UIViewStyle.Page);
+        AppInterface.UIManager.RegisteUI("UIGamePanel", "Game/UIGamePanel", UILayoutStyle.Center, UIViewStyle.Page);
+        AppInterface.UIManager.RegisteUI("UIPagePanel", "UIPagePanel", UILayoutStyle.Center, UIViewStyle.Page);
 
         Debuger.Log("Inited");
     }

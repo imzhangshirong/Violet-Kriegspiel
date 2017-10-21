@@ -5,4 +5,6 @@ using System.Text;
 
 public interface IObjectPoolInstance
 {
+    void OnPoolInstantiated();
+    void OnPoolRelease();
 }

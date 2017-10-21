@@ -6,9 +6,20 @@ using UnityEngine;
 
 public class AutoPanelDepth : MonoBehaviour
 {
+    private int offsetDepth = -1;
+    private bool init = false;
+    UIPanel panel;
     public UIPanel rootPanel;
+    private void Awake()
+    {
+        if (init) return;
+        panel = gameObject.GetComponent<UIPanel>();
+        offsetDepth = panel.depth;
+        init = true;
+    }
     private void Start()
     {
+        
         AutoDepth();
     }
     private void OnEnable()
@@ -17,7 +28,7 @@ public class AutoPanelDepth : MonoBehaviour
     }
     void AutoDepth()
     {
-        UIPanel panel = gameObject.GetComponent<UIPanel>();
-        panel.depth += rootPanel.depth;
+        Debuger.Warn(offsetDepth);
+        panel.depth = offsetDepth + rootPanel.depth;
     }
 }
