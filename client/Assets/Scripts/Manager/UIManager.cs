@@ -251,7 +251,15 @@ public class UIManager : Manager
 					panel.depth = m_basePageDepth;
 				}
 				m_basePageDepth += Config.ViewLevelDepth;
-                AutoDepthOverView(m_basePageDepth);
+                //所有overView都在Window之下
+                for (int i = m_StackPage.Count - 1; i >= 0; i--)
+                {
+                    if (m_StackPage[i].viewStyle == UIViewStyle.Page)
+                    {
+                        AutoDepthOverView(m_basePageDepth - (m_StackPage.Count - i) * Config.ViewLevelDepth);
+                        break;
+                    }
+                }
                 break;
 			case UIViewStyle.OverView:
                 //所有overView都在Window之下
