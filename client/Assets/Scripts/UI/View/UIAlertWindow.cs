@@ -12,12 +12,12 @@ public class UIAlertWindow : UIViewBase
     public UILabel content;
     public UILabel positiveLabel0;
     public UILabel positiveLabel;
-    public UILabel nagetiveLabel;
+    public UILabel negativeLabel;
     public GameObject OneButtonMode;
     public GameObject TwoButtonMode;
 
     AlertWindowClick positive;
-    AlertWindowClick nagetive;
+    AlertWindowClick negative;
     TweenScale tween;
 
     public override void OnInit()
@@ -31,16 +31,16 @@ public class UIAlertWindow : UIViewBase
         string titleStr = intent.Value<string>("title");
         string contentStr = intent.Value<string>("content");
         string positiveStr = intent.Value<string>("positiveStr");
-        string nagetiveStr = intent.Value<string>("nagetiveStr");
+        string negativeStr = intent.Value<string>("negativeStr");
         positive = intent.Value<AlertWindowClick>("positive");
-        nagetive = intent.Value<AlertWindowClick>("nagetive");
+        negative = intent.Value<AlertWindowClick>("negative");
         int mode = intent.Value<int>("mode");
         title.text = titleStr;
         //content.text = "";
         content.text = contentStr;
         positiveLabel0.text = positiveStr;
         positiveLabel.text = positiveStr;
-        nagetiveLabel.text = nagetiveStr;
+        negativeLabel.text = negativeStr;
         OneButtonMode.SetActive(false);
         TwoButtonMode.SetActive(false);
         switch ((AlertWindowMode)mode)
@@ -72,11 +72,11 @@ public class UIAlertWindow : UIViewBase
             Common.UI.BackPage();
         }
     }
-    public void OnNagetiveClick()
+    public void OnNegativeClick()
     {
-        if (nagetive != null)
+        if (negative != null)
         {
-            nagetive();
+            negative();
         }
         else
         {

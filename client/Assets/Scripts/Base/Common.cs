@@ -16,15 +16,15 @@ public class Common
         {
             AppInterface.UIManager.PageBack();
         }
-        public static void OpenAlert(string title,string content, string positiveString, AlertWindowClick positive, string nagetiveString, AlertWindowClick nagetive,AlertWindowMode mode)
+        public static void OpenAlert(string title,string content, string positiveString, AlertWindowClick positive, string negativeString, AlertWindowClick negative, AlertWindowMode mode)
         {
             Intent intent = new Intent();
             intent.Push("title", title);
             intent.Push("content", content);
             intent.Push("positiveStr", positiveString);
-            intent.Push("nagetiveStr", nagetiveString);
+            intent.Push("negativeStr", negativeString);
             intent.Push("positive", positive);
-            intent.Push("nagetive", nagetive);
+            intent.Push("negative", negative);
             intent.Push("mode", mode);
             AppInterface.UIManager.OpenView("UIAlertWindow", intent);
         }
