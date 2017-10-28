@@ -1635,10 +1635,10 @@ public class UIPanel : UIRect
 
 		// Update all widgets
 		int frame = Time.frameCount;
-		for (int i = 0, imax = widgets.Count; i < imax; ++i)
+		for (int i = 0, imax = widgets.Count; i < widgets.Count; ++i)
 		{
 			UIWidget w = widgets[i];
-
+            if (w == null) continue;
 			// If the widget is visible, update it
 			if (w.panel == this && w.enabled)
 			{

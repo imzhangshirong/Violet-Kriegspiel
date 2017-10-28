@@ -15,6 +15,7 @@ public class BMSymbol
 {
 	public string sequence;
 	public string spriteName;
+    public int type;//emotion or prefab by zhangshirong
 
 	UISpriteData mSprite = null;
 	bool mIsValid = false;
@@ -34,11 +35,42 @@ public class BMSymbol
 	public int advance	{ get { return mAdvance; } }
 	public Rect uvRect	{ get { return mUV; } }
 
-	/// <summary>
-	/// Mark this symbol as dirty, clearing the sprite reference.
-	/// </summary>
 
-	public void MarkAsChanged () { mIsValid = false; }
+    public void SetPrefabItem(RichTextPrefabItem info,float scale)
+    {
+        sequence = info.sequence;
+        mUV = new Rect(0, 0, info.width * scale, info.height * scale);
+        mOffsetX = 0;
+        mOffsetY = 0;
+        mWidth = (int)(info.width * scale);
+        mHeight = (int)(info.height * scale);
+        mAdvance = (int)(info.width * scale);
+        mIsValid = true;
+        type = 2;
+    }
+
+    public void SetEmotionItem(UIAtlas atlas, RichTextEmotionItem info, float scale)
+    {
+        spriteName = info.spriteName;
+        mSprite = (atlas != null) ? atlas.GetSprite(spriteName) : null;
+
+        sequence = info.sequence;
+        mUV = new Rect(0, 0, mSprite.width * scale, mSprite.height * scale);
+        mOffsetX = 0;
+        mOffsetY = 0;
+        mWidth = (int)(mSprite.width * scale);
+        mHeight = (int)(mSprite.height * scale);
+        mAdvance = (int)(mSprite.width * scale);
+        mIsValid = true;
+        type = 1;
+    }
+
+
+    /// <summary>
+    /// Mark this symbol as dirty, clearing the sprite reference.
+    /// </summary>
+
+    public void MarkAsChanged () { mIsValid = false; }
 
 	/// <summary>
 	/// Validate this symbol, given the specified atlas.

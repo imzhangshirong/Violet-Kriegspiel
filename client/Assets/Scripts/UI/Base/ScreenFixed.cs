@@ -20,7 +20,6 @@ public class ScreenFixed : MonoBehaviour
         float h = (float)Screen.height;
         float w = (float)Screen.width;
         float height = h;
-        float width = w;
         Camera camera = Camera.current;
         if (camera != null && camera.orthographic)
         {

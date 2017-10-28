@@ -27,10 +27,6 @@ public class Package<T> : IPackage where T : new()
     {
         m_DicData.Add(key, value);
     }
-    public T Value<T>(string key)
-    {
-        return (T)Value(key);
-    }
     public object Value(string key)
     {
         if (m_DicData.ContainsKey(key)) return m_DicData[key];

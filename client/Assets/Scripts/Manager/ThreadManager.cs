@@ -25,10 +25,7 @@ public class ThreadManager : Manager
     void Awake()
     {
         _current = this;
-        initialized = true;
     }
-
-    static bool initialized;
 
     
     public override void OnManagerReady()

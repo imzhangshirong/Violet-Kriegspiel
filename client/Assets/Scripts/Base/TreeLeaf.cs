@@ -46,6 +46,6 @@ public class TreeLeaf : MonoBehaviour
     }
 	public bool IsActive()
 	{
-		return this.gameObject.active;
+		return this.gameObject.activeSelf;
 	}
 }

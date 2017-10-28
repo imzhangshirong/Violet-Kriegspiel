@@ -326,7 +326,7 @@ public class FieldRoadPath
         this.pathStations = new List<int>(path.pathStations.ToArray());
         
     }
-    public string ToString()
+    public override string ToString()
     {
         string re = "";
         for(int i = 0; i < pathStations.Count; i++)
