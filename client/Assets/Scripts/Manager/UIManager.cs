@@ -211,7 +211,7 @@ public class UIManager : Manager
             {
                 UIPanel panel = m_UIData.gameObject.GetComponent<UIPanel>();
                 if (panel == null) continue;
-                panel.depth = baseDepth + Config.OverViewLevelBaseDepth + (i + 1) * Config.OverViewLevelDepth;
+                panel.depth = baseDepth + Config.OverViewLevelBaseDepth + (i) * Config.OverViewLevelDepth;
 
             }
         }

@@ -24,7 +24,11 @@ public class UIGamePanel : UIViewBase
         BindEvent("_chessClick", OnChessClick);
         BindEvent("_chessHeroClick", OnChessHeroClick);
         BindEvent("_chessFieldClick", OnChessFieldClick);
+        BindEvent("_chessExchange", OnChessExchange);
     }
+
+    
+
     public override void OnOpen(Intent intent)
     {
         base.OnOpen(intent);
@@ -42,6 +46,22 @@ public class UIGamePanel : UIViewBase
         base.OnRefresh();
         Debuger.Log("GamePanel Refresh");
     }
+
+    private void OnChessExchange(object content)
+    {
+        Intent intent = (Intent)content;
+        UIWChessHeroItem moveUI = (UIWChessHeroItem)intent.Value("move");
+        UIWChessHeroItem placeUI = (UIWChessHeroItem)intent.Value("place");
+
+        ChessHeroData move = ChessGamePackage.Instance.GetChessHeroDataById(moveUI.chessId);
+        ChessHeroData place = ChessGamePackage.Instance.GetChessHeroDataById(placeUI.chessId);
+        ChessPoint tpoint = move.point;
+        ChessMoveTo(move, place.point);
+        ChessMoveTo(place, tpoint);
+    }
+
+
+
     private void OnChessClick(object content)//移动
     {
         if (m_MyChessIsMoving) return;//正在移动
@@ -279,14 +299,16 @@ public class UIGamePanel : UIViewBase
             }
         }
     }
-    public Vector3 GetChessLocalPosition(ChessPoint point)
+
+    Vector3 GetChessLocalPosition(ChessPoint point)
     {
         return GetChessLocalPosition(point.x, point.y);
     }
-    public Vector3 GetChessLocalPosition(int x,int y)
+    Vector3 GetChessLocalPosition(int x, int y)
     {
         return new Vector3(-256 + x * 128, y % 6 * 72, 0);
     }
+
     public void OnChessFieldClick(object content)
     {
         Push("_chessHeroChoosed", -1);

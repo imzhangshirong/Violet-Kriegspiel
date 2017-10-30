@@ -271,6 +271,7 @@ public class ChessAgainst : MonoBehaviour
         if (s1 + s2 > 1 && station1.type != FieldRoadStationType.Barrack && station2.type != FieldRoadStationType.Barrack) return false;
         return true;
     }
+    
 }
 public class ChessHeroData
 {
@@ -345,6 +346,8 @@ public class FieldRoadPath
         }
         return points;
     }
+
+
 }
 
 public class ChessMoveData

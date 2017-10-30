@@ -9,6 +9,7 @@ public class UIWChessHeroItem : UIWidgetBase
     public UILabel name;
     public UISprite light;
     public UISprite normal;
+    public GameObject dragState;
     public GameObject chooseState;
     public GameObject willWin;
     public GameObject willLose;
@@ -29,6 +30,7 @@ public class UIWChessHeroItem : UIWidgetBase
     [HideInInspector]
     public bool isChoosed = false;
     
+
     private void Start()
     {
         BindEvent("_chessHeroChoosed", ChessHeroSetToNormal);
@@ -41,6 +43,48 @@ public class UIWChessHeroItem : UIWidgetBase
         intent.Push("gameObject", gameObject);
         Push("_chessHeroClick", intent);
     }
+
+    public void OnDragStart()
+    {
+        dragState.SetActive(true);
+        name.depth += 10;
+        light.depth += 10;
+        normal.depth += 10;
+        Push("_chessHeroChoosed", -1);
+    }
+
+    public void OnDrag(Vector2 delta)
+    {
+
+    }
+
+    public void OnDragEnd()
+    {
+        dragState.SetActive(false);
+        name.depth -= 10;
+        light.depth -= 10;
+        normal.depth -= 10;
+    }
+
+    public void OnDragOver()
+    {
+        chooseState.SetActive(true);
+    }
+
+    public void OnDragOut()
+    {
+        chooseState.SetActive(false);
+    }
+
+    public void OnDrop(GameObject go)
+    {
+        UIWChessHeroItem moveUI = go.GetComponent<UIWChessHeroItem>();
+        Intent intent = new Intent();
+        intent.Push("move", moveUI);
+        intent.Push("place", this);
+        Push("_chessExchange", intent);
+    }
+
     private void ChessHeroSetToNormal(object content)
     {
         int id = (int)content;
@@ -68,11 +112,11 @@ public class UIWChessHeroItem : UIWidgetBase
         }
         if (isChoosed)
         {
-            light.gameObject.SetActive(true);
+            chooseState.SetActive(true);
         }
         else
         {
-            light.gameObject.SetActive(false);
+            chooseState.SetActive(false);
         }
         if (chessId < 100)
         {
@@ -81,8 +125,8 @@ public class UIWChessHeroItem : UIWidgetBase
         }
         else
         {
-            normal.color = new Color(215 / 255f, 85 / 255f, 63 / 255f);
-            light.color = new Color(255 / 255f, 183 / 255f, 105 / 255f);
+            normal.color = new Color(255 / 255f, 94 / 255f, 75 / 255f);
+            light.color = new Color(255 / 255f, 244 / 255f, 197 / 255f);
 
         }
     }

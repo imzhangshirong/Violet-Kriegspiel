@@ -8,7 +8,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
 {
     private Dictionary<int, ChessHeroData> m_ChessData = new Dictionary<int, ChessHeroData>();//客户端id,ChessHeroData
     private List<FieldRoadStation> m_MapRoadStations = new List<FieldRoadStation>();
-    public List<int> ChessDataIds = new List<int>();
+    public List<int> ChessDataIds = new List<int>();//所有棋子的本地id
     public int MyselfChooseChessId = -1;
     public int EnemyChooseChessId = -1;
     public override void Init(object data)
