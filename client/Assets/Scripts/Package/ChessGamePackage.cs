@@ -11,23 +11,47 @@ public class ChessGamePackage : Package<ChessGamePackage>
     public List<int> ChessDataIds = new List<int>();//所有棋子的本地id
     public int MyselfChooseChessId = -1;
     public int EnemyChooseChessId = -1;
+    bool m_CanDragChess = true;
+    public bool CanDragChess
+    {
+        get
+        {
+            return m_CanDragChess;
+        }
+    }
+    bool m_IsGameStart = false;
+    public bool IsGameStart {
+        get
+        {
+            return m_IsGameStart;
+        }
+    }
+    bool m_IsReadyGame = false;
+    public bool IsReadyGame
+    {
+        get
+        {
+            return m_IsReadyGame;
+        }
+    }
+
+
     public override void Init(object data)
     {
         //throw new NotImplementedException();
         InitFieldMap();
     }
-
+    /// <summary>
+    /// 初始化战场的道路连接数据
+    /// </summary>
     public void InitFieldMap()
     {
         m_MapRoadStations.Clear();
         for (int i = 0; i < 12; i++)
         {
-            int type = i / 6;
-            int id = 0;
             for (int j = 0; j < 5; j++)
             {
-                id = i % 6 * 5 + j;
-                if(ChessAgainst.IsBarrack(type, id))//当前为军营，木有铁路
+                if(ChessAgainst.IsBarrack(new ChessPoint(j,i)))//当前为军营，木有铁路
                 {
                     FieldRoadStation roadStation = new FieldRoadStation();
                     roadStation.point = new ChessPoint(j, i);
@@ -83,6 +107,114 @@ public class ChessGamePackage : Package<ChessGamePackage>
             ChessDataIds.Add(chessData.id);
             m_ChessData.Add(chessData.id, chessData);
         }
+    }
+
+    public void AddChessFromData(string data,ChessHeroGroup group)
+    {
+        int baseId = 0;
+        int offsetY = 0;
+        switch (group)
+        {
+            case ChessHeroGroup.Myself:
+                baseId = 0;
+                offsetY = 0;
+                break;
+            case ChessHeroGroup.Enemy:
+                baseId = 100;
+                offsetY = 6;
+                break;
+        }
+        int localId = 1;
+        string[] rows = data.Split(';');
+        for(int i = 0; i < rows.Length && i < 6; i++)
+        {
+            string[] chessTypeIds = rows[i].Split(',');
+            for(int j = 0; j < chessTypeIds.Length; j++)
+            {
+                string id = chessTypeIds[j];
+                if (id != "")
+                {
+                    int type = -1;
+                    int remoteId = 0;
+                    if (id.IndexOf("|") > -1)
+                    {
+                        string[] ids = id.Split('|');
+                        type = int.Parse(ids[0]);
+                        remoteId = int.Parse(ids[1]);
+                    }
+                    else
+                    {
+                        type = int.Parse(id);
+                    }
+                    ChessHeroData heroData = new ChessHeroData();
+                    heroData.heroTypeId = type;
+                    heroData.remoteId = remoteId;
+                    heroData.state = ChessHeroState.Alive;
+                    heroData.id = baseId + localId;
+                    switch (group)
+                    {
+                        case ChessHeroGroup.Myself:
+                            heroData.point = new ChessPoint(j, offsetY + i);
+                            break;
+                        case ChessHeroGroup.Enemy://敌人在我方是反的
+                            heroData.point = new ChessPoint(4 - j, offsetY + 5 - i);
+                            break;
+                    }
+                    AddChessToMap(heroData);
+                    localId++;
+                }
+                
+            }
+        }
+
+    }
+
+    public string GetChessStringData(ChessHeroGroup group)
+    {
+        int[,] mapPosition = new int[5, 12]; 
+        foreach(var item in m_ChessData)
+        {
+            if(GetChessGroupById(item.Value.id) == group) mapPosition[item.Value.point.x, item.Value.point.y] = item.Value.heroTypeId + 1;
+        }
+        string re = "";
+        for(int i = 0; i < mapPosition.GetLength(1); i++)
+        {
+            for (int j = 0; j < mapPosition.GetLength(0); j++)
+            {
+                if (j > 0) re += ",";
+                if (mapPosition[j, i] > 0)
+                {
+                    re += (mapPosition[j, i] - 1).ToString();
+                }
+            }
+            re += ";";
+        }
+        return re;
+    }
+
+    public ChessHeroGroup GetChessGroupById(int id)
+    {
+        if (id < 100) return ChessHeroGroup.Myself;
+        if (id>=100 && id < 200) return ChessHeroGroup.Enemy;
+        return ChessHeroGroup.Enemy;
+    }
+
+    public List<ChessHeroData> GetChessHeroList(ChessHeroGroup group)
+    {
+        List<ChessHeroData> list = new List<ChessHeroData>();
+        foreach(var item in m_ChessData)
+        {
+            switch (group)
+            {
+                case ChessHeroGroup.Myself:
+                    if (item.Value.id < 100) list.Add(item.Value);
+                    break;
+                case ChessHeroGroup.Enemy:
+                    if (item.Value.id >= 100 && item.Value.id < 200) list.Add(item.Value);
+                    break;
+            }
+        }
+        return list;
     }
 
     public ChessHeroData GetChessHeroDataById(int id)

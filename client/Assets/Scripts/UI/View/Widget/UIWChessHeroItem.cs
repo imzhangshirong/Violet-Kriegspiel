@@ -16,7 +16,7 @@ public class UIWChessHeroItem : UIWidgetBase
     public GameObject willTie;
 
     [HideInInspector]
-    public int chessHeroId;
+    public int chessHeroId;//棋子类型id
     [HideInInspector]
     public int chessId;
     [HideInInspector]
@@ -78,11 +78,27 @@ public class UIWChessHeroItem : UIWidgetBase
 
     public void OnDrop(GameObject go)
     {
-        UIWChessHeroItem moveUI = go.GetComponent<UIWChessHeroItem>();
-        Intent intent = new Intent();
-        intent.Push("move", moveUI);
-        intent.Push("place", this);
-        Push("_chessExchange", intent);
+        if (ChessGamePackage.Instance.CanDragChess)
+        {
+            UIWChessHeroItem moveUI = go.GetComponent<UIWChessHeroItem>();
+            if(ChessGamePackage.Instance.GetChessGroupById(moveUI.chessId) == ChessHeroGroup.Myself && ChessGamePackage.Instance.GetChessGroupById(chessId) == ChessHeroGroup.Myself) //只有自己的才可以拖拽
+            {
+                Intent intent = new Intent();
+                intent.Push("move", moveUI);
+                intent.Push("place", this);
+                Push("_chessExchange", intent);
+            }
+            else
+            {
+                Common.UI.OpenTips("不能互换敌方棋子");
+            }
+            
+        }
+        else
+        {
+            if(ChessGamePackage.Instance.IsReadyGame && !ChessGamePackage.Instance.IsGameStart) Common.UI.OpenTips("已经准备就绪，无法调整棋子");
+        }
+        
     }
 
     private void ChessHeroSetToNormal(object content)
@@ -101,7 +117,7 @@ public class UIWChessHeroItem : UIWidgetBase
         {
             gameObject.SetActive(true);
         }
-        if (labelState == ChessHeroLabelState.Hide)
+        if (labelState == ChessHeroLabelState.Hide || chessHeroId<0)
         {
             name.gameObject.SetActive(false);
         }
@@ -118,7 +134,7 @@ public class UIWChessHeroItem : UIWidgetBase
         {
             chooseState.SetActive(false);
         }
-        if (chessId < 100)
+        if (ChessGamePackage.Instance.GetChessGroupById(chessId) == ChessHeroGroup.Myself)
         {
             normal.color = new Color(86 / 255f, 156 / 255f, 214 / 255f);
             light.color = new Color(105 / 255f, 249 / 255f, 255 / 255f);

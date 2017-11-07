@@ -6,6 +6,7 @@ using UnityEngine;
 public class ChessAgainst : MonoBehaviour
 {
     public static string[] ChessHeroNameDefine = { "地雷", "炸弹", "工兵", "排长", "连长", "营长", "团长", "旅长", "师长", "军长", "司令", "军旗" };
+    public static int[] ChessHeroNumber = { 3, 2, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1 };
     public static ChessMoveData ChessHeroCanMoveTo(ChessHeroData heroData,ChessPoint point)
     {
         ChessMoveData moveData = new ChessMoveData();
@@ -190,8 +191,9 @@ public class ChessAgainst : MonoBehaviour
         return true;
     }
     //单击训练模式
-    public static int ChessCanBeat(ChessHeroData heroS, ChessHeroData heroT) //1胜利，-1失败，0平局消失，2获胜结束
+    public static int ChessCanBeat(ChessHeroData heroS, ChessHeroData heroT) //1胜利，-1失败，0平局消失，2获胜结束，-2未知
     {
+        if (heroT.heroTypeId < 0) return -2;//未知
         if (heroT.heroTypeId == 1) return 0;//敌方炸弹
         if (heroS.heroTypeId == 1) return 0;//我方炸弹
         if (heroS.heroTypeId == 2)//我方工兵
@@ -213,16 +215,17 @@ public class ChessAgainst : MonoBehaviour
             return 0;
         }
     }
-    public static bool IsBarrack(int type, int id)
+    public static bool IsBarrack(ChessPoint point)
     {
-        switch (type)
+        int id = point.y * 5 + point.x;
+        if (point.y <= 5)
         {
-            case 0:
-                if (id == 11 || id == 13 || id == 17 || id == 21 || id == 23) return true;
-                break;
-            case 1:
-                if (id == 6 || id == 8 || id == 12 || id == 16 || id == 18) return true;
-                break;
+            
+            if (id == 11 || id == 13 || id == 17 || id == 21 || id == 23) return true;
+        }
+        else if(point.y > 5)
+        {
+            if (id == 6 || id == 8 || id == 12 || id == 16 || id == 18) return true;
         }
         return false;
     }
@@ -271,7 +274,22 @@ public class ChessAgainst : MonoBehaviour
         if (s1 + s2 > 1 && station1.type != FieldRoadStationType.Barrack && station2.type != FieldRoadStationType.Barrack) return false;
         return true;
     }
-    
+
+    public static bool ChessIsLegal(List<ChessHeroData> heros)
+    {
+        int[] heroNumbers = new int[ChessHeroNumber.Length];
+        for (int i = 0; i < heros.Count; i++)
+        {
+            ChessHeroData item = heros[i];
+            heroNumbers[item.heroTypeId]++;
+        }
+        for(int i = 0; i < heroNumbers.Length; i++)
+        {
+            if (heroNumbers[i] > ChessHeroNumber[i]) return false;
+        }
+        return true;
+    }
+
 }
 public class ChessHeroData
 {
@@ -281,6 +299,13 @@ public class ChessHeroData
     public ChessHeroState state = ChessHeroState.Alive;
     public ChessPoint point;
     public GameObject gameObject;
+}
+
+
+public enum ChessHeroGroup
+{
+    Myself = 0,
+    Enemy = 1,
 }
 
 public class ChessPoint
@@ -362,4 +387,11 @@ public enum FieldRoadStationType
     Way = 0,
     Rail = 1,
     Barrack = 2,
+}
+
+public enum ChessGameMode
+{
+    Against = 0,
+    SelfToSelf = 1,
+    ShowChess = 2,
 }

@@ -33,9 +33,12 @@ public class UIGamePanel : UIViewBase
     {
         base.OnOpen(intent);
         Debuger.Log("GamePanel Open");
-        PutChessHero(0);
-        PutChessHero(1);
         ChessGamePackage.Instance.Init(null);
+        ChessGamePackage.Instance.AddChessFromData("6|1,3|2,0|3,11|4,0|5;10|6,2|7,5|8,0|9,3|10;9|11,,2|12,,4|13;1|14,5|15,,6|16,7|17;7|18,,4|19,,1|20;8|21,2|22,4|23,3|24,8|25;", ChessHeroGroup.Myself);
+        ChessGamePackage.Instance.AddChessFromData("6|1,3|2,0|3,-1|4,0|5;10|6,2|7,5|8,0|9,3|10;9|11,,2|12,,4|13;1|14,5|15,,6|16,7|17;7|18,,4|19,,1|20;8|21,2|22,4|23,3|24,8|25;", ChessHeroGroup.Enemy);
+        InitChessHero(ChessHeroGroup.Myself);
+        InitChessHero(ChessHeroGroup.Enemy);
+
     }
     public void BackPage()
     {
@@ -167,6 +170,7 @@ public class UIGamePanel : UIViewBase
         hero.point = point;
         hero.gameObject.transform.localScale = Vector3.one;
         hero.gameObject.transform.localPosition = GetChessLocalPosition(hero.point);
+        Debuger.Warn(ChessGamePackage.Instance.GetChessStringData(ChessHeroGroup.Myself));
     }
 
     IEnumerator TweenMoveChess(ChessHeroData heroChoosed, ChessPoint moveToPoint)
@@ -249,53 +253,46 @@ public class UIGamePanel : UIViewBase
         }
         m_MyChessIsMoving = false;
     }
-
-    private void PutChessHero(int type)
+    /// <summary>
+    /// 初始化棋盘放置
+    /// </summary>
+    private void InitChessHero(ChessHeroGroup group)
     {
         TreeRoot treeRoot = GetComponent<TreeRoot>();
-        int baseId = type * 100;
-        for(int i = 0; i < 30; i++)
+        List<ChessHeroData> chessHeroDatas = ChessGamePackage.Instance.GetChessHeroList(group);
+        for (int i = 0; i < chessHeroDatas.Count; i++)
         {
-            if(!ChessAgainst.IsBarrack(type,i))
+            ChessHeroData heroData = chessHeroDatas[i];
+            if (!ChessAgainst.IsBarrack(heroData.point))//不在军营里
             {
                 GameObject go = Instantiate(m_ChessHero);
-                
-                
-                
-
-                ChessHeroData heroData = new ChessHeroData();
-                heroData.id = baseId + i;
-                heroData.remoteId = heroData.id;//服务器给
-                heroData.heroTypeId = heroData.id % 12;
-                int ids = type * 30 + i;
-                heroData.point = new ChessPoint(ids % 5, ids / 5);
-                ChessGamePackage.Instance.AddChessToMap(heroData);
-
-
                 UIWChessHeroItem chessHeroItem = go.GetComponent<UIWChessHeroItem>();
                 chessHeroItem.treeRoot = treeRoot;
                 chessHeroItem.chessHeroId = heroData.heroTypeId;
                 treeRoot.Bind(chessHeroItem);//绑定到TreeRoot
-                chessHeroItem.chessId = baseId + i;
-                switch (type)
+                chessHeroItem.chessId = heroData.id;
+                switch (group)
                 {
-                    case 0:
+                    case ChessHeroGroup.Myself:
                         go.transform.parent = m_MyselfFied.transform;
                         chessHeroItem.state = ChessHeroState.Alive;
                         chessHeroItem.labelState = ChessHeroLabelState.Show;
                         break;
-                    case 1:
+                    case ChessHeroGroup.Enemy:
                         go.transform.parent = m_EnemyFied.transform;
                         chessHeroItem.state = ChessHeroState.Alive;
-                        chessHeroItem.labelState = ChessHeroLabelState.Show;//
+                        chessHeroItem.labelState = (heroData.heroTypeId >= 0)? ChessHeroLabelState.Show: ChessHeroLabelState.Hide;//小于0为未知棋子，应该隐藏
                         break;
                 }
                 go.transform.localScale = Vector3.one;
-                go.transform.localPosition = GetChessLocalPosition(i % 5, i / 5);
+                go.transform.localPosition = GetChessLocalPosition(heroData.point);
                 go.SetActive(true);
                 heroData.gameObject = go;
-                ChessGamePackage.Instance.AddChessToMap(heroData);
 
+            }
+            else
+            {
+                Debuger.Error("初始化棋子位置错误！");
             }
         }
     }
