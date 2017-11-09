@@ -13,17 +13,10 @@ public class UIWChessItem : UIWidgetBase
     }
     public void OnClick()
     {
-        if (ChessGamePackage.Instance.IsGameStart)//游戏开始了之后才能走
-        {
-            Intent intent = new Intent();
-            intent.Push("id", chessId);
-            intent.Push("gameObject", gameObject);
-            Push("_chessClick", intent);
-        }
-        else
-        {
-            Common.UI.OpenTips("比赛还没开始哦，不要心急");
-        }
+        Intent intent = new Intent();
+        intent.Push("id", chessId);
+        intent.Push("gameObject", gameObject);
+        Push("_chessClick", intent);
         
     }
     

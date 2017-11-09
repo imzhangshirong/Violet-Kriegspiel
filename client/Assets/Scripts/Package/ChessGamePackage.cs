@@ -12,6 +12,9 @@ public class ChessGamePackage : Package<ChessGamePackage>
     public int MyselfChooseChessId = -1;
     public int EnemyChooseChessId = -1;
     bool m_CanDragChess = true;
+    /// <summary>
+    /// 是否处于布子状态
+    /// </summary>
     public bool CanDragChess
     {
         get
@@ -20,6 +23,9 @@ public class ChessGamePackage : Package<ChessGamePackage>
         }
     }
     bool m_IsGameStart = false;
+    /// <summary>
+    /// 游戏开始
+    /// </summary>
     public bool IsGameStart {
         get
         {
@@ -27,6 +33,9 @@ public class ChessGamePackage : Package<ChessGamePackage>
         }
     }
     bool m_IsReadyGame = false;
+    /// <summary>
+    /// 我方准备完毕
+    /// </summary>
     public bool IsReadyGame
     {
         get
@@ -35,6 +44,19 @@ public class ChessGamePackage : Package<ChessGamePackage>
         }
     }
 
+
+    bool m_IsEnemyReady = true;
+    /// <summary>
+    /// 敌方准备完毕
+    /// </summary>
+    public bool IsEnemyReady
+    {
+        get
+        {
+            return m_IsEnemyReady;
+        }
+    }
+    
 
     public override void Init(object data)
     {

@@ -78,27 +78,11 @@ public class UIWChessHeroItem : UIWidgetBase
 
     public void OnDrop(GameObject go)
     {
-        if (ChessGamePackage.Instance.CanDragChess)
-        {
-            UIWChessHeroItem moveUI = go.GetComponent<UIWChessHeroItem>();
-            if(ChessGamePackage.Instance.GetChessGroupById(moveUI.chessId) == ChessHeroGroup.Myself && ChessGamePackage.Instance.GetChessGroupById(chessId) == ChessHeroGroup.Myself) //只有自己的才可以拖拽
-            {
-                Intent intent = new Intent();
-                intent.Push("move", moveUI);
-                intent.Push("place", this);
-                Push("_chessExchange", intent);
-            }
-            else
-            {
-                Common.UI.OpenTips("不能互换敌方棋子");
-            }
-            
-        }
-        else
-        {
-            if(ChessGamePackage.Instance.IsReadyGame && !ChessGamePackage.Instance.IsGameStart) Common.UI.OpenTips("已经准备就绪，无法调整棋子");
-        }
-        
+        UIWChessHeroItem moveUI = go.GetComponent<UIWChessHeroItem>();
+        Intent intent = new Intent();
+        intent.Push("move", moveUI);
+        intent.Push("place", this);
+        Push("_chessExchange", intent);
     }
 
     private void ChessHeroSetToNormal(object content)
