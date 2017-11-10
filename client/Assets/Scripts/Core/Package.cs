@@ -6,7 +6,7 @@ using System.Text;
 public class Package<T> : IPackage where T : new()
 {
 
-    protected static T m_instance;
+    static T m_instance;
     public static T Instance
     {
         get

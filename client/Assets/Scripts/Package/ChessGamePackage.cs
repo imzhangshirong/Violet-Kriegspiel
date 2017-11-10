@@ -11,6 +11,51 @@ public class ChessGamePackage : Package<ChessGamePackage>
     public List<int> ChessDataIds = new List<int>();//所有棋子的本地id
     public int MyselfChooseChessId = -1;
     public int EnemyChooseChessId = -1;
+    ChessPlayerData m_EnemyPlayerData = new ChessPlayerData()
+    {
+        playerInfo = new PlayerInfo()
+        {
+            userName = "Enemy!!",
+            userId = 2,
+            level = 1,
+        },
+        state = ChessPlayerState.UnReady,
+        group = ChessHeroGroup.Enemy,
+    };
+    public ChessPlayerData EnemyPlayerData
+    {
+        get
+        {
+            return m_EnemyPlayerData;
+        }
+    }
+
+    ChessPlayerData m_MyselfPlayerData = new ChessPlayerData()
+    {
+        playerInfo = PlayerPackage.Instance.playerInfo,
+        state = ChessPlayerState.UnReady,
+        group = ChessHeroGroup.Myself,
+    };
+    public ChessPlayerData MyselfPlayerData
+    {
+        get
+        {
+            if (IsGameStart)
+            {
+                m_MyselfPlayerData.state = ChessPlayerState.Gaming;
+            }
+            else if (IsReadyGame)
+            {
+                m_MyselfPlayerData.state = ChessPlayerState.Ready;
+            }
+            else
+            {
+                m_MyselfPlayerData.state = ChessPlayerState.UnReady;
+            }
+            return m_MyselfPlayerData;
+        }
+    }
+
     bool m_CanDragChess = true;
     /// <summary>
     /// 是否处于布子状态
@@ -294,4 +339,124 @@ public class ChessGamePackage : Package<ChessGamePackage>
     }
 
     
+}
+
+public class ChessHeroData
+{
+    public int id;
+    public int remoteId;
+    public int heroTypeId;
+    public ChessHeroState state = ChessHeroState.Alive;
+    public ChessPoint point;
+    public GameObject gameObject;
+}
+
+
+public enum ChessHeroGroup
+{
+    Myself = 0,
+    Enemy = 1,
+}
+
+public class ChessPoint
+{
+    public int x;
+    public int y;
+    public ChessPoint(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+    public override string ToString()
+    {
+        return x + "," + y;
+    }
+    public bool Equals(ChessPoint obj)
+    {
+        return (this.x == obj.x && this.y == obj.y);
+    }
+    public ChessPoint Clone()
+    {
+        return new ChessPoint(x, y);
+    }
+}
+public class FieldRoadStation
+{
+    public int id = -1;
+    public ChessPoint point;//起点
+    public int[] forbidChessHeros = new int[0];//禁止通过的子，100为敌方所有棋子,负数为敌方某一类棋子
+    public int[] connectedPointIds = new int[0];//终点
+    public FieldRoadStationType type = FieldRoadStationType.Way;
+}
+
+public class FieldRoadPath
+{
+    public List<int> pathStations = new List<int>();
+    public FieldRoadPath()
+    {
+
+    }
+    public FieldRoadPath(FieldRoadPath path)
+    {
+
+        this.pathStations = new List<int>(path.pathStations.ToArray());
+
+    }
+    public override string ToString()
+    {
+        string re = "";
+        for (int i = 0; i < pathStations.Count; i++)
+        {
+            if (i > 0) re += "->";
+            re += ChessGamePackage.Instance.GetFeildRoadStationById(pathStations[i]).point.ToString();
+        }
+        return re;
+    }
+    public ChessPoint[] ToChessPoints()
+    {
+        ChessPoint[] points = new ChessPoint[pathStations.Count];
+        for (int i = 0; i < points.Length; i++)
+        {
+            points[i] = ChessGamePackage.Instance.GetFeildRoadStationById(pathStations[i]).point;
+        }
+        return points;
+    }
+
+
+}
+
+public class ChessMoveData
+{
+    public int crashType;//1棋子自身，2路径效果（军营类），3路途有棋子
+    public ChessPoint[] points;
+    public ChessHeroData crashHero;
+}
+
+public enum FieldRoadStationType
+{
+    Way = 0,
+    Rail = 1,
+    Barrack = 2,
+}
+
+public enum ChessGameMode
+{
+    Against = 0,//对战模式
+    SelfToSelf = 1,//练习模式
+    ShowChess = 2,//明牌模式
+}
+
+public enum ChessPlayerState
+{
+    UnReady = 0,//未准备，摆子中
+    Ready = 1,//准备好了
+    Gaming = 2,//游戏中
+}
+
+public class ChessPlayerData
+{
+    public ChessHeroGroup group;
+    public PlayerInfo playerInfo;
+    public ChessPlayerState state;
+    public int remainTime;
 }
