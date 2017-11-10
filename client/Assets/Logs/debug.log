@@ -1,0 +1,328 @@
+[I] 09-12 20:36:16(0):init
+UnityEngine.Debug:Log(Object)
+Debuger:Log(String, Object[]) (at Assets/Scripts/Base/Debuger.cs:61)
+UIPlayerInfoWidget:OnInit(Intent) (at Assets/Scripts/UI/View/UIPlayerInfoWidget.cs:11)
+UIManager:InitView(UIData, Intent) (at Assets/Scripts/Manager/UIManager.cs:179)
+UIManager:OpenView(String, Intent) (at Assets/Scripts/Manager/UIManager.cs:285)
+AppMain:Start() (at Assets/Scripts/AppMain.cs:6)
+
+[I] 09-12 20:36:16(0):Open
+UnityEngine.Debug:Log(Object)
+Debuger:Log(String, Object[]) (at Assets/Scripts/Base/Debuger.cs:61)
+UIPlayerInfoWidget:OnOpen() (at Assets/Scripts/UI/View/UIPlayerInfoWidget.cs:16)
+UIManager:InitView(UIData, Intent) (at Assets/Scripts/Manager/UIManager.cs:210)
+UIManager:OpenView(String, Intent) (at Assets/Scripts/Manager/UIManager.cs:285)
+AppMain:Start() (at Assets/Scripts/AppMain.cs:6)
+
+[I] 09-12 20:36:16(0):MainPanel Open
+UnityEngine.Debug:Log(Object)
+Debuger:Log(String, Object[]) (at Assets/Scripts/Base/Debuger.cs:61)
+UIMainPanel:OnOpen() (at Assets/Scripts/UI/View/UIMainPanel.cs:16)
+UIManager:InitView(UIData, Intent) (at Assets/Scripts/Manager/UIManager.cs:210)
+UIManager:OpenView(String, Intent) (at Assets/Scripts/Manager/UIManager.cs:285)
+AppMain:Start() (at Assets/Scripts/AppMain.cs:10)
+
+[I] 09-12 20:36:31(14.77401):MainPanel close
+UnityEngine.Debug:Log(Object)
+Debuger:Log(String, Object[]) (at Assets/Scripts/Base/Debuger.cs:61)
+UIMainPanel:OnClose() (at Assets/Scripts/UI/View/UIMainPanel.cs:30)
+UIManager:ReplaceView(String, Intent) (at Assets/Scripts/Manager/UIManager.cs:235)
+UIMainPanel:NextPage() (at Assets/Scripts/UI/View/UIMainPanel.cs:20)
+EventDelegate:Execute() (at Assets/NGUI/Scripts/Internal/EventDelegate.cs:454)
+EventDelegate:Execute(List`1) (at Assets/NGUI/Scripts/Internal/EventDelegate.cs:592)
+UIButton:OnClick() (at Assets/NGUI/Scripts/Interaction/UIButton.cs:201)
+UnityEngine.GameObject:SendMessage(String, Object, SendMessageOptions)
+UICamera:Notify(GameObject, String, Object) (at Assets/NGUI/Scripts/UI/UICamera.cs:830)
+UICamera:ProcessTouch(Boolean, Boolean) (at Assets/NGUI/Scripts/UI/UICamera.cs:1508)
+UICamera:ProcessMouse() (at Assets/NGUI/Scripts/UI/UICamera.cs:1136)
+UICamera:ProcessTouches() (at Assets/NGUI/Scripts/UI/UICamera.cs:1206)
+UICamera:Update() (at Assets/NGUI/Scripts/UI/UICamera.cs:970)
+
+[I] 09-12 20:36:31(14.77401):PagePanel Open
+UnityEngine.Debug:Log(Object)
+Debuger:Log(String, Object[]) (at Assets/Scripts/Base/Debuger.cs:61)
+UIPagePanel:OnOpen() (at Assets/Scripts/UI/View/UIPagePanel.cs:16)
+UIManager:InitView(UIData, Intent) (at Assets/Scripts/Manager/UIManager.cs:210)
+UIManager:OpenView(String, Intent) (at Assets/Scripts/Manager/UIManager.cs:285)
+UIManager:ReplaceView(String, Intent) (at Assets/Scripts/Manager/UIManager.cs:240)
+UIMainPanel:NextPage() (at Assets/Scripts/UI/View/UIMainPanel.cs:20)
+EventDelegate:Execute() (at Assets/NGUI/Scripts/Internal/EventDelegate.cs:454)
+EventDelegate:Execute(List`1) (at Assets/NGUI/Scripts/Internal/EventDelegate.cs:592)
+UIButton:OnClick() (at Assets/NGUI/Scripts/Interaction/UIButton.cs:201)
+UnityEngine.GameObject:SendMessage(String, Object, SendMessageOptions)
+UICamera:Notify(GameObject, String, Object) (at Assets/NGUI/Scripts/UI/UICamera.cs:830)
+UICamera:ProcessTouch(Boolean, Boolean) (at Assets/NGUI/Scripts/UI/UICamera.cs:1508)
+UICamera:ProcessMouse() (at Assets/NGUI/Scripts/UI/UICamera.cs:1136)
+UICamera:ProcessTouches() (at Assets/NGUI/Scripts/UI/UICamera.cs:1206)
+UICamera:Update() (at Assets/NGUI/Scripts/UI/UICamera.cs:970)
+
+[I] 09-12 20:36:32(15.58578):MainPanel Refresh
+UnityEngine.Debug:Log(Object)
+Debuger:Log(String, Object[]) (at Assets/Scripts/Base/Debuger.cs:61)
+UIMainPanel:OnRefresh() (at Assets/Scripts/UI/View/UIMainPanel.cs:25)
+UIManager:ActiveView(UIData) (at Assets/Scripts/Manager/UIManager.cs:172)
+UIManager:CloseView(String) (at Assets/Scripts/Manager/UIManager.cs:113)
+UIManager:PageBack() (at Assets/Scripts/Manager/UIManager.cs:214)
+UIPagePanel:BackPage() (at Assets/Scripts/UI/View/UIPagePanel.cs:20)
+EventDelegate:Execute() (at Assets/NGUI/Scripts/Internal/EventDelegate.cs:454)
+EventDelegate:Execute(List`1) (at Assets/NGUI/Scripts/Internal/EventDelegate.cs:592)
+UIButton:OnClick() (at Assets/NGUI/Scripts/Interaction/UIButton.cs:201)
+UnityEngine.GameObject:SendMessage(String, Object, SendMessageOptions)
+UICamera:Notify(GameObject, String, Object) (at Assets/NGUI/Scripts/UI/UICamera.cs:830)
+UICamera:ProcessTouch(Boolean, Boolean) (at Assets/NGUI/Scripts/UI/UICamera.cs:1508)
+UICamera:ProcessMouse() (at Assets/NGUI/Scripts/UI/UICamera.cs:1136)
+UICamera:ProcessTouches() (at Assets/NGUI/Scripts/UI/UICamera.cs:1206)
+UICamera:Update() (at Assets/NGUI/Scripts/UI/UICamera.cs:970)
+
+[I] 09-12 20:36:33(16.48081):MainPanel close
+UnityEngine.Debug:Log(Object)
+Debuger:Log(String, Object[]) (at Assets/Scripts/Base/Debuger.cs:61)
+UIMainPanel:OnClose() (at Assets/Scripts/UI/View/UIMainPanel.cs:30)
+UIManager:ReplaceView(String, Intent) (at Assets/Scripts/Manager/UIManager.cs:235)
+UIMainPanel:NextPage() (at Assets/Scripts/UI/View/UIMainPanel.cs:20)
+EventDelegate:Execute() (at Assets/NGUI/Scripts/Internal/EventDelegate.cs:454)
+EventDelegate:Execute(List`1) (at Assets/NGUI/Scripts/Internal/EventDelegate.cs:592)
+UIButton:OnClick() (at Assets/NGUI/Scripts/Interaction/UIButton.cs:201)
+UnityEngine.GameObject:SendMessage(String, Object, SendMessageOptions)
+UICamera:Notify(GameObject, String, Object) (at Assets/NGUI/Scripts/UI/UICamera.cs:830)
+UICamera:ProcessTouch(Boolean, Boolean) (at Assets/NGUI/Scripts/UI/UICamera.cs:1508)
+UICamera:ProcessMouse() (at Assets/NGUI/Scripts/UI/UICamera.cs:1136)
+UICamera:ProcessTouches() (at Assets/NGUI/Scripts/UI/UICamera.cs:1206)
+UICamera:Update() (at Assets/NGUI/Scripts/UI/UICamera.cs:970)
+
+[I] 09-12 20:36:33(16.48081):PagePanel Open
+UnityEngine.Debug:Log(Object)
+Debuger:Log(String, Object[]) (at Assets/Scripts/Base/Debuger.cs:61)
+UIPagePanel:OnOpen() (at Assets/Scripts/UI/View/UIPagePanel.cs:16)
+UIManager:InitView(UIData, Intent) (at Assets/Scripts/Manager/UIManager.cs:210)
+UIManager:OpenView(String, Intent) (at Assets/Scripts/Manager/UIManager.cs:285)
+UIManager:ReplaceView(String, Intent) (at Assets/Scripts/Manager/UIManager.cs:240)
+UIMainPanel:NextPage() (at Assets/Scripts/UI/View/UIMainPanel.cs:20)
+EventDelegate:Execute() (at Assets/NGUI/Scripts/Internal/EventDelegate.cs:454)
+EventDelegate:Execute(List`1) (at Assets/NGUI/Scripts/Internal/EventDelegate.cs:592)
+UIButton:OnClick() (at Assets/NGUI/Scripts/Interaction/UIButton.cs:201)
+UnityEngine.GameObject:SendMessage(String, Object, SendMessageOptions)
+UICamera:Notify(GameObject, String, Object) (at Assets/NGUI/Scripts/UI/UICamera.cs:830)
+UICamera:ProcessTouch(Boolean, Boolean) (at Assets/NGUI/Scripts/UI/UICamera.cs:1508)
+UICamera:ProcessMouse() (at Assets/NGUI/Scripts/UI/UICamera.cs:1136)
+UICamera:ProcessTouches() (at Assets/NGUI/Scripts/UI/UICamera.cs:1206)
+UICamera:Update() (at Assets/NGUI/Scripts/UI/UICamera.cs:970)
+
+[I] 09-12 20:36:56(37.90155):MainPanel Refresh
+UnityEngine.Debug:Log(Object)
+Debuger:Log(String, Object[]) (at Assets/Scripts/Base/Debuger.cs:61)
+UIMainPanel:OnRefresh() (at Assets/Scripts/UI/View/UIMainPanel.cs:25)
+UIManager:ActiveView(UIData) (at Assets/Scripts/Manager/UIManager.cs:172)
+UIManager:CloseView(String) (at Assets/Scripts/Manager/UIManager.cs:113)
+UIManager:PageBack() (at Assets/Scripts/Manager/UIManager.cs:214)
+UIPagePanel:BackPage() (at Assets/Scripts/UI/View/UIPagePanel.cs:20)
+EventDelegate:Execute() (at Assets/NGUI/Scripts/Internal/EventDelegate.cs:454)
+EventDelegate:Execute(List`1) (at Assets/NGUI/Scripts/Internal/EventDelegate.cs:592)
+UIButton:OnClick() (at Assets/NGUI/Scripts/Interaction/UIButton.cs:201)
+UnityEngine.GameObject:SendMessage(String, Object, SendMessageOptions)
+UICamera:Notify(GameObject, String, Object) (at Assets/NGUI/Scripts/UI/UICamera.cs:830)
+UICamera:ProcessTouch(Boolean, Boolean) (at Assets/NGUI/Scripts/UI/UICamera.cs:1508)
+UICamera:ProcessMouse() (at Assets/NGUI/Scripts/UI/UICamera.cs:1136)
+UICamera:ProcessTouches() (at Assets/NGUI/Scripts/UI/UICamera.cs:1206)
+UICamera:Update() (at Assets/NGUI/Scripts/UI/UICamera.cs:970)
+
+[E] Assets/Plugins/Google.Protobuf/ByteString.cs(182,20): error CS1644: Feature `asynchronous functions' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/CodedInputStream.cs(457,22): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Collections/MapField.cs(556,66): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Collections/MapField.cs(558,70): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Collections/RepeatedField.cs(287,26): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Collections/RepeatedField.cs(292,32): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Collections/RepeatedField.cs(542,32): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Collections/RepeatedField.cs(549,41): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Collections/RepeatedField.cs(551,37): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/FieldCodec.cs(366,62): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/FieldCodec.cs(464,47): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/FieldCodec.cs(470,50): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/FieldCodec.cs(472,41): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonFormatter.cs(128,37): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonFormatter.cs(527,54): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonFormatter.cs(832,79): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonFormatter.cs(838,73): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonFormatter.cs(844,83): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonFormatter.cs(889,92): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonFormatter.cs(893,51): error CS1644: Feature `null propagating operator' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonFormatter.cs(898,41): error CS1644: Feature `null propagating operator' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(199,71): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(522,54): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(554,59): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(560,59): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(644,75): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(653,71): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(658,63): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(667,59): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(671,59): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(716,67): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(721,63): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(738,59): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(744,63): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(751,63): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(760,59): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(764,59): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(779,59): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(792,59): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(892,63): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(899,59): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/JsonParser.cs(959,67): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/CustomOptions.cs(122,62): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/CustomOptions.cs(131,63): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/CustomOptions.cs(140,62): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/CustomOptions.cs(149,63): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/CustomOptions.cs(242,26): error CS1644: Feature `null propagating operator' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/EnumDescriptor.cs(119,44): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/EnumDescriptor.cs(119,60): error CS1644: Feature `null propagating operator' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/EnumValueDescriptor.cs(73,44): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/EnumValueDescriptor.cs(73,60): error CS1644: Feature `null propagating operator' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FieldDescriptor.cs(88,26): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FieldDescriptor.cs(107,37): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FieldDescriptor.cs(127,40): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FieldDescriptor.cs(180,32): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FieldDescriptor.cs(185,27): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FieldDescriptor.cs(190,30): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FieldDescriptor.cs(200,36): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FieldDescriptor.cs(205,32): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FieldDescriptor.cs(256,44): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FieldDescriptor.cs(256,60): error CS1644: Feature `null propagating operator' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FieldDescriptor.cs(281,72): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FieldDescriptor.cs(289,72): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FieldDescriptor.cs(302,72): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FieldDescriptor.cs(341,64): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FileDescriptor.cs(131,28): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FileDescriptor.cs(137,31): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FileDescriptor.cs(172,37): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FileDescriptor.cs(177,41): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FileDescriptor.cs(303,46): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FileDescriptor.cs(315,21): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FileDescriptor.cs(336,44): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/FileDescriptor.cs(336,60): error CS1644: Feature `null propagating operator' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/MessageDescriptor.cs(71,39): error CS1644: Feature `null propagating operator' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/MessageDescriptor.cs(72,40): error CS1644: Feature `null propagating operator' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/MessageDescriptor.cs(96,80): error CS1644: Feature `null propagating operator' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/MessageDescriptor.cs(118,37): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/MessageDescriptor.cs(167,39): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/MessageDescriptor.cs(173,37): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/MessageDescriptor.cs(205,61): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/MessageDescriptor.cs(212,62): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/MessageDescriptor.cs(220,79): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/MessageDescriptor.cs(226,44): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/MessageDescriptor.cs(226,60): error CS1644: Feature `null propagating operator' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/MessageDescriptor.cs(265,64): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/MessageDescriptor.cs(273,64): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/MessageDescriptor.cs(283,72): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/MethodDescriptor.cs(73,44): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/MethodDescriptor.cs(73,60): error CS1644: Feature `null propagating operator' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/OneofDescriptor.cs(96,44): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/OneofDescriptor.cs(96,60): error CS1644: Feature `null propagating operator' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/OneofDescriptor.cs(116,64): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/OneofDescriptor.cs(121,64): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/ServiceDescriptor.cs(84,44): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/Reflection/ServiceDescriptor.cs(84,60): error CS1644: Feature `null propagating operator' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/WellKnownTypes/AnyPartial.cs(43,87): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/WellKnownTypes/AnyPartial.cs(85,22): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/WellKnownTypes/AnyPartial.cs(117,50): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/WellKnownTypes/FieldMaskPartial.cs(82,58): error CS1644: Feature `interpolated strings' cannot be used because it is not part of the C# 4.0 language specification
+
+[E] Assets/Plugins/Google.Protobuf/WellKnownTypes/TimestampPartial.cs(48,73): error CS1644: Feature `expression bodied members' cannot be used because it is not part of the C# 4.0 language specification
+
