@@ -12,7 +12,7 @@ using System.Threading;
 using UnityEngine;
 
 public delegate void RpcResponse(IMessage response);
-
+public delegate void RpcReceiveListener(string rpcName, IMessage data);
 public class RpcNetwork
 {
     private static RpcNetwork m_Instance;
@@ -45,6 +45,7 @@ public class RpcNetwork
     static Socket m_socket;
     static List<byte[]> m_messageQueue = new List<byte[]>();//注意线程安全
     static List<RPC> m_RpcQueue = new List<RPC>();//注意线程安全
+    static RpcReceiveListener m_Listener = null;
 
     class RPC {
         public string msg;
@@ -288,6 +289,9 @@ public class RpcNetwork
         }
 
     }
+    /// <summary>
+    /// 处理socket包接收
+    /// </summary>
     private void QueueRecieve()
     {
         int blockSize = 256;
@@ -307,6 +311,9 @@ public class RpcNetwork
             }
         }
     }
+    /// <summary>
+    /// 处理rpc组合、分发
+    /// </summary>
     private void QueueProcess()
     {
 
@@ -422,7 +429,7 @@ public class RpcNetwork
             m_RpcQueue.RemoveAt(0);
         }
         Assembly assem = currentRpc.rpcType.Assembly;
-        Type type = assem.GetType(currentRpc.rpcType.Namespace + "." + currentRpc.msg + "Response");
+        Type type = assem.GetType(currentRpc.rpcType.Namespace + "." + currentRpc.msg + "Response");//这里要按规则来！！！！
         if (type != null)
         {
             IMessage resRpc = Activator.CreateInstance(type) as IMessage;
@@ -431,6 +438,7 @@ public class RpcNetwork
             {
                 currentRpc.callback(resRpc);
             });
+            m_Listener.Invoke(currentRpc.msg, resRpc);//分发给注册的Listener
         }
     }
 
@@ -481,4 +489,8 @@ public class RpcNetwork
         });
     }
 
+    public void BindRpcReceive(RpcReceiveListener listener)
+    {
+        m_Listener = listener;
+    }
 }

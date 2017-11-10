@@ -182,7 +182,7 @@ public class ObjectPoolManager : Manager
     public override void OnManagerReady()
     {
         //创建Pool
-        if (m_ObjectPool != null)
+        if (m_ObjectPool == null)
         {
             m_ObjectPool = new GameObject();
             m_ObjectPool.name = "ObjectPool";
@@ -193,7 +193,8 @@ public class ObjectPoolManager : Manager
     }
     public override void OnManagerDestroy()
     {
-
+        m_ObjectInstanceMap.Clear();
+        m_ObjectMap.Clear();
     }
 }
 

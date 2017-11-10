@@ -21,20 +21,24 @@ public class ThreadManager : Manager
         }
     }
     private int _count;
-
-    void Awake()
-    {
-        _current = this;
-    }
+    
 
     
     public override void OnManagerReady()
     {
-
+        _current = this;
     }
     public override void OnManagerDestroy()
     {
-
+        //自动销毁所有工作中的线程
+        for (int i = m_TreadList.Count - 1; i >= 0; i--)
+        {
+            if (m_TreadList[i].IsAlive)
+            {
+                m_TreadList[i].Abort();
+            }
+        }
+        m_TreadList.Clear();
     }
 
     private List<Action> _actions = new List<Action>();
@@ -132,16 +136,5 @@ public class ThreadManager : Manager
 
 
     }
-    private void OnDestroy()
-    {
-        //自动销毁所有工作中的线程
-        for (int i = m_TreadList.Count - 1; i >= 0; i--)
-        {
-            if (m_TreadList[i].IsAlive)
-            {
-                m_TreadList[i].Abort();
-            }
-        }
-        m_TreadList.Clear();
-    }
+
 }

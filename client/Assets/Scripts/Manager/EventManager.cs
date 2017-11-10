@@ -16,7 +16,7 @@ public class EventManager : Manager
     }
     public override void OnManagerDestroy()
     {
-
+        m_TreeMap.Clear();
     }
     public void Broadcast(string msg,object content)
     {

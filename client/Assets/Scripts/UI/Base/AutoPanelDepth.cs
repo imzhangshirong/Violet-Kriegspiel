@@ -28,7 +28,6 @@ public class AutoPanelDepth : MonoBehaviour
     }
     void AutoDepth()
     {
-        Debuger.Warn(offsetDepth);
         panel.depth = offsetDepth + rootPanel.depth;
     }
 }

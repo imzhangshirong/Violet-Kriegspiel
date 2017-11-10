@@ -51,4 +51,12 @@ public class ResourceManager : Manager
 		string re = path;
 		return re;
 	}
+    public override void OnManagerDestroy()
+    {
+        m_resourseMap.Clear();
+    }
+    public override void OnManagerReady()
+    {
+        
+    }
 }

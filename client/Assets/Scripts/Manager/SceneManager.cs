@@ -13,7 +13,7 @@ public class SceneManager : Manager//场景切换和缓存
     public override void OnManagerReady()
     {
         //创建Pool
-        if (m_ScenePool != null)
+        if (m_ScenePool == null)
         {
             m_ScenePool = new GameObject();
             m_ScenePool.name = "ScenePool";

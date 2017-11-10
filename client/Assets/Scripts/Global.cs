@@ -35,12 +35,16 @@ public class Global : MonoBehaviour{
         AppInterface.UIManager.RegisteUI("UIGamePanel", "Game/UIGamePanel", UILayoutStyle.Center, UIViewStyle.Page);
         AppInterface.UIManager.RegisteUI("UIPagePanel", "UIPagePanel", UILayoutStyle.Center, UIViewStyle.Page);
 
+        //注册RPC Push事件
+        AppInterface.NetworkManager.RegisterPush("GameStart", "#NET_GameStart");
+        AppInterface.NetworkManager.RegisterPush("GameEnd", "#NET_GameEnd");
+        AppInterface.NetworkManager.RegisterPush("GameEnemyReady", "#NET_GameEnemyReady");
+        AppInterface.NetworkManager.RegisterPush("GameChessMove", "#NET_GameChessMove");
+
         Debuger.Log("Inited");
     }
     void OnApplicationQuit()
     {
-        Debuger.Log("ReadyDestroy");
-        RpcNetwork.Instance.Destroy();
         Debuger.Log("Destroied");
     }
 }

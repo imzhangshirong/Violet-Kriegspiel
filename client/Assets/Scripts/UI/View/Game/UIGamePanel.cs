@@ -348,4 +348,53 @@ public class UIGamePanel : UIViewBase
         }
         ChessGamePackage.Instance.MyselfChooseChessId = -1;
     }
+
+    /// <summary>
+    /// 布子结束，准备
+    /// </summary>
+    public void OnReadyClick()
+    {
+
+    }
+
+    /// <summary>
+    /// 聊天语句选择
+    /// </summary>
+    public void OnChatClick()
+    {
+
+    }
+    /// <summary>
+    /// 投降
+    /// </summary>
+    public void OnSurrenderClick()
+    {
+
+    }
+
+
+
+    
+
+    /// <summary>
+    /// 收到聊天
+    /// </summary>
+    void OnReceiveChatMsg()
+    {
+
+    }
+    /// <summary>
+    /// 敌方的操作，准备，投降，走子情况
+    /// </summary>
+    void OnReceiveEnemyOperation()
+    {
+
+    }
+    /// <summary>
+    /// 同步棋盘和比赛信息，在网络不稳定或者重连的时候触发
+    /// </summary>
+    void OnReceiveChessMapChange()
+    {
+
+    }
 }
