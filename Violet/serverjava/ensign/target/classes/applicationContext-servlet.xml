@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<bean id="baseServlet" class="common.BaseServlet">
+		<property name="rpcNum" value="1"></property>
+	</bean>
+	<bean id="Hello" class="ensign.servlet.HelloServlet"
+		parent="baseServlet">
+		<property name="rpcNum" value="1"></property>
+	</bean>
+	<bean id="Match" class="ensign.servlet.MatchServlet"
+		parent="baseServlet">
+		<property name="rpcNum" value="2"></property>
+	</bean>
+</beans>
