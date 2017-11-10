@@ -14,4 +14,12 @@ public class Manager : MonoBehaviour, IManager
     {
 
     }
+    private void OnDestroy()
+    {
+        OnManagerDestroy();
+    }
+    private void Awake()
+    {
+        OnManagerReady();
+    }
 }

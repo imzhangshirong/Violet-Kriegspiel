@@ -39,8 +39,8 @@ public class App : Singleton<App>
         {
             m_Managers[managerName] = c;
         }
-        IManager manager = (IManager)c;
-        manager.OnManagerReady();//通知已经准备就绪
+        //IManager manager = (IManager)c;
+        //manager.OnManagerReady();//通知已经准备就绪
     }
 
     public void RemoveManager(string managerName) {

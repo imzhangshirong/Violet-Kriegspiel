@@ -24,7 +24,7 @@ public class Global : MonoBehaviour{
         App.Instance.AddManager<GameManager>(GameManager.Name);
 
         //注册对象池
-        AppInterface.ObjectPoolManager.RegisteObject("UIAlertWindow", Config.UIResourcePath + "/UIAlertWindow", 0, 128, 10);
+        AppInterface.ObjectPoolManager.RegisteObject("UIAlertWindow", Config.UIResourcePath + "/UIAlertWindow", 0, 128, 8f);
 
         //注册UI
         AppInterface.UIManager.RegisteUI("UITopTest", "Widget/UITopTest", UILayoutStyle.Top, UIViewStyle.OverView);
