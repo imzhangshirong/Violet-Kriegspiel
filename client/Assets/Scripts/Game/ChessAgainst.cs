@@ -391,7 +391,7 @@ public enum FieldRoadStationType
 
 public enum ChessGameMode
 {
-    Against = 0,
-    SelfToSelf = 1,
-    ShowChess = 2,
+    Against = 0,//对战模式
+    SelfToSelf = 1,//练习模式
+    ShowChess = 2,//明牌模式
 }

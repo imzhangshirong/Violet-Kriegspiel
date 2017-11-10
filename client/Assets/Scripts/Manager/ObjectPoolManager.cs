@@ -12,16 +12,6 @@ public class ObjectPoolManager : Manager
     private Dictionary<string, PoolObjectState> m_ObjectMap = new Dictionary<string, PoolObjectState>();
     private Dictionary<string, List<PoolInstanceState>> m_ObjectInstanceMap = new Dictionary<string, List<PoolInstanceState>>();
     GameObject m_ObjectPool;
-    private void Awake()
-    {
-        //创建Pool
-        m_ObjectPool = new GameObject();
-        m_ObjectPool.name = "ObjectPool";
-        m_ObjectPool.transform.parent = gameObject.transform;
-        m_ObjectPool.transform.localScale = Vector3.one;
-        m_ObjectPool.transform.localPosition = Vector3.zero;
-
-    }
     public void RegisteObject(string name, string resourcePath, int min,int max,float cleanDuration)
     {
         if (min > max || max <= 0) throw new Exception("ObjectPool Max must > 0!");
@@ -191,7 +181,15 @@ public class ObjectPoolManager : Manager
 
     public override void OnManagerReady()
     {
-
+        //创建Pool
+        if (m_ObjectPool != null)
+        {
+            m_ObjectPool = new GameObject();
+            m_ObjectPool.name = "ObjectPool";
+            m_ObjectPool.transform.parent = gameObject.transform;
+            m_ObjectPool.transform.localScale = Vector3.one;
+            m_ObjectPool.transform.localPosition = Vector3.zero;
+        }
     }
     public override void OnManagerDestroy()
     {
