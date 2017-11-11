@@ -113,13 +113,13 @@ public class UIManager : Manager
             
             if (m_UIData.viewStyle != UIViewStyle.Window)
             {
-                m_UIData.gameObject = MonoBehaviour.Instantiate(AppInterface.ResourceManager.LoadUI(m_UIData.resourceName)) as GameObject;
+                m_UIData.gameObject = MonoBehaviour.Instantiate(App.ResourceManager.LoadUI(m_UIData.resourceName)) as GameObject;
                 m_UIData.gameObject.name = name;
                 m_UIDataMap.Add(name, m_UIData);
             }
             else
             {
-                m_UIData.gameObject = AppInterface.ObjectPoolManager.Instantiate(name);
+                m_UIData.gameObject = App.ObjectPoolManager.Instantiate(name);
                 m_UIData.gameObject.name = name;
 
             }
@@ -290,7 +290,7 @@ public class UIManager : Manager
             UIViewBase baseView = TopView.gameObject.GetComponent<UIViewBase>();
             if (baseView != null) baseView.OnClose();
             m_StackPage.Remove(TopView);
-            AppInterface.ObjectPoolManager.Releasse(TopView.name, TopView.gameObject);
+            App.ObjectPoolManager.Releasse(TopView.name, TopView.gameObject);
             if (m_StackPage.Count > 0)
             {
                 ActiveView(m_StackPage[m_StackPage.Count - 1]);

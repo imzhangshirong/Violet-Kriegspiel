@@ -13,9 +13,11 @@ public class Global : MonoBehaviour{
 
         //加载Manager
         DontDestroyOnLoad(gameObject);
+
         App.Instance.AddManager<ThreadManager>(ThreadManager.Name);
         App.Instance.AddManager<LocalDataManager>(LocalDataManager.Name);
         App.Instance.AddManager<NetworkManager>(NetworkManager.Name);
+        App.Instance.AddManager<MockManager>(MockManager.Name);
         App.Instance.AddManager<ResourceManager>(ResourceManager.Name);
         App.Instance.AddManager<SceneManager>(SceneManager.Name);
         App.Instance.AddManager<ObjectPoolManager>(ObjectPoolManager.Name);
@@ -24,22 +26,22 @@ public class Global : MonoBehaviour{
         App.Instance.AddManager<GameManager>(GameManager.Name);
 
         //注册对象池
-        AppInterface.ObjectPoolManager.RegisteObject("UIAlertWindow", Config.UIResourcePath + "/UIAlertWindow", 0, 128, 8f);
+        App.ObjectPoolManager.RegisteObject("UIAlertWindow", Config.UIResourcePath + "/UIAlertWindow", 0, 128, 8f);
 
         //注册UI
-        AppInterface.UIManager.RegisteUI("UITopTest", "Widget/UITopTest", UILayoutStyle.Top, UIViewStyle.OverView);
-        AppInterface.UIManager.RegisteUI("UITips", "UITips", UILayoutStyle.Center, UIViewStyle.Tips);
-        AppInterface.UIManager.RegisteUI("UIAlertWindow", "UIAlertWindow", UILayoutStyle.Center, UIViewStyle.Window);
+        App.UIManager.RegisteUI("UITopTest", "Widget/UITopTest", UILayoutStyle.Top, UIViewStyle.OverView);
+        App.UIManager.RegisteUI("UITips", "UITips", UILayoutStyle.Center, UIViewStyle.Tips);
+        App.UIManager.RegisteUI("UIAlertWindow", "UIAlertWindow", UILayoutStyle.Center, UIViewStyle.Window);
 
-        AppInterface.UIManager.RegisteUI("UIMainPanel", "UIMainPanel", UILayoutStyle.Center, UIViewStyle.Page);
-        AppInterface.UIManager.RegisteUI("UIGamePanel", "Game/UIGamePanel", UILayoutStyle.Center, UIViewStyle.Page);
-        AppInterface.UIManager.RegisteUI("UIPagePanel", "UIPagePanel", UILayoutStyle.Center, UIViewStyle.Page);
+        App.UIManager.RegisteUI("UIMainPanel", "UIMainPanel", UILayoutStyle.Center, UIViewStyle.Page);
+        App.UIManager.RegisteUI("UIGamePanel", "Game/UIGamePanel", UILayoutStyle.Center, UIViewStyle.Page);
+        App.UIManager.RegisteUI("UIPagePanel", "UIPagePanel", UILayoutStyle.Center, UIViewStyle.Page);
 
         //注册RPC Push事件
-        AppInterface.NetworkManager.RegisterPush("GameStart", "#NET_GameStart");
-        AppInterface.NetworkManager.RegisterPush("GameEnd", "#NET_GameEnd");
-        AppInterface.NetworkManager.RegisterPush("GameEnemyReady", "#NET_GameEnemyReady");
-        AppInterface.NetworkManager.RegisterPush("GameChessMove", "#NET_GameChessMove");
+        App.NetworkManager.RegisterPush("GameStart", "#NET_GameStart");
+        App.NetworkManager.RegisterPush("GameEnd", "#NET_GameEnd");
+        App.NetworkManager.RegisterPush("GameEnemyReady", "#NET_GameEnemyReady");
+        App.NetworkManager.RegisterPush("GameChessMove", "#NET_GameChessMove");
 
         Debuger.Log("Inited");
     }

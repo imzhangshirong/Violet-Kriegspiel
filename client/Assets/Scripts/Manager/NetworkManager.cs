@@ -42,11 +42,12 @@ public class NetworkManager : Manager
 
     }
 
-    void DispatchPush(string msg, IMessage data)
+    public void DispatchPush(string msg, IMessage data)
     {
         if (m_NetPushMap.ContainsKey(msg) && m_NetPushMap[msg] != "")
         {
-            AppInterface.EventManager.Broadcast(m_NetPushMap[msg], data);
+            App.EventManager.Broadcast(m_NetPushMap[msg], data);
         }
     }
+    
 }

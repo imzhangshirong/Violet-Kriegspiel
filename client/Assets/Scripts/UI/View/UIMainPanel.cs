@@ -21,7 +21,7 @@ public class UIMainPanel : UIViewBase
 	}
 	public void NextPage()
 	{
-        AppInterface.UIManager.ReplaceView("UIGamePanel");
+        App.UIManager.ReplaceView("UIGamePanel");
 	}
 	public override void OnRefresh()
 	{
@@ -40,18 +40,18 @@ public class UIMainPanel : UIViewBase
         RpcNetwork.Request("Hello",request,delegate(IMessage response) {
             HelloResponse res = response as HelloResponse;
             rpcResponse.text = res.Greet;
-            AppInterface.EventManager.Broadcast("_greeting", res.Greet);
+            App.EventManager.Broadcast("_greeting", res.Greet);
         });
     }
     public void SIMPLE_TEST()
     {
-        Common.UI.OpenAlert("Confirm", "Will Send String \""+ rpcInput.value + "\" To Server", "OK", Test, "Cancel", Nagetive, AlertWindowMode.TwoButton);
+        Common.UI.OpenAlert("Confirm", "Will Send String \""+ rpcInput.value + "\" To Server", "OK", Test, "Cancel", Nagetive, false);
         //Debuger.Log("send string:" + rpcInput.value);
         //RpcNetwork.SendUnEncode(rpcInput.value);
     }
     void Test()
     {
-        Common.UI.OpenAlert("Confirm", "RRRWill Send String \"" + rpcInput.value + "\" To Server", "OK", Test, "Cancel", Nagetive, AlertWindowMode.TwoButton);
+        Common.UI.OpenAlert("Confirm弹窗测试", "RRRWill Send String \"" + rpcInput.value + "\" To Server", "OK", Test, "Cancel", Nagetive, false);
 
     }
     void Positive()

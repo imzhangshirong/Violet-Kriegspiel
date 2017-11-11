@@ -4,27 +4,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using Com.Violet.Rpc;
 
 public class UIGamePanel : UIViewBase
 {
     public GameObject m_MyselfFied;
     public GameObject m_EnemyFied;
+    public GameObject m_ReadyButton;
+    public GameObject m_SurrenderButton;
+    public GameObject m_ChatButton;
+    public UIWChessPlayerState m_EnemyState;
+    public UIWChessPlayerState m_MyselfState;
+
 
     private bool m_MyChessIsMoving;
     private GameObject m_ChessHero;
     public override void OnInit()
     {
         base.OnInit();
-        AppInterface.UIManager.HideOverViewByPage("UITopTest");
+        App.UIManager.HideOverViewByPage("UITopTest");
 
         //加载
-        m_ChessHero = AppInterface.ResourceManager.LoadUI("Game/ChessHero");
+        m_ChessHero = App.ResourceManager.LoadUI("Game/ChessHero");
 
         //注册消息事件
         BindEvent("_chessClick", OnChessClick);
         BindEvent("_chessHeroClick", OnChessHeroClick);
         BindEvent("_chessFieldClick", OnChessFieldClick);
         BindEvent("_chessExchange", OnChessExchange);
+        BindEvent("_readyTimeUp", delegate (object content) {
+            OnReadyClick();
+        });
     }
 
     
@@ -33,16 +43,19 @@ public class UIGamePanel : UIViewBase
     {
         base.OnOpen(intent);
         Debuger.Log("GamePanel Open");
+        PlayerPackage.Instance.Init(null);
         ChessGamePackage.Instance.Init(null);
         ChessGamePackage.Instance.AddChessFromData("6|1,3|2,0|3,11|4,0|5;10|6,2|7,5|8,0|9,3|10;9|11,,2|12,,4|13;1|14,5|15,,6|16,7|17;7|18,,4|19,,1|20;8|21,2|22,4|23,3|24,8|25;", ChessHeroGroup.Myself);
         ChessGamePackage.Instance.AddChessFromData("6|1,3|2,0|3,-1|4,0|5;10|6,2|7,5|8,0|9,3|10;9|11,,2|12,,4|13;1|14,5|15,,6|16,7|17;7|18,,4|19,,1|20;8|21,2|22,4|23,3|24,8|25;", ChessHeroGroup.Enemy);
         InitChessHero(ChessHeroGroup.Myself);
         InitChessHero(ChessHeroGroup.Enemy);
+        m_MyselfState.UpdateState(ChessGamePackage.Instance.MyselfPlayerData);
+        m_EnemyState.UpdateState(ChessGamePackage.Instance.EnemyPlayerData);
 
     }
     public void BackPage()
     {
-        AppInterface.UIManager.PageBack();
+        App.UIManager.PageBack();
     }
     public override void OnRefresh()
     {
@@ -61,6 +74,16 @@ public class UIGamePanel : UIViewBase
         {
             if (ChessGamePackage.Instance.GetChessGroupById(move.id) == ChessHeroGroup.Myself && ChessGamePackage.Instance.GetChessGroupById(place.id) == ChessHeroGroup.Myself) //只有自己的才可以拖拽
             {
+                if((move.heroTypeId == 11 && !ChessAgainst.IsStronghold(place.point)) || (place.heroTypeId == 11 && !ChessAgainst.IsStronghold(move.point)))
+                {
+                    Common.UI.OpenTips("军旗只能在大本营中哦！");
+                    return;
+                }
+                if((move.heroTypeId == 0 && !ChessAgainst.IsAfterCamp(place.point)) || (place.heroTypeId == 0 && !ChessAgainst.IsAfterCamp(move.point)))
+                {
+                    Common.UI.OpenTips("地雷只能在后2排哦！");
+                    return;
+                }
                 ChessPoint tpoint = move.point;
                 ChessMoveTo(move, place.point);
                 ChessMoveTo(place, tpoint);
@@ -354,7 +377,8 @@ public class UIGamePanel : UIViewBase
     /// </summary>
     public void OnReadyClick()
     {
-
+        ChessGamePackage.Instance.MyselfPlayerData.state = ChessPlayerState.Ready;
+        m_MyselfState.UpdateState(ChessGamePackage.Instance.MyselfPlayerData);
     }
 
     /// <summary>
@@ -369,7 +393,13 @@ public class UIGamePanel : UIViewBase
     /// </summary>
     public void OnSurrenderClick()
     {
-
+        Common.UI.OpenAlert("提示", "游戏还在继续，确认投降吗？",
+            "确认", delegate (){
+                Debuger.Log(1111);
+            },
+            "不服", delegate () {
+                Debuger.Log(222);
+            },AlertWindowMode.TwoButton);
     }
 
 
@@ -384,9 +414,9 @@ public class UIGamePanel : UIViewBase
 
     }
     /// <summary>
-    /// 敌方的操作，准备，投降，走子情况
+    /// 走子情况
     /// </summary>
-    void OnReceiveEnemyOperation()
+    void OnReceiveChessMove()
     {
 
     }
@@ -396,5 +426,16 @@ public class UIGamePanel : UIViewBase
     void OnReceiveChessMapChange()
     {
 
+    }
+
+    void OnReceiveGameStart()
+    {
+
+    }
+
+    void OnReceiveEnemyState()
+    {
+        Debuger.Warn("enemyState");
+        
     }
 }

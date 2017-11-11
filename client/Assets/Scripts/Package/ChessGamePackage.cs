@@ -21,6 +21,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
         },
         state = ChessPlayerState.UnReady,
         group = ChessHeroGroup.Enemy,
+        remainTime = 30,
     };
     public ChessPlayerData EnemyPlayerData
     {
@@ -35,23 +36,12 @@ public class ChessGamePackage : Package<ChessGamePackage>
         playerInfo = PlayerPackage.Instance.playerInfo,
         state = ChessPlayerState.UnReady,
         group = ChessHeroGroup.Myself,
+        remainTime = 30,
     };
     public ChessPlayerData MyselfPlayerData
     {
         get
         {
-            if (IsGameStart)
-            {
-                m_MyselfPlayerData.state = ChessPlayerState.Gaming;
-            }
-            else if (IsReadyGame)
-            {
-                m_MyselfPlayerData.state = ChessPlayerState.Ready;
-            }
-            else
-            {
-                m_MyselfPlayerData.state = ChessPlayerState.UnReady;
-            }
             return m_MyselfPlayerData;
         }
     }

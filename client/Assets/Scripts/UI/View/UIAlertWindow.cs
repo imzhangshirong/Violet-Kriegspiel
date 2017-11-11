@@ -15,10 +15,12 @@ public class UIAlertWindow : UIViewBase
     public UILabel negativeLabel;
     public GameObject OneButtonMode;
     public GameObject TwoButtonMode;
+    
 
     AlertWindowClick positive;
     AlertWindowClick negative;
     TweenScale tween;
+    bool autoClose = true;
 
     public override void OnInit()
     {
@@ -35,6 +37,7 @@ public class UIAlertWindow : UIViewBase
         positive = intent.Value<AlertWindowClick>("positive");
         negative = intent.Value<AlertWindowClick>("negative");
         int mode = intent.Value<int>("mode");
+        autoClose = intent.Value<bool>("autoClose");
         title.text = titleStr;
         //content.text = "";
         content.text = contentStr;
@@ -65,6 +68,7 @@ public class UIAlertWindow : UIViewBase
     {
         if (positive != null)
         {
+            if(autoClose) Common.UI.BackPage();
             positive();
         }
         else
@@ -76,6 +80,7 @@ public class UIAlertWindow : UIViewBase
     {
         if (negative != null)
         {
+            if (autoClose) Common.UI.BackPage();
             negative();
         }
         else

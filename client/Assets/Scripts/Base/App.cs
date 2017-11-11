@@ -2,71 +2,70 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using UnityEngine;
 
-public class App : Singleton<App>
+public class App : AppBase
 {
-    static GameObject obj_Manager;
-    Dictionary<string, object> m_Managers = new Dictionary<string, object>();
-    static GameObject ManagerInstance
+    public static GameManager GameManager
     {
         get
         {
-            if (obj_Manager == null)
-            {
-                obj_Manager = GameObject.Find("Global");
-            }
-            return obj_Manager;
+            return App.Instance.GetManager<GameManager>(GameManager.Name);
         }
     }
-
-    public App()
+    public static EventManager EventManager
     {
-        Init();
+        get
+        {
+            return App.Instance.GetManager<EventManager>(EventManager.Name);
+        }
     }
-    public void Init()
+    public static LocalDataManager LocalDataManager
     {
-        
+        get
+        {
+            return App.Instance.GetManager<LocalDataManager>(LocalDataManager.Name);
+        }
     }
-    public void AddManager<T>(string managerName) where T : Component
+    public static NetworkManager NetworkManager
     {
-        Component c = ManagerInstance.AddComponent<T>();
-        if (!m_Managers.ContainsKey(managerName))
+        get
         {
-            m_Managers.Add(managerName, c);
-        }
-        else
-        {
-            m_Managers[managerName] = c;
-        }
-        //IManager manager = (IManager)c;
-        //manager.OnManagerReady();//通知已经准备就绪
-    }
-
-    public void RemoveManager(string managerName) {
-        if (m_Managers.ContainsKey(managerName))
-        {
-            object manager = null;
-            m_Managers.TryGetValue(managerName, out manager);
-            Type type = manager.GetType();
-            if (type.IsSubclassOf(typeof(MonoBehaviour)))
-            {
-                IManager imanager = (IManager)manager;
-                imanager.OnManagerDestroy();//通知开始销毁
-                GameObject.Destroy((Component)manager);
-            }
-            m_Managers.Remove(managerName);
+            return App.Instance.GetManager<NetworkManager>(NetworkManager.Name);
         }
     }
-
-    public T GetManager<T>(string managerName)
+    public static ObjectPoolManager ObjectPoolManager
     {
-        object manager = null;
-        if (m_Managers.ContainsKey(managerName))
+        get
         {
-            m_Managers.TryGetValue(managerName, out manager);
-            return (T)manager;
+            return App.Instance.GetManager<ObjectPoolManager>(ObjectPoolManager.Name);
         }
-        throw new Exception(managerName+" not Added");
+    }
+    public static ResourceManager ResourceManager
+    {
+        get
+        {
+            return App.Instance.GetManager<ResourceManager>(ResourceManager.Name);
+        }
+    }
+    public static SceneManager SceneManager
+    {
+        get
+        {
+            return App.Instance.GetManager<SceneManager>(SceneManager.Name);
+        }
+    }
+    public static ThreadManager ThreadManager
+    {
+        get
+        {
+            return App.Instance.GetManager<ThreadManager>(ThreadManager.Name);
+        }
+    }
+    public static UIManager UIManager
+    {
+        get
+        {
+            return App.Instance.GetManager<UIManager>(UIManager.Name);
+        }
     }
 }

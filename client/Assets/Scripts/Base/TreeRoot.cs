@@ -49,7 +49,7 @@ public class TreeRoot : MonoBehaviour
         //注册全局EventKey到EventManager
         for(int i = 0; i < m_EventKeys.Length; i++)
         {
-            AppInterface.EventManager.RegisteTreeRoot(m_EventKeys[i], this);
+            App.EventManager.RegisteTreeRoot(m_EventKeys[i], this);
         }
         
     }

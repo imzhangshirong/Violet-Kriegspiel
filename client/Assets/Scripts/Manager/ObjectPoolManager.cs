@@ -15,7 +15,7 @@ public class ObjectPoolManager : Manager
     public void RegisteObject(string name, string resourcePath, int min,int max,float cleanDuration)
     {
         if (min > max || max <= 0) throw new Exception("ObjectPool Max must > 0!");
-        GameObject go = AppInterface.ResourceManager.Load<GameObject>(resourcePath);
+        GameObject go = App.ResourceManager.Load<GameObject>(resourcePath);
         PoolObjectState pos = new PoolObjectState();
         pos.min = min;
         pos.max = max;

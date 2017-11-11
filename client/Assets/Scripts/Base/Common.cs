@@ -10,13 +10,13 @@ public class Common
         {
             Intent intent = new Intent();
             intent.Push("tipContent", msg);
-            AppInterface.UIManager.OpenView("UITips", intent);
+            App.UIManager.OpenView("UITips", intent);
         }
         public static void BackPage()
         {
-            AppInterface.UIManager.PageBack();
+            App.UIManager.PageBack();
         }
-        public static void OpenAlert(string title,string content, string positiveString, AlertWindowClick positive, string negativeString, AlertWindowClick negative, AlertWindowMode mode)
+        public static void OpenAlert(string title,string content, string positiveString, AlertWindowClick positive, string negativeString, AlertWindowClick negative, AlertWindowMode mode,bool autoClose = true)
         {
             Intent intent = new Intent();
             intent.Push("title", title);
@@ -26,8 +26,18 @@ public class Common
             intent.Push("positive", positive);
             intent.Push("negative", negative);
             intent.Push("mode", mode);
-            AppInterface.UIManager.OpenView("UIAlertWindow", intent);
+            intent.Push("autoClose", autoClose);
+            App.UIManager.OpenView("UIAlertWindow", intent);
         }
+        public static void OpenAlert(string title, string content, string positiveString, AlertWindowClick positive, string negativeString, bool autoClose = true)
+        {
+            OpenAlert(title, content, positiveString, positive, "", null, AlertWindowMode.OneButton, autoClose);
+        }
+        public static void OpenAlert(string title, string content, string positiveString, AlertWindowClick positive, string negativeString, AlertWindowClick negative, bool autoClose = true)
+        {
+            OpenAlert(title, content, positiveString, positive, negativeString, negative, AlertWindowMode.TwoButton, autoClose);
+        }
+
     }
     
 }

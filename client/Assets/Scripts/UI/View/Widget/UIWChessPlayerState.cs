@@ -12,34 +12,40 @@ public class UIWChessPlayerState : UIWidgetBase
     public GameObject unReadyState;
     public GameObject roundState;
     public UIWTimer roundTimer;
+    public TweenAlpha roundEffect;
+    
+    
 
-    public ChessHeroGroup group;
-
-    private void Awake()
+    public void UpdateState(ChessPlayerData playerData)
     {
-        BindEvent("_" + group.ToString() + "_updateState", OnUpdateState);
-    }
-
-    void OnUpdateState(object content)
-    {
-        ChessPlayerData playerData = (ChessPlayerData)content;
-        readyState.SetActive(false);
-        unReadyState.SetActive(false);
-        roundState.SetActive(false);
-        roundTimer.remainTime = playerData.remainTime;
+        if (readyState) readyState.SetActive(false);
+        if (unReadyState) unReadyState.SetActive(false);
+        if (roundState) roundState.SetActive(false);
+        if (roundEffect) roundEffect.enabled = false;
         switch (playerData.state)
         {
             case ChessPlayerState.UnReady:
-                unReadyState.SetActive(true);
+                if (unReadyState) unReadyState.SetActive(true);
                 break;
             case ChessPlayerState.Ready:
-                readyState.SetActive(true);
+                if (readyState) readyState.SetActive(true);
                 break;
             case ChessPlayerState.Gaming:
-                roundState.SetActive(true);
+                if (roundState)
+                {
+                    roundState.SetActive(true);
+                    roundTimer.SetRemainTime(playerData.remainTime);
+                }
+                if (roundEffect)
+                {
+                    roundEffect.enabled = true;
+                    roundEffect.ResetToBeginning();
+                    roundEffect.PlayForward();
+                }
                 break;
         }
+        
         userName.text = playerData.playerInfo.userName;
-        userLevel.text = "lv." + playerData.playerInfo.level;
+        userLevel.text = "Lv." + playerData.playerInfo.level;
     }
 }

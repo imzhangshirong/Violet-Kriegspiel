@@ -274,6 +274,20 @@ public class ChessAgainst : MonoBehaviour
         if (s1 + s2 > 1 && station1.type != FieldRoadStationType.Barrack && station2.type != FieldRoadStationType.Barrack) return false;
         return true;
     }
+    public static bool IsStronghold(ChessPoint point)
+    {
+        if(point.x==1 || point.x == 3)
+        {
+            if (point.y == 0 || point.y == 11) return true;
+        }
+        return false;
+    }
+
+    public static bool IsAfterCamp(ChessPoint point)
+    {
+        if (point.y < 2 || point.y > 9 ) return true;
+        return false;
+    }
 
     public static bool ChessIsLegal(List<ChessHeroData> heros)
     {

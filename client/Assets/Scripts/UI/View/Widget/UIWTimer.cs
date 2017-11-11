@@ -20,6 +20,17 @@ public class UIWTimer : UIWidgetBase
     int m_RemainTime;
     private void OnEnable()
     {
+        m_IsTimering = false;
+        if (autoRunTimer) StartTimer();
+    }
+
+    
+
+    public void SetRemainTime(int time)
+    {
+        m_IsTimering = false;
+        remainTime = time;
+        label.text = GetRemainTimeString(timeFormat);
         if (autoRunTimer) StartTimer();
     }
 
@@ -53,11 +64,12 @@ public class UIWTimer : UIWidgetBase
     {
         while (m_RemainTime > 0 && m_IsTimering)
         {
-            m_RemainTime--;
             label.text = GetRemainTimeString(timeFormat);
+            m_RemainTime--;
             yield return new WaitForSeconds(1f);
         }
-        if (timeUpEventKey != "") Push(timeUpEventKey,null);
+        label.text = GetRemainTimeString(timeFormat);
+        if (timeUpEventKey != "" && m_RemainTime <=0) Push(timeUpEventKey,null);
         m_IsTimering = false;
     }
 
