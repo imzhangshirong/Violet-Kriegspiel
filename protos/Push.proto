@@ -1,0 +1,36 @@
+syntax = "proto3";
+package com.violet.rpc;
+
+import "Struct.proto";
+
+message RoomStateChangePush{//房间状态发生变化，对方退出
+  repeated PlayerInfo playerList = 1;
+}
+
+message EnterBattleFieldPush{//双方准备就绪进入游戏的push
+  repeated PlayerInfo playerList = 1;
+  int32 roundOrder = 2;//回合顺序位置，从0开始，0先手
+  repeated ChessData chessSetting = 3;//我方上次的摆子设置
+}
+
+message PlayerStateChagePush{//敌人状态改变
+  PlayerInfo playerInfo = 1;
+  
+}
+
+message GameStateChagePush{//游戏状态改变：布子，布子完成，游戏结束
+  int32 state = 1; //enum GameState
+  int32 result = 2; //enum GameResult
+}
+
+message ChessMovePush{
+  ChessData source = 1;
+  ChessData target = 2;
+  int32 chessMoveResult = 3; //enum ChessMoveResult
+  int32 counter = 4;//计数器
+}
+
+message ChatMessagePush{
+  int32 fromWhere = 1;
+  MessageData msg = 2;
+}

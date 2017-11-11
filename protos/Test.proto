@@ -1,0 +1,12 @@
+syntax = "proto3";
+package com.violet.rpc;
+
+import "Struct.proto";
+
+message HelloRequest{
+  string content = 1;
+}
+
+message HelloResponse{
+  string greet = 1;
+}

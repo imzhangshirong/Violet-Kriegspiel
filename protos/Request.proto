@@ -1,0 +1,123 @@
+syntax = "proto3";
+package com.violet.rpc;
+
+import "Struct.proto";
+
+message LoginRequest{
+  string userName = 1;
+  string password = 2;//这里考虑加密
+}
+
+message LoginResponse{
+  PlayerInfo playerInfo = 1;
+  int64 serverTime = 2;//同步服务器时间
+}
+
+message FindEnemyRequest{//寻找一场匹配
+
+}
+
+message FindEnemyResponse{
+  bool joinGameField = 1;//是否开始匹配
+}
+
+message CancelFindEnemyRequest{//取消寻找匹配
+
+}
+
+message CancelFindEnemyResponse{
+  bool isCancel = 1;//是否已经结束匹配
+}
+
+message GetRoomListRequest{//获取房间列表，todo
+  int32 zoneId = 1;//用户自己的zoneId
+}
+
+message GetRoomListResponse{
+  repeated RoomData roomList = 1;
+}
+
+message EnterRoomRequest{// todo
+  int32 roomId = 1;
+  string password = 2;
+}
+
+message EnterRoomResponse{
+  repeated PlayerInfo playerList = 1;
+}
+
+message ReadyInRoomRequest{
+  bool isReady = 1;
+}
+
+message ReadyInRoomResponse{
+  bool isChangeState = 1;//是否成功更改准备状态
+}
+
+message LeaveRoomRequest{
+  int32 roomId = 1;
+}
+
+message LeaveRoomResponse{
+  bool isLeave = 1;
+}
+
+
+message MoveChessRequest{//走子请求
+  ChessData source = 1;
+  ChessData target = 2;
+}
+
+message MoveChessResponse{
+  ChessData source = 1;
+  ChessData target = 2;
+  int32 chessMoveResult = 3; //enum ChessMoveResult
+  int32 counter = 4;//计数器
+}
+
+message BattleMapRequest{//请求整个棋盘的数据
+
+}
+
+message BattleMapResponse{
+  repeated ChessData chessMap = 1; //棋子布局数据
+  int32 counter = 2; //计数器
+}
+
+message CheckGameStateRequest{
+
+}
+
+message CheckGameStateResponse{
+  string roomToken = 1;//用于断线重连直接进入房间
+}
+
+message EnterBattleFieldRequest{
+  string roomToken = 1;
+}
+
+message EnterBattleFieldResponse{
+  RoomData roomData = 1;
+  repeated PlayerInfo playerList = 2;
+  repeated ChessData chessMap = 3; //棋子布局数据
+  int32 counter = 4; //计数器
+  int32 roundOrder = 5;//我方回合顺序位置，从0开始
+  int32 remainTime = 6;//倒计时
+}
+
+message SurrenderRequest{
+
+}
+
+message SurrenderResponse{
+  bool isSurrender = 1;
+}
+
+message SendChatMessageRequest{
+  int32 toWhere = 1;
+  MessageData msg = 2;
+}
+
+message SendChatMessageResponse{
+
+}
