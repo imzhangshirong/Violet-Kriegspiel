@@ -5,67 +5,94 @@ using System.Text;
 
 public class App : AppBase
 {
-    public static GameManager GameManager
-    {
-        get
+    
+    public class Manager{
+        public static GameManager Game
         {
-            return App.Instance.GetManager<GameManager>(GameManager.Name);
+            get
+            {
+                return App.Instance.GetManager<GameManager>(GameManager.Name);
+            }
+        }
+        public static EventManager Event
+        {
+            get
+            {
+                return App.Instance.GetManager<EventManager>(EventManager.Name);
+            }
+        }
+        public static LocalDataManager LocalData
+        {
+            get
+            {
+                return App.Instance.GetManager<LocalDataManager>(LocalDataManager.Name);
+            }
+        }
+        public static NetworkManager Network
+        {
+            get
+            {
+                return App.Instance.GetManager<NetworkManager>(NetworkManager.Name);
+            }
+        }
+        public static ObjectPoolManager ObjectPool
+        {
+            get
+            {
+                return App.Instance.GetManager<ObjectPoolManager>(ObjectPoolManager.Name);
+            }
+        }
+        public static ResourceManager Resource
+        {
+            get
+            {
+                return App.Instance.GetManager<ResourceManager>(ResourceManager.Name);
+            }
+        }
+        public static SceneManager Scene
+        {
+            get
+            {
+                return App.Instance.GetManager<SceneManager>(SceneManager.Name);
+            }
+        }
+        public static ThreadManager Thread
+        {
+            get
+            {
+                return App.Instance.GetManager<ThreadManager>(ThreadManager.Name);
+            }
+        }
+        public static UIManager UI
+        {
+            get
+            {
+                return App.Instance.GetManager<UIManager>(UIManager.Name);
+            }
+        }
+        public static MockManager Mock
+        {
+            get
+            {
+                return App.Instance.GetManager<MockManager>(MockManager.Name);
+            }
         }
     }
-    public static EventManager EventManager
-    {
-        get
+
+    public class Package{
+        public static PlayerPackage Player
         {
-            return App.Instance.GetManager<EventManager>(EventManager.Name);
+            get
+            {
+                return PlayerPackage.Instance;
+            }
         }
-    }
-    public static LocalDataManager LocalDataManager
-    {
-        get
+        public static ChessGamePackage ChessGame
         {
-            return App.Instance.GetManager<LocalDataManager>(LocalDataManager.Name);
-        }
-    }
-    public static NetworkManager NetworkManager
-    {
-        get
-        {
-            return App.Instance.GetManager<NetworkManager>(NetworkManager.Name);
-        }
-    }
-    public static ObjectPoolManager ObjectPoolManager
-    {
-        get
-        {
-            return App.Instance.GetManager<ObjectPoolManager>(ObjectPoolManager.Name);
-        }
-    }
-    public static ResourceManager ResourceManager
-    {
-        get
-        {
-            return App.Instance.GetManager<ResourceManager>(ResourceManager.Name);
-        }
-    }
-    public static SceneManager SceneManager
-    {
-        get
-        {
-            return App.Instance.GetManager<SceneManager>(SceneManager.Name);
-        }
-    }
-    public static ThreadManager ThreadManager
-    {
-        get
-        {
-            return App.Instance.GetManager<ThreadManager>(ThreadManager.Name);
-        }
-    }
-    public static UIManager UIManager
-    {
-        get
-        {
-            return App.Instance.GetManager<UIManager>(UIManager.Name);
+            get
+            {
+                return ChessGamePackage.Instance;
+            }
         }
     }
 }

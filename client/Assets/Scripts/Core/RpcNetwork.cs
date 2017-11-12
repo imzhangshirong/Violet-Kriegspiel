@@ -223,7 +223,7 @@ public class RpcNetwork
         if (m_socket == null)
         {
             
-            App.ThreadManager.RunOnMainThread(() => {
+            App.Manager.Thread.RunOnMainThread(() => {
                 Debuger.Log("Network Connecting");
             });
             IPAddress[] addr = Dns.GetHostAddresses(Config.ServerHost);
@@ -237,7 +237,7 @@ public class RpcNetwork
                 }
                 else
                 {
-                    App.ThreadManager.RunAsync(() =>
+                    App.Manager.Thread.RunAsync(() =>
                     {
                         try
                         {
@@ -249,7 +249,7 @@ public class RpcNetwork
                         }
                         catch (Exception e)
                         {
-                            App.ThreadManager.RunOnMainThread(() => {
+                            App.Manager.Thread.RunOnMainThread(() => {
                                 Debuger.Error(e.ToString());
                             });
                             Disconnect();
@@ -259,7 +259,7 @@ public class RpcNetwork
             }
             catch (Exception e)
             {
-                App.ThreadManager.RunOnMainThread(() => {
+                App.Manager.Thread.RunOnMainThread(() => {
                     Debuger.Error(e.ToString());
                 });
             }
@@ -413,7 +413,7 @@ public class RpcNetwork
         }
         catch(Exception e)
         {
-            App.ThreadManager.RunOnMainThread(() => {
+            App.Manager.Thread.RunOnMainThread(() => {
                 Debuger.Error(e.ToString());
             });
         }
@@ -424,21 +424,31 @@ public class RpcNetwork
         SocketData socketData = ParseSocketBinaryData(receiveData);
         _Response response = _Response.Parser.ParseFrom(socketData.data);
         RPC currentRpc = m_RpcQueue[0];
-        lock (m_RpcQueue)
-        {
-            m_RpcQueue.RemoveAt(0);
-        }
+        
         Assembly assem = currentRpc.rpcType.Assembly;
         Type type = assem.GetType(currentRpc.rpcType.Namespace + "." + currentRpc.msg + "Response");//这里要按规则来！！！！
         if (type != null)
         {
+            lock (m_RpcQueue)
+            {
+                m_RpcQueue.RemoveAt(0);
+            }
             IMessage resRpc = Activator.CreateInstance(type) as IMessage;
             resRpc.MergeFrom(response.Data);
-            App.ThreadManager.RunOnMainThread(() =>
+            App.Manager.Thread.RunOnMainThread(() =>
             {
                 currentRpc.callback(resRpc);
             });
-            m_Listener.Invoke(currentRpc.msg, resRpc);//分发给注册的Listener
+        }
+        else
+        {
+            type = assem.GetType(currentRpc.rpcType.Namespace + "." + currentRpc.msg + "Push");//这里要按Push规则来！！！！
+            if(type != null)
+            {
+                IMessage resRpc = Activator.CreateInstance(type) as IMessage;
+                resRpc.MergeFrom(response.Data);
+                m_Listener.Invoke(currentRpc.msg, resRpc);//分发给注册的Listener
+            }
         }
     }
 
@@ -447,24 +457,24 @@ public class RpcNetwork
         if (m_socket.Connected)
         {
             m_isReady = true;
-            App.ThreadManager.RunOnMainThread(() =>
+            App.Manager.Thread.RunOnMainThread(() =>
             {
                 Debuger.Log("Connected");
             });
             //开始监听
             m_isQueue = true;
-            m_recieve = App.ThreadManager.RunAsync(QueueRecieve);
-            m_process = App.ThreadManager.RunAsync(QueueProcess);
+            m_recieve = App.Manager.Thread.RunAsync(QueueRecieve);
+            m_process = App.Manager.Thread.RunAsync(QueueProcess);
         }
     }
     private void Disconnect()
     {
-        App.ThreadManager.RunOnMainThread(() => {
+        App.Manager.Thread.RunOnMainThread(() => {
             Debuger.Log("Disconnected");
         });
         while (!m_socket.Connected)
         {
-            App.ThreadManager.RunOnMainThread(() => {
+            App.Manager.Thread.RunOnMainThread(() => {
                 Debuger.Log("Reconnecting:"+ m_socket.Connected);
             });
             Thread.Sleep(1000);
@@ -477,14 +487,14 @@ public class RpcNetwork
     {
         Connected(null);
         ResendAll();
-        App.ThreadManager.RunOnMainThread(() => {
+        App.Manager.Thread.RunOnMainThread(() => {
             Debuger.Log("Reconnected");
         });
     }
     private static void Sent(IAsyncResult ar)
     {
         //
-        App.ThreadManager.RunOnMainThread(() => {
+        App.Manager.Thread.RunOnMainThread(() => {
             Debuger.Log("finished");
         });
     }

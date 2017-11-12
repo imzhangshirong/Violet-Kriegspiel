@@ -25,6 +25,6 @@ public class PlayerPackage : Package<PlayerPackage>
 public class PlayerInfo
 {
     public string userName;
-    public long userId;
+    public int userId;
     public int level;
 }

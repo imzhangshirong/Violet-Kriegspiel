@@ -21,7 +21,7 @@ public class UIMainPanel : UIViewBase
 	}
 	public void NextPage()
 	{
-        App.UIManager.ReplaceView("UIGamePanel");
+        App.Manager.UI.ReplaceView("UIGamePanel");
 	}
 	public override void OnRefresh()
 	{
@@ -37,10 +37,10 @@ public class UIMainPanel : UIViewBase
     {
         HelloRequest request = new HelloRequest();
         request.Content = rpcInput.value;
-        RpcNetwork.Request("Hello",request,delegate(IMessage response) {
+        App.Manager.Network.Request("Hello",request,delegate(IMessage response) {
             HelloResponse res = response as HelloResponse;
             rpcResponse.text = res.Greet;
-            App.EventManager.Broadcast("_greeting", res.Greet);
+            App.Manager.Event.Broadcast("_greeting", res.Greet);
         });
     }
     public void SIMPLE_TEST()

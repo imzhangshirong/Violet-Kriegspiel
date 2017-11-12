@@ -305,3 +305,31 @@ public class ChessAgainst : MonoBehaviour
     }
 
 }
+public enum PlayerState{
+  UNKOWN = 0,
+  UNREADY = 1,
+  READY = 2,
+  GAMING = 3,
+  SURRENDER = 4,//投降
+}
+
+public enum GameState{
+  READYING = 0,
+  START = 1,
+  END = 2,
+}
+
+enum GameResult{
+  UNKOWN = 0,
+  LOSE = 1,
+  WIN = 2,
+}
+
+enum ChessMoveResult{
+  UNKOWN = 0,
+  LOSE = 1,
+  TIE = 2,//同归于尽，平手
+  WIN = 3,
+  CAN_MOVE = 4,
+  CANNOT_MOVE = 5,
+}

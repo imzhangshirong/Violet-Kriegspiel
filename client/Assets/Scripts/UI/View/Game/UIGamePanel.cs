@@ -22,10 +22,10 @@ public class UIGamePanel : UIViewBase
     public override void OnInit()
     {
         base.OnInit();
-        App.UIManager.HideOverViewByPage("UITopTest");
+        App.Manager.UI.HideOverViewByPage("UITopTest");
 
         //加载
-        m_ChessHero = App.ResourceManager.LoadUI("Game/ChessHero");
+        m_ChessHero = App.Manager.Resource.LoadUI("Game/ChessHero");
 
         //注册消息事件
         BindEvent("_chessClick", OnChessClick);
@@ -35,6 +35,8 @@ public class UIGamePanel : UIViewBase
         BindEvent("_readyTimeUp", delegate (object content) {
             OnReadyClick();
         });
+
+        BindEvent("#NET_PlayerStateChage",OnReceivPlayerStateChage);
     }
 
     
@@ -55,7 +57,7 @@ public class UIGamePanel : UIViewBase
     }
     public void BackPage()
     {
-        App.UIManager.PageBack();
+        App.Manager.UI.PageBack();
     }
     public override void OnRefresh()
     {
@@ -433,7 +435,7 @@ public class UIGamePanel : UIViewBase
 
     }
 
-    void OnReceiveEnemyState()
+    void OnReceivPlayerStateChage(object data)
     {
         Debuger.Warn("enemyState");
         

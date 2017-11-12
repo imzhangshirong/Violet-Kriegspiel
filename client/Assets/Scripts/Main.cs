@@ -6,8 +6,8 @@ public class Main : MonoBehaviour {
     {
     }
     void Start () {
-		App.UIManager.OpenView("UITopTest");
-        App.UIManager.OpenView("UIMainPanel");
+		App.Manager.UI.OpenView("UITopTest");
+        App.Manager.UI.OpenView("UIMainPanel");
 	}
 	
 	// Update is called once per frame

@@ -8,7 +8,7 @@ public class UIPagePanel : UIViewBase
 	public override void OnInit()
 	{
 		base.OnInit();
-        App.UIManager.HideOverViewByPage("UITopTest");
+        App.Manager.UI.HideOverViewByPage("UITopTest");
 	}
 	public override void OnOpen(Intent intent)
 	{

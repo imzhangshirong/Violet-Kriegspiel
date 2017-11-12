@@ -46,8 +46,17 @@ public class NetworkManager : Manager
     {
         if (m_NetPushMap.ContainsKey(msg) && m_NetPushMap[msg] != "")
         {
-            App.EventManager.Broadcast(m_NetPushMap[msg], data);
+            App.Manager.Event.Broadcast(m_NetPushMap[msg], data);
         }
     }
-    
+
+    public void Request<T>(string msg, T rpc, RpcResponse callback) where T : IMessage
+    {
+        if (App.Manager.Mock.HasMock(msg))//启用Mock
+            App.Manager.Mock.MockResponse(msg, rpc, callback);
+        else
+            RpcNetwork.Request<T>(msg, rpc, callback);
+    }
+
+
 }
