@@ -17,17 +17,17 @@ public class UILoginPanel : UIViewBase
 		base.OnOpen(intent);
 	}
 
-	public void Login()
+	public void LoginClick()
 	{
         LoginRequest request = new LoginRequest();
         request.UserName = m_username.value;
         request.Password = m_password.value;
+        App.Manager.UI.OpenView("UIWaitingPanel");
         App.Manager.Network.Request<LoginRequest>("Login", request, delegate (IMessage response)
         {
-
+            App.Manager.UI.CloseView("UIWaitingPanel");
+            App.Package.Player.Init(response);
+            App.Manager.UI.ReplaceView("UILobbyPanel");
         });
-
-        App.Manager.UI.ReplaceView("UILobbyPanel");
-
 	}
 }

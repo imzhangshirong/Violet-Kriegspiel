@@ -10,11 +10,9 @@ public class PlayerPackage : Package<PlayerPackage>
     {
         base.Init(data);
         //throw new NotImplementedException();
-        playerInfo = new PlayerInfo();
-        playerInfo.Level = 12;
-        playerInfo.UserId = 1;
-        playerInfo.UserName = "KyArvis";
-        playerInfo.State = (int)PlayerState.UNREADY;
+        LoginResponse responseData = (LoginResponse)data;
+        playerInfo = responseData.PlayerInfo;
+        Debuger.Warn("User:"+playerInfo.UserName+" LoginSet");
     }
 
     public override void Release()

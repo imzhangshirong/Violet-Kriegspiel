@@ -193,7 +193,7 @@ public class ChessAgainst : MonoBehaviour
     //单击训练模式
     public static ChessMoveResult ChessCanBeat(ChessHeroData heroS, ChessHeroData heroT) //1胜利，-1失败，0平局消失，2获胜结束，-2未知
     {
-        if (heroT.heroTypeId < 0) return ChessMoveResult.UNKOWN;//未知
+        if (heroT.heroTypeId < 0) return ChessMoveResult.UNKNOW;//未知
         if (heroT.heroTypeId == 1) return ChessMoveResult.TIE;//敌方炸弹
         if (heroS.heroTypeId == 1) return ChessMoveResult.TIE;//我方炸弹
         if (heroS.heroTypeId == 2)//我方工兵
@@ -306,7 +306,7 @@ public class ChessAgainst : MonoBehaviour
 
 }
 public enum PlayerState{
-  UNKOWN = 0,
+  UNKNOW = 0,
   UNREADY = 1,
   READY = 2,
   GAMING = 3,
@@ -320,13 +320,13 @@ public enum GameState{
 }
 
 public enum GameResult{
-  UNKOWN = 0,
+  UNKNOW = 0,
   LOSE = 1,
   WIN = 2,
 }
 
 public enum ChessMoveResult{
-  UNKOWN = 0,
+  UNKNOW = 0,
   LOSE = 1,
   TIE = 2,//同归于尽，平手
   WIN = 3,

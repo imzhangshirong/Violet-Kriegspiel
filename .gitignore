@@ -1,2 +1,7 @@
 /client/Library/
 /client/Temp/
+/client/ProjectSettings/
+/client/client.Plugins.csproj
+/client/client.Editor.csproj
+/client/client.csproj
+client/.vs/

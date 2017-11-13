@@ -18,7 +18,7 @@ public class MockManager : Manager
     {
         //注册Mock的Response
         //RegisteMockResponse("Hello",HelloResponse);
-        RegisteMockResponse("Login",LoginResponse);
+        //RegisteMockResponse("Login",LoginResponse);
 
         //注册Mock的Push
         RegisteMockAction(KeyCode.Keypad1,EnterBattleFieldPush);
@@ -126,8 +126,8 @@ public class MockManager : Manager
         response.PlayerInfo.UserId = 1;
         response.PlayerInfo.UserName = "KyArvis";
         response.PlayerInfo.ZoneId = 1;
-        response.PlayerInfo.State = (int)PlayerState.UNKOWN;
-        response.ServerTime = DateTime.Now.Ticks / 1000;
+        response.PlayerInfo.State = (int)PlayerState.UNKNOW;
+        response.ServerTime = DateTime.Now.Ticks / 10000;
         Debuger.Log("userLogin:" + requestRpc.UserName);
         callback(response);
     }

@@ -38,10 +38,13 @@ public class Common
             OpenAlert(title, content, positiveString, positive, negativeString, negative, AlertWindowMode.TwoButton, autoClose);
         }
         public static void OpenWaiting(){
-
+            App.Manager.UI.OpenView("UIWaitingPanel");
+        }
+        public static void CloseWaiting(){
+            App.Manager.UI.CloseView("UIWaitingPanel");
         }
         public static void OpenRetry(){
-            
+
         }
     }
     

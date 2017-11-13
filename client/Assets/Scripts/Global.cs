@@ -31,7 +31,9 @@ public class Global : MonoBehaviour
         App.Manager.ObjectPool.RegisteObject("UIAlertWindow", Config.UIResourcePath + "/UIAlertWindow", 0, 64, 8f);
 
         //注册UI////
+        //特殊UI注册
         App.Manager.UI.RegisteUI("UITips", "UITips", UILayoutStyle.Center, UIViewStyle.Tips);
+        App.Manager.UI.RegisteUI("UIWaitingPanel", "UIWaitingPanel", UILayoutStyle.Center, UIViewStyle.Tips);
         App.Manager.UI.RegisteUI("UIAlertWindow", "UIAlertWindow", UILayoutStyle.Center, UIViewStyle.Window);
         //挂件注册
         App.Manager.UI.RegisteUI("UIPlayerInfo", "Widget/UIPlayerInfo", UILayoutStyle.Top, UIViewStyle.OverView);
@@ -39,6 +41,7 @@ public class Global : MonoBehaviour
         App.Manager.UI.RegisteUI("UIMainPanel", "UIMainPanel", UILayoutStyle.Center, UIViewStyle.Page);
         App.Manager.UI.RegisteUI("UILoginPanel", "UILoginPanel", UILayoutStyle.Center, UIViewStyle.Page);
         App.Manager.UI.RegisteUI("UILobbyPanel", "UILobbyPanel", UILayoutStyle.Center, UIViewStyle.Page);
+        App.Manager.UI.RegisteUI("UIFindEnemyPanel", "UIFindEnemyPanel", UILayoutStyle.Center, UIViewStyle.Page);
         App.Manager.UI.RegisteUI("UIGamePanel", "Game/UIGamePanel", UILayoutStyle.Center, UIViewStyle.Page);
         App.Manager.UI.RegisteUI("UIPagePanel", "UIPagePanel", UILayoutStyle.Center, UIViewStyle.Page);
 
@@ -52,7 +55,10 @@ public class Global : MonoBehaviour
 
         //注册RPC ErrorCode处理////
         App.Manager.Network.RegisteErrorCode(1, () => {
-            Common.UI.OpenAlert("自定义的ErrorCode", "代码:1", "确认", null);
+            Common.UI.OpenAlert("错误", "用户不存在", "确认", null);
+        });
+        App.Manager.Network.RegisteErrorCode(11, () => {
+            Common.UI.OpenAlert("错误", "已经在匹配名单里", "确认", null);
         });
 
         Debuger.Log("Inited");

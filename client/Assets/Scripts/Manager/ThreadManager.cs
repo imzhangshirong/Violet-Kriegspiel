@@ -33,9 +33,11 @@ public class ThreadManager : Manager
         //自动销毁所有工作中的线程
         for (int i = m_TreadList.Count - 1; i >= 0; i--)
         {
-            if (m_TreadList[i].IsAlive)
-            {
+            try{
                 m_TreadList[i].Abort();
+            }
+            catch(Exception e){
+
             }
         }
         m_TreadList.Clear();

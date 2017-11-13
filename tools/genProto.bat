@@ -6,6 +6,7 @@ set PROTOCCSHARP=protoc --csharp_out=../client\Assets\Plugins\Proto  --proto_pat
 
 set PROTOCJAVA=protoc --java_out=../serverjava/ensign/src/main/java  --proto_path=../protos
 
+
 %PROTOCNODE% Struct.proto
 %PROTOCNODE% Request.proto
 %PROTOCNODE% Push.proto
