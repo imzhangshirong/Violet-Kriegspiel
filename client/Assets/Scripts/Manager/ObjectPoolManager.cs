@@ -12,6 +12,10 @@ public class ObjectPoolManager : Manager
     private Dictionary<string, PoolObjectState> m_ObjectMap = new Dictionary<string, PoolObjectState>();
     private Dictionary<string, List<PoolInstanceState>> m_ObjectInstanceMap = new Dictionary<string, List<PoolInstanceState>>();
     GameObject m_ObjectPool;
+    public bool HasRegisted(string name)
+    {
+        return m_ObjectMap.ContainsKey(name);
+    }
     public void RegisteObject(string name, string resourcePath, int min,int max,float cleanDuration)
     {
         if (min > max || max <= 0) throw new Exception("ObjectPool Max must > 0!");

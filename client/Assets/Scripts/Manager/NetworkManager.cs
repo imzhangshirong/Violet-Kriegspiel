@@ -9,7 +9,7 @@ public delegate void NetworkPush(IMessage rpcData);
 public class NetworkManager : Manager
 {
     public const string Name = "NetworkManager";
-
+    static Dictionary<int, Action> m_ErrorCodeAlert = new Dictionary<int, Action>();
     static Dictionary<string, string> m_NetPushMap = new Dictionary<string, string>();
     RpcNetwork m_rpc;
     
@@ -58,5 +58,20 @@ public class NetworkManager : Manager
             RpcNetwork.Request<T>(msg, rpc, callback);
     }
 
+    public void RegisteErrorCode(int code,Action action)
+    {
+        if (!m_ErrorCodeAlert.ContainsKey(code))
+            m_ErrorCodeAlert.Add(code, action);
+        else
+            m_ErrorCodeAlert[code] = action;
+    }
 
+    public bool HasRegistedErrorCode(int code)
+    {
+        return m_ErrorCodeAlert.ContainsKey(code);
+    }
+    public void DoErrorCode(int code)
+    {
+        if (m_ErrorCodeAlert.ContainsKey(code)) m_ErrorCodeAlert[code]();
+    }
 }

@@ -21,8 +21,11 @@ public class UIMainPanel : UIViewBase
 	}
 	public void NextPage()
 	{
+        //进入游戏测试
         App.Manager.UI.ReplaceView("UILoginPanel");
-	}
+        App.Manager.UI.CloseView("UITopTest");
+        App.Manager.UI.CloseView("UIMainPanel");
+    }
 	public override void OnRefresh()
 	{
 		base.OnRefresh();

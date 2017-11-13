@@ -3,15 +3,17 @@ package com.violet.rpc;
 
 message _Request{  
   string token = 1;  
-  string rpc = 2;  
-  bytes data = 3;
+  string rpc = 2;
+  int32 unique = 3;
+  bytes data = 4;
 }
 
 message _Response{  
   string token = 1;
   int32 code = 2;
-  string rpc = 3; 
-  bytes data = 4;
+  string rpc = 3;
+  int32 unique = 4;
+  bytes data = 5;
 }
 
 message PlayerInfo{

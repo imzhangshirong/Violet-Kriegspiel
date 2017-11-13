@@ -6,7 +6,6 @@ public class Main : MonoBehaviour {
     {
     }
     void Start () {
-		App.Manager.UI.OpenView("UITopTest");
         App.Manager.UI.OpenView("UIMainPanel");
 	}
 	

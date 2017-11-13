@@ -22,25 +22,25 @@ namespace Com.Violet.Rpc {
     static StructReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgxTdHJ1Y3QucHJvdG8SDmNvbS52aW9sZXQucnBjIjQKCF9SZXF1ZXN0Eg0K",
-            "BXRva2VuGAEgASgJEgsKA3JwYxgCIAEoCRIMCgRkYXRhGAMgASgMIkMKCV9S",
-            "ZXNwb25zZRINCgV0b2tlbhgBIAEoCRIMCgRjb2RlGAIgASgFEgsKA3JwYxgD",
-            "IAEoCRIMCgRkYXRhGAQgASgMInQKClBsYXllckluZm8SDgoGdXNlcklkGAEg",
-            "ASgFEhAKCHVzZXJOYW1lGAIgASgJEg0KBWxldmVsGAMgASgFEg4KBnpvbmVJ",
-            "ZBgEIAEoBRINCgVzdGF0ZRgFIAEoBRIWCg5nYW1lUmVtYWluVGltZRgGIAEo",
-            "BSJvCglDaGVzc0RhdGESFQoNY2hlc3NSZW1vdGVJZBgBIAEoBRIRCglDaGVz",
-            "c1R5cGUYAiABKAUSKQoFcG9pbnQYAyABKAsyGi5jb20udmlvbGV0LnJwYy5D",
-            "aGVzc1BvaW50Eg0KBWdyb3VwGAQgASgFIiIKCkNoZXNzUG9pbnQSCQoBeBgB",
-            "IAEoBRIJCgF5GAIgASgFIiwKCFJvb21EYXRhEg4KBnJvb21JZBgBIAEoBRIQ",
-            "Cghyb29tTmFtZRgCIAEoCSJyCgtNZXNzYWdlRGF0YRIOCgZ1c2VySWQYASAB",
-            "KAUSDgoGem9uZUlkGAIgASgFEhAKCHVzZXJOYW1lGAMgASgJEg0KBWxldmVs",
-            "GAQgASgFEhEKCXRpbWVzdGFtcBgFIAEoAxIPCgdjb250ZW50GAYgASgJYgZw",
-            "cm90bzM="));
+            "CgxTdHJ1Y3QucHJvdG8SDmNvbS52aW9sZXQucnBjIkQKCF9SZXF1ZXN0Eg0K",
+            "BXRva2VuGAEgASgJEgsKA3JwYxgCIAEoCRIOCgZ1bmlxdWUYAyABKAUSDAoE",
+            "ZGF0YRgEIAEoDCJTCglfUmVzcG9uc2USDQoFdG9rZW4YASABKAkSDAoEY29k",
+            "ZRgCIAEoBRILCgNycGMYAyABKAkSDgoGdW5pcXVlGAQgASgFEgwKBGRhdGEY",
+            "BSABKAwidAoKUGxheWVySW5mbxIOCgZ1c2VySWQYASABKAUSEAoIdXNlck5h",
+            "bWUYAiABKAkSDQoFbGV2ZWwYAyABKAUSDgoGem9uZUlkGAQgASgFEg0KBXN0",
+            "YXRlGAUgASgFEhYKDmdhbWVSZW1haW5UaW1lGAYgASgFIm8KCUNoZXNzRGF0",
+            "YRIVCg1jaGVzc1JlbW90ZUlkGAEgASgFEhEKCUNoZXNzVHlwZRgCIAEoBRIp",
+            "CgVwb2ludBgDIAEoCzIaLmNvbS52aW9sZXQucnBjLkNoZXNzUG9pbnQSDQoF",
+            "Z3JvdXAYBCABKAUiIgoKQ2hlc3NQb2ludBIJCgF4GAEgASgFEgkKAXkYAiAB",
+            "KAUiLAoIUm9vbURhdGESDgoGcm9vbUlkGAEgASgFEhAKCHJvb21OYW1lGAIg",
+            "ASgJInIKC01lc3NhZ2VEYXRhEg4KBnVzZXJJZBgBIAEoBRIOCgZ6b25lSWQY",
+            "AiABKAUSEAoIdXNlck5hbWUYAyABKAkSDQoFbGV2ZWwYBCABKAUSEQoJdGlt",
+            "ZXN0YW1wGAUgASgDEg8KB2NvbnRlbnQYBiABKAliBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc._Request), global::Com.Violet.Rpc._Request.Parser, new[]{ "Token", "Rpc", "Data" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc._Response), global::Com.Violet.Rpc._Response.Parser, new[]{ "Token", "Code", "Rpc", "Data" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc._Request), global::Com.Violet.Rpc._Request.Parser, new[]{ "Token", "Rpc", "Unique", "Data" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc._Response), global::Com.Violet.Rpc._Response.Parser, new[]{ "Token", "Code", "Rpc", "Unique", "Data" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.PlayerInfo), global::Com.Violet.Rpc.PlayerInfo.Parser, new[]{ "UserId", "UserName", "Level", "ZoneId", "State", "GameRemainTime" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ChessData), global::Com.Violet.Rpc.ChessData.Parser, new[]{ "ChessRemoteId", "ChessType", "Point", "Group" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ChessPoint), global::Com.Violet.Rpc.ChessPoint.Parser, new[]{ "X", "Y" }, null, null, null),
@@ -78,6 +78,7 @@ namespace Com.Violet.Rpc {
     public _Request(_Request other) : this() {
       token_ = other.token_;
       rpc_ = other.rpc_;
+      unique_ = other.unique_;
       data_ = other.data_;
     }
 
@@ -108,8 +109,19 @@ namespace Com.Violet.Rpc {
       }
     }
 
+    /// <summary>Field number for the "unique" field.</summary>
+    public const int UniqueFieldNumber = 3;
+    private int unique_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Unique {
+      get { return unique_; }
+      set {
+        unique_ = value;
+      }
+    }
+
     /// <summary>Field number for the "data" field.</summary>
-    public const int DataFieldNumber = 3;
+    public const int DataFieldNumber = 4;
     private pb::ByteString data_ = pb::ByteString.Empty;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public pb::ByteString Data {
@@ -134,6 +146,7 @@ namespace Com.Violet.Rpc {
       }
       if (Token != other.Token) return false;
       if (Rpc != other.Rpc) return false;
+      if (Unique != other.Unique) return false;
       if (Data != other.Data) return false;
       return true;
     }
@@ -143,6 +156,7 @@ namespace Com.Violet.Rpc {
       int hash = 1;
       if (Token.Length != 0) hash ^= Token.GetHashCode();
       if (Rpc.Length != 0) hash ^= Rpc.GetHashCode();
+      if (Unique != 0) hash ^= Unique.GetHashCode();
       if (Data.Length != 0) hash ^= Data.GetHashCode();
       return hash;
     }
@@ -162,8 +176,12 @@ namespace Com.Violet.Rpc {
         output.WriteRawTag(18);
         output.WriteString(Rpc);
       }
+      if (Unique != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Unique);
+      }
       if (Data.Length != 0) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteBytes(Data);
       }
     }
@@ -176,6 +194,9 @@ namespace Com.Violet.Rpc {
       }
       if (Rpc.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Rpc);
+      }
+      if (Unique != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Unique);
       }
       if (Data.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeBytesSize(Data);
@@ -193,6 +214,9 @@ namespace Com.Violet.Rpc {
       }
       if (other.Rpc.Length != 0) {
         Rpc = other.Rpc;
+      }
+      if (other.Unique != 0) {
+        Unique = other.Unique;
       }
       if (other.Data.Length != 0) {
         Data = other.Data;
@@ -215,7 +239,11 @@ namespace Com.Violet.Rpc {
             Rpc = input.ReadString();
             break;
           }
-          case 26: {
+          case 24: {
+            Unique = input.ReadInt32();
+            break;
+          }
+          case 34: {
             Data = input.ReadBytes();
             break;
           }
@@ -252,6 +280,7 @@ namespace Com.Violet.Rpc {
       token_ = other.token_;
       code_ = other.code_;
       rpc_ = other.rpc_;
+      unique_ = other.unique_;
       data_ = other.data_;
     }
 
@@ -293,8 +322,19 @@ namespace Com.Violet.Rpc {
       }
     }
 
+    /// <summary>Field number for the "unique" field.</summary>
+    public const int UniqueFieldNumber = 4;
+    private int unique_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Unique {
+      get { return unique_; }
+      set {
+        unique_ = value;
+      }
+    }
+
     /// <summary>Field number for the "data" field.</summary>
-    public const int DataFieldNumber = 4;
+    public const int DataFieldNumber = 5;
     private pb::ByteString data_ = pb::ByteString.Empty;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public pb::ByteString Data {
@@ -320,6 +360,7 @@ namespace Com.Violet.Rpc {
       if (Token != other.Token) return false;
       if (Code != other.Code) return false;
       if (Rpc != other.Rpc) return false;
+      if (Unique != other.Unique) return false;
       if (Data != other.Data) return false;
       return true;
     }
@@ -330,6 +371,7 @@ namespace Com.Violet.Rpc {
       if (Token.Length != 0) hash ^= Token.GetHashCode();
       if (Code != 0) hash ^= Code.GetHashCode();
       if (Rpc.Length != 0) hash ^= Rpc.GetHashCode();
+      if (Unique != 0) hash ^= Unique.GetHashCode();
       if (Data.Length != 0) hash ^= Data.GetHashCode();
       return hash;
     }
@@ -353,8 +395,12 @@ namespace Com.Violet.Rpc {
         output.WriteRawTag(26);
         output.WriteString(Rpc);
       }
+      if (Unique != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(Unique);
+      }
       if (Data.Length != 0) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(42);
         output.WriteBytes(Data);
       }
     }
@@ -370,6 +416,9 @@ namespace Com.Violet.Rpc {
       }
       if (Rpc.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Rpc);
+      }
+      if (Unique != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Unique);
       }
       if (Data.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeBytesSize(Data);
@@ -390,6 +439,9 @@ namespace Com.Violet.Rpc {
       }
       if (other.Rpc.Length != 0) {
         Rpc = other.Rpc;
+      }
+      if (other.Unique != 0) {
+        Unique = other.Unique;
       }
       if (other.Data.Length != 0) {
         Data = other.Data;
@@ -416,7 +468,11 @@ namespace Com.Violet.Rpc {
             Rpc = input.ReadString();
             break;
           }
-          case 34: {
+          case 32: {
+            Unique = input.ReadInt32();
+            break;
+          }
+          case 42: {
             Data = input.ReadBytes();
             break;
           }

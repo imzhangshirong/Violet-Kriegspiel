@@ -6,6 +6,7 @@ import "Struct.proto";
 message LoginRequest{
   string userName = 1;
   string password = 2;//这里考虑加密
+  int32 zoneId = 3;//未之后准备
 }
 
 message LoginResponse{

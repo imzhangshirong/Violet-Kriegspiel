@@ -132,6 +132,7 @@ function returnData(rpcResponse, requestData) {
     headerRes.setToken(requestData.header.getToken());
     headerRes.setRpc(requestData.msg);
     headerRes.setData(rpcResponse.serializeBinary());
+    headerRes.setUnique(requestData.header.getUnique())
     return headerRes.serializeBinary();
 }
 function init(port, protobufs, protoPath) {

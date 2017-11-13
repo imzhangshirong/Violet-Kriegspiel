@@ -23,45 +23,45 @@ namespace Com.Violet.Rpc {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "Cg1SZXF1ZXN0LnByb3RvEg5jb20udmlvbGV0LnJwYxoMU3RydWN0LnByb3Rv",
-            "IjIKDExvZ2luUmVxdWVzdBIQCgh1c2VyTmFtZRgBIAEoCRIQCghwYXNzd29y",
-            "ZBgCIAEoCSJTCg1Mb2dpblJlc3BvbnNlEi4KCnBsYXllckluZm8YASABKAsy",
-            "Gi5jb20udmlvbGV0LnJwYy5QbGF5ZXJJbmZvEhIKCnNlcnZlclRpbWUYAiAB",
-            "KAMiEgoQRmluZEVuZW15UmVxdWVzdCIqChFGaW5kRW5lbXlSZXNwb25zZRIV",
-            "Cg1qb2luR2FtZUZpZWxkGAEgASgIIhgKFkNhbmNlbEZpbmRFbmVteVJlcXVl",
-            "c3QiKwoXQ2FuY2VsRmluZEVuZW15UmVzcG9uc2USEAoIaXNDYW5jZWwYASAB",
-            "KAgiJAoSR2V0Um9vbUxpc3RSZXF1ZXN0Eg4KBnpvbmVJZBgBIAEoBSJBChNH",
-            "ZXRSb29tTGlzdFJlc3BvbnNlEioKCHJvb21MaXN0GAEgAygLMhguY29tLnZp",
-            "b2xldC5ycGMuUm9vbURhdGEiNAoQRW50ZXJSb29tUmVxdWVzdBIOCgZyb29t",
-            "SWQYASABKAUSEAoIcGFzc3dvcmQYAiABKAkiQwoRRW50ZXJSb29tUmVzcG9u",
-            "c2USLgoKcGxheWVyTGlzdBgBIAMoCzIaLmNvbS52aW9sZXQucnBjLlBsYXll",
-            "ckluZm8iJQoSUmVhZHlJblJvb21SZXF1ZXN0Eg8KB2lzUmVhZHkYASABKAgi",
-            "LAoTUmVhZHlJblJvb21SZXNwb25zZRIVCg1pc0NoYW5nZVN0YXRlGAEgASgI",
-            "IiIKEExlYXZlUm9vbVJlcXVlc3QSDgoGcm9vbUlkGAEgASgFIiQKEUxlYXZl",
-            "Um9vbVJlc3BvbnNlEg8KB2lzTGVhdmUYASABKAgiaAoQTW92ZUNoZXNzUmVx",
-            "dWVzdBIpCgZzb3VyY2UYASABKAsyGS5jb20udmlvbGV0LnJwYy5DaGVzc0Rh",
-            "dGESKQoGdGFyZ2V0GAIgASgLMhkuY29tLnZpb2xldC5ycGMuQ2hlc3NEYXRh",
-            "IpMBChFNb3ZlQ2hlc3NSZXNwb25zZRIpCgZzb3VyY2UYASABKAsyGS5jb20u",
-            "dmlvbGV0LnJwYy5DaGVzc0RhdGESKQoGdGFyZ2V0GAIgASgLMhkuY29tLnZp",
-            "b2xldC5ycGMuQ2hlc3NEYXRhEhcKD2NoZXNzTW92ZVJlc3VsdBgDIAEoBRIP",
-            "Cgdjb3VudGVyGAQgASgFIhIKEEJhdHRsZU1hcFJlcXVlc3QiUQoRQmF0dGxl",
-            "TWFwUmVzcG9uc2USKwoIY2hlc3NNYXAYASADKAsyGS5jb20udmlvbGV0LnJw",
-            "Yy5DaGVzc0RhdGESDwoHY291bnRlchgCIAEoBSIXChVDaGVja0dhbWVTdGF0",
-            "ZVJlcXVlc3QiKwoWQ2hlY2tHYW1lU3RhdGVSZXNwb25zZRIRCglyb29tVG9r",
-            "ZW4YASABKAkiLAoXRW50ZXJCYXR0bGVGaWVsZFJlcXVlc3QSEQoJcm9vbVRv",
-            "a2VuGAEgASgJItwBChhFbnRlckJhdHRsZUZpZWxkUmVzcG9uc2USKgoIcm9v",
-            "bURhdGEYASABKAsyGC5jb20udmlvbGV0LnJwYy5Sb29tRGF0YRIuCgpwbGF5",
-            "ZXJMaXN0GAIgAygLMhouY29tLnZpb2xldC5ycGMuUGxheWVySW5mbxIrCghj",
-            "aGVzc01hcBgDIAMoCzIZLmNvbS52aW9sZXQucnBjLkNoZXNzRGF0YRIPCgdj",
-            "b3VudGVyGAQgASgFEhIKCnJvdW5kT3JkZXIYBSABKAUSEgoKcmVtYWluVGlt",
-            "ZRgGIAEoBSISChBTdXJyZW5kZXJSZXF1ZXN0IigKEVN1cnJlbmRlclJlc3Bv",
-            "bnNlEhMKC2lzU3VycmVuZGVyGAEgASgIIlMKFlNlbmRDaGF0TWVzc2FnZVJl",
-            "cXVlc3QSDwoHdG9XaGVyZRgBIAEoBRIoCgNtc2cYAiABKAsyGy5jb20udmlv",
-            "bGV0LnJwYy5NZXNzYWdlRGF0YSIZChdTZW5kQ2hhdE1lc3NhZ2VSZXNwb25z",
-            "ZWIGcHJvdG8z"));
+            "IkIKDExvZ2luUmVxdWVzdBIQCgh1c2VyTmFtZRgBIAEoCRIQCghwYXNzd29y",
+            "ZBgCIAEoCRIOCgZ6b25lSWQYAyABKAUiUwoNTG9naW5SZXNwb25zZRIuCgpw",
+            "bGF5ZXJJbmZvGAEgASgLMhouY29tLnZpb2xldC5ycGMuUGxheWVySW5mbxIS",
+            "CgpzZXJ2ZXJUaW1lGAIgASgDIhIKEEZpbmRFbmVteVJlcXVlc3QiKgoRRmlu",
+            "ZEVuZW15UmVzcG9uc2USFQoNam9pbkdhbWVGaWVsZBgBIAEoCCIYChZDYW5j",
+            "ZWxGaW5kRW5lbXlSZXF1ZXN0IisKF0NhbmNlbEZpbmRFbmVteVJlc3BvbnNl",
+            "EhAKCGlzQ2FuY2VsGAEgASgIIiQKEkdldFJvb21MaXN0UmVxdWVzdBIOCgZ6",
+            "b25lSWQYASABKAUiQQoTR2V0Um9vbUxpc3RSZXNwb25zZRIqCghyb29tTGlz",
+            "dBgBIAMoCzIYLmNvbS52aW9sZXQucnBjLlJvb21EYXRhIjQKEEVudGVyUm9v",
+            "bVJlcXVlc3QSDgoGcm9vbUlkGAEgASgFEhAKCHBhc3N3b3JkGAIgASgJIkMK",
+            "EUVudGVyUm9vbVJlc3BvbnNlEi4KCnBsYXllckxpc3QYASADKAsyGi5jb20u",
+            "dmlvbGV0LnJwYy5QbGF5ZXJJbmZvIiUKElJlYWR5SW5Sb29tUmVxdWVzdBIP",
+            "Cgdpc1JlYWR5GAEgASgIIiwKE1JlYWR5SW5Sb29tUmVzcG9uc2USFQoNaXND",
+            "aGFuZ2VTdGF0ZRgBIAEoCCIiChBMZWF2ZVJvb21SZXF1ZXN0Eg4KBnJvb21J",
+            "ZBgBIAEoBSIkChFMZWF2ZVJvb21SZXNwb25zZRIPCgdpc0xlYXZlGAEgASgI",
+            "ImgKEE1vdmVDaGVzc1JlcXVlc3QSKQoGc291cmNlGAEgASgLMhkuY29tLnZp",
+            "b2xldC5ycGMuQ2hlc3NEYXRhEikKBnRhcmdldBgCIAEoCzIZLmNvbS52aW9s",
+            "ZXQucnBjLkNoZXNzRGF0YSKTAQoRTW92ZUNoZXNzUmVzcG9uc2USKQoGc291",
+            "cmNlGAEgASgLMhkuY29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhEikKBnRhcmdl",
+            "dBgCIAEoCzIZLmNvbS52aW9sZXQucnBjLkNoZXNzRGF0YRIXCg9jaGVzc01v",
+            "dmVSZXN1bHQYAyABKAUSDwoHY291bnRlchgEIAEoBSISChBCYXR0bGVNYXBS",
+            "ZXF1ZXN0IlEKEUJhdHRsZU1hcFJlc3BvbnNlEisKCGNoZXNzTWFwGAEgAygL",
+            "MhkuY29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhEg8KB2NvdW50ZXIYAiABKAUi",
+            "FwoVQ2hlY2tHYW1lU3RhdGVSZXF1ZXN0IisKFkNoZWNrR2FtZVN0YXRlUmVz",
+            "cG9uc2USEQoJcm9vbVRva2VuGAEgASgJIiwKF0VudGVyQmF0dGxlRmllbGRS",
+            "ZXF1ZXN0EhEKCXJvb21Ub2tlbhgBIAEoCSLcAQoYRW50ZXJCYXR0bGVGaWVs",
+            "ZFJlc3BvbnNlEioKCHJvb21EYXRhGAEgASgLMhguY29tLnZpb2xldC5ycGMu",
+            "Um9vbURhdGESLgoKcGxheWVyTGlzdBgCIAMoCzIaLmNvbS52aW9sZXQucnBj",
+            "LlBsYXllckluZm8SKwoIY2hlc3NNYXAYAyADKAsyGS5jb20udmlvbGV0LnJw",
+            "Yy5DaGVzc0RhdGESDwoHY291bnRlchgEIAEoBRISCgpyb3VuZE9yZGVyGAUg",
+            "ASgFEhIKCnJlbWFpblRpbWUYBiABKAUiEgoQU3VycmVuZGVyUmVxdWVzdCIo",
+            "ChFTdXJyZW5kZXJSZXNwb25zZRITCgtpc1N1cnJlbmRlchgBIAEoCCJTChZT",
+            "ZW5kQ2hhdE1lc3NhZ2VSZXF1ZXN0Eg8KB3RvV2hlcmUYASABKAUSKAoDbXNn",
+            "GAIgASgLMhsuY29tLnZpb2xldC5ycGMuTWVzc2FnZURhdGEiGQoXU2VuZENo",
+            "YXRNZXNzYWdlUmVzcG9uc2ViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Com.Violet.Rpc.StructReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.LoginRequest), global::Com.Violet.Rpc.LoginRequest.Parser, new[]{ "UserName", "Password" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.LoginRequest), global::Com.Violet.Rpc.LoginRequest.Parser, new[]{ "UserName", "Password", "ZoneId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.LoginResponse), global::Com.Violet.Rpc.LoginResponse.Parser, new[]{ "PlayerInfo", "ServerTime" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.FindEnemyRequest), global::Com.Violet.Rpc.FindEnemyRequest.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.FindEnemyResponse), global::Com.Violet.Rpc.FindEnemyResponse.Parser, new[]{ "JoinGameField" }, null, null, null),
@@ -119,6 +119,7 @@ namespace Com.Violet.Rpc {
     public LoginRequest(LoginRequest other) : this() {
       userName_ = other.userName_;
       password_ = other.password_;
+      zoneId_ = other.zoneId_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -151,6 +152,20 @@ namespace Com.Violet.Rpc {
       }
     }
 
+    /// <summary>Field number for the "zoneId" field.</summary>
+    public const int ZoneIdFieldNumber = 3;
+    private int zoneId_;
+    /// <summary>
+    ///未之后准备
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int ZoneId {
+      get { return zoneId_; }
+      set {
+        zoneId_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as LoginRequest);
@@ -166,6 +181,7 @@ namespace Com.Violet.Rpc {
       }
       if (UserName != other.UserName) return false;
       if (Password != other.Password) return false;
+      if (ZoneId != other.ZoneId) return false;
       return true;
     }
 
@@ -174,6 +190,7 @@ namespace Com.Violet.Rpc {
       int hash = 1;
       if (UserName.Length != 0) hash ^= UserName.GetHashCode();
       if (Password.Length != 0) hash ^= Password.GetHashCode();
+      if (ZoneId != 0) hash ^= ZoneId.GetHashCode();
       return hash;
     }
 
@@ -192,6 +209,10 @@ namespace Com.Violet.Rpc {
         output.WriteRawTag(18);
         output.WriteString(Password);
       }
+      if (ZoneId != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(ZoneId);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -202,6 +223,9 @@ namespace Com.Violet.Rpc {
       }
       if (Password.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Password);
+      }
+      if (ZoneId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ZoneId);
       }
       return size;
     }
@@ -216,6 +240,9 @@ namespace Com.Violet.Rpc {
       }
       if (other.Password.Length != 0) {
         Password = other.Password;
+      }
+      if (other.ZoneId != 0) {
+        ZoneId = other.ZoneId;
       }
     }
 
@@ -233,6 +260,10 @@ namespace Com.Violet.Rpc {
           }
           case 18: {
             Password = input.ReadString();
+            break;
+          }
+          case 24: {
+            ZoneId = input.ReadInt32();
             break;
           }
         }

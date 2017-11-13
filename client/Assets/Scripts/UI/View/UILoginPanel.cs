@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Google.Protobuf;
+using Com.Violet.Rpc;
 public class UILoginPanel : UIViewBase
 {
-	public override void OnInit()
+    public UIInput m_username;
+    public UIInput m_password;
+    public override void OnInit()
 	{
 		base.OnInit();
-        App.Manager.UI.HideOverViewByPage("UITopTest");
-	}
+    }
 	public override void OnOpen(Intent intent)
 	{
 		base.OnOpen(intent);
@@ -17,6 +19,15 @@ public class UILoginPanel : UIViewBase
 
 	public void Login()
 	{
-		App.Manager.UI.ReplaceView("UILobbyPanel");
+        LoginRequest request = new LoginRequest();
+        request.UserName = m_username.value;
+        request.Password = m_password.value;
+        App.Manager.Network.Request<LoginRequest>("Login", request, delegate (IMessage response)
+        {
+
+        });
+
+        App.Manager.UI.ReplaceView("UILobbyPanel");
+
 	}
 }

@@ -8,7 +8,7 @@ public class UILobbyPanel : UIViewBase
 	public override void OnInit()
 	{
 		base.OnInit();
-        App.Manager.UI.HideOverViewByPage("UITopTest");
+        App.Manager.UI.OpenView("UIPlayerInfo");
 	}
 	public override void OnOpen(Intent intent)
 	{

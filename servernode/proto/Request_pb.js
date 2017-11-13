@@ -86,7 +86,8 @@ proto.com.violet.rpc.LoginRequest.prototype.toObject = function(opt_includeInsta
 proto.com.violet.rpc.LoginRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     username: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    password: jspb.Message.getFieldWithDefault(msg, 2, "")
+    password: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    zoneid: jspb.Message.getFieldWithDefault(msg, 3, 0)
   };
 
   if (includeInstance) {
@@ -131,6 +132,10 @@ proto.com.violet.rpc.LoginRequest.deserializeBinaryFromReader = function(msg, re
       var value = /** @type {string} */ (reader.readString());
       msg.setPassword(value);
       break;
+    case 3:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setZoneid(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -174,6 +179,13 @@ proto.com.violet.rpc.LoginRequest.serializeBinaryToWriter = function(message, wr
       f
     );
   }
+  f = message.getZoneid();
+  if (f !== 0) {
+    writer.writeInt32(
+      3,
+      f
+    );
+  }
 };
 
 
@@ -204,6 +216,21 @@ proto.com.violet.rpc.LoginRequest.prototype.getPassword = function() {
 /** @param {string} value */
 proto.com.violet.rpc.LoginRequest.prototype.setPassword = function(value) {
   jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional int32 zoneId = 3;
+ * @return {number}
+ */
+proto.com.violet.rpc.LoginRequest.prototype.getZoneid = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/** @param {number} value */
+proto.com.violet.rpc.LoginRequest.prototype.setZoneid = function(value) {
+  jspb.Message.setField(this, 3, value);
 };
 
 

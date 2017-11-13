@@ -11,9 +11,8 @@ public class Global : MonoBehaviour
     void Awake()
     {
         Debuger.Init();
-
-        //加载Manager
         DontDestroyOnLoad(gameObject);
+        //加载Manager////
 
         App.Instance.AddManager<ThreadManager>(ThreadManager.Name);
         App.Instance.AddManager<LocalDataManager>(LocalDataManager.Name);
@@ -28,20 +27,22 @@ public class Global : MonoBehaviour
         App.Instance.AddManager<UIManager>(UIManager.Name);
         App.Instance.AddManager<GameManager>(GameManager.Name);
 
-        //注册对象池
-        App.Manager.ObjectPool.RegisteObject("UIAlertWindow", Config.UIResourcePath + "/UIAlertWindow", 0, 128, 8f);
+        //注册对象池////
+        App.Manager.ObjectPool.RegisteObject("UIAlertWindow", Config.UIResourcePath + "/UIAlertWindow", 0, 64, 8f);
 
-        //注册UI
-        App.Manager.UI.RegisteUI("UITopTest", "Widget/UITopTest", UILayoutStyle.Top, UIViewStyle.OverView);
+        //注册UI////
         App.Manager.UI.RegisteUI("UITips", "UITips", UILayoutStyle.Center, UIViewStyle.Tips);
         App.Manager.UI.RegisteUI("UIAlertWindow", "UIAlertWindow", UILayoutStyle.Center, UIViewStyle.Window);
+        //挂件注册
+        App.Manager.UI.RegisteUI("UIPlayerInfo", "Widget/UIPlayerInfo", UILayoutStyle.Top, UIViewStyle.OverView);
+        //页面注册
         App.Manager.UI.RegisteUI("UIMainPanel", "UIMainPanel", UILayoutStyle.Center, UIViewStyle.Page);
         App.Manager.UI.RegisteUI("UILoginPanel", "UILoginPanel", UILayoutStyle.Center, UIViewStyle.Page);
         App.Manager.UI.RegisteUI("UILobbyPanel", "UILobbyPanel", UILayoutStyle.Center, UIViewStyle.Page);
         App.Manager.UI.RegisteUI("UIGamePanel", "Game/UIGamePanel", UILayoutStyle.Center, UIViewStyle.Page);
         App.Manager.UI.RegisteUI("UIPagePanel", "UIPagePanel", UILayoutStyle.Center, UIViewStyle.Page);
 
-        //注册RPC Push事件
+        //注册RPC Push事件////
         App.Manager.Network.RegisterPush("RoomStateChange", "#NET_RoomStateChange");
         App.Manager.Network.RegisterPush("EnterBattleField", "#NET_EnterBattleField");
         App.Manager.Network.RegisterPush("PlayerStateChage", "#NET_PlayerStateChage");
@@ -49,6 +50,10 @@ public class Global : MonoBehaviour
         App.Manager.Network.RegisterPush("ChessMove", "#NET_ChessMove");
         App.Manager.Network.RegisterPush("ChatMessagePush", "#NET_ChatMessagePush");
 
+        //注册RPC ErrorCode处理////
+        App.Manager.Network.RegisteErrorCode(1, () => {
+            Common.UI.OpenAlert("自定义的ErrorCode", "代码:1", "确认", null);
+        });
 
         Debuger.Log("Inited");
     }

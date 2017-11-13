@@ -29,7 +29,7 @@ public class Common
             intent.Push("autoClose", autoClose);
             App.Manager.UI.OpenView("UIAlertWindow", intent);
         }
-        public static void OpenAlert(string title, string content, string positiveString, AlertWindowClick positive, string negativeString, bool autoClose = true)
+        public static void OpenAlert(string title, string content, string positiveString, AlertWindowClick positive, bool autoClose = true)
         {
             OpenAlert(title, content, positiveString, positive, "", null, AlertWindowMode.OneButton, autoClose);
         }
@@ -37,7 +37,12 @@ public class Common
         {
             OpenAlert(title, content, positiveString, positive, negativeString, negative, AlertWindowMode.TwoButton, autoClose);
         }
+        public static void OpenWaiting(){
 
+        }
+        public static void OpenRetry(){
+            
+        }
     }
     
 }

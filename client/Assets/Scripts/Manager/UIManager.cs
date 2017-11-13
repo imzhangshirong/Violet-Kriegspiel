@@ -126,7 +126,41 @@ public class UIManager : Manager
         }
 		return m_UIData;
 	}
-	private void CloseView(string name)
+
+    /// <summary>
+    /// 销毁View，彻底关闭
+    /// </summary>
+    /// <param name="name"></param>
+    public void CloseViewAndDestroy(string name)
+    {
+        CloseView(name);
+        for(int i = 0; i < m_StackOverView.Count; i++)
+        {
+            if(m_StackOverView[i].name == name)
+            {
+                m_StackOverView.RemoveAt(i);
+            }
+        }
+        for (int i = 0; i < m_StackPage.Count; i++)
+        {
+            if (m_StackPage[i].name == name)
+            {
+                m_StackPage.RemoveAt(i);
+            }
+        }
+        if (m_UIDataMap.ContainsKey(name))
+        {
+            if (App.Manager.ObjectPool.HasRegisted(name))
+                App.Manager.ObjectPool.Releasse(name, m_UIDataMap[name].gameObject);//对象池注册的交给对象池管理
+            else
+                Destroy(m_UIDataMap[name].gameObject);//销毁
+        }
+    }
+    /// <summary>
+    /// 关闭View
+    /// </summary>
+    /// <param name="name"></param>
+    public void CloseView(string name)
 	{
 		if (m_UIDataMap.ContainsKey(name))
 		{
@@ -201,6 +235,27 @@ public class UIManager : Manager
 			
 		}
 	}
+
+    public void HideAllOverViewByPage()
+    {
+        if(m_topPage != null && m_UIDataMap.ContainsKey(m_topPage))
+        {
+            foreach(var item in m_UIDataMap)
+            {
+                UIData m_UIData = item.Value;
+                if (m_UIData.viewStyle == UIViewStyle.OverView)
+                {
+                    UIData m_UIDataPage = m_UIDataMap[m_topPage];
+                    if (m_UIData.gameObject.activeSelf)
+                    {
+                        m_UIDataPage.hidenOverView.Add(m_UIData);
+                        m_UIData.gameObject.SetActive(false);
+
+                    }
+                }
+            }
+        }
+    }
 
     private void AutoDepthOverView(int baseDepth)
     {
@@ -406,10 +461,10 @@ public enum UILayoutStyle{
 }
 
 public enum UIViewStyle{
-	Page = 0,
-	OverView = 1,
-    Tips = 2,
-    Window = 3,
+	Page = 0,//只有一个
+    OverView = 1,//只有一个
+    Tips = 2,//taost
+    Window = 3,//可以重复创建
 }
 
 public class UIData{

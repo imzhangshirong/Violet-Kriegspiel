@@ -17,7 +17,8 @@ public class MockManager : Manager
     public override void OnManagerReady()
     {
         //注册Mock的Response
-        RegisteMockResponse("Hello",HelloResponse);
+        //RegisteMockResponse("Hello",HelloResponse);
+        RegisteMockResponse("Login",LoginResponse);
 
         //注册Mock的Push
         RegisteMockAction(KeyCode.Keypad1,EnterBattleFieldPush);
@@ -119,7 +120,16 @@ public class MockManager : Manager
     }
     void LoginResponse(IMessage request, RpcResponse callback)
     {
-
+        LoginRequest requestRpc = (LoginRequest)request;
+        LoginResponse response = new LoginResponse();
+        response.PlayerInfo = new PlayerInfo();
+        response.PlayerInfo.UserId = 1;
+        response.PlayerInfo.UserName = "KyArvis";
+        response.PlayerInfo.ZoneId = 1;
+        response.PlayerInfo.State = (int)PlayerState.UNKOWN;
+        response.ServerTime = DateTime.Now.Ticks / 1000;
+        Debuger.Log("userLogin:" + requestRpc.UserName);
+        callback(response);
     }
     void FindEnemyResponse(IMessage request, RpcResponse callback)
     {
