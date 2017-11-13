@@ -1,7 +1,9 @@
 var Path = require('path');
 module.exports = {
+    
     host:"127.0.0.1",
     port:8000,
+    cleanClientItemTimeout:10000,
     protobufs:[
         'Struct_pb.js',        
         'Request_pb.js',

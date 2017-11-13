@@ -84,7 +84,7 @@ public class App : AppBase
         {
             get
             {
-                return App.Package.Player;
+                return PlayerPackage.Instance;
             }
         }
         public static ChessGamePackage ChessGame

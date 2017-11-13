@@ -2,34 +2,107 @@
 var Net = require('net');
 var RpcServer = Net.createServer();
 var Path = require('path');
+var Crypto = require('crypto');
 var isInit = false;
 var _Request = null;
 var _Response = null;
 var _messages = [];
 var _bindRpcList = {};
 var dataQueue = [];
+var clients = [];
+
+function md5 (text) {
+  return Crypto.createHash('md5').update(text).digest('hex');
+};
+
 RpcServer.bufferSize = 16;
 RpcServer.on("connection", function (client) {
-    console.log("access in");
-    client.on("data", function (data) {
-        let socketData = parseSocketBinaryData(data);
-        let requestData = dealResquest(socketData.data);
-        if (requestData != null && _bindRpcList[requestData.msg] != null) {
-            let result = _bindRpcList[requestData.msg](requestData.rpc);
-            let binaryData = returnData(result, requestData);
-            let bufferArraySend = buildSocketBinaryData({
-                version: 1,
-                dataLength: binaryData.length,
-                data: binaryData,
-            });
-            console.log(bufferArraySend);
-            if (result != null) client.write(new Buffer(bufferArraySend));
-        }
-    });
-    client.on("end", function () {
-        console.log("out");
-    });
+    try{
+        clients.push(
+            {
+                client:client,
+                token:md5(Date.now()+"salt"),
+            }
+        );
+        console.log("access in:"+clients.length+"|"+clients[clients.length-1].token);
+        client.on("data", function (data) {
+            let socketData = parseSocketBinaryData(data);
+            let requestData = dealResquest(socketData.data);
+            let clientItemT = getClientItemByToken(requestData.header.getToken());
+            let clientItemC = getClientItemByClient(client);
+            if(clientItemT!=null && clientItemC!=null){//响应重连的Token
+                clientItemT.client = clientItemC.client;
+                clientItemC.client = null;
+            }
+            requestData.client = client;
+            if (requestData != null && _bindRpcList[requestData.msg] != null) {
+                let result = _bindRpcList[requestData.msg](requestData);
+                let binaryData = returnData(result, requestData);
+                if(binaryData!=null){
+                    let bufferArraySend = buildSocketBinaryData({
+                        version: 1,
+                        dataLength: binaryData.length,
+                        data: binaryData,
+                    });
+                    //console.log(bufferArraySend);
+                    if (result != null) client.write(new Buffer(bufferArraySend));
+                }
+            }
+        });
+        client.on("close",function(){
+            clientOut(client);
+        });
+        client.on("end", function () {
+            clientOut(client);
+        });
+        client.on("error",function(err){
+            clientOut(client);
+        });
+    }
+    catch(e){
+
+    }
 });
+
+RpcServer.on("close",function(){
+
+});
+
+RpcServer.on("error",function(err){
+    
+});
+
+function clientOut(client){
+    let clientItem = getClientItemByClient(client);
+    if(clientItem!=null){
+        clientItem.client = null;
+    }
+    console.log("out:"+clients.length);
+}
+
+function cleanClientItem(){
+    clients = clients.filter(function(item){
+        return item.client!=null;
+    });
+    console.log("AfterClean:"+clients.length);
+}
+
+function getClientItemByToken(token){
+    let clientItem = clients.filter(function(item){
+        return item.token==token;
+    });
+    if(clientItem.length!=0)return clientItem[0];
+    return null;
+}
+
+function getClientItemByClient(client){
+    let clientItem = clients.filter(function(item){
+        return item.client==client;
+    });
+    if(clientItem.length!=0)return clientItem[0];
+    return null;
+}
+
 function parseSocketBinaryData(dataOrigin) {
     let bufferArray = new Uint8Array(dataOrigin);
     let headerLength = 10;
@@ -111,6 +184,7 @@ function dealResquest(_resquestBytes) {
         rpcCallback.msg = msg;
         rpcCallback.rpc = req;
         rpcCallback.header = headerReq;
+        rpcCallback.errorCode = 0;
     }
     else {
         rpcCallback = null;
@@ -129,10 +203,18 @@ function getRpcBuilder(msg, type) {
 function returnData(rpcResponse, requestData) {
     if (requestData == null) return null;
     let headerRes = new _Response();
-    headerRes.setToken(requestData.header.getToken());
-    headerRes.setRpc(requestData.msg);
-    headerRes.setData(rpcResponse.serializeBinary());
-    headerRes.setUnique(requestData.header.getUnique())
+    let clientItem = getClientItemByClient(requestData.client);
+    if(clientItem == null){
+        return null;
+    }
+    else{
+        console.log("Response "+requestData.header.getRpc()+"."+requestData.header.getUnique()+" > Token:"+clientItem.token);
+        headerRes.setToken(clientItem.token);
+        headerRes.setRpc(requestData.msg);
+        headerRes.setData(rpcResponse.serializeBinary());
+        headerRes.setUnique(requestData.header.getUnique());
+        headerRes.setCode(requestData.errorCode);
+    }
     return headerRes.serializeBinary();
 }
 function init(port, protobufs, protoPath) {
@@ -162,6 +244,23 @@ function init(port, protobufs, protoPath) {
 function on(msg, callback) {
     _bindRpcList[msg] = callback;
 }
+function push(clientItem,rpcName,rpc){
+    let headerRes = new _Response();
+    headerRes.setToken(clientItem.token);
+    headerRes.setRpc(rpcName);
+    headerRes.setData(rpc.serializeBinary());
+    let binaryData = headerRes.serializeBinary();
+    if(binaryData!=null){
+        let bufferArraySend = buildSocketBinaryData({
+            version: 1,
+            dataLength: binaryData.length,
+            data: binaryData,
+        });
+        //console.log(bufferArraySend);
+        clientItem.client.write(new Buffer(bufferArraySend));
+    }
+}
+
 module.exports = {
     init: init,
     listen: function () {
@@ -173,4 +272,9 @@ module.exports = {
         RpcServer.close();
     },
     getRpc: getRpcBuilder,
+    getClients: function(){
+        return clients;
+    },
+    push: push,
+    cleanClientItem: cleanClientItem,
 }

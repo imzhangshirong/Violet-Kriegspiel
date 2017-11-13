@@ -19,7 +19,7 @@ public class RpcNetwork
 
     bool m_isReady;
     bool m_isQueue;
-    Thread m_recieve;
+    Thread m_Receive;
     Thread m_process;
 
     Thread m_heartBeat;
@@ -52,6 +52,7 @@ public class RpcNetwork
     static Dictionary<string, RpcRequestUIData> m_RpcUIMap = new Dictionary<string, RpcRequestUIData>();
     static Dictionary<string, int> m_RpcUniqueIdMap = new Dictionary<string, int>();//维护uniqueId的最大值
     static RpcReceiveListener m_Listener = null;
+    static int m_waitUICount = 0;
     string m_Token = "";
     public static string Token
     {
@@ -116,6 +117,19 @@ public class RpcNetwork
             state = RpcState.Waiting,
             autoRetry = autoRetry,
         };
+        if(!m_RpcUniqueIdMap.ContainsKey(rpcData.uniqueName)){
+            m_RpcUIMap.Add(rpcData.uniqueName,new RpcRequestUIData(){
+                needErrorCodeAlert = needUIErrorCodeAlert,
+                needRetry = needUIRetry,
+                needWaitingUI = needUIWaiting,
+            });
+        }
+        if(needUIWaiting){
+            App.Manager.Thread.RunOnMainThread(()=>{
+                Common.UI.OpenWaiting();
+            });
+            m_waitUICount ++;
+        }
         AddNewRequest(rpcData);
         Send(rpcData);
     }
@@ -255,7 +269,7 @@ public class RpcNetwork
         m_isReady = false;
         m_isQueue = false;
         if (m_process != null) m_process.Abort();
-        if (m_recieve != null) m_recieve.Abort();
+        if (m_Receive != null) m_Receive.Abort();
         if (m_heartBeat != null) m_heartBeat.Abort();
         if (m_timeOut != null) m_timeOut.Abort();
         m_messageQueue.Clear();
@@ -339,7 +353,7 @@ public class RpcNetwork
     /// <summary>
     /// 处理socket包接收
     /// </summary>
-    private void QueueRecieve()
+    private void QueueReceive()
     {
         int blockSize = 256;
         while (m_isQueue)
@@ -520,62 +534,89 @@ public class RpcNetwork
     {
         SocketData socketData = ParseSocketBinaryData(receiveData);
         _Response response = _Response.Parser.ParseFrom(socketData.data);
+        Assembly assem = response.GetType().Assembly;
         RPC currentRpc = GetRpcData(response.Rpc, response.Unique);
-        if (currentRpc==null) return;
-        if (currentRpc.isTimeout()){//已经超时的不处理
-            lock (m_RpcMap)
-            {
-                m_RpcMap.Remove(currentRpc.uniqueName);
-            }
-            return;
-        }
-        if (response.Token != "") m_Token = response.Token;//统一身份标识
-        App.Manager.Thread.RunOnMainThread(()=>{
-            Debuger.Log("Receive Rpc");
-        });
-        if (response.Code != 0)//处理ErrorCode
-        {
-            if (m_RpcUIMap.ContainsKey(currentRpc.uniqueName))
-            {
-                RpcRequestUIData uiData = m_RpcUIMap[currentRpc.uniqueName];
-                if (uiData.needErrorCodeAlert)
-                {
-                    if (App.Manager.Network.HasRegistedErrorCode(response.Code))
-                        App.Manager.Network.DoErrorCode(response.Code);
-                    else
-                        App.Manager.Thread.RunOnMainThread(() =>
-                        {
-                            Common.UI.OpenAlert("错误", "ErrorCode:" + response.Code, "确认", null);
-                        });
-                }
-            }
-        }
-        else
-        {
-            Assembly assem = currentRpc.rpcType.Assembly;
-            Type type = assem.GetType(currentRpc.rpcType.Namespace + "." + currentRpc.msg + "Response");//这里要按规则来！！！！
-            if (type != null)
-            {
+        if (currentRpc != null){
+            if (currentRpc.isTimeout()){//已经超时的不处理
                 lock (m_RpcMap)
                 {
                     m_RpcMap.Remove(currentRpc.uniqueName);
                 }
-                IMessage resRpc = Activator.CreateInstance(type) as IMessage;
-                resRpc.MergeFrom(response.Data);
-                App.Manager.Thread.RunOnMainThread(() =>
+                return;
+            }
+            if (response.Token != "") m_Token = response.Token;//统一身份标识
+            if (response.Code != 0)//处理ErrorCode
+            {
+                if (m_RpcUIMap.ContainsKey(currentRpc.uniqueName))
                 {
-                    currentRpc.callback(resRpc);
-                });
+                    RpcRequestUIData uiData = m_RpcUIMap[currentRpc.uniqueName];
+                    if (uiData.needErrorCodeAlert)
+                    {
+                        App.Manager.Thread.RunOnMainThread(()=>{
+                            Debuger.Log("Receive Rpc:"+response.Code);
+                        });
+                        if (App.Manager.Network.HasRegistedErrorCode(response.Code))
+                            App.Manager.Thread.RunOnMainThread(() =>
+                            {
+                                Common.UI.CloseWaiting();
+                                App.Manager.Network.DoErrorCode(response.Code);
+                            });
+                        else
+                            App.Manager.Thread.RunOnMainThread(() =>
+                            {
+                                Common.UI.CloseWaiting();
+                                Common.UI.OpenAlert("错误", "ErrorCode:" + response.Code, "确认", null);
+                            });
+                    }
+                    if(uiData.needWaitingUI)m_waitUICount--;
+                    if(m_waitUICount<=0){
+                        App.Manager.Thread.RunOnMainThread(() =>
+                        {
+                            Common.UI.CloseWaiting();
+                        });
+                    }
+                    lock (m_RpcUIMap)
+                    {
+                        m_RpcUIMap.Remove(currentRpc.uniqueName);
+                    }
+                }
+                lock (m_RpcMap)
+                {
+                    m_RpcMap.Remove(currentRpc.uniqueName);
+                }
             }
             else
             {
-                type = assem.GetType(currentRpc.rpcType.Namespace + "." + currentRpc.msg + "Push");//这里要按Push规则来！！！！
+                Type type = assem.GetType(Config.RpcNamespace + "." + response.Rpc + "Response");//这里要按规则来！！！！
                 if (type != null)
                 {
                     IMessage resRpc = Activator.CreateInstance(type) as IMessage;
                     resRpc.MergeFrom(response.Data);
-                    m_Listener.Invoke(currentRpc.msg, resRpc);//分发给注册的Listener
+                    App.Manager.Thread.RunOnMainThread(() =>
+                    {
+                        currentRpc.callback(resRpc);
+                    });
+                    lock (m_RpcUIMap)
+                    {
+                        m_RpcUIMap.Remove(currentRpc.uniqueName);
+                    }
+                    lock (m_RpcMap)
+                    {
+                        m_RpcMap.Remove(currentRpc.uniqueName);
+                    }
                 }
+                
+            }
+        }
+        else{
+            Type type = assem.GetType(Config.RpcNamespace + "." + response.Rpc + "Push");//这里要按Push规则来！！！！
+            if (type != null)
+            {
+                IMessage resRpc = Activator.CreateInstance(type) as IMessage;
+                resRpc.MergeFrom(response.Data);
+                App.Manager.Thread.RunOnMainThread(()=>{
+                    m_Listener.Invoke(response.Rpc, resRpc);//分发给注册的Listener
+                });
             }
         }
     }
@@ -591,7 +632,7 @@ public class RpcNetwork
             });
             //开始监听
             m_isQueue = true;
-            m_recieve = App.Manager.Thread.RunAsync(QueueRecieve);
+            m_Receive = App.Manager.Thread.RunAsync(QueueReceive);
             m_process = App.Manager.Thread.RunAsync(QueueProcess);
             m_timeOut = App.Manager.Thread.RunAsync(TimeTick);
             m_heartBeat = App.Manager.Thread.RunAsync(HeartBeatProcess);

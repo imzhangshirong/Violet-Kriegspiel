@@ -11,6 +11,7 @@ public class Config
     public static readonly string ServerHost = "127.0.0.1";
     public static readonly int ServerHostPort = 8000;
     public static readonly int RpcTimeout = 10000;//rpc请求的超时时间ms
+    public static readonly string RpcNamespace = "Com.Violet.Rpc";
 
     //资源配置
     public static readonly string ResourceFullPath = "/Resources";
