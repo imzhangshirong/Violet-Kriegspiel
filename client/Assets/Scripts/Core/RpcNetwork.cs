@@ -17,24 +17,24 @@ public class RpcNetwork
 {
     private static RpcNetwork m_Instance;
 
-    bool m_isReady;
-    bool m_isQueue;
-    Thread m_Receive;
-    Thread m_process;
+    static bool m_isReady;
+    static bool m_isQueue;
+    static Thread m_Receive;
+    static Thread m_process;
 
-    Thread m_heartBeat;
-    Thread m_timeOut;
+    static Thread m_heartBeat;
+    static Thread m_timeOut;
     public static bool IsReady{
         get
         {
-            return m_Instance.m_isReady;
+            return m_isReady;
         }
     }
     public static bool IsQueue
     {
         get
         {
-            return m_Instance.m_isQueue;
+            return m_isQueue;
         }
     }
     public static RpcNetwork Instance {
@@ -53,12 +53,12 @@ public class RpcNetwork
     static Dictionary<string, int> m_RpcUniqueIdMap = new Dictionary<string, int>();//维护uniqueId的最大值
     static RpcReceiveListener m_Listener = null;
     static int m_waitUICount = 0;
-    string m_Token = "";
+    static string m_Token = "";
     public static string Token
     {
         get
         {
-            return Instance.m_Token;
+            return m_Token;
         }
     } 
     

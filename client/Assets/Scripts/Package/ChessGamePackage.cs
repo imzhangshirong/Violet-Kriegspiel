@@ -10,6 +10,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
     private List<FieldRoadStation> m_MapRoadStations = new List<FieldRoadStation>();
     public List<int> ChessDataIds = new List<int>();//所有棋子的本地id
     public int MyselfChooseChessId = -1;
+    public List<ChessData> MyselfChessSetting;
     int m_roundOrder;
     public int roundOrder{
         get{
@@ -24,7 +25,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
             return m_EnemyPlayerList;
         }
     }
-    bool m_CanDragChess = false;
+    bool m_CanDragChess = true;
     /// <summary>
     /// 是否处于布子状态
     /// </summary>
@@ -35,7 +36,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
             return m_CanDragChess;
         }
     }
-    bool m_IsGameStart = true;
+    bool m_IsGameStart = false;
     /// <summary>
     /// 游戏开始
     /// </summary>
@@ -58,7 +59,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
     }
 
 
-    bool m_IsEnemyReady = true;
+    bool m_IsEnemyReady = false;
     /// <summary>
     /// 敌方准备完毕
     /// </summary>
@@ -74,6 +75,15 @@ public class ChessGamePackage : Package<ChessGamePackage>
     public override void Init(object data)
     {
         base.Init(data);
+        EnterBattleFieldPush push = (EnterBattleFieldPush)data;
+        m_EnemyPlayerList = new List<PlayerInfo>(push.PlayerList);
+        MyselfChessSetting = new List<ChessData>(push.ChessSetting);
+        m_roundOrder = push.RoundOrder;
+        m_IsEnemyReady = false;
+        m_IsGameStart = false;
+        m_IsReadyGame = false;
+        m_CanDragChess = true;
+        App.Package.Player.playerInfo.State = (int)PlayerState.UNREADY;
         InitFieldMap();
     }
     /// <summary>

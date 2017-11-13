@@ -42,8 +42,7 @@ public class UIFindEnemyPanel : UIViewBase
 
 	public void OnEnterBattleField(object content){
 		App.Package.ChessGame.Init(content);
-		EnterBattleFieldPush push = (EnterBattleFieldPush)content;
-		Debuger.Log("/////////////");
-		
+		Common.UI.OpenTips("成功匹配到对手！准备吧");
+		App.Manager.UI.ReplaceView("UIGamePanel");
 	}
 }

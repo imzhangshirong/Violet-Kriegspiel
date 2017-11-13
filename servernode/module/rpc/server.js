@@ -31,9 +31,10 @@ RpcServer.on("connection", function (client) {
             if(requestData==null)return;
             let clientItemT = getClientItemByToken(requestData.header.getToken());
             let clientItemC = getClientItemByClient(client);
-            if(clientItemT!=null && clientItemC!=null){//响应重连的Token
+            if(clientItemT!=null && clientItemC!=null && clientItemC.token!=clientItemT.token){//响应重连的Token
                 clientItemT.client = clientItemC.client;
                 clientItemC.client = null;
+                console.log("acceptToken:"+clientItemT.token);
             }
             requestData.client = client;
             if (requestData != null && _bindRpcList[requestData.msg] != null) {
@@ -261,6 +262,7 @@ function push(clientItem,rpcName,rpc){
             data: binaryData,
         });
         //console.log(bufferArraySend);
+        console.log("Push "+rpcName+" > "+clientItem.token);
         clientItem.client.write(new Buffer(bufferArraySend));
     }
 }

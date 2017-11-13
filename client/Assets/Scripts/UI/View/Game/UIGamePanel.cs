@@ -22,7 +22,7 @@ public class UIGamePanel : UIViewBase
     public override void OnInit()
     {
         base.OnInit();
-        App.Manager.UI.HideOverViewByPage("UITopTest");
+        App.Manager.UI.HideAllOverViewByPage();
 
         //加载
         m_ChessHero = App.Manager.Resource.LoadUI("Game/ChessHero");
@@ -45,22 +45,14 @@ public class UIGamePanel : UIViewBase
     {
         base.OnOpen(intent);
         Debuger.Log("GamePanel Open");
-        App.Package.Player.Init(null);
-        App.Package.ChessGame.Init(null);
-        App.Package.ChessGame.AddChessFromData(
-            App.Package.ChessGame.ParseChessDataFromString(
-                "6|1,3|2,0|3,11|4,0|5;10|6,2|7,5|8,0|9,3|10;9|11,,2|12,,4|13;1|14,5|15,,6|16,7|17;7|18,,4|19,,1|20;8|21,2|22,4|23,3|24,8|25;",
-                ChessHeroGroup.Myself
-            )
-        );
+        App.Package.ChessGame.AddChessFromData(App.Package.ChessGame.MyselfChessSetting);
 
         App.Package.ChessGame.AddChessFromData(
             App.Package.ChessGame.ParseChessDataFromString(
-                "6|1,3|2,0|3,11|4,0|5;10|6,2|7,5|8,0|9,3|10;9|11,,2|12,,4|13;1|14,5|15,,6|16,7|17;7|18,,4|19,,1|20;8|21,2|22,4|23,3|24,8|25;",
+                "-1|0,-1|0,-1|0,-1|0,-1|0;-1|0,-1|0,-1|0,-1|0,-1|0;-1|0,,-1|0,,-1|0;-1|0,-1|0,,-1|0,-1|0;-1|0,,-1|0,,-1|0;-1|0,-1|0,-1|0,-1|0,-1|0;",
                 ChessHeroGroup.Enemy
             )
         );
-
         InitChessHero(ChessHeroGroup.Myself);
         InitChessHero(ChessHeroGroup.Enemy);
         m_MyselfState.UpdateState(App.Package.Player.playerInfo);

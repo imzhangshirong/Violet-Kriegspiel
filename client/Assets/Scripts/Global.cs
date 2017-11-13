@@ -43,7 +43,6 @@ public class Global : MonoBehaviour
         App.Manager.UI.RegisteUI("UILobbyPanel", "UILobbyPanel", UILayoutStyle.Center, UIViewStyle.Page);
         App.Manager.UI.RegisteUI("UIFindEnemyPanel", "UIFindEnemyPanel", UILayoutStyle.Center, UIViewStyle.Page);
         App.Manager.UI.RegisteUI("UIGamePanel", "Game/UIGamePanel", UILayoutStyle.Center, UIViewStyle.Page);
-        App.Manager.UI.RegisteUI("UIPagePanel", "UIPagePanel", UILayoutStyle.Center, UIViewStyle.Page);
 
         //注册RPC Push事件////
         App.Manager.Network.RegisterPush("RoomStateChange", "#NET_RoomStateChange");
