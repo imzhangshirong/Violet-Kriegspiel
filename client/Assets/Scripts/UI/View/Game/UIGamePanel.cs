@@ -45,14 +45,26 @@ public class UIGamePanel : UIViewBase
     {
         base.OnOpen(intent);
         Debuger.Log("GamePanel Open");
-        PlayerPackage.Instance.Init(null);
-        ChessGamePackage.Instance.Init(null);
-        ChessGamePackage.Instance.AddChessFromData("6|1,3|2,0|3,11|4,0|5;10|6,2|7,5|8,0|9,3|10;9|11,,2|12,,4|13;1|14,5|15,,6|16,7|17;7|18,,4|19,,1|20;8|21,2|22,4|23,3|24,8|25;", ChessHeroGroup.Myself);
-        ChessGamePackage.Instance.AddChessFromData("6|1,3|2,0|3,-1|4,0|5;10|6,2|7,5|8,0|9,3|10;9|11,,2|12,,4|13;1|14,5|15,,6|16,7|17;7|18,,4|19,,1|20;8|21,2|22,4|23,3|24,8|25;", ChessHeroGroup.Enemy);
+        App.Package.Player.Init(null);
+        App.Package.ChessGame.Init(null);
+        App.Package.ChessGame.AddChessFromData(
+            App.Package.ChessGame.ParseChessDataFromString(
+                "6|1,3|2,0|3,11|4,0|5;10|6,2|7,5|8,0|9,3|10;9|11,,2|12,,4|13;1|14,5|15,,6|16,7|17;7|18,,4|19,,1|20;8|21,2|22,4|23,3|24,8|25;",
+                ChessHeroGroup.Myself
+            )
+        );
+
+        App.Package.ChessGame.AddChessFromData(
+            App.Package.ChessGame.ParseChessDataFromString(
+                "6|1,3|2,0|3,11|4,0|5;10|6,2|7,5|8,0|9,3|10;9|11,,2|12,,4|13;1|14,5|15,,6|16,7|17;7|18,,4|19,,1|20;8|21,2|22,4|23,3|24,8|25;",
+                ChessHeroGroup.Enemy
+            )
+        );
+
         InitChessHero(ChessHeroGroup.Myself);
         InitChessHero(ChessHeroGroup.Enemy);
-        m_MyselfState.UpdateState(ChessGamePackage.Instance.MyselfPlayerData);
-        m_EnemyState.UpdateState(ChessGamePackage.Instance.EnemyPlayerData);
+        m_MyselfState.UpdateState(App.Package.Player.playerInfo);
+        m_EnemyState.UpdateState(App.Package.ChessGame.EnemyPlayerList[0]);
 
     }
     public void BackPage()
@@ -70,11 +82,11 @@ public class UIGamePanel : UIViewBase
         Intent intent = (Intent)content;
         UIWChessHeroItem moveUI = (UIWChessHeroItem)intent.Value("move");
         UIWChessHeroItem placeUI = (UIWChessHeroItem)intent.Value("place");
-        ChessHeroData move = ChessGamePackage.Instance.GetChessHeroDataById(moveUI.chessId);
-        ChessHeroData place = ChessGamePackage.Instance.GetChessHeroDataById(placeUI.chessId);
-        if (ChessGamePackage.Instance.CanDragChess)
+        ChessHeroData move = App.Package.ChessGame.GetChessHeroDataById(moveUI.chessId);
+        ChessHeroData place = App.Package.ChessGame.GetChessHeroDataById(placeUI.chessId);
+        if (App.Package.ChessGame.CanDragChess)
         {
-            if (ChessGamePackage.Instance.GetChessGroupById(move.id) == ChessHeroGroup.Myself && ChessGamePackage.Instance.GetChessGroupById(place.id) == ChessHeroGroup.Myself) //只有自己的才可以拖拽
+            if (App.Package.ChessGame.GetChessGroupById(move.id) == ChessHeroGroup.Myself && App.Package.ChessGame.GetChessGroupById(place.id) == ChessHeroGroup.Myself) //只有自己的才可以拖拽
             {
                 if((move.heroTypeId == 11 && !ChessAgainst.IsStronghold(place.point)) || (place.heroTypeId == 11 && !ChessAgainst.IsStronghold(move.point)))
                 {
@@ -98,7 +110,7 @@ public class UIGamePanel : UIViewBase
         }
         else
         {
-            if (ChessGamePackage.Instance.IsReadyGame && !ChessGamePackage.Instance.IsGameStart) Common.UI.OpenTips("已经准备就绪，无法调整棋子");
+            if (App.Package.ChessGame.IsReadyGame && !App.Package.ChessGame.IsGameStart) Common.UI.OpenTips("已经准备就绪，无法调整棋子");
         }
     }
 
@@ -107,16 +119,14 @@ public class UIGamePanel : UIViewBase
     {
         if (m_MyChessIsMoving) return;//正在移动
         Intent intent = (Intent)content;
-        int id = (int)intent.Value("id");
+        ChessPoint point = (ChessPoint)intent.Value("point");
         GameObject go = (GameObject)intent.Value("gameObject");
-        ChessHeroData chessHero = ChessGamePackage.Instance.GetChessHeroDataById(id);
-        ChessPoint point = chessHero.point;
-        //Debuger.Warn("ChessItem Click:" + id +"|"+ ChessGamePackage.Instance.MyselfChooseChessId + "|" +ChessGamePackage.Instance.GetFeildRoadStationByPoint(point).type);
-        if (ChessGamePackage.Instance.MyselfChooseChessId > -1 && ChessGamePackage.Instance.GetChessGroupById(ChessGamePackage.Instance.MyselfChooseChessId) == ChessHeroGroup.Myself)
+        //Debuger.Warn("ChessItem Click:" + id +"|"+ App.Package.ChessGame.MyselfChooseChessId + "|" +App.Package.ChessGame.GetFeildRoadStationByPoint(point).type);
+        if (App.Package.ChessGame.MyselfChooseChessId > -1 && App.Package.ChessGame.GetChessGroupById(App.Package.ChessGame.MyselfChooseChessId) == ChessHeroGroup.Myself)
         {
-            if (ChessGamePackage.Instance.IsGameStart)//游戏开始了之后才能走
+            if (App.Package.ChessGame.IsGameStart)//游戏开始了之后才能走
             {
-                ChessHeroData heroChoosed = ChessGamePackage.Instance.GetChessHeroDataById(ChessGamePackage.Instance.MyselfChooseChessId);
+                ChessHeroData heroChoosed = App.Package.ChessGame.GetChessHeroDataById(App.Package.ChessGame.MyselfChooseChessId);
                 StartCoroutine(TweenMoveChess(heroChoosed, point));
             }
             else
@@ -132,36 +142,36 @@ public class UIGamePanel : UIViewBase
         Intent intent = (Intent)content;
         int id = (int)intent.Value("id");
         GameObject go = (GameObject)intent.Value("gameObject");
-        ChessHeroData hero = ChessGamePackage.Instance.GetChessHeroDataById(id);
-        ChessHeroGroup group = ChessGamePackage.Instance.GetChessGroupById(id);
+        ChessHeroData hero = App.Package.ChessGame.GetChessHeroDataById(id);
+        ChessHeroGroup group = App.Package.ChessGame.GetChessGroupById(id);
         Push("_chessHeroChoosed", id);
 
         //明棋模式提醒
         if (group == ChessHeroGroup.Myself)
         {
-            for (int i = 0; i < ChessGamePackage.Instance.ChessDataIds.Count; i++)
+            
+            for (int i = 0; i < App.Package.ChessGame.ChessDataIds.Count; i++)
             {
-                int chessId = ChessGamePackage.Instance.ChessDataIds[i];
-                if (ChessGamePackage.Instance.GetChessGroupById(id) == ChessHeroGroup.Myself) continue;
-                ChessHeroData heroPre = ChessGamePackage.Instance.GetChessHeroDataById(chessId);
+                int chessId = App.Package.ChessGame.ChessDataIds[i];
+                if (App.Package.ChessGame.GetChessGroupById(chessId) == ChessHeroGroup.Myself) continue;
+                ChessHeroData heroPre = App.Package.ChessGame.GetChessHeroDataById(chessId);
                 UIWChessHeroItem uiChess = heroPre.gameObject.GetComponent<UIWChessHeroItem>();
                 uiChess.willLose.SetActive(false);
                 uiChess.willWin.SetActive(false);
                 uiChess.willTie.SetActive(false);
-                if (heroPre.heroTypeId > -1 && hero.heroTypeId > 0 && hero.heroTypeId < 11)
+                if (heroPre.heroTypeId > -1 && ChessAgainst.ChessHeroCanMove(hero))
                 {
-                    int result = ChessAgainst.ChessCanBeat(hero, heroPre);
-
+                    ChessMoveResult result = ChessAgainst.ChessCanBeat(hero, heroPre);
+                   
                     switch (result)
                     {
-                        case -1:
+                        case ChessMoveResult.LOSE:
                             uiChess.willLose.SetActive(true);
                             break;
-                        case 0:
+                        case ChessMoveResult.TIE:
                             uiChess.willTie.SetActive(true);
                             break;
-                        case 1:
-                        case 2:
+                        case ChessMoveResult.WIN:
                             uiChess.willWin.SetActive(true);
                             break;
                     }
@@ -170,11 +180,11 @@ public class UIGamePanel : UIViewBase
         }
         else
         {
-            for (int i = 0; i < ChessGamePackage.Instance.ChessDataIds.Count; i++)
+            for (int i = 0; i < App.Package.ChessGame.ChessDataIds.Count; i++)
             {
-                int chessId = ChessGamePackage.Instance.ChessDataIds[i];
-                if (ChessGamePackage.Instance.GetChessGroupById(id) == ChessHeroGroup.Myself) continue;
-                ChessHeroData heroPre = ChessGamePackage.Instance.GetChessHeroDataById(chessId);
+                int chessId = App.Package.ChessGame.ChessDataIds[i];
+                if (App.Package.ChessGame.GetChessGroupById(id) == ChessHeroGroup.Myself) continue;
+                ChessHeroData heroPre = App.Package.ChessGame.GetChessHeroDataById(chessId);
                 UIWChessHeroItem uiChess = heroPre.gameObject.GetComponent<UIWChessHeroItem>();
                 uiChess.willLose.SetActive(false);
                 uiChess.willWin.SetActive(false);
@@ -183,30 +193,30 @@ public class UIGamePanel : UIViewBase
         }
 
 
-        if (ChessGamePackage.Instance.GetChessGroupById(ChessGamePackage.Instance.MyselfChooseChessId) == ChessHeroGroup.Myself)
+        if (App.Package.ChessGame.GetChessGroupById(App.Package.ChessGame.MyselfChooseChessId) == ChessHeroGroup.Myself)
         {
-            if(ChessGamePackage.Instance.MyselfChooseChessId > -1 && group != ChessHeroGroup.Myself)//之前有选择自己,当前非己方的棋
+            if(App.Package.ChessGame.MyselfChooseChessId > -1 && group != ChessHeroGroup.Myself)//之前有选择自己,当前非己方的棋
             {
-                if (ChessGamePackage.Instance.IsGameStart)//游戏开始了之后才能走并吃子
+                if (App.Package.ChessGame.IsGameStart)//游戏开始了之后才能走并吃子
                 {
-                    ChessHeroData heroChoosed = ChessGamePackage.Instance.GetChessHeroDataById(ChessGamePackage.Instance.MyselfChooseChessId);
+                    ChessHeroData heroChoosed = App.Package.ChessGame.GetChessHeroDataById(App.Package.ChessGame.MyselfChooseChessId);
                     StartCoroutine(TweenMoveChessAndBeat(heroChoosed, hero));
                 }
                 else
                 {
                     Common.UI.OpenTips("比赛还没开始哦，不要心急");
-                    ChessGamePackage.Instance.MyselfChooseChessId = id;
+                    App.Package.ChessGame.MyselfChooseChessId = id;
                 }
             }
             else
             {
-                ChessGamePackage.Instance.MyselfChooseChessId = id;
+                App.Package.ChessGame.MyselfChooseChessId = id;
             }
         }
         else
         {
             
-            ChessGamePackage.Instance.MyselfChooseChessId = id;
+            App.Package.ChessGame.MyselfChooseChessId = id;
             Debuger.Warn("ChessHeroItem Click:" + id + " @" + hero.point.ToString());
         }
     }
@@ -224,7 +234,7 @@ public class UIGamePanel : UIViewBase
         hero.point = point;
         hero.gameObject.transform.localScale = Vector3.one;
         hero.gameObject.transform.localPosition = GetChessLocalPosition(hero.point);
-        Debuger.Warn(ChessGamePackage.Instance.GetChessStringData(ChessHeroGroup.Myself));
+        Debuger.Warn(App.Package.ChessGame.GetChessStringData(ChessHeroGroup.Myself));
     }
 
     IEnumerator TweenMoveChess(ChessHeroData heroChoosed, ChessPoint moveToPoint)
@@ -258,7 +268,7 @@ public class UIGamePanel : UIViewBase
         ChessMoveData moveData = ChessAgainst.ChessHeroCanMoveTo(heroChoosed, hero.point);
         if (moveData.crashType > 0)
         {
-            ChessGamePackage.Instance.MyselfChooseChessId = hero.id;
+            App.Package.ChessGame.MyselfChooseChessId = hero.id;
             Debuger.Warn("ChessHeroItem Cant MoveTo " + hero.point.ToString() + " : " + moveData.crashType);
         }
         else
@@ -269,24 +279,20 @@ public class UIGamePanel : UIViewBase
                 ChessMoveTo(heroChoosed, moveData.points[i]);
                 yield return new WaitForSeconds(dur);
             }
-            int result = ChessAgainst.ChessCanBeat(heroChoosed, hero);
+            ChessMoveResult result = ChessAgainst.ChessCanBeat(heroChoosed, hero);
             switch (result)
             {
-                case -1:
+                case ChessMoveResult.LOSE:
                     heroChoosed.state = ChessHeroState.Died;
                     heroChoosed.gameObject.SetActive(false);
                     break;
-                case 0:
+                case ChessMoveResult.TIE:
                     heroChoosed.state = ChessHeroState.Died;
                     heroChoosed.gameObject.SetActive(false);
                     hero.state = ChessHeroState.Died;
                     hero.gameObject.SetActive(false);
                     break;
-                case 1:
-                    hero.state = ChessHeroState.Died;
-                    hero.gameObject.SetActive(false);
-                    break;
-                case 2: //胜利
+                case ChessMoveResult.WIN:
                     hero.state = ChessHeroState.Died;
                     hero.gameObject.SetActive(false);
                     break;
@@ -300,9 +306,9 @@ public class UIGamePanel : UIViewBase
             }
             else
             {
-                //ChessGamePackage.Instance.MyselfChooseChessId = -1;
+                //App.Package.ChessGame.MyselfChooseChessId = -1;
             }
-            ChessGamePackage.Instance.MyselfChooseChessId = -1;
+            App.Package.ChessGame.MyselfChooseChessId = -1;
             Debuger.Warn("ChessHeroItem MoveToBeat " + hero.point.ToString() + " Beat:" + result);
         }
         m_MyChessIsMoving = false;
@@ -313,7 +319,7 @@ public class UIGamePanel : UIViewBase
     private void InitChessHero(ChessHeroGroup group)
     {
         TreeRoot treeRoot = GetComponent<TreeRoot>();
-        List<ChessHeroData> chessHeroDatas = ChessGamePackage.Instance.GetChessHeroList(group);
+        List<ChessHeroData> chessHeroDatas = App.Package.ChessGame.GetChessHeroList(group);
         for (int i = 0; i < chessHeroDatas.Count; i++)
         {
             ChessHeroData heroData = chessHeroDatas[i];
@@ -363,15 +369,15 @@ public class UIGamePanel : UIViewBase
     public void OnChessFieldClick(object content)
     {
         Push("_chessHeroChoosed", -1);
-        for (int i = 0; i < ChessGamePackage.Instance.ChessDataIds.Count; i++)
+        for (int i = 0; i < App.Package.ChessGame.ChessDataIds.Count; i++)
         {
-            ChessHeroData heroPre = ChessGamePackage.Instance.GetChessHeroDataById(ChessGamePackage.Instance.ChessDataIds[i]);
+            ChessHeroData heroPre = App.Package.ChessGame.GetChessHeroDataById(App.Package.ChessGame.ChessDataIds[i]);
             UIWChessHeroItem uiChess = heroPre.gameObject.GetComponent<UIWChessHeroItem>();
             uiChess.willLose.SetActive(false);
             uiChess.willWin.SetActive(false);
             uiChess.willTie.SetActive(false);
         }
-        ChessGamePackage.Instance.MyselfChooseChessId = -1;
+        App.Package.ChessGame.MyselfChooseChessId = -1;
     }
 
     /// <summary>
@@ -379,8 +385,8 @@ public class UIGamePanel : UIViewBase
     /// </summary>
     public void OnReadyClick()
     {
-        ChessGamePackage.Instance.MyselfPlayerData.state = ChessPlayerState.Ready;
-        m_MyselfState.UpdateState(ChessGamePackage.Instance.MyselfPlayerData);
+        App.Package.Player.playerInfo.State = (int)PlayerState.READY;
+        m_MyselfState.UpdateState(App.Package.Player.playerInfo);
     }
 
     /// <summary>

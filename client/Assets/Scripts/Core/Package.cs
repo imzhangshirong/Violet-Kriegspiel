@@ -18,7 +18,7 @@ public class Package<T> : IPackage where T : new()
             return m_instance;
         }
     }
-
+    bool m_inited = false;
     private Dictionary<string, object> m_DicData = new Dictionary<string, object>();
 
 
@@ -33,14 +33,18 @@ public class Package<T> : IPackage where T : new()
         return null;
 
     }
-
+    public bool inited{
+        get{
+            return m_inited;
+        }
+    }
     public virtual void Init(object data)
     {
-        //throw new NotImplementedException();
+        m_inited = true;
     }
 
     public virtual void Release()
     {
-        //throw new NotImplementedException();
+        m_inited = false;
     }
 }

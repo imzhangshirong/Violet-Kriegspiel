@@ -3,50 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-
+using Com.Violet.Rpc;
 public class ChessGamePackage : Package<ChessGamePackage>
 {
     private Dictionary<int, ChessHeroData> m_ChessData = new Dictionary<int, ChessHeroData>();//客户端id,ChessHeroData
     private List<FieldRoadStation> m_MapRoadStations = new List<FieldRoadStation>();
     public List<int> ChessDataIds = new List<int>();//所有棋子的本地id
     public int MyselfChooseChessId = -1;
-    public int EnemyChooseChessId = -1;
-    ChessPlayerData m_EnemyPlayerData = new ChessPlayerData()
-    {
-        playerInfo = new PlayerInfo()
-        {
-            userName = "Enemy!!",
-            userId = 2,
-            level = 1,
-        },
-        state = ChessPlayerState.UnReady,
-        group = ChessHeroGroup.Enemy,
-        remainTime = 30,
-    };
-    public ChessPlayerData EnemyPlayerData
+    int m_roundOrder;
+    public int roundOrder{
+        get{
+            return m_roundOrder;
+        }
+    }
+    List<PlayerInfo> m_EnemyPlayerList = new List<PlayerInfo>();
+    public List<PlayerInfo> EnemyPlayerList
     {
         get
         {
-            return m_EnemyPlayerData;
+            return m_EnemyPlayerList;
         }
     }
-
-    ChessPlayerData m_MyselfPlayerData = new ChessPlayerData()
-    {
-        playerInfo = PlayerPackage.Instance.playerInfo,
-        state = ChessPlayerState.UnReady,
-        group = ChessHeroGroup.Myself,
-        remainTime = 30,
-    };
-    public ChessPlayerData MyselfPlayerData
-    {
-        get
-        {
-            return m_MyselfPlayerData;
-        }
-    }
-
-    bool m_CanDragChess = true;
+    bool m_CanDragChess = false;
     /// <summary>
     /// 是否处于布子状态
     /// </summary>
@@ -57,7 +35,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
             return m_CanDragChess;
         }
     }
-    bool m_IsGameStart = false;
+    bool m_IsGameStart = true;
     /// <summary>
     /// 游戏开始
     /// </summary>
@@ -95,7 +73,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
 
     public override void Init(object data)
     {
-        //throw new NotImplementedException();
+        base.Init(data);
         InitFieldMap();
     }
     /// <summary>
@@ -166,8 +144,36 @@ public class ChessGamePackage : Package<ChessGamePackage>
         }
     }
 
-    public void AddChessFromData(string data,ChessHeroGroup group)
+    public void AddChessFromData(List<ChessData> chessList){
+        Dictionary<ChessHeroGroup,int> map = new Dictionary<ChessHeroGroup, int>();
+        map.Add(ChessHeroGroup.Myself,1);
+        map.Add(ChessHeroGroup.Enemy,1);
+        int baseId = 0;
+        for(int i=0;i<chessList.Count;i++){
+            ChessData chess = chessList[i];
+            ChessHeroGroup group = (ChessHeroGroup)chess.Group;
+            switch (group)
+            {
+                case ChessHeroGroup.Myself:
+                    baseId = 0;
+                    break;
+                case ChessHeroGroup.Enemy:
+                    baseId = 100;
+                    break;
+            }
+            ChessHeroData heroData = new ChessHeroData();
+            heroData.point = new ChessPoint(chess.Point.X,chess.Point.Y);
+            heroData.heroTypeId = chess.ChessType;
+            heroData.id = map[group]+baseId;
+            heroData.remoteId = chess.ChessRemoteId;
+            heroData.state = ChessHeroState.Alive;
+            AddChessToMap(heroData);
+            map[group]++;
+        }
+    }
+    public List<ChessData> ParseChessDataFromString(string data,ChessHeroGroup group)
     {
+        List<ChessData> chessList = new List<ChessData>();
         int baseId = 0;
         int offsetY = 0;
         switch (group)
@@ -181,7 +187,6 @@ public class ChessGamePackage : Package<ChessGamePackage>
                 offsetY = 6;
                 break;
         }
-        int localId = 1;
         string[] rows = data.Split(';');
         for(int i = 0; i < rows.Length && i < 6; i++)
         {
@@ -203,26 +208,29 @@ public class ChessGamePackage : Package<ChessGamePackage>
                     {
                         type = int.Parse(id);
                     }
-                    ChessHeroData heroData = new ChessHeroData();
-                    heroData.heroTypeId = type;
-                    heroData.remoteId = remoteId;
-                    heroData.state = ChessHeroState.Alive;
-                    heroData.id = baseId + localId;
+                    ChessData heroData = new ChessData();
+                    heroData.ChessType = type;
+                    heroData.ChessRemoteId = remoteId;
+                    heroData.Group = (int)group;
+                    heroData.Point = new Com.Violet.Rpc.ChessPoint();
                     switch (group)
                     {
                         case ChessHeroGroup.Myself:
-                            heroData.point = new ChessPoint(j, offsetY + i);
+                            heroData.Point.X = j;
+                            heroData.Point.Y = offsetY + i;
                             break;
                         case ChessHeroGroup.Enemy://敌人在我方是反的
-                            heroData.point = new ChessPoint(4 - j, offsetY + 5 - i);
+
+                            heroData.Point.X = 4 - j;
+                            heroData.Point.Y = offsetY + 5 - i;
                             break;
                     }
-                    AddChessToMap(heroData);
-                    localId++;
+                    chessList.Add(heroData);
                 }
                 
             }
         }
+        return chessList;
 
     }
 
@@ -325,7 +333,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
 
     public override void Release()
     {
-        //throw new NotImplementedException();
+        base.Release();
     }
 
     
@@ -398,7 +406,7 @@ public class FieldRoadPath
         for (int i = 0; i < pathStations.Count; i++)
         {
             if (i > 0) re += "->";
-            re += ChessGamePackage.Instance.GetFeildRoadStationById(pathStations[i]).point.ToString();
+            re += App.Package.ChessGame.GetFeildRoadStationById(pathStations[i]).point.ToString();
         }
         return re;
     }
@@ -407,7 +415,7 @@ public class FieldRoadPath
         ChessPoint[] points = new ChessPoint[pathStations.Count];
         for (int i = 0; i < points.Length; i++)
         {
-            points[i] = ChessGamePackage.Instance.GetFeildRoadStationById(pathStations[i]).point;
+            points[i] = App.Package.ChessGame.GetFeildRoadStationById(pathStations[i]).point;
         }
         return points;
     }

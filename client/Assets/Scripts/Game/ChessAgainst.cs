@@ -10,8 +10,8 @@ public class ChessAgainst : MonoBehaviour
     public static ChessMoveData ChessHeroCanMoveTo(ChessHeroData heroData,ChessPoint point)
     {
         ChessMoveData moveData = new ChessMoveData();
-        FieldRoadStation roadStationS = ChessGamePackage.Instance.GetFeildRoadStationByPoint(heroData.point);
-        FieldRoadStation roadStationT = ChessGamePackage.Instance.GetFeildRoadStationByPoint(point);
+        FieldRoadStation roadStationS = App.Package.ChessGame.GetFeildRoadStationByPoint(heroData.point);
+        FieldRoadStation roadStationT = App.Package.ChessGame.GetFeildRoadStationByPoint(point);
         if (ChessHeroCanMove(heroData))//检测棋子本身，地雷、军旗不能走
         {
             //检测目的地是否禁止
@@ -27,7 +27,7 @@ public class ChessAgainst : MonoBehaviour
             ///
             for (int i = 0; i < roadStationS.connectedPointIds.Length; i++)
             {
-                FieldRoadStation roadStation = ChessGamePackage.Instance.GetFeildRoadStationById(roadStationS.connectedPointIds[i]);
+                FieldRoadStation roadStation = App.Package.ChessGame.GetFeildRoadStationById(roadStationS.connectedPointIds[i]);
                 if (roadStation == roadStationT)
                 {
                     moveData.crashType = 0;
@@ -132,7 +132,7 @@ public class ChessAgainst : MonoBehaviour
     {
         for(int i =1;i< points.Length - 1; i++)
         {
-            ChessHeroData heroData = ChessGamePackage.Instance.GetChessHeroDataByPoint(points[i]);
+            ChessHeroData heroData = App.Package.ChessGame.GetChessHeroDataByPoint(points[i]);
             if (heroData != null && heroData.state == ChessHeroState.Alive)
             {
                 return heroData;
@@ -158,11 +158,11 @@ public class ChessAgainst : MonoBehaviour
             if (path.pathStations.Count < currentR) break;
             int startId = path.pathStations[path.pathStations.Count - 1];
             if (startId == roadStationT.id) continue;//找到的不找了
-            roadStationS = ChessGamePackage.Instance.GetFeildRoadStationById(startId);
+            roadStationS = App.Package.ChessGame.GetFeildRoadStationById(startId);
             for (int j = 0; j < roadStationS.connectedPointIds.Length; j++)
             {
                 int id = roadStationS.connectedPointIds[j];
-                FieldRoadStation roadStationC = ChessGamePackage.Instance.GetFeildRoadStationById(id);
+                FieldRoadStation roadStationC = App.Package.ChessGame.GetFeildRoadStationById(id);
                 if (roadStationC.type == FieldRoadStationType.Rail)
                 {
                     if (path.pathStations.IndexOf(id) == -1)
@@ -191,28 +191,28 @@ public class ChessAgainst : MonoBehaviour
         return true;
     }
     //单击训练模式
-    public static int ChessCanBeat(ChessHeroData heroS, ChessHeroData heroT) //1胜利，-1失败，0平局消失，2获胜结束，-2未知
+    public static ChessMoveResult ChessCanBeat(ChessHeroData heroS, ChessHeroData heroT) //1胜利，-1失败，0平局消失，2获胜结束，-2未知
     {
-        if (heroT.heroTypeId < 0) return -2;//未知
-        if (heroT.heroTypeId == 1) return 0;//敌方炸弹
-        if (heroS.heroTypeId == 1) return 0;//我方炸弹
+        if (heroT.heroTypeId < 0) return ChessMoveResult.UNKOWN;//未知
+        if (heroT.heroTypeId == 1) return ChessMoveResult.TIE;//敌方炸弹
+        if (heroS.heroTypeId == 1) return ChessMoveResult.TIE;//我方炸弹
         if (heroS.heroTypeId == 2)//我方工兵
         {
-            if (heroT.heroTypeId == 0) return 1;//敌方地雷
+            if (heroT.heroTypeId == 0) return ChessMoveResult.WIN;//敌方地雷
         }
-        if (heroT.heroTypeId == 0) return 0;//敌方地雷
-        if (heroT.heroTypeId == 11) return 2;//敌方军旗
+        if (heroT.heroTypeId == 0) return ChessMoveResult.TIE;//敌方地雷
+        if (heroT.heroTypeId == 11) return ChessMoveResult.WIN;//敌方军旗
         if(heroT.heroTypeId > heroS.heroTypeId)
         {
-            return -1;
+            return ChessMoveResult.LOSE;
         }
         else if(heroT.heroTypeId < heroS.heroTypeId)
         {
-            return 1;
+            return ChessMoveResult.WIN;
         }
         else
         {
-            return 0;
+            return ChessMoveResult.TIE;
         }
     }
     public static bool IsBarrack(ChessPoint point)
@@ -319,13 +319,13 @@ public enum GameState{
   END = 2,
 }
 
-enum GameResult{
+public enum GameResult{
   UNKOWN = 0,
   LOSE = 1,
   WIN = 2,
 }
 
-enum ChessMoveResult{
+public enum ChessMoveResult{
   UNKOWN = 0,
   LOSE = 1,
   TIE = 2,//同归于尽，平手

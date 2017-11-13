@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-
+using Com.Violet.Rpc;
 public class UIWChessPlayerState : UIWidgetBase
 {
     public UILabel userName;
@@ -16,25 +16,25 @@ public class UIWChessPlayerState : UIWidgetBase
     
     
 
-    public void UpdateState(ChessPlayerData playerData)
+    public void UpdateState(PlayerInfo playerData)
     {
         if (readyState) readyState.SetActive(false);
         if (unReadyState) unReadyState.SetActive(false);
         if (roundState) roundState.SetActive(false);
         if (roundEffect) roundEffect.enabled = false;
-        switch (playerData.state)
+        switch ((PlayerState)playerData.State)
         {
-            case ChessPlayerState.UnReady:
+            case PlayerState.UNREADY:
                 if (unReadyState) unReadyState.SetActive(true);
                 break;
-            case ChessPlayerState.Ready:
+            case PlayerState.READY:
                 if (readyState) readyState.SetActive(true);
                 break;
-            case ChessPlayerState.Gaming:
+            case PlayerState.GAMING:
                 if (roundState)
                 {
                     roundState.SetActive(true);
-                    roundTimer.SetRemainTime(playerData.remainTime);
+                    roundTimer.SetRemainTime(playerData.GameRemainTime);
                 }
                 if (roundEffect)
                 {
@@ -45,7 +45,7 @@ public class UIWChessPlayerState : UIWidgetBase
                 break;
         }
         
-        userName.text = playerData.playerInfo.userName;
-        userLevel.text = "Lv." + playerData.playerInfo.level;
+        userName.text = playerData.UserName;
+        userLevel.text = "Lv." + playerData.Level;
     }
 }

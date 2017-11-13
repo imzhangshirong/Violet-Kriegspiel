@@ -36,6 +36,8 @@ public class Global : MonoBehaviour
         App.Manager.UI.RegisteUI("UITips", "UITips", UILayoutStyle.Center, UIViewStyle.Tips);
         App.Manager.UI.RegisteUI("UIAlertWindow", "UIAlertWindow", UILayoutStyle.Center, UIViewStyle.Window);
         App.Manager.UI.RegisteUI("UIMainPanel", "UIMainPanel", UILayoutStyle.Center, UIViewStyle.Page);
+        App.Manager.UI.RegisteUI("UILoginPanel", "UILoginPanel", UILayoutStyle.Center, UIViewStyle.Page);
+        App.Manager.UI.RegisteUI("UILobbyPanel", "UILobbyPanel", UILayoutStyle.Center, UIViewStyle.Page);
         App.Manager.UI.RegisteUI("UIGamePanel", "Game/UIGamePanel", UILayoutStyle.Center, UIViewStyle.Page);
         App.Manager.UI.RegisteUI("UIPagePanel", "UIPagePanel", UILayoutStyle.Center, UIViewStyle.Page);
 

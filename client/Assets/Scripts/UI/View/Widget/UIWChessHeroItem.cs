@@ -118,7 +118,7 @@ public class UIWChessHeroItem : UIWidgetBase
         {
             chooseState.SetActive(false);
         }
-        if (ChessGamePackage.Instance.GetChessGroupById(chessId) == ChessHeroGroup.Myself)
+        if (App.Package.ChessGame.GetChessGroupById(chessId) == ChessHeroGroup.Myself)
         {
             normal.color = new Color(86 / 255f, 156 / 255f, 214 / 255f);
             light.color = new Color(105 / 255f, 249 / 255f, 255 / 255f);

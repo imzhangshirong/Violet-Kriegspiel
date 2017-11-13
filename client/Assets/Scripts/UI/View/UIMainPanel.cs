@@ -21,7 +21,7 @@ public class UIMainPanel : UIViewBase
 	}
 	public void NextPage()
 	{
-        App.Manager.UI.ReplaceView("UIGamePanel");
+        App.Manager.UI.ReplaceView("UILoginPanel");
 	}
 	public override void OnRefresh()
 	{
