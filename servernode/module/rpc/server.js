@@ -28,6 +28,7 @@ RpcServer.on("connection", function (client) {
         client.on("data", function (data) {
             let socketData = parseSocketBinaryData(data);
             let requestData = dealResquest(socketData.data);
+            if(requestData==null)return;
             let clientItemT = getClientItemByToken(requestData.header.getToken());
             let clientItemC = getClientItemByClient(client);
             if(clientItemT!=null && clientItemC!=null){//响应重连的Token
@@ -36,6 +37,7 @@ RpcServer.on("connection", function (client) {
             }
             requestData.client = client;
             if (requestData != null && _bindRpcList[requestData.msg] != null) {
+                requestData.token = clientItemC.token;
                 let result = _bindRpcList[requestData.msg](requestData);
                 let binaryData = returnData(result, requestData);
                 if(binaryData!=null){
@@ -77,6 +79,7 @@ function clientOut(client){
     if(clientItem!=null){
         clientItem.client = null;
     }
+    if(_messages["_clientOffline"]!=null)_messages["_clientOffline"](clientItem.token);
     console.log("out:"+clients.length);
 }
 
@@ -187,6 +190,7 @@ function dealResquest(_resquestBytes) {
         rpcCallback.errorCode = 0;
     }
     else {
+        console.error("SERVER:Unknow RPC:"+msg+" request");
         rpcCallback = null;
     }
     return rpcCallback;
@@ -277,4 +281,5 @@ module.exports = {
     },
     push: push,
     cleanClientItem: cleanClientItem,
+    getClientItemByToken: getClientItemByToken,
 }

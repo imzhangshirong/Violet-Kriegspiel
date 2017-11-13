@@ -50,12 +50,12 @@ public class NetworkManager : Manager
         }
     }
 
-    public void Request<T>(string msg, T rpc, RpcResponse callback) where T : IMessage
+    public void Request<T>(string msg, T rpc, RpcResponse callback, bool autoRetry = true, bool needUIWaiting = true, bool needUIRetry = true) where T : IMessage
     {
         if (App.Manager.Mock.HasMock(msg))//启用Mock
             App.Manager.Mock.MockResponse(msg, rpc, callback);
         else
-            RpcNetwork.Request<T>(msg, rpc, callback);
+            RpcNetwork.Request<T>(msg, rpc, callback,autoRetry,needUIWaiting,needUIRetry);
     }
 
     public void RegisteErrorCode(int code,Action action)

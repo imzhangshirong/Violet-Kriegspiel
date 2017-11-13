@@ -587,6 +587,7 @@ public class RpcNetwork
             }
             else
             {
+                
                 Type type = assem.GetType(Config.RpcNamespace + "." + response.Rpc + "Response");//这里要按规则来！！！！
                 if (type != null)
                 {
@@ -596,9 +597,20 @@ public class RpcNetwork
                     {
                         currentRpc.callback(resRpc);
                     });
-                    lock (m_RpcUIMap)
+                    if (m_RpcUIMap.ContainsKey(currentRpc.uniqueName))
                     {
-                        m_RpcUIMap.Remove(currentRpc.uniqueName);
+                        RpcRequestUIData uiData = m_RpcUIMap[currentRpc.uniqueName];
+                        if(uiData.needWaitingUI)m_waitUICount--;
+                        if(m_waitUICount<=0){
+                            App.Manager.Thread.RunOnMainThread(() =>
+                            {
+                                Common.UI.CloseWaiting();
+                            });
+                        }
+                        lock (m_RpcUIMap)
+                        {
+                            m_RpcUIMap.Remove(currentRpc.uniqueName);
+                        }
                     }
                     lock (m_RpcMap)
                     {

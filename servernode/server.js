@@ -52,14 +52,33 @@ function getUserByName(name){
     if(items.length>0)return items[0];
     return null;
 }
-
+function removeFromPlayGround(token){
+    PlayGround = PlayGround.filter(function(item){
+        return item.token != token;
+    });
+}
+function createMatchRoom(user1,user2){
+    let roomId = "";
+}
 
 
 ////////////////////////////////////////////////////////////////////
+setInterval(function(){
+    let player1Id = Math.floor(Math.random() * PlayGround.length);
+    let player2Id = Math.floor(Math.random() * PlayGround.length);
+    if(player1Id!=player2Id){
+
+    }
+},Config.matchEnemyTimeout);
+
 RpcServer.init(Config.port,Config.protobufs,Config.protoPath);
 setInterval(function(){
     RpcServer.cleanClientItem();
 },Config.cleanClientItemTimeout);
+
+RpcServer.on("_clientOffline",function(token){
+
+});
 
 
 RpcServer.on("Hello",function(resquestData){
@@ -84,6 +103,7 @@ RpcServer.on("Login",function(resquestData){
             playerInfo.setUsername(user.userName);
             playerInfo.setState(0);
             playerInfo.setLevel(user.level);
+            user.token = resquestData.token;
             response.setPlayerinfo(playerInfo);
         }
         else{
@@ -101,8 +121,34 @@ RpcServer.on("FindEnemy",function(resquestData){
     let response = new Message();
     let user = getUserByToken(resquestData.header.getToken());
     if(user!=null){
-        PlayGround.push(user);//进入匹配池
-        response.setJoingamefield(true);
+        if(PlayGround.indexOf(user)==-1){
+            PlayGround.push(user);//进入匹配池
+            response.setJoingamefield(true);
+            console.log("user:"+user.userName +" enter PlayGround");
+        }
+        else{
+            resquestData.errorCode = 11;
+        }
+    }
+    else{
+        resquestData.errorCode = 1;
+    }
+    return response;
+});
+RpcServer.on("CancelFindEnemy",function(resquestData){
+    let resquest = resquestData.rpc;
+    let Message = RpcServer.getRpc("CancelFindEnemy","Response");
+    let response = new Message();
+    let user = getUserByToken(resquestData.header.getToken());
+    if(user!=null){
+        if(PlayGround.indexOf(user)!=-1){
+            removeFromPlayGround(resquestData.header.getToken());
+            response.setIscancel(true);
+            console.log("user:"+user.userName +" Leave PlayGround!!");
+        }
+        else{
+            resquestData.errorCode = 12;
+        }
     }
     else{
         resquestData.errorCode = 1;
