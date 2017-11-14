@@ -29,7 +29,7 @@ public class Config
     public class Game{
         public static readonly int WaitingFindEnemy = 45;//匹配等待秒数
         public static readonly int WaitingReady = 30;//准备等待秒数
-        public static readonly int WaitingRound = 10;//回合等待秒数
+        public static readonly int WaitingRound = 30;//回合等待秒数
     }
 
 }
