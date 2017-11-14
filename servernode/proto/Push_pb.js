@@ -439,12 +439,19 @@ proto.com.violet.rpc.EnterBattleFieldPush.prototype.clearChesssettingList = func
  * @constructor
  */
 proto.com.violet.rpc.PlayerStateChagePush = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.com.violet.rpc.PlayerStateChagePush.repeatedFields_, null);
 };
 goog.inherits(proto.com.violet.rpc.PlayerStateChagePush, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   proto.com.violet.rpc.PlayerStateChagePush.displayName = 'proto.com.violet.rpc.PlayerStateChagePush';
 }
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.com.violet.rpc.PlayerStateChagePush.repeatedFields_ = [1];
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -474,7 +481,8 @@ proto.com.violet.rpc.PlayerStateChagePush.prototype.toObject = function(opt_incl
  */
 proto.com.violet.rpc.PlayerStateChagePush.toObject = function(includeInstance, msg) {
   var f, obj = {
-    playerinfo: (f = msg.getPlayerinfo()) && Struct_pb.PlayerInfo.toObject(includeInstance, f)
+    playerlistList: jspb.Message.toObjectList(msg.getPlayerlistList(),
+    Struct_pb.PlayerInfo.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -514,7 +522,7 @@ proto.com.violet.rpc.PlayerStateChagePush.deserializeBinaryFromReader = function
     case 1:
       var value = new Struct_pb.PlayerInfo;
       reader.readMessage(value,Struct_pb.PlayerInfo.deserializeBinaryFromReader);
-      msg.setPlayerinfo(value);
+      msg.addPlayerlist(value);
       break;
     default:
       reader.skipField();
@@ -545,9 +553,9 @@ proto.com.violet.rpc.PlayerStateChagePush.prototype.serializeBinary = function()
  */
 proto.com.violet.rpc.PlayerStateChagePush.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getPlayerinfo();
-  if (f != null) {
-    writer.writeMessage(
+  f = message.getPlayerlistList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
       1,
       f,
       Struct_pb.PlayerInfo.serializeBinaryToWriter
@@ -557,32 +565,33 @@ proto.com.violet.rpc.PlayerStateChagePush.serializeBinaryToWriter = function(mes
 
 
 /**
- * optional PlayerInfo playerInfo = 1;
- * @return {?proto.com.violet.rpc.PlayerInfo}
+ * repeated PlayerInfo playerList = 1;
+ * @return {!Array.<!proto.com.violet.rpc.PlayerInfo>}
  */
-proto.com.violet.rpc.PlayerStateChagePush.prototype.getPlayerinfo = function() {
-  return /** @type{?proto.com.violet.rpc.PlayerInfo} */ (
-    jspb.Message.getWrapperField(this, Struct_pb.PlayerInfo, 1));
+proto.com.violet.rpc.PlayerStateChagePush.prototype.getPlayerlistList = function() {
+  return /** @type{!Array.<!proto.com.violet.rpc.PlayerInfo>} */ (
+    jspb.Message.getRepeatedWrapperField(this, Struct_pb.PlayerInfo, 1));
 };
 
 
-/** @param {?proto.com.violet.rpc.PlayerInfo|undefined} value */
-proto.com.violet.rpc.PlayerStateChagePush.prototype.setPlayerinfo = function(value) {
-  jspb.Message.setWrapperField(this, 1, value);
-};
-
-
-proto.com.violet.rpc.PlayerStateChagePush.prototype.clearPlayerinfo = function() {
-  this.setPlayerinfo(undefined);
+/** @param {!Array.<!proto.com.violet.rpc.PlayerInfo>} value */
+proto.com.violet.rpc.PlayerStateChagePush.prototype.setPlayerlistList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * Returns whether this field is set.
- * @return {!boolean}
+ * @param {!proto.com.violet.rpc.PlayerInfo=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.com.violet.rpc.PlayerInfo}
  */
-proto.com.violet.rpc.PlayerStateChagePush.prototype.hasPlayerinfo = function() {
-  return jspb.Message.getField(this, 1) != null;
+proto.com.violet.rpc.PlayerStateChagePush.prototype.addPlayerlist = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.com.violet.rpc.PlayerInfo, opt_index);
+};
+
+
+proto.com.violet.rpc.PlayerStateChagePush.prototype.clearPlayerlistList = function() {
+  this.setPlayerlistList([]);
 };
 
 

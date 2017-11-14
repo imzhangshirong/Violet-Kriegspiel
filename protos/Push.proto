@@ -14,7 +14,7 @@ message EnterBattleFieldPush{//双方准备就绪进入游戏的push
 }
 
 message PlayerStateChagePush{//敌人状态改变
-  PlayerInfo playerInfo = 1;
+  repeated PlayerInfo playerList = 1;
   
 }
 

@@ -28,7 +28,7 @@ namespace Com.Violet.Rpc {
             "dXNoEi4KCnBsYXllckxpc3QYASADKAsyGi5jb20udmlvbGV0LnJwYy5QbGF5",
             "ZXJJbmZvEhIKCnJvdW5kT3JkZXIYAiABKAUSLwoMY2hlc3NTZXR0aW5nGAMg",
             "AygLMhkuY29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhIkYKFFBsYXllclN0YXRl",
-            "Q2hhZ2VQdXNoEi4KCnBsYXllckluZm8YASABKAsyGi5jb20udmlvbGV0LnJw",
+            "Q2hhZ2VQdXNoEi4KCnBsYXllckxpc3QYASADKAsyGi5jb20udmlvbGV0LnJw",
             "Yy5QbGF5ZXJJbmZvIjMKEkdhbWVTdGF0ZUNoYWdlUHVzaBINCgVzdGF0ZRgB",
             "IAEoBRIOCgZyZXN1bHQYAiABKAUijwEKDUNoZXNzTW92ZVB1c2gSKQoGc291",
             "cmNlGAEgASgLMhkuY29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhEikKBnRhcmdl",
@@ -41,7 +41,7 @@ namespace Com.Violet.Rpc {
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.RoomStateChangePush), global::Com.Violet.Rpc.RoomStateChangePush.Parser, new[]{ "PlayerList" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterBattleFieldPush), global::Com.Violet.Rpc.EnterBattleFieldPush.Parser, new[]{ "PlayerList", "RoundOrder", "ChessSetting" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.PlayerStateChagePush), global::Com.Violet.Rpc.PlayerStateChagePush.Parser, new[]{ "PlayerInfo" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.PlayerStateChagePush), global::Com.Violet.Rpc.PlayerStateChagePush.Parser, new[]{ "PlayerList" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.GameStateChagePush), global::Com.Violet.Rpc.GameStateChagePush.Parser, new[]{ "State", "Result" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ChessMovePush), global::Com.Violet.Rpc.ChessMovePush.Parser, new[]{ "Source", "Target", "ChessMoveResult", "Counter" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ChatMessagePush), global::Com.Violet.Rpc.ChatMessagePush.Parser, new[]{ "FromWhere", "Msg" }, null, null, null)
@@ -356,7 +356,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public PlayerStateChagePush(PlayerStateChagePush other) : this() {
-      PlayerInfo = other.playerInfo_ != null ? other.PlayerInfo.Clone() : null;
+      playerList_ = other.playerList_.Clone();
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -364,15 +364,14 @@ namespace Com.Violet.Rpc {
       return new PlayerStateChagePush(this);
     }
 
-    /// <summary>Field number for the "playerInfo" field.</summary>
-    public const int PlayerInfoFieldNumber = 1;
-    private global::Com.Violet.Rpc.PlayerInfo playerInfo_;
+    /// <summary>Field number for the "playerList" field.</summary>
+    public const int PlayerListFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::Com.Violet.Rpc.PlayerInfo> _repeated_playerList_codec
+        = pb::FieldCodec.ForMessage(10, global::Com.Violet.Rpc.PlayerInfo.Parser);
+    private readonly pbc::RepeatedField<global::Com.Violet.Rpc.PlayerInfo> playerList_ = new pbc::RepeatedField<global::Com.Violet.Rpc.PlayerInfo>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Com.Violet.Rpc.PlayerInfo PlayerInfo {
-      get { return playerInfo_; }
-      set {
-        playerInfo_ = value;
-      }
+    public pbc::RepeatedField<global::Com.Violet.Rpc.PlayerInfo> PlayerList {
+      get { return playerList_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -388,14 +387,14 @@ namespace Com.Violet.Rpc {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (!object.Equals(PlayerInfo, other.PlayerInfo)) return false;
+      if(!playerList_.Equals(other.playerList_)) return false;
       return true;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (playerInfo_ != null) hash ^= PlayerInfo.GetHashCode();
+      hash ^= playerList_.GetHashCode();
       return hash;
     }
 
@@ -406,18 +405,13 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (playerInfo_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(PlayerInfo);
-      }
+      playerList_.WriteTo(output, _repeated_playerList_codec);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (playerInfo_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayerInfo);
-      }
+      size += playerList_.CalculateSize(_repeated_playerList_codec);
       return size;
     }
 
@@ -426,12 +420,7 @@ namespace Com.Violet.Rpc {
       if (other == null) {
         return;
       }
-      if (other.playerInfo_ != null) {
-        if (playerInfo_ == null) {
-          playerInfo_ = new global::Com.Violet.Rpc.PlayerInfo();
-        }
-        PlayerInfo.MergeFrom(other.PlayerInfo);
-      }
+      playerList_.Add(other.playerList_);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -443,10 +432,7 @@ namespace Com.Violet.Rpc {
             input.SkipLastField();
             break;
           case 10: {
-            if (playerInfo_ == null) {
-              playerInfo_ = new global::Com.Violet.Rpc.PlayerInfo();
-            }
-            input.ReadMessage(playerInfo_);
+            playerList_.AddEntriesFrom(input, _repeated_playerList_codec);
             break;
           }
         }
