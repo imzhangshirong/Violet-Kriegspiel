@@ -250,6 +250,7 @@ function on(msg, callback) {
     _bindRpcList[msg] = callback;
 }
 function push(clientItem,rpcName,rpc){
+    if(clientItem == null || clientItem.client == null)return;
     let headerRes = new _Response();
     headerRes.setToken(clientItem.token);
     headerRes.setRpc(rpcName);

@@ -18,7 +18,7 @@ public class UIFindEnemyPanel : UIViewBase
 	{
 		base.OnOpen(intent);
 		timer.enabled = true;
-		timer.SetRemainTime(45);
+		timer.SetRemainTime(Config.Game.WaitingFindEnemy);
 	}
 	public override void OnRefresh()
 	{

@@ -28,21 +28,23 @@ namespace Com.Violet.Rpc {
             "dXNoEi4KCnBsYXllckxpc3QYASADKAsyGi5jb20udmlvbGV0LnJwYy5QbGF5",
             "ZXJJbmZvEhIKCnJvdW5kT3JkZXIYAiABKAUSLwoMY2hlc3NTZXR0aW5nGAMg",
             "AygLMhkuY29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhIkYKFFBsYXllclN0YXRl",
-            "Q2hhZ2VQdXNoEi4KCnBsYXllckxpc3QYASADKAsyGi5jb20udmlvbGV0LnJw",
-            "Yy5QbGF5ZXJJbmZvIjMKEkdhbWVTdGF0ZUNoYWdlUHVzaBINCgVzdGF0ZRgB",
-            "IAEoBRIOCgZyZXN1bHQYAiABKAUijwEKDUNoZXNzTW92ZVB1c2gSKQoGc291",
-            "cmNlGAEgASgLMhkuY29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhEikKBnRhcmdl",
-            "dBgCIAEoCzIZLmNvbS52aW9sZXQucnBjLkNoZXNzRGF0YRIXCg9jaGVzc01v",
-            "dmVSZXN1bHQYAyABKAUSDwoHY291bnRlchgEIAEoBSJOCg9DaGF0TWVzc2Fn",
-            "ZVB1c2gSEQoJZnJvbVdoZXJlGAEgASgFEigKA21zZxgCIAEoCzIbLmNvbS52",
-            "aW9sZXQucnBjLk1lc3NhZ2VEYXRhYgZwcm90bzM="));
+            "Q2hhZ2VQdXNoEi4KCnBsYXllckluZm8YASABKAsyGi5jb20udmlvbGV0LnJw",
+            "Yy5QbGF5ZXJJbmZvInEKEkdhbWVTdGF0ZUNoYWdlUHVzaBINCgVzdGF0ZRgB",
+            "IAEoBRIOCgZyZXN1bHQYAiABKAUSKwoIY2hlc3NNYXAYAyADKAsyGS5jb20u",
+            "dmlvbGV0LnJwYy5DaGVzc0RhdGESDwoHY291bnRlchgEIAEoBSKPAQoNQ2hl",
+            "c3NNb3ZlUHVzaBIpCgZzb3VyY2UYASABKAsyGS5jb20udmlvbGV0LnJwYy5D",
+            "aGVzc0RhdGESKQoGdGFyZ2V0GAIgASgLMhkuY29tLnZpb2xldC5ycGMuQ2hl",
+            "c3NEYXRhEhcKD2NoZXNzTW92ZVJlc3VsdBgDIAEoBRIPCgdjb3VudGVyGAQg",
+            "ASgFIk4KD0NoYXRNZXNzYWdlUHVzaBIRCglmcm9tV2hlcmUYASABKAUSKAoD",
+            "bXNnGAIgASgLMhsuY29tLnZpb2xldC5ycGMuTWVzc2FnZURhdGFiBnByb3Rv",
+            "Mw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Com.Violet.Rpc.StructReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.RoomStateChangePush), global::Com.Violet.Rpc.RoomStateChangePush.Parser, new[]{ "PlayerList" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterBattleFieldPush), global::Com.Violet.Rpc.EnterBattleFieldPush.Parser, new[]{ "PlayerList", "RoundOrder", "ChessSetting" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.PlayerStateChagePush), global::Com.Violet.Rpc.PlayerStateChagePush.Parser, new[]{ "PlayerList" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.GameStateChagePush), global::Com.Violet.Rpc.GameStateChagePush.Parser, new[]{ "State", "Result" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.PlayerStateChagePush), global::Com.Violet.Rpc.PlayerStateChagePush.Parser, new[]{ "PlayerInfo" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.GameStateChagePush), global::Com.Violet.Rpc.GameStateChagePush.Parser, new[]{ "State", "Result", "ChessMap", "Counter" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ChessMovePush), global::Com.Violet.Rpc.ChessMovePush.Parser, new[]{ "Source", "Target", "ChessMoveResult", "Counter" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ChatMessagePush), global::Com.Violet.Rpc.ChatMessagePush.Parser, new[]{ "FromWhere", "Msg" }, null, null, null)
           }));
@@ -356,7 +358,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public PlayerStateChagePush(PlayerStateChagePush other) : this() {
-      playerList_ = other.playerList_.Clone();
+      PlayerInfo = other.playerInfo_ != null ? other.PlayerInfo.Clone() : null;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -364,14 +366,15 @@ namespace Com.Violet.Rpc {
       return new PlayerStateChagePush(this);
     }
 
-    /// <summary>Field number for the "playerList" field.</summary>
-    public const int PlayerListFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::Com.Violet.Rpc.PlayerInfo> _repeated_playerList_codec
-        = pb::FieldCodec.ForMessage(10, global::Com.Violet.Rpc.PlayerInfo.Parser);
-    private readonly pbc::RepeatedField<global::Com.Violet.Rpc.PlayerInfo> playerList_ = new pbc::RepeatedField<global::Com.Violet.Rpc.PlayerInfo>();
+    /// <summary>Field number for the "playerInfo" field.</summary>
+    public const int PlayerInfoFieldNumber = 1;
+    private global::Com.Violet.Rpc.PlayerInfo playerInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::Com.Violet.Rpc.PlayerInfo> PlayerList {
-      get { return playerList_; }
+    public global::Com.Violet.Rpc.PlayerInfo PlayerInfo {
+      get { return playerInfo_; }
+      set {
+        playerInfo_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -387,14 +390,14 @@ namespace Com.Violet.Rpc {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if(!playerList_.Equals(other.playerList_)) return false;
+      if (!object.Equals(PlayerInfo, other.PlayerInfo)) return false;
       return true;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      hash ^= playerList_.GetHashCode();
+      if (playerInfo_ != null) hash ^= PlayerInfo.GetHashCode();
       return hash;
     }
 
@@ -405,13 +408,18 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      playerList_.WriteTo(output, _repeated_playerList_codec);
+      if (playerInfo_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(PlayerInfo);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      size += playerList_.CalculateSize(_repeated_playerList_codec);
+      if (playerInfo_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayerInfo);
+      }
       return size;
     }
 
@@ -420,7 +428,12 @@ namespace Com.Violet.Rpc {
       if (other == null) {
         return;
       }
-      playerList_.Add(other.playerList_);
+      if (other.playerInfo_ != null) {
+        if (playerInfo_ == null) {
+          playerInfo_ = new global::Com.Violet.Rpc.PlayerInfo();
+        }
+        PlayerInfo.MergeFrom(other.PlayerInfo);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -432,7 +445,10 @@ namespace Com.Violet.Rpc {
             input.SkipLastField();
             break;
           case 10: {
-            playerList_.AddEntriesFrom(input, _repeated_playerList_codec);
+            if (playerInfo_ == null) {
+              playerInfo_ = new global::Com.Violet.Rpc.PlayerInfo();
+            }
+            input.ReadMessage(playerInfo_);
             break;
           }
         }
@@ -470,6 +486,8 @@ namespace Com.Violet.Rpc {
     public GameStateChagePush(GameStateChagePush other) : this() {
       state_ = other.state_;
       result_ = other.result_;
+      chessMap_ = other.chessMap_.Clone();
+      counter_ = other.counter_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -505,6 +523,27 @@ namespace Com.Violet.Rpc {
       }
     }
 
+    /// <summary>Field number for the "chessMap" field.</summary>
+    public const int ChessMapFieldNumber = 3;
+    private static readonly pb::FieldCodec<global::Com.Violet.Rpc.ChessData> _repeated_chessMap_codec
+        = pb::FieldCodec.ForMessage(26, global::Com.Violet.Rpc.ChessData.Parser);
+    private readonly pbc::RepeatedField<global::Com.Violet.Rpc.ChessData> chessMap_ = new pbc::RepeatedField<global::Com.Violet.Rpc.ChessData>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Com.Violet.Rpc.ChessData> ChessMap {
+      get { return chessMap_; }
+    }
+
+    /// <summary>Field number for the "counter" field.</summary>
+    public const int CounterFieldNumber = 4;
+    private int counter_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Counter {
+      get { return counter_; }
+      set {
+        counter_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GameStateChagePush);
@@ -520,6 +559,8 @@ namespace Com.Violet.Rpc {
       }
       if (State != other.State) return false;
       if (Result != other.Result) return false;
+      if(!chessMap_.Equals(other.chessMap_)) return false;
+      if (Counter != other.Counter) return false;
       return true;
     }
 
@@ -528,6 +569,8 @@ namespace Com.Violet.Rpc {
       int hash = 1;
       if (State != 0) hash ^= State.GetHashCode();
       if (Result != 0) hash ^= Result.GetHashCode();
+      hash ^= chessMap_.GetHashCode();
+      if (Counter != 0) hash ^= Counter.GetHashCode();
       return hash;
     }
 
@@ -546,6 +589,11 @@ namespace Com.Violet.Rpc {
         output.WriteRawTag(16);
         output.WriteInt32(Result);
       }
+      chessMap_.WriteTo(output, _repeated_chessMap_codec);
+      if (Counter != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(Counter);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -556,6 +604,10 @@ namespace Com.Violet.Rpc {
       }
       if (Result != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Result);
+      }
+      size += chessMap_.CalculateSize(_repeated_chessMap_codec);
+      if (Counter != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Counter);
       }
       return size;
     }
@@ -570,6 +622,10 @@ namespace Com.Violet.Rpc {
       }
       if (other.Result != 0) {
         Result = other.Result;
+      }
+      chessMap_.Add(other.chessMap_);
+      if (other.Counter != 0) {
+        Counter = other.Counter;
       }
     }
 
@@ -587,6 +643,14 @@ namespace Com.Violet.Rpc {
           }
           case 16: {
             Result = input.ReadInt32();
+            break;
+          }
+          case 26: {
+            chessMap_.AddEntriesFrom(input, _repeated_chessMap_codec);
+            break;
+          }
+          case 32: {
+            Counter = input.ReadInt32();
             break;
           }
         }

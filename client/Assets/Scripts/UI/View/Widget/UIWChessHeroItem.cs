@@ -14,7 +14,8 @@ public class UIWChessHeroItem : UIWidgetBase
     public GameObject willWin;
     public GameObject willLose;
     public GameObject willTie;
-
+    [HideInInspector]
+    public ChessHeroData heroData;
     [HideInInspector]
     public int chessHeroId;//棋子类型id
     [HideInInspector]
@@ -118,7 +119,7 @@ public class UIWChessHeroItem : UIWidgetBase
         {
             chooseState.SetActive(false);
         }
-        if (App.Package.ChessGame.GetChessGroupById(chessId) == ChessHeroGroup.Myself)
+        if (heroData.group == ChessHeroGroup.Myself)
         {
             normal.color = new Color(86 / 255f, 156 / 255f, 214 / 255f);
             light.color = new Color(105 / 255f, 249 / 255f, 255 / 255f);

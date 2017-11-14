@@ -10,10 +10,29 @@ public class UIMainPanel : UIViewBase
 {
     public UILabel rpcResponse;
     public UIInput rpcInput;
-	public override void OnInit()
+    public UIInput ipInput;
+    public UIInput portInput;
+    public override void OnInit()
 	{
 		
 	}
+
+    public void OnSetIp()
+    {
+        try
+        {
+            Config.ServerHost = ipInput.value;
+            Config.ServerHostPort = int.Parse(portInput.value);
+            RpcNetwork.Instance.Init();
+            Common.UI.OpenTips("Set IP Config");
+        }
+        catch(Exception e)
+        {
+            Debuger.Error(e.Message);
+        }
+        
+    }
+
 	public override void OnOpen(Intent intent)
 	{
 		base.OnOpen(intent);

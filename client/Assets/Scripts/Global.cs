@@ -59,7 +59,12 @@ public class Global : MonoBehaviour
         App.Manager.Network.RegisteErrorCode(11, () => {
             Common.UI.OpenAlert("错误", "已经在匹配名单里", "确认", null);
         });
-
+        App.Manager.Network.RegisteErrorCode(21, () => {
+            Common.UI.OpenAlert("错误", "用户不在房间内", "确认", null);
+        });
+        App.Manager.Network.RegisteErrorCode(31, () => {
+            Common.UI.OpenAlert("错误", "数据错误", "确认", null);
+        });
         Debuger.Log("Inited");
     }
     void OnApplicationQuit()

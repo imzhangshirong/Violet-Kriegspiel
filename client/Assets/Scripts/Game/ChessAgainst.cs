@@ -7,6 +7,7 @@ public class ChessAgainst : MonoBehaviour
 {
     public static string[] ChessHeroNameDefine = { "地雷", "炸弹", "工兵", "排长", "连长", "营长", "团长", "旅长", "师长", "军长", "司令", "军旗" };
     public static int[] ChessHeroNumber = { 3, 2, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1 };
+    public static string DefaultUnknowChess = "-1|0,-1|0,-1|0,-1|0,-1|0;-1|0,-1|0,-1|0,-1|0,-1|0;-1|0,,-1|0,,-1|0;-1|0,-1|0,,-1|0,-1|0;-1|0,,-1|0,,-1|0;-1|0,-1|0,-1|0,-1|0,-1|0;";
     public static ChessMoveData ChessHeroCanMoveTo(ChessHeroData heroData,ChessPoint point)
     {
         ChessMoveData moveData = new ChessMoveData();
@@ -15,7 +16,7 @@ public class ChessAgainst : MonoBehaviour
         if (ChessHeroCanMove(heroData))//检测棋子本身，地雷、军旗不能走
         {
             //检测目的地是否禁止
-            for(int i = 0; i < roadStationT.forbidChessHeros.Length; i++)
+            /*for(int i = 0; i < roadStationT.forbidChessHeros.Length; i++)
             {
                 if(heroData.heroTypeId == roadStationT.forbidChessHeros[i])
                 {
@@ -23,7 +24,8 @@ public class ChessAgainst : MonoBehaviour
                     moveData.crashHero = heroData;
                     return moveData;
                 }
-            }
+            }*/
+            
             ///
             for (int i = 0; i < roadStationS.connectedPointIds.Length; i++)
             {
@@ -188,6 +190,7 @@ public class ChessAgainst : MonoBehaviour
         {
             return false;
         }
+        return IsAfterCamp(heroData.point)==false;//大本营不能走
         return true;
     }
     //单击训练模式
@@ -271,7 +274,7 @@ public class ChessAgainst : MonoBehaviour
         int s1 = Mathf.Abs(station1.point.x - station2.point.x);
         int s2 = Mathf.Abs(station1.point.y - station2.point.y);
         if (s1 > 1 || s2 > 1) return false;
-        if (s1 + s2 > 1 && station1.type != FieldRoadStationType.Barrack && station2.type != FieldRoadStationType.Barrack) return false;
+        //if (s1 + s2 > 1 && station1.type != FieldRoadStationType.Barrack && station2.type != FieldRoadStationType.Barrack) return false;
         return true;
     }
     public static bool IsStronghold(ChessPoint point)

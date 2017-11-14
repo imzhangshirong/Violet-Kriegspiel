@@ -11,8 +11,9 @@ public class UIWChessPlayerState : UIWidgetBase
     public GameObject readyState;
     public GameObject unReadyState;
     public GameObject roundState;
+    public UIWTimer readyTimer;
     public UIWTimer roundTimer;
-    public TweenAlpha roundEffect;
+    public GameObject roundEffect;
     
     
 
@@ -21,26 +22,28 @@ public class UIWChessPlayerState : UIWidgetBase
         if (readyState) readyState.SetActive(false);
         if (unReadyState) unReadyState.SetActive(false);
         if (roundState) roundState.SetActive(false);
-        if (roundEffect) roundEffect.enabled = false;
+        if (roundEffect) roundEffect.SetActive(false);
         switch ((PlayerState)playerData.State)
         {
             case PlayerState.UNREADY:
-                if (unReadyState) unReadyState.SetActive(true);
+                if (unReadyState)
+                {
+                    unReadyState.SetActive(true);
+                    readyTimer.SetRemainTime(playerData.GameRemainTime);
+                }
                 break;
             case PlayerState.READY:
                 if (readyState) readyState.SetActive(true);
                 break;
             case PlayerState.GAMING:
-                if (roundState)
+                if (playerData.GameRemainTime > 0)
                 {
-                    roundState.SetActive(true);
-                    roundTimer.SetRemainTime(playerData.GameRemainTime);
-                }
-                if (roundEffect)
-                {
-                    roundEffect.enabled = true;
-                    roundEffect.ResetToBeginning();
-                    roundEffect.PlayForward();
+                    if (roundState)
+                    {
+                        roundState.SetActive(true);
+                        roundTimer.SetRemainTime(playerData.GameRemainTime);
+                    }
+                    if (roundEffect) roundEffect.SetActive(true);
                 }
                 break;
         }

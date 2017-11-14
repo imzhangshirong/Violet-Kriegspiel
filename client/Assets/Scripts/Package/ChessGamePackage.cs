@@ -11,6 +11,8 @@ public class ChessGamePackage : Package<ChessGamePackage>
     public List<int> ChessDataIds = new List<int>();//所有棋子的本地id
     public int MyselfChooseChessId = -1;
     public List<ChessData> MyselfChessSetting;
+    public List<PlayerInfo> AllPlayerList = new List<PlayerInfo>();
+    public int GameRoundCounter = -1;
     int m_roundOrder;
     public int roundOrder{
         get{
@@ -36,6 +38,14 @@ public class ChessGamePackage : Package<ChessGamePackage>
             return m_CanDragChess;
         }
     }
+
+    public bool IsMyRound
+    {
+        get {
+            return GameRoundCounter%AllPlayerList.Count==roundOrder;
+        }
+    }
+
     bool m_IsGameStart = false;
     /// <summary>
     /// 游戏开始
@@ -71,12 +81,26 @@ public class ChessGamePackage : Package<ChessGamePackage>
         }
     }
     
+    public void Ready()
+    {
+        m_CanDragChess = false;
+        m_IsReadyGame = true;
+        m_IsGameStart = false;
+    }
+
+    public void Start()
+    {
+        m_CanDragChess = false;
+        m_IsReadyGame = false;
+        m_IsGameStart = true;
+    }
 
     public override void Init(object data)
     {
         base.Init(data);
         EnterBattleFieldPush push = (EnterBattleFieldPush)data;
         m_EnemyPlayerList = new List<PlayerInfo>(push.PlayerList);
+        m_EnemyPlayerList.Sort(SortPlayerListByRoundOrder);
         MyselfChessSetting = new List<ChessData>(push.ChessSetting);
         m_roundOrder = push.RoundOrder;
         m_IsEnemyReady = false;
@@ -85,6 +109,12 @@ public class ChessGamePackage : Package<ChessGamePackage>
         m_CanDragChess = true;
         App.Package.Player.playerInfo.State = (int)PlayerState.UNREADY;
         InitFieldMap();
+    }
+    
+
+    int SortPlayerListByRoundOrder(PlayerInfo p1, PlayerInfo p2)
+    {
+        return p1.RoundOrder - p2.RoundOrder;
     }
     /// <summary>
     /// 初始化战场的道路连接数据
@@ -155,48 +185,82 @@ public class ChessGamePackage : Package<ChessGamePackage>
     }
 
     public void AddChessFromData(List<ChessData> chessList){
+        PlayerInfo playerInfo = App.Package.Player.playerInfo;
+        string belong = playerInfo.ZoneId + "/" + playerInfo.UserId;
         Dictionary<ChessHeroGroup,int> map = new Dictionary<ChessHeroGroup, int>();
         map.Add(ChessHeroGroup.Myself,1);
         map.Add(ChessHeroGroup.Enemy,1);
         int baseId = 0;
         for(int i=0;i<chessList.Count;i++){
             ChessData chess = chessList[i];
-            ChessHeroGroup group = (ChessHeroGroup)chess.Group;
+            ChessHeroData heroData = new ChessHeroData();
+            ChessHeroGroup group;
+            baseId = GetBaseId(chess.Belong);
+            group = (ChessHeroGroup)(baseId/100);
             switch (group)
             {
                 case ChessHeroGroup.Myself:
-                    baseId = 0;
+                    heroData.point = new ChessPoint(chess.Point.X, chess.Point.Y);
                     break;
-                case ChessHeroGroup.Enemy:
-                    baseId = 100;
+                case ChessHeroGroup.Enemy://敌人要翻转
+                    heroData.point = new ChessPoint(4-chess.Point.X, 11-chess.Point.Y);
                     break;
             }
-            ChessHeroData heroData = new ChessHeroData();
-            heroData.point = new ChessPoint(chess.Point.X,chess.Point.Y);
+            
             heroData.heroTypeId = chess.ChessType;
             heroData.id = map[group]+baseId;
             heroData.remoteId = chess.ChessRemoteId;
             heroData.state = ChessHeroState.Alive;
+            heroData.belong = chess.Belong;
+            heroData.group = group;
             AddChessToMap(heroData);
             map[group]++;
         }
     }
-    public List<ChessData> ParseChessDataFromString(string data,ChessHeroGroup group)
+
+    public int GetBaseId(string belong)
+    {
+        PlayerInfo playerInfo = App.Package.Player.playerInfo;
+        if (playerInfo.ZoneId + "/" + playerInfo.UserId == belong) return 0;
+        int baseId = 1;
+        for(int i = 0; i < m_EnemyPlayerList.Count; i++)
+        {
+            if(m_EnemyPlayerList[i].ZoneId+"/"+ m_EnemyPlayerList[i].UserId == belong)
+            {
+                baseId += i;
+                break;
+            }
+        }
+        return baseId * 100;
+    }
+    public ChessHeroGroup GetGroup(string belong)
+    {
+        
+        return (ChessHeroGroup)(GetBaseId(belong)/100);
+    }
+
+    public void RemoveAllChessHero()
+    {
+        foreach(var item in m_ChessData)
+        {
+            GameObject.Destroy(item.Value.gameObject);
+            
+        }
+        m_ChessData.Clear();
+    }
+
+    public void RemoveChessHero(ChessHeroData chessHero)
+    {
+        m_ChessData.Remove(chessHero.id);
+        GameObject.Destroy(chessHero.gameObject);
+    }
+
+    public List<ChessData> ParseChessDataFromString(string data,string belong)
     {
         List<ChessData> chessList = new List<ChessData>();
-        int baseId = 0;
+        int baseId = GetBaseId(belong);
         int offsetY = 0;
-        switch (group)
-        {
-            case ChessHeroGroup.Myself:
-                baseId = 0;
-                offsetY = 0;
-                break;
-            case ChessHeroGroup.Enemy:
-                baseId = 100;
-                offsetY = 6;
-                break;
-        }
+        ChessHeroGroup group = (ChessHeroGroup)(baseId / 100);
         string[] rows = data.Split(';');
         for(int i = 0; i < rows.Length && i < 6; i++)
         {
@@ -222,19 +286,10 @@ public class ChessGamePackage : Package<ChessGamePackage>
                     heroData.ChessType = type;
                     heroData.ChessRemoteId = remoteId;
                     heroData.Group = (int)group;
+                    heroData.Belong = belong;
                     heroData.Point = new Com.Violet.Rpc.ChessPoint();
-                    switch (group)
-                    {
-                        case ChessHeroGroup.Myself:
-                            heroData.Point.X = j;
-                            heroData.Point.Y = offsetY + i;
-                            break;
-                        case ChessHeroGroup.Enemy://敌人在我方是反的
-
-                            heroData.Point.X = 4 - j;
-                            heroData.Point.Y = offsetY + 5 - i;
-                            break;
-                    }
+                    heroData.Point.X = j;
+                    heroData.Point.Y = offsetY + i;
                     chessList.Add(heroData);
                 }
                 
@@ -249,7 +304,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
         int[,] mapPosition = new int[5, 12]; 
         foreach(var item in m_ChessData)
         {
-            if(GetChessGroupById(item.Value.id) == group) mapPosition[item.Value.point.x, item.Value.point.y] = item.Value.heroTypeId + 1;
+            if(item.Value.group == group) mapPosition[item.Value.point.x, item.Value.point.y] = item.Value.heroTypeId + 1;
         }
         string re = "";
         for(int i = 0; i < mapPosition.GetLength(1); i++)
@@ -267,12 +322,33 @@ public class ChessGamePackage : Package<ChessGamePackage>
         return re;
     }
 
-    public ChessHeroGroup GetChessGroupById(int id)
+    public List<ChessData> GetChessData(ChessHeroGroup group)
+    {
+        List<ChessData> list = new List<ChessData>();
+        foreach (var item in m_ChessData)
+        {
+            if (item.Value.group == group)
+            {
+                ChessData chess = new ChessData();
+                chess.ChessRemoteId = item.Value.remoteId;
+                chess.Group = (int)item.Value.group;
+                chess.Point = new Com.Violet.Rpc.ChessPoint();
+                chess.Point.X = item.Value.point.x;
+                chess.Point.Y = item.Value.point.y;
+                chess.ChessType = item.Value.heroTypeId;
+                list.Add(chess);
+            }
+        }
+
+        return list;
+    }
+
+    /*public ChessHeroGroup GetChessGroupById(int id)
     {
         if (id < 100) return ChessHeroGroup.Myself;
         if (id>=100 && id < 200) return ChessHeroGroup.Enemy;
         return ChessHeroGroup.Enemy;
-    }
+    }*/
 
     public List<ChessHeroData> GetChessHeroList(ChessHeroGroup group)
     {
@@ -357,6 +433,8 @@ public class ChessHeroData
     public ChessHeroState state = ChessHeroState.Alive;
     public ChessPoint point;
     public GameObject gameObject;
+    public string belong;
+    public ChessHeroGroup group;
 }
 
 

@@ -7,8 +7,8 @@ using UnityEngine;
 public class Config
 {
     //网络层配置
-    public static readonly string ServerHost = "127.0.0.1";
-    public static readonly int ServerHostPort = 8000;
+    public static string ServerHost = "127.0.0.1";
+    public static int ServerHostPort = 8000;
     public static readonly int RpcTimeout = 10000;//rpc请求的超时时间ms
     public static readonly string RpcNamespace = "Com.Violet.Rpc";
 
@@ -26,5 +26,10 @@ public class Config
     public static readonly int OverViewLevelDepth = 20;//每一层overview之间的最大depth
     public static readonly int OverViewLevelBaseDepth = 100;
 
+    public class Game{
+        public static readonly int WaitingFindEnemy = 45;//匹配等待秒数
+        public static readonly int WaitingReady = 30;//准备等待秒数
+        public static readonly int WaitingRound = 10;//回合等待秒数
+    }
 
 }
