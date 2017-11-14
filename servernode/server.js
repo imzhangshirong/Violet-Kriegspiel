@@ -233,7 +233,7 @@ function startGame(room){
                 let chess = item;
                 if(item.getBelong()!=belong){//不是自己的都隐藏
                     chess = chess.clone();
-                    chess.setChesstype(-1);
+                    //chess.setChesstype(-1);
                 }
                 chessMapSend.push(chess);
             });
