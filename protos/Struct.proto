@@ -22,7 +22,8 @@ message PlayerInfo{
   int32 level = 3;
   int32 zoneId = 4;
   int32 state = 5; //enum PlayerState
-  int32 gameRemainTime = 6;//倒计时时间，默认-1
+  int32 gameRemainTime = 6; //倒计时时间，默认-1
+  int32 roundOrder = 7; //当前的回合顺序
 }
 
 message ChessData{
@@ -31,6 +32,7 @@ message ChessData{
   // { "地雷", "炸弹", "工兵", "排长", "连长", "营长", "团长", "旅长", "师长", "军长", "司令", "军旗" }
   ChessPoint point = 3;
   int32 group = 4;//敌我阵营，0为我方  emum ChessGroup
+  string belong = 5;//属于哪一方，zoneId+"/"+userId
 }
 
 message ChessPoint{

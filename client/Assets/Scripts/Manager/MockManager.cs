@@ -85,12 +85,12 @@ public class MockManager : Manager
 
     void PlayerStateChagePush_Ready()
     {
-        PlayerStateChagePush push = new PlayerStateChagePush();
-        push.PlayerInfo = new Com.Violet.Rpc.PlayerInfo();
-        push.PlayerInfo.State = (int)PlayerState.READY;
+        //PlayerStateChagePush push = new PlayerStateChagePush();
+        //push.PlayerInfo = new Com.Violet.Rpc.PlayerInfo();
+        //push.PlayerInfo.State = (int)PlayerState.READY;
         //push.PlayerInfo.UserId = App.Package.ChessGame.EnemyPlayerData.playerInfo.userId;
         //push.PlayerInfo.UserName = App.Package.ChessGame.EnemyPlayerData.playerInfo.userName;
-        MockPush("PlayerStateChage",push);
+        //MockPush("PlayerStateChage",push);
     }
 
     void GameStateChagePush()

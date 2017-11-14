@@ -22,9 +22,21 @@ public class EventManager : Manager
     {
         if (m_TreeMap.ContainsKey(msg))
         {
-            for(int i = 0;i< m_TreeMap[msg].Count; i++) {
+            List<TreeRoot> needClean = new List<TreeRoot>();
+            for (int i = 0;i< m_TreeMap[msg].Count; i++) {
+                if (m_TreeMap[msg][i].gameObject == null)
+                {
+                    needClean.Add(m_TreeMap[msg][i]);
+                    continue;
+                }
                 m_TreeMap[msg][i].Broadcast(msg,content);
             }
+            for(int i=0;i< needClean.Count; i++)
+            {
+                m_TreeMap[msg].Remove(needClean[i]);
+            }
+            needClean.Clear();
+            needClean = null;
         }
     }
     public void RegisteTreeRoot(string msg,TreeRoot treeRoot)
@@ -36,6 +48,16 @@ public class EventManager : Manager
         if (m_TreeMap[msg].IndexOf(treeRoot) == -1)
         {
             m_TreeMap[msg].Add(treeRoot);
+        }
+    }
+    public void RemoveTreeRoot(TreeRoot treeRoot)
+    {
+        foreach(var item in m_TreeMap)
+        {
+            for(int i= item.Value.Count-1;i>=0; i--)
+            {
+                if (item.Value[i] == treeRoot) item.Value.Remove(treeRoot);
+            }
         }
     }
 }
