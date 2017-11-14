@@ -16,7 +16,7 @@ message LoginResponse{
 
 
 message LogoutRequest{
-  
+
 }
 
 message LogoutResponse{
@@ -58,6 +58,7 @@ message EnterRoomResponse{
 
 message ReadyInRoomRequest{
   bool isReady = 1;
+  repeated ChessData chessMap = 2;
 }
 
 message ReadyInRoomResponse{
