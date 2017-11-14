@@ -26,43 +26,47 @@ namespace Com.Violet.Rpc {
             "IkIKDExvZ2luUmVxdWVzdBIQCgh1c2VyTmFtZRgBIAEoCRIQCghwYXNzd29y",
             "ZBgCIAEoCRIOCgZ6b25lSWQYAyABKAUiUwoNTG9naW5SZXNwb25zZRIuCgpw",
             "bGF5ZXJJbmZvGAEgASgLMhouY29tLnZpb2xldC5ycGMuUGxheWVySW5mbxIS",
-            "CgpzZXJ2ZXJUaW1lGAIgASgDIhIKEEZpbmRFbmVteVJlcXVlc3QiKgoRRmlu",
-            "ZEVuZW15UmVzcG9uc2USFQoNam9pbkdhbWVGaWVsZBgBIAEoCCIYChZDYW5j",
-            "ZWxGaW5kRW5lbXlSZXF1ZXN0IisKF0NhbmNlbEZpbmRFbmVteVJlc3BvbnNl",
-            "EhAKCGlzQ2FuY2VsGAEgASgIIiQKEkdldFJvb21MaXN0UmVxdWVzdBIOCgZ6",
-            "b25lSWQYASABKAUiQQoTR2V0Um9vbUxpc3RSZXNwb25zZRIqCghyb29tTGlz",
-            "dBgBIAMoCzIYLmNvbS52aW9sZXQucnBjLlJvb21EYXRhIjQKEEVudGVyUm9v",
-            "bVJlcXVlc3QSDgoGcm9vbUlkGAEgASgFEhAKCHBhc3N3b3JkGAIgASgJIkMK",
-            "EUVudGVyUm9vbVJlc3BvbnNlEi4KCnBsYXllckxpc3QYASADKAsyGi5jb20u",
-            "dmlvbGV0LnJwYy5QbGF5ZXJJbmZvIiUKElJlYWR5SW5Sb29tUmVxdWVzdBIP",
-            "Cgdpc1JlYWR5GAEgASgIIiwKE1JlYWR5SW5Sb29tUmVzcG9uc2USFQoNaXND",
-            "aGFuZ2VTdGF0ZRgBIAEoCCIiChBMZWF2ZVJvb21SZXF1ZXN0Eg4KBnJvb21J",
-            "ZBgBIAEoBSIkChFMZWF2ZVJvb21SZXNwb25zZRIPCgdpc0xlYXZlGAEgASgI",
-            "ImgKEE1vdmVDaGVzc1JlcXVlc3QSKQoGc291cmNlGAEgASgLMhkuY29tLnZp",
-            "b2xldC5ycGMuQ2hlc3NEYXRhEikKBnRhcmdldBgCIAEoCzIZLmNvbS52aW9s",
-            "ZXQucnBjLkNoZXNzRGF0YSKTAQoRTW92ZUNoZXNzUmVzcG9uc2USKQoGc291",
-            "cmNlGAEgASgLMhkuY29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhEikKBnRhcmdl",
-            "dBgCIAEoCzIZLmNvbS52aW9sZXQucnBjLkNoZXNzRGF0YRIXCg9jaGVzc01v",
-            "dmVSZXN1bHQYAyABKAUSDwoHY291bnRlchgEIAEoBSISChBCYXR0bGVNYXBS",
-            "ZXF1ZXN0IlEKEUJhdHRsZU1hcFJlc3BvbnNlEisKCGNoZXNzTWFwGAEgAygL",
-            "MhkuY29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhEg8KB2NvdW50ZXIYAiABKAUi",
-            "FwoVQ2hlY2tHYW1lU3RhdGVSZXF1ZXN0IisKFkNoZWNrR2FtZVN0YXRlUmVz",
-            "cG9uc2USEQoJcm9vbVRva2VuGAEgASgJIiwKF0VudGVyQmF0dGxlRmllbGRS",
-            "ZXF1ZXN0EhEKCXJvb21Ub2tlbhgBIAEoCSLcAQoYRW50ZXJCYXR0bGVGaWVs",
-            "ZFJlc3BvbnNlEioKCHJvb21EYXRhGAEgASgLMhguY29tLnZpb2xldC5ycGMu",
-            "Um9vbURhdGESLgoKcGxheWVyTGlzdBgCIAMoCzIaLmNvbS52aW9sZXQucnBj",
-            "LlBsYXllckluZm8SKwoIY2hlc3NNYXAYAyADKAsyGS5jb20udmlvbGV0LnJw",
-            "Yy5DaGVzc0RhdGESDwoHY291bnRlchgEIAEoBRISCgpyb3VuZE9yZGVyGAUg",
-            "ASgFEhIKCnJlbWFpblRpbWUYBiABKAUiEgoQU3VycmVuZGVyUmVxdWVzdCIo",
-            "ChFTdXJyZW5kZXJSZXNwb25zZRITCgtpc1N1cnJlbmRlchgBIAEoCCJTChZT",
-            "ZW5kQ2hhdE1lc3NhZ2VSZXF1ZXN0Eg8KB3RvV2hlcmUYASABKAUSKAoDbXNn",
-            "GAIgASgLMhsuY29tLnZpb2xldC5ycGMuTWVzc2FnZURhdGEiGQoXU2VuZENo",
-            "YXRNZXNzYWdlUmVzcG9uc2ViBnByb3RvMw=="));
+            "CgpzZXJ2ZXJUaW1lGAIgASgDIg8KDUxvZ291dFJlcXVlc3QiIgoOTG9nb3V0",
+            "UmVzcG9uc2USEAoIaXNMb2dvdXQYASABKAgiEgoQRmluZEVuZW15UmVxdWVz",
+            "dCIqChFGaW5kRW5lbXlSZXNwb25zZRIVCg1qb2luR2FtZUZpZWxkGAEgASgI",
+            "IhgKFkNhbmNlbEZpbmRFbmVteVJlcXVlc3QiKwoXQ2FuY2VsRmluZEVuZW15",
+            "UmVzcG9uc2USEAoIaXNDYW5jZWwYASABKAgiJAoSR2V0Um9vbUxpc3RSZXF1",
+            "ZXN0Eg4KBnpvbmVJZBgBIAEoBSJBChNHZXRSb29tTGlzdFJlc3BvbnNlEioK",
+            "CHJvb21MaXN0GAEgAygLMhguY29tLnZpb2xldC5ycGMuUm9vbURhdGEiNAoQ",
+            "RW50ZXJSb29tUmVxdWVzdBIOCgZyb29tSWQYASABKAUSEAoIcGFzc3dvcmQY",
+            "AiABKAkiQwoRRW50ZXJSb29tUmVzcG9uc2USLgoKcGxheWVyTGlzdBgBIAMo",
+            "CzIaLmNvbS52aW9sZXQucnBjLlBsYXllckluZm8iUgoSUmVhZHlJblJvb21S",
+            "ZXF1ZXN0Eg8KB2lzUmVhZHkYASABKAgSKwoIY2hlc3NNYXAYAiADKAsyGS5j",
+            "b20udmlvbGV0LnJwYy5DaGVzc0RhdGEiLAoTUmVhZHlJblJvb21SZXNwb25z",
+            "ZRIVCg1pc0NoYW5nZVN0YXRlGAEgASgIIiIKEExlYXZlUm9vbVJlcXVlc3QS",
+            "DgoGcm9vbUlkGAEgASgFIiQKEUxlYXZlUm9vbVJlc3BvbnNlEg8KB2lzTGVh",
+            "dmUYASABKAgiaAoQTW92ZUNoZXNzUmVxdWVzdBIpCgZzb3VyY2UYASABKAsy",
+            "GS5jb20udmlvbGV0LnJwYy5DaGVzc0RhdGESKQoGdGFyZ2V0GAIgASgLMhku",
+            "Y29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhIpMBChFNb3ZlQ2hlc3NSZXNwb25z",
+            "ZRIpCgZzb3VyY2UYASABKAsyGS5jb20udmlvbGV0LnJwYy5DaGVzc0RhdGES",
+            "KQoGdGFyZ2V0GAIgASgLMhkuY29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhEhcK",
+            "D2NoZXNzTW92ZVJlc3VsdBgDIAEoBRIPCgdjb3VudGVyGAQgASgFIhIKEEJh",
+            "dHRsZU1hcFJlcXVlc3QiUQoRQmF0dGxlTWFwUmVzcG9uc2USKwoIY2hlc3NN",
+            "YXAYASADKAsyGS5jb20udmlvbGV0LnJwYy5DaGVzc0RhdGESDwoHY291bnRl",
+            "chgCIAEoBSIXChVDaGVja0dhbWVTdGF0ZVJlcXVlc3QiKwoWQ2hlY2tHYW1l",
+            "U3RhdGVSZXNwb25zZRIRCglyb29tVG9rZW4YASABKAkiLAoXRW50ZXJCYXR0",
+            "bGVGaWVsZFJlcXVlc3QSEQoJcm9vbVRva2VuGAEgASgJItwBChhFbnRlckJh",
+            "dHRsZUZpZWxkUmVzcG9uc2USKgoIcm9vbURhdGEYASABKAsyGC5jb20udmlv",
+            "bGV0LnJwYy5Sb29tRGF0YRIuCgpwbGF5ZXJMaXN0GAIgAygLMhouY29tLnZp",
+            "b2xldC5ycGMuUGxheWVySW5mbxIrCghjaGVzc01hcBgDIAMoCzIZLmNvbS52",
+            "aW9sZXQucnBjLkNoZXNzRGF0YRIPCgdjb3VudGVyGAQgASgFEhIKCnJvdW5k",
+            "T3JkZXIYBSABKAUSEgoKcmVtYWluVGltZRgGIAEoBSISChBTdXJyZW5kZXJS",
+            "ZXF1ZXN0IigKEVN1cnJlbmRlclJlc3BvbnNlEhMKC2lzU3VycmVuZGVyGAEg",
+            "ASgIIlMKFlNlbmRDaGF0TWVzc2FnZVJlcXVlc3QSDwoHdG9XaGVyZRgBIAEo",
+            "BRIoCgNtc2cYAiABKAsyGy5jb20udmlvbGV0LnJwYy5NZXNzYWdlRGF0YSIZ",
+            "ChdTZW5kQ2hhdE1lc3NhZ2VSZXNwb25zZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Com.Violet.Rpc.StructReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.LoginRequest), global::Com.Violet.Rpc.LoginRequest.Parser, new[]{ "UserName", "Password", "ZoneId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.LoginResponse), global::Com.Violet.Rpc.LoginResponse.Parser, new[]{ "PlayerInfo", "ServerTime" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.LogoutRequest), global::Com.Violet.Rpc.LogoutRequest.Parser, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.LogoutResponse), global::Com.Violet.Rpc.LogoutResponse.Parser, new[]{ "IsLogout" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.FindEnemyRequest), global::Com.Violet.Rpc.FindEnemyRequest.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.FindEnemyResponse), global::Com.Violet.Rpc.FindEnemyResponse.Parser, new[]{ "JoinGameField" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.CancelFindEnemyRequest), global::Com.Violet.Rpc.CancelFindEnemyRequest.Parser, null, null, null, null),
@@ -71,7 +75,7 @@ namespace Com.Violet.Rpc {
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.GetRoomListResponse), global::Com.Violet.Rpc.GetRoomListResponse.Parser, new[]{ "RoomList" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterRoomRequest), global::Com.Violet.Rpc.EnterRoomRequest.Parser, new[]{ "RoomId", "Password" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterRoomResponse), global::Com.Violet.Rpc.EnterRoomResponse.Parser, new[]{ "PlayerList" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ReadyInRoomRequest), global::Com.Violet.Rpc.ReadyInRoomRequest.Parser, new[]{ "IsReady" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ReadyInRoomRequest), global::Com.Violet.Rpc.ReadyInRoomRequest.Parser, new[]{ "IsReady", "ChessMap" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ReadyInRoomResponse), global::Com.Violet.Rpc.ReadyInRoomResponse.Parser, new[]{ "IsChangeState" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.LeaveRoomRequest), global::Com.Violet.Rpc.LeaveRoomRequest.Parser, new[]{ "RoomId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.LeaveRoomResponse), global::Com.Violet.Rpc.LeaveRoomResponse.Parser, new[]{ "IsLeave" }, null, null, null),
@@ -426,6 +430,212 @@ namespace Com.Violet.Rpc {
 
   }
 
+  public sealed partial class LogoutRequest : pb::IMessage<LogoutRequest> {
+    private static readonly pb::MessageParser<LogoutRequest> _parser = new pb::MessageParser<LogoutRequest>(() => new LogoutRequest());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<LogoutRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public LogoutRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public LogoutRequest(LogoutRequest other) : this() {
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public LogoutRequest Clone() {
+      return new LogoutRequest(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as LogoutRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(LogoutRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(LogoutRequest other) {
+      if (other == null) {
+        return;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class LogoutResponse : pb::IMessage<LogoutResponse> {
+    private static readonly pb::MessageParser<LogoutResponse> _parser = new pb::MessageParser<LogoutResponse>(() => new LogoutResponse());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<LogoutResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public LogoutResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public LogoutResponse(LogoutResponse other) : this() {
+      isLogout_ = other.isLogout_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public LogoutResponse Clone() {
+      return new LogoutResponse(this);
+    }
+
+    /// <summary>Field number for the "isLogout" field.</summary>
+    public const int IsLogoutFieldNumber = 1;
+    private bool isLogout_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool IsLogout {
+      get { return isLogout_; }
+      set {
+        isLogout_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as LogoutResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(LogoutResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (IsLogout != other.IsLogout) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (IsLogout != false) hash ^= IsLogout.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (IsLogout != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(IsLogout);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (IsLogout != false) {
+        size += 1 + 1;
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(LogoutResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.IsLogout != false) {
+        IsLogout = other.IsLogout;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            IsLogout = input.ReadBool();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   /// <summary>
   ///寻找一场匹配
   /// </summary>
@@ -436,7 +646,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[2]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -525,7 +735,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[3]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -648,7 +858,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -737,7 +947,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[5]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -860,7 +1070,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[6]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -980,7 +1190,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[7]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1092,7 +1302,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[8]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1237,7 +1447,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[9]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[11]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1346,7 +1556,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[10]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[12]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1364,6 +1574,7 @@ namespace Com.Violet.Rpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public ReadyInRoomRequest(ReadyInRoomRequest other) : this() {
       isReady_ = other.isReady_;
+      chessMap_ = other.chessMap_.Clone();
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1382,6 +1593,16 @@ namespace Com.Violet.Rpc {
       }
     }
 
+    /// <summary>Field number for the "chessMap" field.</summary>
+    public const int ChessMapFieldNumber = 2;
+    private static readonly pb::FieldCodec<global::Com.Violet.Rpc.ChessData> _repeated_chessMap_codec
+        = pb::FieldCodec.ForMessage(18, global::Com.Violet.Rpc.ChessData.Parser);
+    private readonly pbc::RepeatedField<global::Com.Violet.Rpc.ChessData> chessMap_ = new pbc::RepeatedField<global::Com.Violet.Rpc.ChessData>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Com.Violet.Rpc.ChessData> ChessMap {
+      get { return chessMap_; }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as ReadyInRoomRequest);
@@ -1396,6 +1617,7 @@ namespace Com.Violet.Rpc {
         return true;
       }
       if (IsReady != other.IsReady) return false;
+      if(!chessMap_.Equals(other.chessMap_)) return false;
       return true;
     }
 
@@ -1403,6 +1625,7 @@ namespace Com.Violet.Rpc {
     public override int GetHashCode() {
       int hash = 1;
       if (IsReady != false) hash ^= IsReady.GetHashCode();
+      hash ^= chessMap_.GetHashCode();
       return hash;
     }
 
@@ -1417,6 +1640,7 @@ namespace Com.Violet.Rpc {
         output.WriteRawTag(8);
         output.WriteBool(IsReady);
       }
+      chessMap_.WriteTo(output, _repeated_chessMap_codec);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1425,6 +1649,7 @@ namespace Com.Violet.Rpc {
       if (IsReady != false) {
         size += 1 + 1;
       }
+      size += chessMap_.CalculateSize(_repeated_chessMap_codec);
       return size;
     }
 
@@ -1436,6 +1661,7 @@ namespace Com.Violet.Rpc {
       if (other.IsReady != false) {
         IsReady = other.IsReady;
       }
+      chessMap_.Add(other.chessMap_);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1448,6 +1674,10 @@ namespace Com.Violet.Rpc {
             break;
           case 8: {
             IsReady = input.ReadBool();
+            break;
+          }
+          case 18: {
+            chessMap_.AddEntriesFrom(input, _repeated_chessMap_codec);
             break;
           }
         }
@@ -1463,7 +1693,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[11]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[13]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1583,7 +1813,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[12]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[14]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1700,7 +1930,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[13]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[15]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1820,7 +2050,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[14]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[16]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1977,7 +2207,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[15]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[17]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2199,7 +2429,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[16]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[18]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2288,7 +2518,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[17]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[19]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2431,7 +2661,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[18]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[20]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2520,7 +2750,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[19]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[21]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2640,7 +2870,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[20]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[22]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2757,7 +2987,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[21]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[23]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3016,7 +3246,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[22]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[24]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3105,7 +3335,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[23]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[25]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3222,7 +3452,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[24]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[26]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3373,7 +3603,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[25]; }
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[27]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
