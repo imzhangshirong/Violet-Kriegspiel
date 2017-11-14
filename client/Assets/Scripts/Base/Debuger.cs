@@ -7,17 +7,20 @@ using System.IO;
 public class Debuger{
 	private FileInfo logFile;
     private static Debuger m_Instance;
-	public Debuger() {
+    public static UILabel outLabel;
+    public static UIScrollView outLabelScroll;
+
+    public Debuger() {
 #if LOGFILE
 		//注意目录
 		string dir = null;
-	#if UNITY_ANDROID    
+#if UNITY_ANDROID
 			dir = "jar:file://Assets/Logs/";    
-	#elif UNITY_IPHONE    
+#elif UNITY_IPHONE
 			dir = "Assets/Logs/";    
-	#elif UNITY_STANDALONE_WIN || UNITY_EDITOR
+#elif UNITY_STANDALONE_WIN || UNITY_EDITOR
 			dir = "Assets/Logs/";
-	#endif
+#endif
 		string logName = dir + "debug.log";
 		logFile = new FileInfo(logName);
 		if (logFile.Exists)
@@ -31,7 +34,8 @@ public class Debuger{
 		}
 		Application.RegisterLogCallback(OnLog); 
 #endif
-	}
+        Application.RegisterLogCallback(OnLog);
+    }
     public static void Init()
     {
         if (m_Instance == null)
@@ -42,6 +46,7 @@ public class Debuger{
 	private void OnLog(string condition, string stackTrace, LogType type)
 	{
 		string tag = string.Empty;
+        string color = "";
 		switch (type)
 		{
 			case LogType.Assert:
@@ -49,18 +54,37 @@ public class Debuger{
 				break;
 			case LogType.Error:
 				tag = "E";
-				break;
+                color = "[FF0000]";
+                break;
 			case LogType.Log:
 				tag = "I";
 				break;
 			case LogType.Warning:
-				tag = "W";
+                color = "[FFCC00]";
+                tag = "W";
 				break;
 			case LogType.Exception:
 				tag = "EX";
 				break;
 		}
+
+        if (outLabel != null)
+        {
+            string text = outLabel.text;
+            int length = (text.Length>10000)?10000: text.Length;
+            int start = (text.Length < 10000) ? 0 : text.Length-10000;
+            string colored = condition + "\n" + stackTrace;
+            if (color != "")
+            {
+                colored = color + colored + "[-]";
+            }
+            text = text.Substring(start)+ colored + "\n\n";
+            outLabel.text = text;
+            //outLabelScroll.ResetPosition();
+        }
+#if LOGFILE
 		LogToFile(tag, condition, stackTrace);
+#endif
 	}
 	public static void Log(string format, params object[] msgs)
 	{

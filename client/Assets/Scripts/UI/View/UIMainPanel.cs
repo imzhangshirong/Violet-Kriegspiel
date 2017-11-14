@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using UnityEngine;
 using Com.Violet.Rpc;
 using Google.Protobuf;
 
@@ -12,10 +13,21 @@ public class UIMainPanel : UIViewBase
     public UIInput rpcInput;
     public UIInput ipInput;
     public UIInput portInput;
+    public GameObject debug;
+    public UILabel debugText;
+    public UIScrollView debugTextScroll;
+    bool debugOpened = false;
     public override void OnInit()
 	{
-		
+        Debuger.outLabel = debugText;
+        Debuger.outLabelScroll = debugTextScroll;
 	}
+
+    public void OpenDebug()
+    {
+        debugOpened = !debugOpened;
+        debug.SetActive(debugOpened);
+    }
 
     public void OnSetIp()
     {
