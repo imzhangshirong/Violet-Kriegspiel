@@ -19,7 +19,11 @@ public class TreeLeaf : MonoBehaviour
 		}
         treeRoot.Bind(this);
 	}
-	public void Push(string msg, object content)
+    private void OnDestroy()
+    {
+        treeRoot.Remove(this);
+    }
+    public void Push(string msg, object content)
 	{
 		if(treeRoot == null){
 			Debuger.Warn(this.gameObject.name + ":leaf hasn't TreeRoot.");

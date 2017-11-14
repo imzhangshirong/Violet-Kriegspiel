@@ -19,20 +19,29 @@ public class TreeRoot : MonoBehaviour
 	public void Broadcast(string msg, object content) {
 		Broadcast(null, msg, content);
 	}
+
+
+    public void Remove(TreeLeaf leaf)
+    {
+        m_LeafList.Remove(leaf);
+    }
+
 	public void Broadcast(TreeLeaf fromLeaf,string msg,object content)
     {
-		foreach (var leaf in m_LeafList)
-		{
+        for(int i=0;i< m_LeafList.Count; i++)
+        {
+            TreeLeaf leaf = m_LeafList[i];
             if (leaf.IsActive())
             {
 
                 leaf.OnMessage(msg, content);
             }
         }
-	}
+
+    }
 	private List<TreeLeaf> GetLeafList(string type)
 	{
-		if (m_LeafMap.ContainsKey(type))
+        if (m_LeafMap.ContainsKey(type))
 		{
 			return m_LeafMap[type];
 		}
@@ -52,6 +61,10 @@ public class TreeRoot : MonoBehaviour
             App.Manager.Event.RegisteTreeRoot(m_EventKeys[i], this);
         }
         
+    }
+    private void OnDestroy()
+    {
+        App.Manager.Event.RemoveTreeRoot(this);
     }
 }
 

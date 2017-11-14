@@ -478,7 +478,12 @@ public class RpcNetwork
                 Debuger.Error(e.ToString());
             });
         }
-        if(!m_socket.Connected)Disconnect();
+        if (!m_socket.Connected)
+        {
+            App.Manager.Thread.RunAsync(()=>{
+                Disconnect();
+            });
+        }
     }
 
 
@@ -650,6 +655,9 @@ public class RpcNetwork
             m_heartBeat = App.Manager.Thread.RunAsync(HeartBeatProcess);
         }
     }
+    /// <summary>
+    /// 失去连接
+    /// </summary>
     private void Disconnect()
     {
         App.Manager.Thread.RunOnMainThread(() => {
@@ -661,7 +669,7 @@ public class RpcNetwork
                 Debuger.Log("Reconnecting:"+ m_socket.Connected);
             });
             Thread.Sleep(1000);
-            RpcNetwork.Instance.Init(true);
+            Init(true);
         }
         Reconnected();
         
@@ -676,10 +684,7 @@ public class RpcNetwork
     }
     private static void Sent(IAsyncResult ar)
     {
-        //
-        App.Manager.Thread.RunOnMainThread(() => {
-            Debuger.Log("finished");
-        });
+
     }
 
     public void BindRpcReceive(RpcReceiveListener listener)
