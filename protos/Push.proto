@@ -13,12 +13,12 @@ message EnterBattleFieldPush{//双方准备就绪进入游戏的push
   repeated ChessData chessSetting = 3;//我方上次的摆子设置
 }
 
-message PlayerStateChagePush{//敌人状态改变
+message PlayerStateChangePush{//敌人状态改变
   PlayerInfo playerInfo = 1;
   
 }
 
-message GameStateChagePush{//游戏状态改变：布子，布子完成，游戏结束
+message GameStateChangePush{//游戏状态改变：布子，布子完成，游戏结束
   int32 state = 1; //enum GameState
   int32 result = 2; //enum GameResult
   repeated ChessData chessMap = 3;

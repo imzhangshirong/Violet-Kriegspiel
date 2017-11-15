@@ -27,24 +27,24 @@ namespace Com.Violet.Rpc {
             "bS52aW9sZXQucnBjLlBsYXllckluZm8iiwEKFEVudGVyQmF0dGxlRmllbGRQ",
             "dXNoEi4KCnBsYXllckxpc3QYASADKAsyGi5jb20udmlvbGV0LnJwYy5QbGF5",
             "ZXJJbmZvEhIKCnJvdW5kT3JkZXIYAiABKAUSLwoMY2hlc3NTZXR0aW5nGAMg",
-            "AygLMhkuY29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhIkYKFFBsYXllclN0YXRl",
-            "Q2hhZ2VQdXNoEi4KCnBsYXllckluZm8YASABKAsyGi5jb20udmlvbGV0LnJw",
-            "Yy5QbGF5ZXJJbmZvInEKEkdhbWVTdGF0ZUNoYWdlUHVzaBINCgVzdGF0ZRgB",
-            "IAEoBRIOCgZyZXN1bHQYAiABKAUSKwoIY2hlc3NNYXAYAyADKAsyGS5jb20u",
-            "dmlvbGV0LnJwYy5DaGVzc0RhdGESDwoHY291bnRlchgEIAEoBSKPAQoNQ2hl",
-            "c3NNb3ZlUHVzaBIpCgZzb3VyY2UYASABKAsyGS5jb20udmlvbGV0LnJwYy5D",
-            "aGVzc0RhdGESKQoGdGFyZ2V0GAIgASgLMhkuY29tLnZpb2xldC5ycGMuQ2hl",
-            "c3NEYXRhEhcKD2NoZXNzTW92ZVJlc3VsdBgDIAEoBRIPCgdjb3VudGVyGAQg",
-            "ASgFIk4KD0NoYXRNZXNzYWdlUHVzaBIRCglmcm9tV2hlcmUYASABKAUSKAoD",
-            "bXNnGAIgASgLMhsuY29tLnZpb2xldC5ycGMuTWVzc2FnZURhdGFiBnByb3Rv",
-            "Mw=="));
+            "AygLMhkuY29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhIkcKFVBsYXllclN0YXRl",
+            "Q2hhbmdlUHVzaBIuCgpwbGF5ZXJJbmZvGAEgASgLMhouY29tLnZpb2xldC5y",
+            "cGMuUGxheWVySW5mbyJyChNHYW1lU3RhdGVDaGFuZ2VQdXNoEg0KBXN0YXRl",
+            "GAEgASgFEg4KBnJlc3VsdBgCIAEoBRIrCghjaGVzc01hcBgDIAMoCzIZLmNv",
+            "bS52aW9sZXQucnBjLkNoZXNzRGF0YRIPCgdjb3VudGVyGAQgASgFIo8BCg1D",
+            "aGVzc01vdmVQdXNoEikKBnNvdXJjZRgBIAEoCzIZLmNvbS52aW9sZXQucnBj",
+            "LkNoZXNzRGF0YRIpCgZ0YXJnZXQYAiABKAsyGS5jb20udmlvbGV0LnJwYy5D",
+            "aGVzc0RhdGESFwoPY2hlc3NNb3ZlUmVzdWx0GAMgASgFEg8KB2NvdW50ZXIY",
+            "BCABKAUiTgoPQ2hhdE1lc3NhZ2VQdXNoEhEKCWZyb21XaGVyZRgBIAEoBRIo",
+            "CgNtc2cYAiABKAsyGy5jb20udmlvbGV0LnJwYy5NZXNzYWdlRGF0YWIGcHJv",
+            "dG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Com.Violet.Rpc.StructReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.RoomStateChangePush), global::Com.Violet.Rpc.RoomStateChangePush.Parser, new[]{ "PlayerList" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterBattleFieldPush), global::Com.Violet.Rpc.EnterBattleFieldPush.Parser, new[]{ "PlayerList", "RoundOrder", "ChessSetting" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.PlayerStateChagePush), global::Com.Violet.Rpc.PlayerStateChagePush.Parser, new[]{ "PlayerInfo" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.GameStateChagePush), global::Com.Violet.Rpc.GameStateChagePush.Parser, new[]{ "State", "Result", "ChessMap", "Counter" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.PlayerStateChangePush), global::Com.Violet.Rpc.PlayerStateChangePush.Parser, new[]{ "PlayerInfo" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.GameStateChangePush), global::Com.Violet.Rpc.GameStateChangePush.Parser, new[]{ "State", "Result", "ChessMap", "Counter" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ChessMovePush), global::Com.Violet.Rpc.ChessMovePush.Parser, new[]{ "Source", "Target", "ChessMoveResult", "Counter" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ChatMessagePush), global::Com.Violet.Rpc.ChatMessagePush.Parser, new[]{ "FromWhere", "Msg" }, null, null, null)
           }));
@@ -334,10 +334,10 @@ namespace Com.Violet.Rpc {
   /// <summary>
   ///敌人状态改变
   /// </summary>
-  public sealed partial class PlayerStateChagePush : pb::IMessage<PlayerStateChagePush> {
-    private static readonly pb::MessageParser<PlayerStateChagePush> _parser = new pb::MessageParser<PlayerStateChagePush>(() => new PlayerStateChagePush());
+  public sealed partial class PlayerStateChangePush : pb::IMessage<PlayerStateChangePush> {
+    private static readonly pb::MessageParser<PlayerStateChangePush> _parser = new pb::MessageParser<PlayerStateChangePush>(() => new PlayerStateChangePush());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<PlayerStateChagePush> Parser { get { return _parser; } }
+    public static pb::MessageParser<PlayerStateChangePush> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -350,20 +350,20 @@ namespace Com.Violet.Rpc {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public PlayerStateChagePush() {
+    public PlayerStateChangePush() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public PlayerStateChagePush(PlayerStateChagePush other) : this() {
+    public PlayerStateChangePush(PlayerStateChangePush other) : this() {
       PlayerInfo = other.playerInfo_ != null ? other.PlayerInfo.Clone() : null;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public PlayerStateChagePush Clone() {
-      return new PlayerStateChagePush(this);
+    public PlayerStateChangePush Clone() {
+      return new PlayerStateChangePush(this);
     }
 
     /// <summary>Field number for the "playerInfo" field.</summary>
@@ -379,11 +379,11 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as PlayerStateChagePush);
+      return Equals(other as PlayerStateChangePush);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(PlayerStateChagePush other) {
+    public bool Equals(PlayerStateChangePush other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -424,7 +424,7 @@ namespace Com.Violet.Rpc {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(PlayerStateChagePush other) {
+    public void MergeFrom(PlayerStateChangePush other) {
       if (other == null) {
         return;
       }
@@ -460,10 +460,10 @@ namespace Com.Violet.Rpc {
   /// <summary>
   ///游戏状态改变：布子，布子完成，游戏结束
   /// </summary>
-  public sealed partial class GameStateChagePush : pb::IMessage<GameStateChagePush> {
-    private static readonly pb::MessageParser<GameStateChagePush> _parser = new pb::MessageParser<GameStateChagePush>(() => new GameStateChagePush());
+  public sealed partial class GameStateChangePush : pb::IMessage<GameStateChangePush> {
+    private static readonly pb::MessageParser<GameStateChangePush> _parser = new pb::MessageParser<GameStateChangePush>(() => new GameStateChangePush());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<GameStateChagePush> Parser { get { return _parser; } }
+    public static pb::MessageParser<GameStateChangePush> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -476,14 +476,14 @@ namespace Com.Violet.Rpc {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GameStateChagePush() {
+    public GameStateChangePush() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GameStateChagePush(GameStateChagePush other) : this() {
+    public GameStateChangePush(GameStateChangePush other) : this() {
       state_ = other.state_;
       result_ = other.result_;
       chessMap_ = other.chessMap_.Clone();
@@ -491,8 +491,8 @@ namespace Com.Violet.Rpc {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GameStateChagePush Clone() {
-      return new GameStateChagePush(this);
+    public GameStateChangePush Clone() {
+      return new GameStateChangePush(this);
     }
 
     /// <summary>Field number for the "state" field.</summary>
@@ -546,11 +546,11 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as GameStateChagePush);
+      return Equals(other as GameStateChangePush);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(GameStateChagePush other) {
+    public bool Equals(GameStateChangePush other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -613,7 +613,7 @@ namespace Com.Violet.Rpc {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(GameStateChagePush other) {
+    public void MergeFrom(GameStateChangePush other) {
       if (other == null) {
         return;
       }
