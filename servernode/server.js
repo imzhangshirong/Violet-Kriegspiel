@@ -96,7 +96,8 @@ function removeFromPlayGround(token){
         return item.token != token;
     });
 }
-function createMatchRoom(users){
+function createMatchRoom(users_){
+    let users = users_.concat();
     let roomId = "";
     roomId = "match:";
     for(let i=0;i<users.length;i++){
@@ -140,6 +141,45 @@ function createMatchRoom(users){
         }
     }
 }
+
+function userSurrender(room,user){
+    
+    endGame(room,user);
+}
+
+function endGame(room,loseUser){
+    let user = loseUser;
+    if(user!=null){
+        let Message = RpcServer.getRpc("GameStateChange","Push");
+        room.users.map(function(item){
+            let push = new Message();
+            push.setState(2);
+            push.setCounter(room.counter);
+            if(user.token==item.token){
+                push.setResult(1);
+            }
+            else{//多人这里要更改
+                push.setResult(2);
+            }      
+            let client = RpcServer.getClientItemByToken(item.token);
+            RpcServer.push(client,"GameStateChange",push);
+        });
+    }
+
+    //更新用户状态
+    room.users.map(function(user){
+        user.state = 0;
+    });
+    for(let key in RoomCenter){
+        let room_ = RoomCenter[key];
+        if(room.roomId==room_.roomId){
+            
+            delete RoomCenter[key];
+            break;
+        }
+    }
+}
+
 //处于对方2人对战坐标转换
 function getTwoAgainstTranslate(chessMap){
     let newChessMap = [];
@@ -180,15 +220,14 @@ function getRpcPlayerInfo(user){
 function userReady(room,user){
     user.gameRemainTime = 0;
     user.state = 2;
-    let Message = RpcServer.getRpc("PlayerStateChage","Push");
-    let PlayerInfo = RpcServer.getRpc("PlayerInfo","");
+    let Message = RpcServer.getRpc("PlayerStateChange","Push");
     for(let i=0;i<room.users.length;i++){
         if(room.users[i].token != user.token){
             let push = new Message();
             let playerInfo = getRpcPlayerInfo(user);
             push.setPlayerinfo(playerInfo);
             let clientItem = RpcServer.getClientItemByToken(room.users[i].token);
-            RpcServer.push(clientItem,"PlayerStateChage",push);
+            RpcServer.push(clientItem,"PlayerStateChange",push);
         }
     }
     setTimeout(function(){
@@ -222,7 +261,7 @@ function startGame(room){
             }
         }
         
-        let Message = RpcServer.getRpc("GameStateChage","Push");
+        let Message = RpcServer.getRpc("GameStateChange","Push");
         
         for(let i=0;i<room.users.length;i++){
             let user = room.users[i];
@@ -242,9 +281,19 @@ function startGame(room){
             
             push.setChessmapList(chessMapSend);
             let clientItem = RpcServer.getClientItemByToken(user.token);
-            RpcServer.push(clientItem,"GameStateChage",push);
+            RpcServer.push(clientItem,"GameStateChange",push);
         }
     }
+}
+
+function getUserByBelong(belong){//这里要优化
+    let re = null
+    UserData.map(function(user){
+        if(user.zoneId+"/"+user.userId==belong){//不是自己的都隐藏
+            re = user;
+        }
+    });
+    return re;
 }
 
 function getRoomByUser(user){
@@ -257,6 +306,34 @@ function getRoomByUser(user){
         }
     }
     return null;
+}
+
+function removeRoom(id){
+    for(let key in RoomCenter){
+        let room = RoomCenter[key];
+        if(room.roomId==id){
+            delete RoomCenter[key];
+            break;
+        }
+    }
+}
+
+function pushMoveChess(room,userFrom,source,target,result){
+    let Message = RpcServer.getRpc("ChessMove","Push");
+    for(let i=0;i<room.users.length;i++){
+        let user = room.users[i];
+        if(user.token!=userFrom.token){
+            let push = new Message();
+            let clientItem = RpcServer.getClientItemByToken(user.token);
+            let chess = source.clone();
+            chess.setChesstype(-1);
+            push.setSource(chess);
+            push.setTarget(target);
+            push.setCounter(room.counter);
+            push.setChessmoveresult(result);
+            RpcServer.push(clientItem,"ChessMove",push);
+        }
+    }
 }
 
 function parseUserChessData(user)
@@ -322,7 +399,13 @@ setInterval(function(){
     let player1Id = Math.floor(Math.random() * PlayGround.length);
     let player2Id = Math.floor(Math.random() * PlayGround.length);
     if(player1Id!=player2Id){
-
+        
+        if(player2Id>player1Id){
+            let temp = player2Id;
+            player2Id = player1Id;
+            player1Id = temp;
+        }
+        createMatchRoom([PlayGround[player1Id],PlayGround[player2Id]])
     }
 },Config.matchEnemyTimeout);
 
@@ -376,14 +459,14 @@ RpcServer.on("FindEnemy",function(requestData){
             PlayGround.push(user);//进入匹配池
             response.setJoingamefield(true);
             console.log("user:"+user.userName +" enter PlayGround");
-            setTimeout(function(){
+            /*setTimeout(function(){
                 if(PlayGround.indexOf(user)!=-1){
                     createMatchRoom([user,UserData[2]]);
                     setTimeout(function(){
                         mockEnemyReady(UserData[2]);
                     },5000 + Math.random()*10000);
                 }
-            },5000);
+            },5000);*/
             
         }
         else{
@@ -468,6 +551,7 @@ RpcServer.on("MoveChess",function(requestData){
             let remoteIdT = target.getChessremoteid();
             console.log("room:" + room.roomId + " user:" + user.userName + " > move:"+remoteIdS+"("+pointS.getX()+","+pointS.getY()+")->("+pointT.getX()+","+pointT.getY()+")");
             let realChessS = getChessDataByRemoteId(room,remoteIdS);
+            let result = 0;
             if(realChessS!=null){
                 if(remoteIdT!=null && remoteIdT!=""){
                     let realChessT = getChessDataByRemoteId(room,remoteIdT);
@@ -475,23 +559,41 @@ RpcServer.on("MoveChess",function(requestData){
                         response.setSource(source);
                         response.setTarget(target);
                         response.setCounter(room.counter);
-                        let result = canBeatTo(realChessS,realChessT);
-                        console.log("Beat??->"+canBeatTo(realChessS,realChessT));
+                        result = canBeatTo(realChessS,realChessT);
+                        console.log("Beat??->"+result);
                         response.setChessmoveresult(result);
+                        if(realChessT.getChesstype() == 11 && result == 3){//军旗被吃，结束
+                            let loseUSer = getUserByBelong(realChessT.getBelong());
+                            console.log("user:"+user.userName+" win!!>"+loseUSer.userName);
+                            setTimeout(function(){
+                                endGame(room,loseUSer);
+                            },100);
+                        }
                     }
                     else{
                         requestData.errorCode = 31;
                     }
                 }
                 else{//检测是否可以移动
+                    result = 4;
                     response.setSource(source);
                     response.setTarget(target);
                     response.setCounter(room.counter);
-                    response.setChessmoveresult(4);
+                    response.setChessmoveresult(result);
+                }
+                if(requestData.errorCode==0){
+                    pushMoveChess(room,user,source,target,result);
                 }
             }
             else{
-                requestData.errorCode = 31;
+                if(remoteIdS<0){
+                    console.log("user:"+user.userName+" Skip");
+                    response.setCounter(room.counter);//回合跳过
+                    pushMoveChess(room,user,source,target,result);
+                }
+                else{
+                    requestData.errorCode = 31;
+                }
             }
         }
         else{
@@ -503,7 +605,28 @@ RpcServer.on("MoveChess",function(requestData){
     }
     return response;
 });
-
+RpcServer.on("Surrender",function(requestData){
+    let request = requestData.rpc;
+    let Message = RpcServer.getRpc("Surrender","Response");
+    let response = new Message();
+    let user = getUserByToken(requestData.header.getToken());
+    if(user!=null){
+        let room = getRoomByUser(user);
+        if(room!=null){
+            response.setIssurrender(true);
+            setTimeout(function(){
+                userSurrender(room,user);//投降并结束游戏
+            },100);
+        }
+        else{
+            requestData.errorCode = 21;
+        }
+    }
+    else{
+        requestData.errorCode = 1;
+    }
+    return response;
+});
 //Mock //////////////////////////////////////////////////////////////////
 function mockEnemyReady(user){
     if(user!=null){

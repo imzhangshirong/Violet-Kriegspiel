@@ -7,8 +7,6 @@ using System.IO;
 public class Debuger{
 	private FileInfo logFile;
     private static Debuger m_Instance;
-    public static UILabel outLabel;
-    public static UIScrollView outLabelScroll;
 
     public Debuger() {
 #if LOGFILE
@@ -34,7 +32,6 @@ public class Debuger{
 		}
 		Application.RegisterLogCallback(OnLog); 
 #endif
-        Application.RegisterLogCallback(OnLog);
     }
     public static void Init()
     {
@@ -45,6 +42,7 @@ public class Debuger{
     }
 	private void OnLog(string condition, string stackTrace, LogType type)
 	{
+#if LOGFILE
 		string tag = string.Empty;
         string color = "";
 		switch (type)
@@ -67,26 +65,10 @@ public class Debuger{
 				tag = "EX";
 				break;
 		}
-
-        if (outLabel != null)
-        {
-            string text = outLabel.text;
-            int length = (text.Length>10000)?10000: text.Length;
-            int start = (text.Length < 10000) ? 0 : text.Length-10000;
-            string colored = condition + "\n" + stackTrace;
-            if (color != "")
-            {
-                colored = color + colored + "[-]";
-            }
-            text = text.Substring(start)+ colored + "\n\n";
-            outLabel.text = text;
-            //outLabelScroll.ResetPosition();
-        }
-#if LOGFILE
 		LogToFile(tag, condition, stackTrace);
 #endif
-	}
-	public static void Log(string format, params object[] msgs)
+    }
+    public static void Log(string format, params object[] msgs)
 	{
 		string msg = System.DateTime.Now.ToString("MM-dd HH:mm:ss") + "(" + Time.time + "):" + string.Format(format, msgs);
 #if DEBUG

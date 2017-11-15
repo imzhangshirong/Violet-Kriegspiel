@@ -13,27 +13,18 @@ public class UIMainPanel : UIViewBase
     public UIInput rpcInput;
     public UIInput ipInput;
     public UIInput portInput;
-    public GameObject debug;
-    public UILabel debugText;
-    public UIScrollView debugTextScroll;
     bool debugOpened = false;
     public override void OnInit()
 	{
-        Debuger.outLabel = debugText;
-        Debuger.outLabelScroll = debugTextScroll;
-	}
 
-    public void OpenDebug()
-    {
-        debugOpened = !debugOpened;
-        debug.SetActive(debugOpened);
-    }
+	}
 
     public void OnSetIp()
     {
         try
         {
             Config.ServerHost = ipInput.value;
+            PlayerPrefs.SetString("hostIp",ipInput.value);
             Config.ServerHostPort = int.Parse(portInput.value);
             RpcNetwork.Instance.Init();
             Common.UI.OpenTips("Set IP Config");
@@ -49,6 +40,8 @@ public class UIMainPanel : UIViewBase
 	{
 		base.OnOpen(intent);
 		Debuger.Log("MainPanel Open");
+        string ip = PlayerPrefs.GetString("hostIp");
+        if (ip != "")ipInput.value = ip;
 	}
 	public void NextPage()
 	{

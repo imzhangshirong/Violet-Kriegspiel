@@ -23,7 +23,7 @@ public class MockManager : Manager
         //注册Mock的Push
         RegisteMockAction(KeyCode.Keypad1,EnterBattleFieldPush);
 
-        RegisteMockAction(KeyCode.Q,PlayerStateChagePush_Ready);
+        RegisteMockAction(KeyCode.Q,PlayerStateChangePush_Ready);
     }
     public override void OnManagerDestroy()
     {
@@ -83,17 +83,11 @@ public class MockManager : Manager
     {
     }
 
-    void PlayerStateChagePush_Ready()
+    void PlayerStateChangePush_Ready()
     {
-        //PlayerStateChagePush push = new PlayerStateChagePush();
-        //push.PlayerInfo = new Com.Violet.Rpc.PlayerInfo();
-        //push.PlayerInfo.State = (int)PlayerState.READY;
-        //push.PlayerInfo.UserId = App.Package.ChessGame.EnemyPlayerData.playerInfo.userId;
-        //push.PlayerInfo.UserName = App.Package.ChessGame.EnemyPlayerData.playerInfo.userName;
-        //MockPush("PlayerStateChage",push);
     }
 
-    void GameStateChagePush()
+    void GameStateChangePush()
     {
     }
 

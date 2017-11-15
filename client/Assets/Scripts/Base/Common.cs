@@ -12,9 +12,9 @@ public class Common
             intent.Push("tipContent", msg);
             App.Manager.UI.OpenView("UITips", intent);
         }
-        public static void BackPage()
+        public static void BackPage(string toPage = "")
         {
-            App.Manager.UI.PageBack();
+            App.Manager.UI.PageBack(toPage);
         }
         public static void OpenAlert(string title,string content, string positiveString, AlertWindowClick positive, string negativeString, AlertWindowClick negative, AlertWindowMode mode,bool autoClose = true)
         {

@@ -190,12 +190,15 @@ public class ChessAgainst : MonoBehaviour
         {
             return false;
         }
-        return IsAfterCamp(heroData.point)==false;//大本营不能走
+        return IsStronghold(heroData.point)==false;//大本营不能走
         return true;
     }
     //单击训练模式
     public static ChessMoveResult ChessCanBeat(ChessHeroData heroS, ChessHeroData heroT) //1胜利，-1失败，0平局消失，2获胜结束，-2未知
     {
+        if (heroT.heroTypeId == 12 || heroS.heroTypeId == -2) return ChessMoveResult.LOSE;
+        if (heroS.heroTypeId == 12 || heroT.heroTypeId == -2) return ChessMoveResult.WIN;
+        if (heroS.heroTypeId == -3 || heroT.heroTypeId == -3) return ChessMoveResult.TIE;
         if (heroT.heroTypeId < 0) return ChessMoveResult.UNKNOW;//未知
         if (heroT.heroTypeId == 1) return ChessMoveResult.TIE;//敌方炸弹
         if (heroS.heroTypeId == 1) return ChessMoveResult.TIE;//我方炸弹
@@ -274,9 +277,14 @@ public class ChessAgainst : MonoBehaviour
         int s1 = Mathf.Abs(station1.point.x - station2.point.x);
         int s2 = Mathf.Abs(station1.point.y - station2.point.y);
         if (s1 > 1 || s2 > 1) return false;
-        //if (s1 + s2 > 1 && station1.type != FieldRoadStationType.Barrack && station2.type != FieldRoadStationType.Barrack) return false;
+        if (s1 + s2 > 1 && station1.type != FieldRoadStationType.Barrack && station2.type != FieldRoadStationType.Barrack) return false;
         return true;
     }
+    /// <summary>
+    /// 是否是大本营
+    /// </summary>
+    /// <param name="point"></param>
+    /// <returns></returns>
     public static bool IsStronghold(ChessPoint point)
     {
         if(point.x==1 || point.x == 3)
@@ -285,13 +293,31 @@ public class ChessAgainst : MonoBehaviour
         }
         return false;
     }
-
+    /// <summary>
+    /// 是否是后2排
+    /// </summary>
+    /// <param name="point"></param>
+    /// <returns></returns>
     public static bool IsAfterCamp(ChessPoint point)
     {
         if (point.y < 2 || point.y > 9 ) return true;
         return false;
     }
-
+    /// <summary>
+    /// 是否是第一排
+    /// </summary>
+    /// <param name="point"></param>
+    /// <returns></returns>
+    public static bool IsFirstRow(ChessPoint point)
+    {
+        if (point.y == 5 || point.y == 6) return true;
+        return false;
+    }
+    /// <summary>
+    /// 检测棋子摆放是否合法
+    /// </summary>
+    /// <param name="heros"></param>
+    /// <returns></returns>
     public static bool ChessIsLegal(List<ChessHeroData> heros)
     {
         int[] heroNumbers = new int[ChessHeroNumber.Length];
@@ -299,6 +325,18 @@ public class ChessAgainst : MonoBehaviour
         {
             ChessHeroData item = heros[i];
             heroNumbers[item.heroTypeId]++;
+            switch (item.heroTypeId)
+            {
+                case 0://地雷
+                    if (!IsAfterCamp(item.point)) return false;
+                    break;
+                case 11://军旗
+                    if (!IsStronghold(item.point)) return false;
+                    break;
+                case 1://炸弹
+                    if (IsFirstRow(item.point)) return false;
+                    break;
+            }
         }
         for(int i = 0; i < heroNumbers.Length; i++)
         {

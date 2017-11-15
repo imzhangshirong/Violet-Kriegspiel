@@ -47,8 +47,8 @@ public class Global : MonoBehaviour
         //注册RPC Push事件////
         App.Manager.Network.RegisterPush("RoomStateChange", "#NET_RoomStateChange");
         App.Manager.Network.RegisterPush("EnterBattleField", "#NET_EnterBattleField");
-        App.Manager.Network.RegisterPush("PlayerStateChage", "#NET_PlayerStateChage");
-        App.Manager.Network.RegisterPush("GameStateChage", "#NET_GameStateChage");
+        App.Manager.Network.RegisterPush("PlayerStateChange", "#NET_PlayerStateChange");
+        App.Manager.Network.RegisterPush("GameStateChange", "#NET_GameStateChange");
         App.Manager.Network.RegisterPush("ChessMove", "#NET_ChessMove");
         App.Manager.Network.RegisterPush("ChatMessagePush", "#NET_ChatMessagePush");
 

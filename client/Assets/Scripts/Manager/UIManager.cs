@@ -126,6 +126,7 @@ public class UIManager : Manager
         }
 		return m_UIData;
 	}
+    
 
     /// <summary>
     /// 销毁View，彻底关闭
@@ -337,39 +338,56 @@ public class UIManager : Manager
         view.gameObject.SetActive(true);
         if (baseView != null) baseView.OnOpen(intent);
 	}
-	public void PageBack()
+	public void PageBack(string toPage = "")
 	{
-        if(TopView.viewStyle == UIViewStyle.Window)
+        if(toPage == "")
         {
-            TopView.gameObject.SetActive(false);
-            UIViewBase baseView = TopView.gameObject.GetComponent<UIViewBase>();
-            if (baseView != null) baseView.OnClose();
-            m_StackPage.Remove(TopView);
-            App.Manager.ObjectPool.Releasse(TopView.name, TopView.gameObject);
-            if (m_StackPage.Count > 0)
+            if (TopView.viewStyle == UIViewStyle.Window)
             {
-                ActiveView(m_StackPage[m_StackPage.Count - 1]);
-                m_topPage = m_StackPage[m_StackPage.Count - 1].name;
-                m_topViewData = m_StackPage[m_StackPage.Count - 1];
+                TopView.gameObject.SetActive(false);
+                UIViewBase baseView = TopView.gameObject.GetComponent<UIViewBase>();
+                if (baseView != null) baseView.OnClose();
+                m_StackPage.Remove(TopView);
+                App.Manager.ObjectPool.Releasse(TopView.name, TopView.gameObject);
+                if (m_StackPage.Count > 0)
+                {
+                    ActiveView(m_StackPage[m_StackPage.Count - 1]);
+                    m_topPage = m_StackPage[m_StackPage.Count - 1].name;
+                    m_topViewData = m_StackPage[m_StackPage.Count - 1];
 
+                }
+                else
+                {
+                    m_topPage = null;
+                    m_topViewData = null;
+
+                }
+                m_basePageDepth -= Config.ViewLevelDepth;
             }
             else
             {
-                m_topPage = null;
-                m_topViewData = null;
-
+                CloseView(m_topPage);
+                m_basePageDepth -= Config.ViewLevelDepth;
+                //恢复之前隐藏状态
+                UIData m_UIData = m_UIDataMap[m_topPage];
+                foreach (var item in m_UIData.hidenOverView)
+                {
+                    HideView(item);
+                }
             }
-            m_basePageDepth -= Config.ViewLevelDepth;
         }
         else
         {
-            CloseView(m_topPage);
-            m_basePageDepth -= Config.ViewLevelDepth;
-            //恢复之前隐藏状态
-            UIData m_UIData = m_UIDataMap[m_topPage];
-            foreach (var item in m_UIData.hidenOverView)
+            for(int i = m_StackPage.Count - 1; i >= 0; i--)
             {
-                HideView(item);
+                if (m_StackPage[i].name == toPage)
+                {
+                    for(int j = 0;j< m_StackPage.Count - i; j++)
+                    {
+                        PageBack();
+                    }
+                    break;
+                }
             }
         }
 		
