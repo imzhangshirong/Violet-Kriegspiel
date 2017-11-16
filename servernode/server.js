@@ -546,43 +546,45 @@ RpcServer.on("MoveChess",function(requestData){
             let source = request.getSource();
             let target = request.getTarget();
             let pointS = source.getPoint();
-            let pointT = target.getPoint();
             let remoteIdS = source.getChessremoteid();
-            let remoteIdT = target.getChessremoteid();
-            console.log("room:" + room.roomId + " user:" + user.userName + " > move:"+remoteIdS+"("+pointS.getX()+","+pointS.getY()+")->("+pointT.getX()+","+pointT.getY()+")");
-            let realChessS = getChessDataByRemoteId(room,remoteIdS);
             let result = 0;
-            if(realChessS!=null){
-                if(remoteIdT!=null && remoteIdT!=""){
-                    let realChessT = getChessDataByRemoteId(room,remoteIdT);
-                    if(realChessT!=null){
+            if(target){
+                let pointT = target.getPoint();
+                let remoteIdT = target.getChessremoteid();
+                console.log("room:" + room.roomId + " user:" + user.userName + " > move:"+remoteIdS+"("+pointS.getX()+","+pointS.getY()+")->("+pointT.getX()+","+pointT.getY()+")");
+                let realChessS = getChessDataByRemoteId(room,remoteIdS);
+                if(realChessS!=null){
+                    if(remoteIdT!=null && remoteIdT!=""){
+                        let realChessT = getChessDataByRemoteId(room,remoteIdT);
+                        if(realChessT!=null){
+                            response.setSource(source);
+                            response.setTarget(target);
+                            response.setCounter(room.counter);
+                            result = canBeatTo(realChessS,realChessT);
+                            console.log("Beat??->"+result);
+                            response.setChessmoveresult(result);
+                            if(realChessT.getChesstype() == 11 && result == 3){//军旗被吃，结束
+                                let loseUSer = getUserByBelong(realChessT.getBelong());
+                                console.log("user:"+user.userName+" win!!>"+loseUSer.userName);
+                                setTimeout(function(){
+                                    endGame(room,loseUSer);
+                                },100);
+                            }
+                        }
+                        else{
+                            requestData.errorCode = 31;
+                        }
+                    }
+                    else{//检测是否可以移动
+                        result = 4;
                         response.setSource(source);
                         response.setTarget(target);
                         response.setCounter(room.counter);
-                        result = canBeatTo(realChessS,realChessT);
-                        console.log("Beat??->"+result);
                         response.setChessmoveresult(result);
-                        if(realChessT.getChesstype() == 11 && result == 3){//军旗被吃，结束
-                            let loseUSer = getUserByBelong(realChessT.getBelong());
-                            console.log("user:"+user.userName+" win!!>"+loseUSer.userName);
-                            setTimeout(function(){
-                                endGame(room,loseUSer);
-                            },100);
-                        }
                     }
-                    else{
-                        requestData.errorCode = 31;
+                    if(requestData.errorCode==0){
+                        pushMoveChess(room,user,source,target,result);
                     }
-                }
-                else{//检测是否可以移动
-                    result = 4;
-                    response.setSource(source);
-                    response.setTarget(target);
-                    response.setCounter(room.counter);
-                    response.setChessmoveresult(result);
-                }
-                if(requestData.errorCode==0){
-                    pushMoveChess(room,user,source,target,result);
                 }
             }
             else{

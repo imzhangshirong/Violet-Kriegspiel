@@ -284,6 +284,7 @@ public class UIGamePanel : UIViewBase
                 {
                     if (App.Package.ChessGame.IsGameStart)//游戏开始了之后才能走并吃子
                     {
+                        Debuger.Log(hero.point);
                         if (ChessAgainst.IsBarrack(hero.point))
                         {
                             Common.UI.OpenTips("敌军在行营里，不要浪啊~");
@@ -755,49 +756,55 @@ public class UIGamePanel : UIViewBase
         ChessData target = push.Target;
         ChessMoveResult result = (ChessMoveResult)push.ChessMoveResult;
         ChessHeroData sourceReal = App.Package.ChessGame.GetChessHeroDataByRemoteId(source.ChessRemoteId);
-        ChessHeroData targetReal = App.Package.ChessGame.GetChessHeroDataByRemoteId(target.ChessRemoteId);
-        if(sourceReal==null || (targetReal==null && result != ChessMoveResult.CAN_MOVE && result != ChessMoveResult.CANNOT_MOVE) || push.Counter != App.Package.ChessGame.GameRoundCounter+1)
-        {
-            ChessDataHasProblem();
-            return;
-        }
-        ChessHeroData fake = ChessDataToChessHeroData(target, true);
-        if (targetReal != null)
-        {
-            fake.gameObject = targetReal.gameObject;
-            fake.belong = targetReal.belong;
-            fake.id = targetReal.id;
-            fake.state = targetReal.state;
-            fake.heroTypeId = targetReal.heroTypeId;
-            fake.group = targetReal.group;
-            fake.remoteId = targetReal.remoteId;
-        }
-        ChessMoveData moveData = ChessAgainst.ChessHeroCanMoveTo(sourceReal, fake.point);
-        switch (result)
-        {
-            case ChessMoveResult.LOSE:
-                fake.heroTypeId = 12;
-                StartCoroutine(TweenMoveChessAndBeat(sourceReal, fake, result, moveData));
-                NextGameRound();
-                break;
-            case ChessMoveResult.WIN:
-                fake.heroTypeId = -2;
-                StartCoroutine(TweenMoveChessAndBeat(sourceReal, fake, result, moveData));
-                NextGameRound();
-                break;
-            case ChessMoveResult.TIE:
-                fake.heroTypeId = -3;
-                StartCoroutine(TweenMoveChessAndBeat(sourceReal, fake, result, moveData));
-                NextGameRound();
-                break;
-            case ChessMoveResult.CAN_MOVE:
-                StartCoroutine(TweenMoveChess(sourceReal, fake.point, result, moveData));
-                NextGameRound();
-                break;
-            case ChessMoveResult.CANNOT_MOVE:
-                break;
+        if(target!=null){
+            ChessHeroData targetReal = App.Package.ChessGame.GetChessHeroDataByRemoteId(target.ChessRemoteId);
+            if(sourceReal==null || (targetReal==null && result != ChessMoveResult.CAN_MOVE && result != ChessMoveResult.CANNOT_MOVE) || push.Counter != App.Package.ChessGame.GameRoundCounter+1)
+            {
+                ChessDataHasProblem();
+                return;
+            }
+            ChessHeroData fake = ChessDataToChessHeroData(target, true);
+            if (targetReal != null)
+            {
+                fake.gameObject = targetReal.gameObject;
+                fake.belong = targetReal.belong;
+                fake.id = targetReal.id;
+                fake.state = targetReal.state;
+                fake.heroTypeId = targetReal.heroTypeId;
+                fake.group = targetReal.group;
+                fake.remoteId = targetReal.remoteId;
+            }
+            ChessMoveData moveData = ChessAgainst.ChessHeroCanMoveTo(sourceReal, fake.point);
+            switch (result)
+            {
+                case ChessMoveResult.LOSE:
+                    fake.heroTypeId = 12;
+                    StartCoroutine(TweenMoveChessAndBeat(sourceReal, fake, result, moveData));
+                    NextGameRound();
+                    break;
+                case ChessMoveResult.WIN:
+                    fake.heroTypeId = -2;
+                    StartCoroutine(TweenMoveChessAndBeat(sourceReal, fake, result, moveData));
+                    NextGameRound();
+                    break;
+                case ChessMoveResult.TIE:
+                    fake.heroTypeId = -3;
+                    StartCoroutine(TweenMoveChessAndBeat(sourceReal, fake, result, moveData));
+                    NextGameRound();
+                    break;
+                case ChessMoveResult.CAN_MOVE:
+                    StartCoroutine(TweenMoveChess(sourceReal, fake.point, result, moveData));
+                    NextGameRound();
+                    break;
+                case ChessMoveResult.CANNOT_MOVE:
+                    break;
 
+            }
         }
+        else{
+            Debuger.Error("skip");
+        }
+        
         
     }
     /// <summary>

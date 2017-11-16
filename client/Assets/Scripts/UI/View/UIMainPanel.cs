@@ -42,6 +42,20 @@ public class UIMainPanel : UIViewBase
 		Debuger.Log("MainPanel Open");
         string ip = PlayerPrefs.GetString("hostIp");
         if (ip != "")ipInput.value = ip;
+        FieldRoadStation s1= new FieldRoadStation(){
+            type = FieldRoadStationType.Rail,
+            point = new ChessPoint(0,6),
+        };
+        FieldRoadStation s2= new FieldRoadStation(){
+            type = FieldRoadStationType.Barrack,
+            point = new ChessPoint(1,7),
+        };
+        Debuger.Warn(ChessAgainst.IsBarrack(new ChessPoint(1,7)));
+        Debuger.Warn(ChessAgainst.InRailArea(new ChessPoint(0,7)));
+        Debuger.Warn(ChessAgainst.InRailArea(new ChessPoint(1,6)));
+        Debuger.Warn(ChessAgainst.InRailArea(new ChessPoint(1,10)));
+        Debuger.Warn(ChessAgainst.InRailArea(new ChessPoint(4,6)));
+        Debuger.Warn(ChessAgainst.IsConnected(s1,s2));
 	}
 	public void NextPage()
 	{

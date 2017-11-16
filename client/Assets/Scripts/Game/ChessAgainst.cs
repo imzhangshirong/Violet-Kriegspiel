@@ -231,7 +231,7 @@ public class ChessAgainst : MonoBehaviour
         }
         else if(point.y > 5)
         {
-            if (id == 6 || id == 8 || id == 12 || id == 16 || id == 18) return true;
+            if (id == 36 || id == 38 || id == 42 || id == 46 || id == 48) return true;
         }
         return false;
     }
@@ -269,11 +269,9 @@ public class ChessAgainst : MonoBehaviour
         {
             if((station1.point.y == 5 && station2.point.y == 6) || (station1.point.y == 6 && station2.point.y == 5))
             {
-                Debuger.Warn(station1.point + "=>" + station2.point);
                 return false;
             }
         }
-        
         int s1 = Mathf.Abs(station1.point.x - station2.point.x);
         int s2 = Mathf.Abs(station1.point.y - station2.point.y);
         if (s1 > 1 || s2 > 1) return false;

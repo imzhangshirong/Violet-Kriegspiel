@@ -30,6 +30,7 @@ message ChessMovePush{
   ChessData target = 2;
   int32 chessMoveResult = 3; //enum ChessMoveResult
   int32 counter = 4;//计数器
+  PlayerInfo operator = 5; //走子的人
 }
 
 message ChatMessagePush{

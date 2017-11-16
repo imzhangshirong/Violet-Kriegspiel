@@ -101,6 +101,8 @@ public class ChessGamePackage : Package<ChessGamePackage>
         EnterBattleFieldPush push = (EnterBattleFieldPush)data;
         m_EnemyPlayerList = new List<PlayerInfo>(push.PlayerList);
         m_EnemyPlayerList.Sort(SortPlayerListByRoundOrder);
+        m_ChessData.Clear();
+        ChessDataIds.Clear();
         MyselfChessSetting = new List<ChessData>(push.ChessSetting);
         m_roundOrder = push.RoundOrder;
         m_IsEnemyReady = false;
@@ -108,7 +110,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
         m_IsReadyGame = false;
         m_CanDragChess = true;
         App.Package.Player.playerInfo.State = (int)PlayerState.UNREADY;
-        InitFieldMap();
+        if(m_MapRoadStations==null || m_MapRoadStations.Count==0)InitFieldMap();
     }
     
 
@@ -247,11 +249,13 @@ public class ChessGamePackage : Package<ChessGamePackage>
             
         }
         m_ChessData.Clear();
+        ChessDataIds.Clear();
     }
 
     public void RemoveChessHero(ChessHeroData chessHero)
     {
         m_ChessData.Remove(chessHero.id);
+        ChessDataIds.Remove(chessHero.id);
         GameObject.Destroy(chessHero.gameObject);
     }
 
