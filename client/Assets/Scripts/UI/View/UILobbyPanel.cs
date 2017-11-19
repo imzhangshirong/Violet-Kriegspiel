@@ -14,7 +14,9 @@ public class UILobbyPanel : UIViewBase
 	public override void OnOpen(Intent intent)
 	{
 		base.OnOpen(intent);
-	}
+        CheckGameState();
+
+    }
 
 	public void FindEnemyClick(){
 		FindEnemyRequest request = new FindEnemyRequest();
@@ -31,4 +33,24 @@ public class UILobbyPanel : UIViewBase
 	public void ChooseRoomClick(){
 		Common.UI.OpenAlert("提示", "还没有开放此功能，敬请期待！", "好的", null);
 	}
+
+    public void CheckGameState()
+    {
+        CheckGameStateRequest request = new CheckGameStateRequest();
+        App.Manager.Network.Request("CheckGameState", request, delegate (IMessage responseData) {
+            CheckGameStateResponse response = (CheckGameStateResponse)responseData;
+            if (response.RoomToken != "")
+            {
+                Common.UI.OpenTips("正在恢复战场...");
+                EnterBattleFieldRequest nRequest = new EnterBattleFieldRequest();
+                nRequest.RoomToken = response.RoomToken;
+                App.Manager.Network.Request("EnterBattleField", nRequest, delegate (IMessage nResponseData) {
+                    Common.UI.OpenTips("战斗还在继续，刻不容缓!");
+                    EnterBattleFieldResponse nResponse = (EnterBattleFieldResponse)nResponseData;
+                    App.Package.ChessGame.Recover(nResponse);
+                    App.Manager.UI.ReplaceView("UIGamePanel");
+                });
+            }
+        });
+    }
 }

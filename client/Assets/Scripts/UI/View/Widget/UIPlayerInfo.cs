@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Com.Violet.Rpc;
-class UIPlayerInfo : UIViewBase
+public class UIPlayerInfo : UIViewBase
 {
     public UILabel userName;
     public UILabel userLevel;

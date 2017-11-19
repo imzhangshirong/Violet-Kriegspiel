@@ -76,10 +76,14 @@ public class ChessAgainst : MonoBehaviour
                     ChessPoint[] points = new ChessPoint[Mathf.Abs(roadStationS.point.y- roadStationT.point.y)+1];
                     int d = (roadStationS.point.y < roadStationT.point.y) ? 1 : -1;
                     points[0] = roadStationS.point;
-                    points[points.Length - 1] = roadStationT.point;
-                    for (int i = 1; i < points.Length - 1; i++)
+                    for (int i = 1; i < points.Length; i++)
                     {
                         points[i] = new ChessPoint(roadStationS.point.x, roadStationS.point.y + d * i );
+                        if(!IsConnected(points[i-1], points[i]))//要判断是否相连啊
+                        {
+                            moveData.crashType = 2;
+                            return moveData;
+                        }
                     }
                     ChessHeroData crashHero = HasChessHeroOnPathPoints(points);
                     if (crashHero == null)
@@ -100,10 +104,14 @@ public class ChessAgainst : MonoBehaviour
                     ChessPoint[] points = new ChessPoint[Mathf.Abs(roadStationS.point.x - roadStationT.point.x) + 1];
                     int d = (roadStationS.point.x < roadStationT.point.x) ? 1 : -1;
                     points[0] = roadStationS.point;
-                    points[points.Length - 1] = roadStationT.point;
-                    for (int i = 1; i < points.Length - 1; i++)
+                    for (int i = 1; i < points.Length; i++)
                     {
                         points[i] = new ChessPoint(roadStationS.point.x + d * i, roadStationS.point.y);
+                        if (!IsConnected(points[i - 1], points[i]))//要判断是否相连啊
+                        {
+                            moveData.crashType = 2;
+                            return moveData;
+                        }
                     }
                     ChessHeroData crashHero = HasChessHeroOnPathPoints(points);
                     if (crashHero == null)
@@ -137,6 +145,7 @@ public class ChessAgainst : MonoBehaviour
             ChessHeroData heroData = App.Package.ChessGame.GetChessHeroDataByPoint(points[i]);
             if (heroData != null && heroData.state == ChessHeroState.Alive)
             {
+                Debuger.Error(points[i]);
                 return heroData;
             }
         }
@@ -262,6 +271,21 @@ public class ChessAgainst : MonoBehaviour
             }
         }
         return false;
+    }
+    public static bool IsConnected(ChessPoint point1, ChessPoint point2)
+    {
+        if (point1.x == point2.x && (point1.x == 1 || point2.x == 3))
+        {
+            if ((point1.y == 5 && point2.y == 6) || (point1.y == 6 && point2.y == 5))
+            {
+                return false;
+            }
+        }
+        int s1 = Mathf.Abs(point1.x - point2.x);
+        int s2 = Mathf.Abs(point1.y - point2.y);
+        if (s1 > 1 || s2 > 1) return false;
+        if (s1 + s2 > 1 && !IsBarrack(point1) && !IsBarrack(point2)) return false;
+        return true;
     }
     public static bool IsConnected(FieldRoadStation station1, FieldRoadStation station2)
     {

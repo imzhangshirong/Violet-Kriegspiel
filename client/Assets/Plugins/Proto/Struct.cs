@@ -1169,6 +1169,9 @@ namespace Com.Violet.Rpc {
 
   }
 
+  /// <summary>
+  ///房间列表里的房间信息
+  /// </summary>
   public sealed partial class RoomData : pb::IMessage<RoomData> {
     private static readonly pb::MessageParser<RoomData> _parser = new pb::MessageParser<RoomData>(() => new RoomData());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

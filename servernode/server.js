@@ -1,5 +1,6 @@
 var Config = require('./config.js');
 var RpcServer = require('./module/rpc/server.js');
+var Crypto = require('crypto');
 
 var UserData = [
     {
@@ -96,6 +97,11 @@ function removeFromPlayGround(token){
         return item.token != token;
     });
 }
+
+function md5 (text) {
+    return Crypto.createHash('md5').update(text).digest('hex');
+  };
+
 function createMatchRoom(users_){
     let users = users_.concat();
     let roomId = "";
@@ -112,7 +118,34 @@ function createMatchRoom(users_){
             chessMap : [],
             roomId:roomId,
             gameState:0,
+            died : [],//已经死了的棋子
+            token : md5(roomId), //用于直接进入房间
         }
+        let curRoom = RoomCenter[roomId];
+        curRoom.timer = setInterval(function(){
+            for(let i=0;i<curRoom.users.length;i++){
+                let user = curRoom.users[i];
+                if(user.state == 3){
+                    if(user.roundOrder == curRoom.counter%curRoom.users.length){//当前用户的回合
+                        user.gameRemainTime--;
+                        if(user.gameRemainTime<=0){
+                            user.gameRemainTime=0;
+                            autoSkip(curRoom,user);//自动跳过
+                        }
+                    }
+                }
+                else if(user.state == 1){
+                    user.gameRemainTime--;
+                    if(user.gameRemainTime<=0){
+                        user.gameRemainTime=0;
+                        autoReady(curRoom,user);//自动准备
+                    }
+                }
+                console.log(user.userName+"|"+user.state+"|"+curRoom.counter+"|"+user.gameRemainTime);
+                
+            }
+            console.log("-------------------");
+        },1000);
         let playerInfoMap = {};
         //更新状态
         for(let i=0;i<users.length;i++){
@@ -122,6 +155,7 @@ function createMatchRoom(users_){
             user.gameRemainTime = Config.Game.waitingReady;
             removeFromPlayGround(user.token);
             playerInfoMap[user.token]=getRpcPlayerInfo(user);
+            curRoom.chessMap[i] = parseUserChessData(user);
         }
         let Message = RpcServer.getRpc("EnterBattleField","Push");
         for(let i=0;i<users.length;i++){
@@ -136,7 +170,7 @@ function createMatchRoom(users_){
             });
             push.setPlayerlistList(playerList);
             push.setRoundorder(i);//返回自己的回合顺序
-            push.setChesssettingList(parseUserChessData(user));//之前的棋子布局
+            push.setChesssettingList(curRoom.chessMap[i]);//之前的棋子布局
             RpcServer.push(client,"EnterBattleField",push);
         }
     }
@@ -173,7 +207,7 @@ function endGame(room,loseUser){
     for(let key in RoomCenter){
         let room_ = RoomCenter[key];
         if(room.roomId==room_.roomId){
-            
+            clearInterval(room.timer);//清除计时器
             delete RoomCenter[key];
             break;
         }
@@ -320,20 +354,57 @@ function removeRoom(id){
 
 function pushMoveChess(room,userFrom,source,target,result){
     let Message = RpcServer.getRpc("ChessMove","Push");
+    let push = new Message();
+    let chess = source.clone();
+    chess.setChesstype(-1);
+    push.setSource(chess);
+    push.setTarget(target);
+    push.setCounter(room.counter);
+    push.setChessmoveresult(result);
     for(let i=0;i<room.users.length;i++){
         let user = room.users[i];
         if(user.token!=userFrom.token){
-            let push = new Message();
             let clientItem = RpcServer.getClientItemByToken(user.token);
-            let chess = source.clone();
-            chess.setChesstype(-1);
-            push.setSource(chess);
-            push.setTarget(target);
-            push.setCounter(room.counter);
-            push.setChessmoveresult(result);
             RpcServer.push(clientItem,"ChessMove",push);
         }
     }
+}
+
+function autoSkip(room,user){
+    let Message = RpcServer.getRpc("MoveChess","Response");
+    let ChessData = RpcServer.getRpc("ChessData","");
+    let response = new Message();
+    room.counter++;
+    let source = new ChessData();
+    let target = null;
+    let result = 0;
+    source.setChessremoteid(-1);
+    //设置当前可用时间
+    room.users[room.counter%room.users.length].gameRemainTime = Config.Game.waitingRound;
+    pushMoveChess(room,user,source,target,result);
+}
+
+function autoReady(room,user){
+    console.log("room:" + room.roomId + " user:" + user.userName + " > ready");
+    user.state = 2;
+    //设置当前可用时间
+    user.gameRemainTime = 0;
+    setTimeout(function(){
+        userReady(room,user);
+    },100);
+}
+
+function sendMsgToRoom(room,user,msg){
+    let Message = RpcServer.getRpc("ChatMessage","Push");
+    let push = new Message();
+    push.setMsg(msg);
+    room.users.map(function(item){
+        //if(item.token!=user.token){
+            let clientItem = RpcServer.getClientItemByToken(item.token);
+            RpcServer.push(clientItem,"ChatMessage",push);
+        //}
+    });
+
 }
 
 function parseUserChessData(user)
@@ -542,7 +613,9 @@ RpcServer.on("MoveChess",function(requestData){
     if(user!=null){
         let room = getRoomByUser(user);
         if(room!=null){
+            room.users[room.counter%room.users.length].gameRemainTime = 0;
             room.counter ++;////
+            room.users[room.counter%room.users.length].gameRemainTime = Config.Game.waitingRound;
             let source = request.getSource();
             let target = request.getTarget();
             let pointS = source.getPoint();
@@ -561,6 +634,18 @@ RpcServer.on("MoveChess",function(requestData){
                             response.setTarget(target);
                             response.setCounter(room.counter);
                             result = canBeatTo(realChessS,realChessT);
+                            switch(result){
+                                case 1:
+                                    room.died.push(remoteIdS);
+                                    break;
+                                case 2:
+                                    room.died.push(remoteIdS);
+                                    room.died.push(remoteIdT);
+                                    break;
+                                case 3:
+                                    room.died.push(remoteIdT);
+                                    break;
+                            }
                             console.log("Beat??->"+result);
                             response.setChessmoveresult(result);
                             if(realChessT.getChesstype() == 11 && result == 3){//军旗被吃，结束
@@ -588,10 +673,10 @@ RpcServer.on("MoveChess",function(requestData){
                 }
             }
             else{
-                if(remoteIdS<0){
+                if(remoteIdS<0){//以服武器为准
                     console.log("user:"+user.userName+" Skip");
                     response.setCounter(room.counter);//回合跳过
-                    pushMoveChess(room,user,source,target,result);
+                    //pushMoveChess(room,user,source,target,result);
                 }
                 else{
                     requestData.errorCode = 31;
@@ -619,6 +704,143 @@ RpcServer.on("Surrender",function(requestData){
             setTimeout(function(){
                 userSurrender(room,user);//投降并结束游戏
             },100);
+        }
+        else{
+            requestData.errorCode = 21;
+        }
+    }
+    else{
+        requestData.errorCode = 1;
+    }
+    return response;
+});
+RpcServer.on("BattleMap",function(requestData){
+    let request = requestData.rpc;
+    let Message = RpcServer.getRpc("BattleMap","Response");
+    let response = new Message();
+    let user = getUserByToken(requestData.header.getToken());
+    if(user!=null){
+        let room = getRoomByUser(user);
+        if(room!=null){
+            let playerList = [];
+            for(let i=0;i<room.users.length;i++){
+                playerList.push(getRpcPlayerInfo(room.users[i]));
+            }
+            response.setPlayerlistList(playerList);
+            let chessMap = [];
+            for(let i=0;i<room.chessMap.length;i++){
+                for(let j=0;j<room.chessMap[i].length;j++){
+                    let chess = room.chessMap[i][j];
+                    if(room.died.indexOf(chess.getChessremoteid())==-1){
+                        chessMap.push(chess);
+                    }
+                }
+            }
+            let chessMapSend = [];
+            let belong = user.zoneId+"/"+user.userId;
+            chessMap.map(function(item){
+                let chess = item;
+                if(item.getBelong()!=belong){//不是自己的都隐藏
+                    chess = chess.clone();
+                    //chess.setChesstype(-1);
+                }
+                chessMapSend.push(chess);
+            });
+            response.setChessmapList(chessMapSend);
+            response.setCounter(room.counter);
+        }
+        else{
+            requestData.errorCode = 21;
+        }
+    }
+    else{
+        requestData.errorCode = 1;
+    }
+    return response;
+});
+
+RpcServer.on("CheckGameState",function(requestData){
+    let request = requestData.rpc;
+    let Message = RpcServer.getRpc("CheckGameState","Response");
+    let response = new Message();
+    let user = getUserByToken(requestData.header.getToken());
+    if(user!=null){
+        let room = getRoomByUser(user);
+        if(room!=null){
+            response.setRoomtoken(room.token);
+        }
+        else{
+            response.setRoomtoken("");//不在房间里
+        }
+    }
+    else{
+        requestData.errorCode = 1;
+    }
+    return response;
+});
+
+RpcServer.on("EnterBattleField",function(requestData){
+    let request = requestData.rpc;
+    let Message = RpcServer.getRpc("EnterBattleField","Response");
+    let response = new Message();
+    let user = getUserByToken(requestData.header.getToken());
+    if(user!=null){
+        let room = getRoomByUser(user);
+        if(room!=null){
+            if(room.token == request.getRoomtoken()){
+                let playerList = [];
+                for(let i=0;i<room.users.length;i++){
+                    playerList.push(getRpcPlayerInfo(room.users[i]));
+                }
+                response.setPlayerlistList(playerList);
+                let chessMap = [];
+                for(let i=0;i<room.chessMap.length;i++){
+                    for(let j=0;j<room.chessMap[i].length;j++){
+                        let chess = room.chessMap[i][j];
+                        if(room.died.indexOf(chess.getChessremoteid())==-1){
+                            chessMap.push(chess);
+                        }
+                    }
+                }
+                let chessMapSend = [];
+                let belong = user.zoneId+"/"+user.userId;
+                chessMap.map(function(item){
+                    let chess = item;
+                    if(item.getBelong()!=belong){//不是自己的都隐藏
+                        chess = chess.clone();
+                        //chess.setChesstype(-1);
+                    }
+                    chessMapSend.push(chess);
+                });
+                response.setChessmapList(chessMapSend);
+                response.setCounter(room.counter);
+            }
+            else{
+                requestData.errorCode = 41;//房间错误
+            }
+        }
+        else{
+            requestData.errorCode = 21;
+        }
+    }
+    else{
+        requestData.errorCode = 1;
+    }
+    return response;
+});
+
+
+
+
+RpcServer.on("SendChatMessage",function(requestData){
+    let request = requestData.rpc;
+    let Message = RpcServer.getRpc("SendChatMessage","Response");
+    let response = new Message();
+    let user = getUserByToken(requestData.header.getToken());
+    if(user!=null){
+        let room = getRoomByUser(user);
+        if(room!=null){
+            sendMsgToRoom(room,user,request.getMsg());
         }
         else{
             requestData.errorCode = 21;

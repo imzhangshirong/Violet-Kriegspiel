@@ -109,10 +109,42 @@ public class ChessGamePackage : Package<ChessGamePackage>
         m_IsGameStart = false;
         m_IsReadyGame = false;
         m_CanDragChess = true;
+        GameRoundCounter = 0;
         App.Package.Player.playerInfo.State = (int)PlayerState.UNREADY;
         if(m_MapRoadStations==null || m_MapRoadStations.Count==0)InitFieldMap();
     }
     
+    public void Recover(EnterBattleFieldResponse response)
+    {
+        m_EnemyPlayerList = new List<PlayerInfo>();
+        for(int i = 0; i < response.PlayerList.Count; i++)
+        {
+            if(response.PlayerList[i].ZoneId != App.Package.Player.playerInfo.ZoneId || response.PlayerList[i].UserId != App.Package.Player.playerInfo.UserId)
+            {
+                m_EnemyPlayerList.Add(response.PlayerList[i]);
+            }
+            else
+            {
+                App.Package.Player.playerInfo = response.PlayerList[i];
+                
+            }
+        }
+        m_EnemyPlayerList.Sort(SortPlayerListByRoundOrder);
+        AllPlayerList = new List<PlayerInfo>(m_EnemyPlayerList);
+        AllPlayerList.Add(App.Package.Player.playerInfo);
+        AllPlayerList.Sort(SortPlayerListByRoundOrder);
+        m_ChessData.Clear();
+        ChessDataIds.Clear();
+        m_roundOrder = App.Package.Player.playerInfo.RoundOrder;
+        m_IsEnemyReady = false;
+        m_IsGameStart = true;
+        m_IsReadyGame = false;
+        m_CanDragChess = false;
+        GameRoundCounter = response.Counter;
+        App.Package.ChessGame.AddChessFromData(new List<ChessData>(response.ChessMap));
+        if (m_MapRoadStations == null || m_MapRoadStations.Count == 0) InitFieldMap();
+    }
+
 
     int SortPlayerListByRoundOrder(PlayerInfo p1, PlayerInfo p2)
     {
@@ -210,6 +242,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
             }
             
             heroData.heroTypeId = chess.ChessType;
+            heroData.realChessType = heroData.heroTypeId;
             heroData.id = map[group]+baseId;
             heroData.remoteId = chess.ChessRemoteId;
             heroData.state = ChessHeroState.Alive;
@@ -439,6 +472,7 @@ public class ChessHeroData
     public GameObject gameObject;
     public string belong;
     public ChessHeroGroup group;
+    public int realChessType;
 }
 
 
@@ -517,7 +551,7 @@ public class FieldRoadPath
 
 public class ChessMoveData
 {
-    public int crashType;//1棋子自身，2路径效果（军营类），3路途有棋子
+    public int crashType;//1棋子自身，2路径，3路途有棋子
     public ChessPoint[] points;
     public ChessHeroData crashHero;
 }

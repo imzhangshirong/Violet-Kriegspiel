@@ -3075,7 +3075,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.com.violet.rpc.BattleMapResponse.repeatedFields_ = [1];
+proto.com.violet.rpc.BattleMapResponse.repeatedFields_ = [1,2];
 
 
 
@@ -3108,7 +3108,9 @@ proto.com.violet.rpc.BattleMapResponse.toObject = function(includeInstance, msg)
   var f, obj = {
     chessmapList: jspb.Message.toObjectList(msg.getChessmapList(),
     Struct_pb.ChessData.toObject, includeInstance),
-    counter: jspb.Message.getFieldWithDefault(msg, 2, 0)
+    playerlistList: jspb.Message.toObjectList(msg.getPlayerlistList(),
+    Struct_pb.PlayerInfo.toObject, includeInstance),
+    counter: jspb.Message.getFieldWithDefault(msg, 3, 0)
   };
 
   if (includeInstance) {
@@ -3151,6 +3153,11 @@ proto.com.violet.rpc.BattleMapResponse.deserializeBinaryFromReader = function(ms
       msg.addChessmap(value);
       break;
     case 2:
+      var value = new Struct_pb.PlayerInfo;
+      reader.readMessage(value,Struct_pb.PlayerInfo.deserializeBinaryFromReader);
+      msg.addPlayerlist(value);
+      break;
+    case 3:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setCounter(value);
       break;
@@ -3191,10 +3198,18 @@ proto.com.violet.rpc.BattleMapResponse.serializeBinaryToWriter = function(messag
       Struct_pb.ChessData.serializeBinaryToWriter
     );
   }
+  f = message.getPlayerlistList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      2,
+      f,
+      Struct_pb.PlayerInfo.serializeBinaryToWriter
+    );
+  }
   f = message.getCounter();
   if (f !== 0) {
     writer.writeInt32(
-      2,
+      3,
       f
     );
   }
@@ -3233,17 +3248,48 @@ proto.com.violet.rpc.BattleMapResponse.prototype.clearChessmapList = function() 
 
 
 /**
- * optional int32 counter = 2;
+ * repeated PlayerInfo playerList = 2;
+ * @return {!Array.<!proto.com.violet.rpc.PlayerInfo>}
+ */
+proto.com.violet.rpc.BattleMapResponse.prototype.getPlayerlistList = function() {
+  return /** @type{!Array.<!proto.com.violet.rpc.PlayerInfo>} */ (
+    jspb.Message.getRepeatedWrapperField(this, Struct_pb.PlayerInfo, 2));
+};
+
+
+/** @param {!Array.<!proto.com.violet.rpc.PlayerInfo>} value */
+proto.com.violet.rpc.BattleMapResponse.prototype.setPlayerlistList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 2, value);
+};
+
+
+/**
+ * @param {!proto.com.violet.rpc.PlayerInfo=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.com.violet.rpc.PlayerInfo}
+ */
+proto.com.violet.rpc.BattleMapResponse.prototype.addPlayerlist = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.com.violet.rpc.PlayerInfo, opt_index);
+};
+
+
+proto.com.violet.rpc.BattleMapResponse.prototype.clearPlayerlistList = function() {
+  this.setPlayerlistList([]);
+};
+
+
+/**
+ * optional int32 counter = 3;
  * @return {number}
  */
 proto.com.violet.rpc.BattleMapResponse.prototype.getCounter = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
 /** @param {number} value */
 proto.com.violet.rpc.BattleMapResponse.prototype.setCounter = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 
@@ -3670,7 +3716,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.com.violet.rpc.EnterBattleFieldResponse.repeatedFields_ = [2,3];
+proto.com.violet.rpc.EnterBattleFieldResponse.repeatedFields_ = [1,2];
 
 
 
@@ -3701,14 +3747,11 @@ proto.com.violet.rpc.EnterBattleFieldResponse.prototype.toObject = function(opt_
  */
 proto.com.violet.rpc.EnterBattleFieldResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    roomdata: (f = msg.getRoomdata()) && Struct_pb.RoomData.toObject(includeInstance, f),
-    playerlistList: jspb.Message.toObjectList(msg.getPlayerlistList(),
-    Struct_pb.PlayerInfo.toObject, includeInstance),
     chessmapList: jspb.Message.toObjectList(msg.getChessmapList(),
     Struct_pb.ChessData.toObject, includeInstance),
-    counter: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    roundorder: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    remaintime: jspb.Message.getFieldWithDefault(msg, 6, 0)
+    playerlistList: jspb.Message.toObjectList(msg.getPlayerlistList(),
+    Struct_pb.PlayerInfo.toObject, includeInstance),
+    counter: jspb.Message.getFieldWithDefault(msg, 3, 0)
   };
 
   if (includeInstance) {
@@ -3746,9 +3789,9 @@ proto.com.violet.rpc.EnterBattleFieldResponse.deserializeBinaryFromReader = func
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new Struct_pb.RoomData;
-      reader.readMessage(value,Struct_pb.RoomData.deserializeBinaryFromReader);
-      msg.setRoomdata(value);
+      var value = new Struct_pb.ChessData;
+      reader.readMessage(value,Struct_pb.ChessData.deserializeBinaryFromReader);
+      msg.addChessmap(value);
       break;
     case 2:
       var value = new Struct_pb.PlayerInfo;
@@ -3756,21 +3799,8 @@ proto.com.violet.rpc.EnterBattleFieldResponse.deserializeBinaryFromReader = func
       msg.addPlayerlist(value);
       break;
     case 3:
-      var value = new Struct_pb.ChessData;
-      reader.readMessage(value,Struct_pb.ChessData.deserializeBinaryFromReader);
-      msg.addChessmap(value);
-      break;
-    case 4:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setCounter(value);
-      break;
-    case 5:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setRoundorder(value);
-      break;
-    case 6:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setRemaintime(value);
       break;
     default:
       reader.skipField();
@@ -3801,12 +3831,12 @@ proto.com.violet.rpc.EnterBattleFieldResponse.prototype.serializeBinary = functi
  */
 proto.com.violet.rpc.EnterBattleFieldResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getRoomdata();
-  if (f != null) {
-    writer.writeMessage(
+  f = message.getChessmapList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
       1,
       f,
-      Struct_pb.RoomData.serializeBinaryToWriter
+      Struct_pb.ChessData.serializeBinaryToWriter
     );
   }
   f = message.getPlayerlistList();
@@ -3817,32 +3847,10 @@ proto.com.violet.rpc.EnterBattleFieldResponse.serializeBinaryToWriter = function
       Struct_pb.PlayerInfo.serializeBinaryToWriter
     );
   }
-  f = message.getChessmapList();
-  if (f.length > 0) {
-    writer.writeRepeatedMessage(
-      3,
-      f,
-      Struct_pb.ChessData.serializeBinaryToWriter
-    );
-  }
   f = message.getCounter();
   if (f !== 0) {
     writer.writeInt32(
-      4,
-      f
-    );
-  }
-  f = message.getRoundorder();
-  if (f !== 0) {
-    writer.writeInt32(
-      5,
-      f
-    );
-  }
-  f = message.getRemaintime();
-  if (f !== 0) {
-    writer.writeInt32(
-      6,
+      3,
       f
     );
   }
@@ -3850,32 +3858,33 @@ proto.com.violet.rpc.EnterBattleFieldResponse.serializeBinaryToWriter = function
 
 
 /**
- * optional RoomData roomData = 1;
- * @return {?proto.com.violet.rpc.RoomData}
+ * repeated ChessData chessMap = 1;
+ * @return {!Array.<!proto.com.violet.rpc.ChessData>}
  */
-proto.com.violet.rpc.EnterBattleFieldResponse.prototype.getRoomdata = function() {
-  return /** @type{?proto.com.violet.rpc.RoomData} */ (
-    jspb.Message.getWrapperField(this, Struct_pb.RoomData, 1));
+proto.com.violet.rpc.EnterBattleFieldResponse.prototype.getChessmapList = function() {
+  return /** @type{!Array.<!proto.com.violet.rpc.ChessData>} */ (
+    jspb.Message.getRepeatedWrapperField(this, Struct_pb.ChessData, 1));
 };
 
 
-/** @param {?proto.com.violet.rpc.RoomData|undefined} value */
-proto.com.violet.rpc.EnterBattleFieldResponse.prototype.setRoomdata = function(value) {
-  jspb.Message.setWrapperField(this, 1, value);
-};
-
-
-proto.com.violet.rpc.EnterBattleFieldResponse.prototype.clearRoomdata = function() {
-  this.setRoomdata(undefined);
+/** @param {!Array.<!proto.com.violet.rpc.ChessData>} value */
+proto.com.violet.rpc.EnterBattleFieldResponse.prototype.setChessmapList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * Returns whether this field is set.
- * @return {!boolean}
+ * @param {!proto.com.violet.rpc.ChessData=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.com.violet.rpc.ChessData}
  */
-proto.com.violet.rpc.EnterBattleFieldResponse.prototype.hasRoomdata = function() {
-  return jspb.Message.getField(this, 1) != null;
+proto.com.violet.rpc.EnterBattleFieldResponse.prototype.addChessmap = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.com.violet.rpc.ChessData, opt_index);
+};
+
+
+proto.com.violet.rpc.EnterBattleFieldResponse.prototype.clearChessmapList = function() {
+  this.setChessmapList([]);
 };
 
 
@@ -3911,78 +3920,17 @@ proto.com.violet.rpc.EnterBattleFieldResponse.prototype.clearPlayerlistList = fu
 
 
 /**
- * repeated ChessData chessMap = 3;
- * @return {!Array.<!proto.com.violet.rpc.ChessData>}
- */
-proto.com.violet.rpc.EnterBattleFieldResponse.prototype.getChessmapList = function() {
-  return /** @type{!Array.<!proto.com.violet.rpc.ChessData>} */ (
-    jspb.Message.getRepeatedWrapperField(this, Struct_pb.ChessData, 3));
-};
-
-
-/** @param {!Array.<!proto.com.violet.rpc.ChessData>} value */
-proto.com.violet.rpc.EnterBattleFieldResponse.prototype.setChessmapList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 3, value);
-};
-
-
-/**
- * @param {!proto.com.violet.rpc.ChessData=} opt_value
- * @param {number=} opt_index
- * @return {!proto.com.violet.rpc.ChessData}
- */
-proto.com.violet.rpc.EnterBattleFieldResponse.prototype.addChessmap = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.com.violet.rpc.ChessData, opt_index);
-};
-
-
-proto.com.violet.rpc.EnterBattleFieldResponse.prototype.clearChessmapList = function() {
-  this.setChessmapList([]);
-};
-
-
-/**
- * optional int32 counter = 4;
+ * optional int32 counter = 3;
  * @return {number}
  */
 proto.com.violet.rpc.EnterBattleFieldResponse.prototype.getCounter = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
 /** @param {number} value */
 proto.com.violet.rpc.EnterBattleFieldResponse.prototype.setCounter = function(value) {
-  jspb.Message.setField(this, 4, value);
-};
-
-
-/**
- * optional int32 roundOrder = 5;
- * @return {number}
- */
-proto.com.violet.rpc.EnterBattleFieldResponse.prototype.getRoundorder = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
-};
-
-
-/** @param {number} value */
-proto.com.violet.rpc.EnterBattleFieldResponse.prototype.setRoundorder = function(value) {
-  jspb.Message.setField(this, 5, value);
-};
-
-
-/**
- * optional int32 remainTime = 6;
- * @return {number}
- */
-proto.com.violet.rpc.EnterBattleFieldResponse.prototype.getRemaintime = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
-};
-
-
-/** @param {number} value */
-proto.com.violet.rpc.EnterBattleFieldResponse.prototype.setRemaintime = function(value) {
-  jspb.Message.setField(this, 6, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 

@@ -50,7 +50,7 @@ public class Global : MonoBehaviour
         App.Manager.Network.RegisterPush("PlayerStateChange", "#NET_PlayerStateChange");
         App.Manager.Network.RegisterPush("GameStateChange", "#NET_GameStateChange");
         App.Manager.Network.RegisterPush("ChessMove", "#NET_ChessMove");
-        App.Manager.Network.RegisterPush("ChatMessagePush", "#NET_ChatMessagePush");
+        App.Manager.Network.RegisterPush("ChatMessage", "#NET_ChatMessage");
 
         //注册RPC ErrorCode处理////
         App.Manager.Network.RegisteErrorCode(1, () => {

@@ -885,7 +885,8 @@ proto.com.violet.rpc.ChessMovePush.toObject = function(includeInstance, msg) {
     source: (f = msg.getSource()) && Struct_pb.ChessData.toObject(includeInstance, f),
     target: (f = msg.getTarget()) && Struct_pb.ChessData.toObject(includeInstance, f),
     chessmoveresult: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    counter: jspb.Message.getFieldWithDefault(msg, 4, 0)
+    counter: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    operator: (f = msg.getOperator()) && Struct_pb.PlayerInfo.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -939,6 +940,11 @@ proto.com.violet.rpc.ChessMovePush.deserializeBinaryFromReader = function(msg, r
     case 4:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setCounter(value);
+      break;
+    case 5:
+      var value = new Struct_pb.PlayerInfo;
+      reader.readMessage(value,Struct_pb.PlayerInfo.deserializeBinaryFromReader);
+      msg.setOperator(value);
       break;
     default:
       reader.skipField();
@@ -997,6 +1003,14 @@ proto.com.violet.rpc.ChessMovePush.serializeBinaryToWriter = function(message, w
     writer.writeInt32(
       4,
       f
+    );
+  }
+  f = message.getOperator();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      Struct_pb.PlayerInfo.serializeBinaryToWriter
     );
   }
 };
@@ -1089,6 +1103,36 @@ proto.com.violet.rpc.ChessMovePush.prototype.getCounter = function() {
 /** @param {number} value */
 proto.com.violet.rpc.ChessMovePush.prototype.setCounter = function(value) {
   jspb.Message.setField(this, 4, value);
+};
+
+
+/**
+ * optional PlayerInfo operator = 5;
+ * @return {?proto.com.violet.rpc.PlayerInfo}
+ */
+proto.com.violet.rpc.ChessMovePush.prototype.getOperator = function() {
+  return /** @type{?proto.com.violet.rpc.PlayerInfo} */ (
+    jspb.Message.getWrapperField(this, Struct_pb.PlayerInfo, 5));
+};
+
+
+/** @param {?proto.com.violet.rpc.PlayerInfo|undefined} value */
+proto.com.violet.rpc.ChessMovePush.prototype.setOperator = function(value) {
+  jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+proto.com.violet.rpc.ChessMovePush.prototype.clearOperator = function() {
+  this.setOperator(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.com.violet.rpc.ChessMovePush.prototype.hasOperator = function() {
+  return jspb.Message.getField(this, 5) != null;
 };
 
 

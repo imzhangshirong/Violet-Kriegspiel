@@ -31,13 +31,14 @@ namespace Com.Violet.Rpc {
             "Q2hhbmdlUHVzaBIuCgpwbGF5ZXJJbmZvGAEgASgLMhouY29tLnZpb2xldC5y",
             "cGMuUGxheWVySW5mbyJyChNHYW1lU3RhdGVDaGFuZ2VQdXNoEg0KBXN0YXRl",
             "GAEgASgFEg4KBnJlc3VsdBgCIAEoBRIrCghjaGVzc01hcBgDIAMoCzIZLmNv",
-            "bS52aW9sZXQucnBjLkNoZXNzRGF0YRIPCgdjb3VudGVyGAQgASgFIo8BCg1D",
+            "bS52aW9sZXQucnBjLkNoZXNzRGF0YRIPCgdjb3VudGVyGAQgASgFIr0BCg1D",
             "aGVzc01vdmVQdXNoEikKBnNvdXJjZRgBIAEoCzIZLmNvbS52aW9sZXQucnBj",
             "LkNoZXNzRGF0YRIpCgZ0YXJnZXQYAiABKAsyGS5jb20udmlvbGV0LnJwYy5D",
             "aGVzc0RhdGESFwoPY2hlc3NNb3ZlUmVzdWx0GAMgASgFEg8KB2NvdW50ZXIY",
-            "BCABKAUiTgoPQ2hhdE1lc3NhZ2VQdXNoEhEKCWZyb21XaGVyZRgBIAEoBRIo",
-            "CgNtc2cYAiABKAsyGy5jb20udmlvbGV0LnJwYy5NZXNzYWdlRGF0YWIGcHJv",
-            "dG8z"));
+            "BCABKAUSLAoIb3BlcmF0b3IYBSABKAsyGi5jb20udmlvbGV0LnJwYy5QbGF5",
+            "ZXJJbmZvIk4KD0NoYXRNZXNzYWdlUHVzaBIRCglmcm9tV2hlcmUYASABKAUS",
+            "KAoDbXNnGAIgASgLMhsuY29tLnZpb2xldC5ycGMuTWVzc2FnZURhdGFiBnBy",
+            "b3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Com.Violet.Rpc.StructReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -45,7 +46,7 @@ namespace Com.Violet.Rpc {
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterBattleFieldPush), global::Com.Violet.Rpc.EnterBattleFieldPush.Parser, new[]{ "PlayerList", "RoundOrder", "ChessSetting" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.PlayerStateChangePush), global::Com.Violet.Rpc.PlayerStateChangePush.Parser, new[]{ "PlayerInfo" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.GameStateChangePush), global::Com.Violet.Rpc.GameStateChangePush.Parser, new[]{ "State", "Result", "ChessMap", "Counter" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ChessMovePush), global::Com.Violet.Rpc.ChessMovePush.Parser, new[]{ "Source", "Target", "ChessMoveResult", "Counter" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ChessMovePush), global::Com.Violet.Rpc.ChessMovePush.Parser, new[]{ "Source", "Target", "ChessMoveResult", "Counter", "Operator" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ChatMessagePush), global::Com.Violet.Rpc.ChatMessagePush.Parser, new[]{ "FromWhere", "Msg" }, null, null, null)
           }));
     }
@@ -687,6 +688,7 @@ namespace Com.Violet.Rpc {
       Target = other.target_ != null ? other.Target.Clone() : null;
       chessMoveResult_ = other.chessMoveResult_;
       counter_ = other.counter_;
+      Operator = other.operator_ != null ? other.Operator.Clone() : null;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -744,6 +746,20 @@ namespace Com.Violet.Rpc {
       }
     }
 
+    /// <summary>Field number for the "operator" field.</summary>
+    public const int OperatorFieldNumber = 5;
+    private global::Com.Violet.Rpc.PlayerInfo operator_;
+    /// <summary>
+    ///走子的人
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Com.Violet.Rpc.PlayerInfo Operator {
+      get { return operator_; }
+      set {
+        operator_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as ChessMovePush);
@@ -761,6 +777,7 @@ namespace Com.Violet.Rpc {
       if (!object.Equals(Target, other.Target)) return false;
       if (ChessMoveResult != other.ChessMoveResult) return false;
       if (Counter != other.Counter) return false;
+      if (!object.Equals(Operator, other.Operator)) return false;
       return true;
     }
 
@@ -771,6 +788,7 @@ namespace Com.Violet.Rpc {
       if (target_ != null) hash ^= Target.GetHashCode();
       if (ChessMoveResult != 0) hash ^= ChessMoveResult.GetHashCode();
       if (Counter != 0) hash ^= Counter.GetHashCode();
+      if (operator_ != null) hash ^= Operator.GetHashCode();
       return hash;
     }
 
@@ -797,6 +815,10 @@ namespace Com.Violet.Rpc {
         output.WriteRawTag(32);
         output.WriteInt32(Counter);
       }
+      if (operator_ != null) {
+        output.WriteRawTag(42);
+        output.WriteMessage(Operator);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -813,6 +835,9 @@ namespace Com.Violet.Rpc {
       }
       if (Counter != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Counter);
+      }
+      if (operator_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Operator);
       }
       return size;
     }
@@ -839,6 +864,12 @@ namespace Com.Violet.Rpc {
       }
       if (other.Counter != 0) {
         Counter = other.Counter;
+      }
+      if (other.operator_ != null) {
+        if (operator_ == null) {
+          operator_ = new global::Com.Violet.Rpc.PlayerInfo();
+        }
+        Operator.MergeFrom(other.Operator);
       }
     }
 
@@ -870,6 +901,13 @@ namespace Com.Violet.Rpc {
           }
           case 32: {
             Counter = input.ReadInt32();
+            break;
+          }
+          case 42: {
+            if (operator_ == null) {
+              operator_ = new global::Com.Violet.Rpc.PlayerInfo();
+            }
+            input.ReadMessage(operator_);
             break;
           }
         }

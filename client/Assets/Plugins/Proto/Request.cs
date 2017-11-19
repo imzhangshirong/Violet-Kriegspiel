@@ -46,20 +46,19 @@ namespace Com.Violet.Rpc {
             "ZRIpCgZzb3VyY2UYASABKAsyGS5jb20udmlvbGV0LnJwYy5DaGVzc0RhdGES",
             "KQoGdGFyZ2V0GAIgASgLMhkuY29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhEhcK",
             "D2NoZXNzTW92ZVJlc3VsdBgDIAEoBRIPCgdjb3VudGVyGAQgASgFIhIKEEJh",
-            "dHRsZU1hcFJlcXVlc3QiUQoRQmF0dGxlTWFwUmVzcG9uc2USKwoIY2hlc3NN",
-            "YXAYASADKAsyGS5jb20udmlvbGV0LnJwYy5DaGVzc0RhdGESDwoHY291bnRl",
-            "chgCIAEoBSIXChVDaGVja0dhbWVTdGF0ZVJlcXVlc3QiKwoWQ2hlY2tHYW1l",
-            "U3RhdGVSZXNwb25zZRIRCglyb29tVG9rZW4YASABKAkiLAoXRW50ZXJCYXR0",
-            "bGVGaWVsZFJlcXVlc3QSEQoJcm9vbVRva2VuGAEgASgJItwBChhFbnRlckJh",
-            "dHRsZUZpZWxkUmVzcG9uc2USKgoIcm9vbURhdGEYASABKAsyGC5jb20udmlv",
-            "bGV0LnJwYy5Sb29tRGF0YRIuCgpwbGF5ZXJMaXN0GAIgAygLMhouY29tLnZp",
-            "b2xldC5ycGMuUGxheWVySW5mbxIrCghjaGVzc01hcBgDIAMoCzIZLmNvbS52",
-            "aW9sZXQucnBjLkNoZXNzRGF0YRIPCgdjb3VudGVyGAQgASgFEhIKCnJvdW5k",
-            "T3JkZXIYBSABKAUSEgoKcmVtYWluVGltZRgGIAEoBSISChBTdXJyZW5kZXJS",
-            "ZXF1ZXN0IigKEVN1cnJlbmRlclJlc3BvbnNlEhMKC2lzU3VycmVuZGVyGAEg",
-            "ASgIIlMKFlNlbmRDaGF0TWVzc2FnZVJlcXVlc3QSDwoHdG9XaGVyZRgBIAEo",
-            "BRIoCgNtc2cYAiABKAsyGy5jb20udmlvbGV0LnJwYy5NZXNzYWdlRGF0YSIZ",
-            "ChdTZW5kQ2hhdE1lc3NhZ2VSZXNwb25zZWIGcHJvdG8z"));
+            "dHRsZU1hcFJlcXVlc3QigQEKEUJhdHRsZU1hcFJlc3BvbnNlEisKCGNoZXNz",
+            "TWFwGAEgAygLMhkuY29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhEi4KCnBsYXll",
+            "ckxpc3QYAiADKAsyGi5jb20udmlvbGV0LnJwYy5QbGF5ZXJJbmZvEg8KB2Nv",
+            "dW50ZXIYAyABKAUiFwoVQ2hlY2tHYW1lU3RhdGVSZXF1ZXN0IisKFkNoZWNr",
+            "R2FtZVN0YXRlUmVzcG9uc2USEQoJcm9vbVRva2VuGAEgASgJIiwKF0VudGVy",
+            "QmF0dGxlRmllbGRSZXF1ZXN0EhEKCXJvb21Ub2tlbhgBIAEoCSKIAQoYRW50",
+            "ZXJCYXR0bGVGaWVsZFJlc3BvbnNlEisKCGNoZXNzTWFwGAEgAygLMhkuY29t",
+            "LnZpb2xldC5ycGMuQ2hlc3NEYXRhEi4KCnBsYXllckxpc3QYAiADKAsyGi5j",
+            "b20udmlvbGV0LnJwYy5QbGF5ZXJJbmZvEg8KB2NvdW50ZXIYAyABKAUiEgoQ",
+            "U3VycmVuZGVyUmVxdWVzdCIoChFTdXJyZW5kZXJSZXNwb25zZRITCgtpc1N1",
+            "cnJlbmRlchgBIAEoCCJTChZTZW5kQ2hhdE1lc3NhZ2VSZXF1ZXN0Eg8KB3Rv",
+            "V2hlcmUYASABKAUSKAoDbXNnGAIgASgLMhsuY29tLnZpb2xldC5ycGMuTWVz",
+            "c2FnZURhdGEiGQoXU2VuZENoYXRNZXNzYWdlUmVzcG9uc2ViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Com.Violet.Rpc.StructReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -82,11 +81,11 @@ namespace Com.Violet.Rpc {
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.MoveChessRequest), global::Com.Violet.Rpc.MoveChessRequest.Parser, new[]{ "Source", "Target" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.MoveChessResponse), global::Com.Violet.Rpc.MoveChessResponse.Parser, new[]{ "Source", "Target", "ChessMoveResult", "Counter" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.BattleMapRequest), global::Com.Violet.Rpc.BattleMapRequest.Parser, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.BattleMapResponse), global::Com.Violet.Rpc.BattleMapResponse.Parser, new[]{ "ChessMap", "Counter" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.BattleMapResponse), global::Com.Violet.Rpc.BattleMapResponse.Parser, new[]{ "ChessMap", "PlayerList", "Counter" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.CheckGameStateRequest), global::Com.Violet.Rpc.CheckGameStateRequest.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.CheckGameStateResponse), global::Com.Violet.Rpc.CheckGameStateResponse.Parser, new[]{ "RoomToken" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterBattleFieldRequest), global::Com.Violet.Rpc.EnterBattleFieldRequest.Parser, new[]{ "RoomToken" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterBattleFieldResponse), global::Com.Violet.Rpc.EnterBattleFieldResponse.Parser, new[]{ "RoomData", "PlayerList", "ChessMap", "Counter", "RoundOrder", "RemainTime" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterBattleFieldResponse), global::Com.Violet.Rpc.EnterBattleFieldResponse.Parser, new[]{ "ChessMap", "PlayerList", "Counter" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.SurrenderRequest), global::Com.Violet.Rpc.SurrenderRequest.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.SurrenderResponse), global::Com.Violet.Rpc.SurrenderResponse.Parser, new[]{ "IsSurrender" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.SendChatMessageRequest), global::Com.Violet.Rpc.SendChatMessageRequest.Parser, new[]{ "ToWhere", "Msg" }, null, null, null),
@@ -2536,6 +2535,7 @@ namespace Com.Violet.Rpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public BattleMapResponse(BattleMapResponse other) : this() {
       chessMap_ = other.chessMap_.Clone();
+      playerList_ = other.playerList_.Clone();
       counter_ = other.counter_;
     }
 
@@ -2557,8 +2557,18 @@ namespace Com.Violet.Rpc {
       get { return chessMap_; }
     }
 
+    /// <summary>Field number for the "playerList" field.</summary>
+    public const int PlayerListFieldNumber = 2;
+    private static readonly pb::FieldCodec<global::Com.Violet.Rpc.PlayerInfo> _repeated_playerList_codec
+        = pb::FieldCodec.ForMessage(18, global::Com.Violet.Rpc.PlayerInfo.Parser);
+    private readonly pbc::RepeatedField<global::Com.Violet.Rpc.PlayerInfo> playerList_ = new pbc::RepeatedField<global::Com.Violet.Rpc.PlayerInfo>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Com.Violet.Rpc.PlayerInfo> PlayerList {
+      get { return playerList_; }
+    }
+
     /// <summary>Field number for the "counter" field.</summary>
-    public const int CounterFieldNumber = 2;
+    public const int CounterFieldNumber = 3;
     private int counter_;
     /// <summary>
     ///计数器
@@ -2585,6 +2595,7 @@ namespace Com.Violet.Rpc {
         return true;
       }
       if(!chessMap_.Equals(other.chessMap_)) return false;
+      if(!playerList_.Equals(other.playerList_)) return false;
       if (Counter != other.Counter) return false;
       return true;
     }
@@ -2593,6 +2604,7 @@ namespace Com.Violet.Rpc {
     public override int GetHashCode() {
       int hash = 1;
       hash ^= chessMap_.GetHashCode();
+      hash ^= playerList_.GetHashCode();
       if (Counter != 0) hash ^= Counter.GetHashCode();
       return hash;
     }
@@ -2605,8 +2617,9 @@ namespace Com.Violet.Rpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       chessMap_.WriteTo(output, _repeated_chessMap_codec);
+      playerList_.WriteTo(output, _repeated_playerList_codec);
       if (Counter != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(24);
         output.WriteInt32(Counter);
       }
     }
@@ -2615,6 +2628,7 @@ namespace Com.Violet.Rpc {
     public int CalculateSize() {
       int size = 0;
       size += chessMap_.CalculateSize(_repeated_chessMap_codec);
+      size += playerList_.CalculateSize(_repeated_playerList_codec);
       if (Counter != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Counter);
       }
@@ -2627,6 +2641,7 @@ namespace Com.Violet.Rpc {
         return;
       }
       chessMap_.Add(other.chessMap_);
+      playerList_.Add(other.playerList_);
       if (other.Counter != 0) {
         Counter = other.Counter;
       }
@@ -2644,7 +2659,11 @@ namespace Com.Violet.Rpc {
             chessMap_.AddEntriesFrom(input, _repeated_chessMap_codec);
             break;
           }
-          case 16: {
+          case 18: {
+            playerList_.AddEntriesFrom(input, _repeated_playerList_codec);
+            break;
+          }
+          case 24: {
             Counter = input.ReadInt32();
             break;
           }
@@ -2654,6 +2673,9 @@ namespace Com.Violet.Rpc {
 
   }
 
+  /// <summary>
+  ///检测是否在游戏房间内
+  /// </summary>
   public sealed partial class CheckGameStateRequest : pb::IMessage<CheckGameStateRequest> {
     private static readonly pb::MessageParser<CheckGameStateRequest> _parser = new pb::MessageParser<CheckGameStateRequest>(() => new CheckGameStateRequest());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2863,6 +2885,9 @@ namespace Com.Violet.Rpc {
 
   }
 
+  /// <summary>
+  ///通过房间Token进入指定房间
+  /// </summary>
   public sealed partial class EnterBattleFieldRequest : pb::IMessage<EnterBattleFieldRequest> {
     private static readonly pb::MessageParser<EnterBattleFieldRequest> _parser = new pb::MessageParser<EnterBattleFieldRequest>(() => new EnterBattleFieldRequest());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3004,12 +3029,9 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public EnterBattleFieldResponse(EnterBattleFieldResponse other) : this() {
-      RoomData = other.roomData_ != null ? other.RoomData.Clone() : null;
-      playerList_ = other.playerList_.Clone();
       chessMap_ = other.chessMap_.Clone();
+      playerList_ = other.playerList_.Clone();
       counter_ = other.counter_;
-      roundOrder_ = other.roundOrder_;
-      remainTime_ = other.remainTime_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3017,15 +3039,17 @@ namespace Com.Violet.Rpc {
       return new EnterBattleFieldResponse(this);
     }
 
-    /// <summary>Field number for the "roomData" field.</summary>
-    public const int RoomDataFieldNumber = 1;
-    private global::Com.Violet.Rpc.RoomData roomData_;
+    /// <summary>Field number for the "chessMap" field.</summary>
+    public const int ChessMapFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::Com.Violet.Rpc.ChessData> _repeated_chessMap_codec
+        = pb::FieldCodec.ForMessage(10, global::Com.Violet.Rpc.ChessData.Parser);
+    private readonly pbc::RepeatedField<global::Com.Violet.Rpc.ChessData> chessMap_ = new pbc::RepeatedField<global::Com.Violet.Rpc.ChessData>();
+    /// <summary>
+    ///棋子布局数据
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Com.Violet.Rpc.RoomData RoomData {
-      get { return roomData_; }
-      set {
-        roomData_ = value;
-      }
+    public pbc::RepeatedField<global::Com.Violet.Rpc.ChessData> ChessMap {
+      get { return chessMap_; }
     }
 
     /// <summary>Field number for the "playerList" field.</summary>
@@ -3038,21 +3062,8 @@ namespace Com.Violet.Rpc {
       get { return playerList_; }
     }
 
-    /// <summary>Field number for the "chessMap" field.</summary>
-    public const int ChessMapFieldNumber = 3;
-    private static readonly pb::FieldCodec<global::Com.Violet.Rpc.ChessData> _repeated_chessMap_codec
-        = pb::FieldCodec.ForMessage(26, global::Com.Violet.Rpc.ChessData.Parser);
-    private readonly pbc::RepeatedField<global::Com.Violet.Rpc.ChessData> chessMap_ = new pbc::RepeatedField<global::Com.Violet.Rpc.ChessData>();
-    /// <summary>
-    ///棋子布局数据
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::Com.Violet.Rpc.ChessData> ChessMap {
-      get { return chessMap_; }
-    }
-
     /// <summary>Field number for the "counter" field.</summary>
-    public const int CounterFieldNumber = 4;
+    public const int CounterFieldNumber = 3;
     private int counter_;
     /// <summary>
     ///计数器
@@ -3062,34 +3073,6 @@ namespace Com.Violet.Rpc {
       get { return counter_; }
       set {
         counter_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "roundOrder" field.</summary>
-    public const int RoundOrderFieldNumber = 5;
-    private int roundOrder_;
-    /// <summary>
-    ///我方回合顺序位置，从0开始
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int RoundOrder {
-      get { return roundOrder_; }
-      set {
-        roundOrder_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "remainTime" field.</summary>
-    public const int RemainTimeFieldNumber = 6;
-    private int remainTime_;
-    /// <summary>
-    ///倒计时
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int RemainTime {
-      get { return remainTime_; }
-      set {
-        remainTime_ = value;
       }
     }
 
@@ -3106,24 +3089,18 @@ namespace Com.Violet.Rpc {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (!object.Equals(RoomData, other.RoomData)) return false;
-      if(!playerList_.Equals(other.playerList_)) return false;
       if(!chessMap_.Equals(other.chessMap_)) return false;
+      if(!playerList_.Equals(other.playerList_)) return false;
       if (Counter != other.Counter) return false;
-      if (RoundOrder != other.RoundOrder) return false;
-      if (RemainTime != other.RemainTime) return false;
       return true;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (roomData_ != null) hash ^= RoomData.GetHashCode();
-      hash ^= playerList_.GetHashCode();
       hash ^= chessMap_.GetHashCode();
+      hash ^= playerList_.GetHashCode();
       if (Counter != 0) hash ^= Counter.GetHashCode();
-      if (RoundOrder != 0) hash ^= RoundOrder.GetHashCode();
-      if (RemainTime != 0) hash ^= RemainTime.GetHashCode();
       return hash;
     }
 
@@ -3134,42 +3111,21 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (roomData_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(RoomData);
-      }
-      playerList_.WriteTo(output, _repeated_playerList_codec);
       chessMap_.WriteTo(output, _repeated_chessMap_codec);
+      playerList_.WriteTo(output, _repeated_playerList_codec);
       if (Counter != 0) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(24);
         output.WriteInt32(Counter);
-      }
-      if (RoundOrder != 0) {
-        output.WriteRawTag(40);
-        output.WriteInt32(RoundOrder);
-      }
-      if (RemainTime != 0) {
-        output.WriteRawTag(48);
-        output.WriteInt32(RemainTime);
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (roomData_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(RoomData);
-      }
-      size += playerList_.CalculateSize(_repeated_playerList_codec);
       size += chessMap_.CalculateSize(_repeated_chessMap_codec);
+      size += playerList_.CalculateSize(_repeated_playerList_codec);
       if (Counter != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Counter);
-      }
-      if (RoundOrder != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(RoundOrder);
-      }
-      if (RemainTime != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(RemainTime);
       }
       return size;
     }
@@ -3179,22 +3135,10 @@ namespace Com.Violet.Rpc {
       if (other == null) {
         return;
       }
-      if (other.roomData_ != null) {
-        if (roomData_ == null) {
-          roomData_ = new global::Com.Violet.Rpc.RoomData();
-        }
-        RoomData.MergeFrom(other.RoomData);
-      }
-      playerList_.Add(other.playerList_);
       chessMap_.Add(other.chessMap_);
+      playerList_.Add(other.playerList_);
       if (other.Counter != 0) {
         Counter = other.Counter;
-      }
-      if (other.RoundOrder != 0) {
-        RoundOrder = other.RoundOrder;
-      }
-      if (other.RemainTime != 0) {
-        RemainTime = other.RemainTime;
       }
     }
 
@@ -3207,30 +3151,15 @@ namespace Com.Violet.Rpc {
             input.SkipLastField();
             break;
           case 10: {
-            if (roomData_ == null) {
-              roomData_ = new global::Com.Violet.Rpc.RoomData();
-            }
-            input.ReadMessage(roomData_);
+            chessMap_.AddEntriesFrom(input, _repeated_chessMap_codec);
             break;
           }
           case 18: {
             playerList_.AddEntriesFrom(input, _repeated_playerList_codec);
             break;
           }
-          case 26: {
-            chessMap_.AddEntriesFrom(input, _repeated_chessMap_codec);
-            break;
-          }
-          case 32: {
+          case 24: {
             Counter = input.ReadInt32();
-            break;
-          }
-          case 40: {
-            RoundOrder = input.ReadInt32();
-            break;
-          }
-          case 48: {
-            RemainTime = input.ReadInt32();
             break;
           }
         }
