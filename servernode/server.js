@@ -352,7 +352,7 @@ function removeRoom(id){
     }
 }
 
-function pushMoveChess(room,userFrom,source,target,result){
+function pushMoveChess(room,userFrom,source,target,result,all = false){
     let Message = RpcServer.getRpc("ChessMove","Push");
     let push = new Message();
     let chess = source.clone();
@@ -363,7 +363,7 @@ function pushMoveChess(room,userFrom,source,target,result){
     push.setChessmoveresult(result);
     for(let i=0;i<room.users.length;i++){
         let user = room.users[i];
-        if(user.token!=userFrom.token){
+        if(user.token!=userFrom.token || all){
             let clientItem = RpcServer.getClientItemByToken(user.token);
             RpcServer.push(clientItem,"ChessMove",push);
         }
@@ -381,7 +381,7 @@ function autoSkip(room,user){
     source.setChessremoteid(-1);
     //设置当前可用时间
     room.users[room.counter%room.users.length].gameRemainTime = Config.Game.waitingRound;
-    pushMoveChess(room,user,source,target,result);
+    pushMoveChess(room,user,source,target,result,true);
 }
 
 function autoReady(room,user){

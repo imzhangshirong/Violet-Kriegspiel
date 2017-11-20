@@ -51,7 +51,7 @@ public class UIGamePanel : UIViewBase
         });
 
         BindEvent("_roundTimeUp", delegate (object content) {
-            SkipRound();
+            //SkipRound();
         });
         BindEvent("_enemyRoundTimeUp", delegate (object content) {
             NextGameRound();
@@ -871,10 +871,11 @@ public class UIGamePanel : UIViewBase
         ChessData target = push.Target;
         ChessMoveResult result = (ChessMoveResult)push.ChessMoveResult;
         ChessHeroData sourceReal = App.Package.ChessGame.GetChessHeroDataByRemoteId(source.ChessRemoteId);
+        //强制回合同步
+        App.Package.ChessGame.GameRoundCounter = push.Counter - 1;
         if(target!=null){
             ChessHeroData targetReal = App.Package.ChessGame.GetChessHeroDataByRemoteId(target.ChessRemoteId);
-            //强制回合同步
-            App.Package.ChessGame.GameRoundCounter = push.Counter - 1;
+            
             if (sourceReal==null || (targetReal==null && result != ChessMoveResult.CAN_MOVE && result != ChessMoveResult.CANNOT_MOVE) || push.Counter != App.Package.ChessGame.GameRoundCounter+1)
             {
                 ChessDataHasProblem();
@@ -913,6 +914,7 @@ public class UIGamePanel : UIViewBase
             }
         }
         else{
+            NextGameRound();
             Debuger.Error("skip");
         }
         
