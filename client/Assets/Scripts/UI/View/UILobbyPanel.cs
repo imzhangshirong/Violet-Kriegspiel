@@ -18,6 +18,10 @@ public class UILobbyPanel : UIViewBase
 
     }
 
+	public override void OnRefresh(){
+		CheckGameState();
+	}
+
 	public void FindEnemyClick(){
 		FindEnemyRequest request = new FindEnemyRequest();
 		App.Manager.Network.Request("FindEnemy",request,delegate(IMessage responseData){

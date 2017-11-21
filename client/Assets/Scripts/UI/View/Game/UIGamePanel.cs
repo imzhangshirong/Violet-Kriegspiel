@@ -54,7 +54,7 @@ public class UIGamePanel : UIViewBase
             //SkipRound();
         });
         BindEvent("_enemyRoundTimeUp", delegate (object content) {
-            NextGameRound();
+            //NextGameRound();
         });
 
         //注册响应Push事件
