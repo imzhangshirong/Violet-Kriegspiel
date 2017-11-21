@@ -556,7 +556,7 @@ RpcServer.on("Login",function(requestData){
     else{
         let user = {
             userName:request.getUsername(),
-            userId:6,
+            userId:UserData.length+1,
             zoneId:1,
             level:3,
             pass:request.getPassword(),
