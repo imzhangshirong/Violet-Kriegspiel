@@ -390,7 +390,7 @@ function removeRoom(id){
     }
 }
 
-function pushMoveChess(room,userFrom,source,target,result,all = false){
+function pushMoveChess(room,userFrom,source,target,result,all){
     let Message = RpcServer.getRpc("ChessMove","Push");
     let push = new Message();
     let chess = source.clone();
@@ -706,7 +706,7 @@ RpcServer.on("MoveChess",function(requestData){
                         response.setChessmoveresult(result);
                     }
                     if(requestData.errorCode==0){
-                        pushMoveChess(room,user,source,target,result);
+                        pushMoveChess(room,user,source,target,result,false);
                     }
                 }
             }
@@ -714,7 +714,7 @@ RpcServer.on("MoveChess",function(requestData){
                 if(remoteIdS<0){//以服武器为准
                     console.log("user:"+user.userName+" Skip");
                     response.setCounter(room.counter);//回合跳过
-                    //pushMoveChess(room,user,source,target,result);
+                    //pushMoveChess(room,user,source,target,result,false);
                 }
                 else{
                     requestData.errorCode = 31;
