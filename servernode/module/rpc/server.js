@@ -232,7 +232,12 @@ function init(port, protobufs, protoPath) {
         return require(item);
     });
     //关闭之前的连接
-    RpcServer.close();
+    try{
+        RpcServer.close();
+    }
+    catch(e){
+
+    }
     _Request = null;
     _Response = null;
     for (let i = 0; i < _messages.length; i++) {
