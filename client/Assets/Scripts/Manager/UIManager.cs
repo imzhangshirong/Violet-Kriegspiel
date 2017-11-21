@@ -176,7 +176,7 @@ public class UIManager : Manager
                     m_StackPage.Remove(m_UIData);
 					if (m_StackPage.Count > 0)
 					{
-						ActiveView(m_StackPage[m_StackPage.Count - 1]);
+						ActiveView(m_StackPage[m_StackPage.Count - 1],m_UIData.viewStyle == UIViewStyle.Page);
 						m_topPage = m_StackPage[m_StackPage.Count - 1].name;
                         m_topViewData = m_StackPage[m_StackPage.Count - 1];
 
@@ -192,7 +192,7 @@ public class UIManager : Manager
 					m_StackOverView.Remove(m_UIData);
 					if (m_StackOverView.Count > 0)
 					{
-						ActiveView(m_StackOverView[m_StackOverView.Count - 1]);
+						ActiveView(m_StackOverView[m_StackOverView.Count - 1],false);
 						m_topOverView = m_StackOverView[m_StackOverView.Count - 1].name;
 					}
 					else
@@ -279,12 +279,12 @@ public class UIManager : Manager
 		view.gameObject.SetActive(false);
 		if (baseView != null) baseView.OnClose();
 	}
-	private void ActiveView(UIData view)
+	private void ActiveView(UIData view,bool needRefresh = true)
 	{
 		if (view == null) return;
 		UIViewBase baseView = view.gameObject.GetComponent<UIViewBase>();
 		view.gameObject.SetActive(true);
-		if (baseView != null) baseView.OnRefresh();
+		if (baseView != null && needRefresh) baseView.OnRefresh();
 	}
 	private void InitView(UIData view,Intent intent = null)
 	{
@@ -351,7 +351,7 @@ public class UIManager : Manager
                 App.Manager.ObjectPool.Releasse(TopView.name, TopView.gameObject);
                 if (m_StackPage.Count > 0)
                 {
-                    ActiveView(m_StackPage[m_StackPage.Count - 1]);
+                    ActiveView(m_StackPage[m_StackPage.Count - 1],false);
                     m_topPage = m_StackPage[m_StackPage.Count - 1].name;
                     m_topViewData = m_StackPage[m_StackPage.Count - 1];
 

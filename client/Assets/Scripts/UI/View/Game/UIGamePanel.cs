@@ -734,6 +734,7 @@ public class UIGamePanel : UIViewBase
     IEnumerator HideFireState(){
         yield return new WaitForSeconds(1.5f);
         m_FireGameStart.SetActive(false);
+        Common.UI.OpenTips("赶紧布兵吧！长按拖动可以交换棋子！");
     }
 
     void GameEnd(bool result){
