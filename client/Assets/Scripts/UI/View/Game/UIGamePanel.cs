@@ -509,7 +509,7 @@ public class UIGamePanel : UIViewBase
     {
         m_MyChessIsMoving = true;
         //if((ChessMoveResult.CANNOT_MOVE == result && moveData.crashType > 0) || (ChessMoveResult.CAN_MOVE == result && moveData.crashType == 0))
-        {
+        //{
             float dur = 0.2f / moveData.points.Length;
             for (int i = 0; i < moveData.points.Length; i++)
             {
@@ -519,7 +519,7 @@ public class UIGamePanel : UIViewBase
             }
             heroChoosed.point = moveToPoint;
             m_MyChessIsMoving = false;
-        }
+        //}
         /*else
         {
             ChessDataHasProblem();

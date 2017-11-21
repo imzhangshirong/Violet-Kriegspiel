@@ -71,7 +71,7 @@ public class ChessAgainst : MonoBehaviour
                     return moveData;
 
                 }
-                else if(roadStationS.point.x == roadStationT.point.x)
+                else if(roadStationS.point.x == roadStationT.point.x)//这里要特别注意
                 {
                     ChessPoint[] points = new ChessPoint[Mathf.Abs(roadStationS.point.y- roadStationT.point.y)+1];
                     int d = (roadStationS.point.y < roadStationT.point.y) ? 1 : -1;
@@ -79,7 +79,7 @@ public class ChessAgainst : MonoBehaviour
                     for (int i = 1; i < points.Length; i++)
                     {
                         points[i] = new ChessPoint(roadStationS.point.x, roadStationS.point.y + d * i );
-                        if(!IsConnected(points[i-1], points[i]))//要判断是否相连啊
+                        if(!IsConnected(points[i-1], points[i]) || !IsRailWay(points[i-1], points[i]))//要判断是否相连啊，且都是铁路
                         {
                             moveData.crashType = 2;
                             return moveData;
@@ -107,7 +107,7 @@ public class ChessAgainst : MonoBehaviour
                     for (int i = 1; i < points.Length; i++)
                     {
                         points[i] = new ChessPoint(roadStationS.point.x + d * i, roadStationS.point.y);
-                        if (!IsConnected(points[i - 1], points[i]))//要判断是否相连啊
+                        if (!IsConnected(points[i - 1], points[i]) || !IsRailWay(points[i-1], points[i]))//要判断是否相连啊，且都是铁路
                         {
                             moveData.crashType = 2;
                             return moveData;

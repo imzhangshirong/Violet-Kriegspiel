@@ -699,6 +699,7 @@ RpcServer.on("MoveChess",function(requestData){
                                     room.died.push(remoteIdT);
                                     break;
                                 case 3:
+                                    realChessS.setPoint(realChessT.getPoint())//更新位置状态
                                     room.died.push(remoteIdT);
                                     break;
                             }
