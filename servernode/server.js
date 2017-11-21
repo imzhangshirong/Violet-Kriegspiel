@@ -554,20 +554,19 @@ RpcServer.on("Login",function(requestData){
         }
     }
     else{
-        UserData.push(
-            {
-                userName:request.getUsername(),
-                userId:6,
-                zoneId:1,
-                level:3,
-                pass:request.getPassword(),
-                token:"",
-                state:0,
-                gameRemainTime:0,
-                roundOrder:0,
-                chessSetting:"6|1,3|2,0|3,11|4,0|5;10|6,2|7,5|8,0|9,3|10;9|11,,2|12,,4|13;1|14,5|15,,6|16,7|17;7|18,,4|19,,1|20;8|21,2|22,4|23,3|24,8|25;"
-            }
-        );
+        let user = {
+            userName:request.getUsername(),
+            userId:6,
+            zoneId:1,
+            level:3,
+            pass:request.getPassword(),
+            token:"",
+            state:0,
+            gameRemainTime:0,
+            roundOrder:0,
+            chessSetting:"6|1,3|2,0|3,11|4,0|5;10|6,2|7,5|8,0|9,3|10;9|11,,2|12,,4|13;1|14,5|15,,6|16,7|17;7|18,,4|19,,1|20;8|21,2|22,4|23,3|24,8|25;"
+        };
+        UserData.push(user);
         let PlayerInfo = RpcServer.getRpc("PlayerInfo","");
         let playerInfo = getRpcPlayerInfo(user);
         user.token = requestData.token;
