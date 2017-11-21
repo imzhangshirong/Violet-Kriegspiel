@@ -1,3 +1,5 @@
+"use strict"
+
 var Config = require('./config.js');
 var RpcServer = require('./module/rpc/server.js');
 var Crypto = require('crypto');
@@ -28,8 +30,44 @@ var UserData = [
         chessSetting:"6|1,3|2,0|3,11|4,0|5;10|6,2|7,5|8,0|9,3|10;9|11,,2|12,,4|13;1|14,5|15,,6|16,7|17;7|18,,4|19,,1|20;8|21,2|22,4|23,3|24,8|25;"
     },
     {
-        userName:"MiaoMiaomiao",
+        userName:"miaomiaomiao",
         userId:3,
+        zoneId:1,
+        level:3,
+        pass:"123",
+        token:"",
+        state:0,
+        gameRemainTime:0,
+        roundOrder:0,
+        chessSetting:"6|1,3|2,0|3,11|4,0|5;10|6,2|7,5|8,0|9,3|10;9|11,,2|12,,4|13;1|14,5|15,,6|16,7|17;7|18,,4|19,,1|20;8|21,2|22,4|23,3|24,8|25;"
+    },
+    {
+        userName:"hahaha",
+        userId:4,
+        zoneId:1,
+        level:3,
+        pass:"123",
+        token:"",
+        state:0,
+        gameRemainTime:0,
+        roundOrder:0,
+        chessSetting:"6|1,3|2,0|3,11|4,0|5;10|6,2|7,5|8,0|9,3|10;9|11,,2|12,,4|13;1|14,5|15,,6|16,7|17;7|18,,4|19,,1|20;8|21,2|22,4|23,3|24,8|25;"
+    },
+    {
+        userName:"kyy",
+        userId:5,
+        zoneId:1,
+        level:3,
+        pass:"123",
+        token:"",
+        state:0,
+        gameRemainTime:0,
+        roundOrder:0,
+        chessSetting:"6|1,3|2,0|3,11|4,0|5;10|6,2|7,5|8,0|9,3|10;9|11,,2|12,,4|13;1|14,5|15,,6|16,7|17;7|18,,4|19,,1|20;8|21,2|22,4|23,3|24,8|25;"
+    },
+    {
+        userName:"233",
+        userId:6,
         zoneId:1,
         level:3,
         pass:"123",
@@ -894,7 +932,7 @@ var pushAction={
     }
 }
 var Readline = require('readline');
-rl = Readline.createInterface({
+var rl = Readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
@@ -915,3 +953,4 @@ rl.on('line', function(data) {
 
 
 RpcServer.listen();
+console.log("server start....");
