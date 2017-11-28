@@ -13,6 +13,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
     public List<ChessData> MyselfChessSetting;
     public List<PlayerInfo> AllPlayerList = new List<PlayerInfo>();
     public int GameRoundCounter = -1;
+    public string RoomId = "";
     int m_roundOrder;
     public int roundOrder{
         get{
@@ -99,6 +100,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
     {
         base.Init(data);
         EnterBattleFieldPush push = (EnterBattleFieldPush)data;
+        App.Package.ChessGame.RoomId = push.RoomId;
         m_EnemyPlayerList = new List<PlayerInfo>(push.PlayerList);
         m_EnemyPlayerList.Sort(SortPlayerListByRoundOrder);
         m_ChessData.Clear();

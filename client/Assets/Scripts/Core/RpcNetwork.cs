@@ -167,7 +167,6 @@ public class RpcNetwork
     static void AddNewRequest(RPC rpcData){
         lock (m_RpcMap)
         {
-            Debuger.Log(rpcData.msg+" add in Queen");
             //加入列队
             if(!m_RpcMap.ContainsKey(rpcData.uniqueName)){
                 m_RpcMap.Add(rpcData.uniqueName,rpcData);
