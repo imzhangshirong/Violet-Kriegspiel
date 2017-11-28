@@ -1905,7 +1905,8 @@ proto.com.violet.rpc.ReadyInRoomRequest.toObject = function(includeInstance, msg
   var f, obj = {
     isready: jspb.Message.getFieldWithDefault(msg, 1, false),
     chessmapList: jspb.Message.toObjectList(msg.getChessmapList(),
-    Struct_pb.ChessData.toObject, includeInstance)
+    Struct_pb.ChessData.toObject, includeInstance),
+    roomid: jspb.Message.getFieldWithDefault(msg, 3, 0)
   };
 
   if (includeInstance) {
@@ -1951,6 +1952,10 @@ proto.com.violet.rpc.ReadyInRoomRequest.deserializeBinaryFromReader = function(m
       reader.readMessage(value,Struct_pb.ChessData.deserializeBinaryFromReader);
       msg.addChessmap(value);
       break;
+    case 3:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setRoomid(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -1993,6 +1998,13 @@ proto.com.violet.rpc.ReadyInRoomRequest.serializeBinaryToWriter = function(messa
       2,
       f,
       Struct_pb.ChessData.serializeBinaryToWriter
+    );
+  }
+  f = message.getRoomid();
+  if (f !== 0) {
+    writer.writeInt32(
+      3,
+      f
     );
   }
 };
@@ -2043,6 +2055,21 @@ proto.com.violet.rpc.ReadyInRoomRequest.prototype.addChessmap = function(opt_val
 
 proto.com.violet.rpc.ReadyInRoomRequest.prototype.clearChessmapList = function() {
   this.setChessmapList([]);
+};
+
+
+/**
+ * optional int32 roomId = 3;
+ * @return {number}
+ */
+proto.com.violet.rpc.ReadyInRoomRequest.prototype.getRoomid = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/** @param {number} value */
+proto.com.violet.rpc.ReadyInRoomRequest.prototype.setRoomid = function(value) {
+  jspb.Message.setField(this, 3, value);
 };
 
 

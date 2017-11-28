@@ -35,31 +35,32 @@ namespace Com.Violet.Rpc {
             "CHJvb21MaXN0GAEgAygLMhguY29tLnZpb2xldC5ycGMuUm9vbURhdGEiNAoQ",
             "RW50ZXJSb29tUmVxdWVzdBIOCgZyb29tSWQYASABKAUSEAoIcGFzc3dvcmQY",
             "AiABKAkiQwoRRW50ZXJSb29tUmVzcG9uc2USLgoKcGxheWVyTGlzdBgBIAMo",
-            "CzIaLmNvbS52aW9sZXQucnBjLlBsYXllckluZm8iUgoSUmVhZHlJblJvb21S",
+            "CzIaLmNvbS52aW9sZXQucnBjLlBsYXllckluZm8iYgoSUmVhZHlJblJvb21S",
             "ZXF1ZXN0Eg8KB2lzUmVhZHkYASABKAgSKwoIY2hlc3NNYXAYAiADKAsyGS5j",
-            "b20udmlvbGV0LnJwYy5DaGVzc0RhdGEiLAoTUmVhZHlJblJvb21SZXNwb25z",
-            "ZRIVCg1pc0NoYW5nZVN0YXRlGAEgASgIIiIKEExlYXZlUm9vbVJlcXVlc3QS",
-            "DgoGcm9vbUlkGAEgASgFIiQKEUxlYXZlUm9vbVJlc3BvbnNlEg8KB2lzTGVh",
-            "dmUYASABKAgiaAoQTW92ZUNoZXNzUmVxdWVzdBIpCgZzb3VyY2UYASABKAsy",
-            "GS5jb20udmlvbGV0LnJwYy5DaGVzc0RhdGESKQoGdGFyZ2V0GAIgASgLMhku",
-            "Y29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhIpMBChFNb3ZlQ2hlc3NSZXNwb25z",
-            "ZRIpCgZzb3VyY2UYASABKAsyGS5jb20udmlvbGV0LnJwYy5DaGVzc0RhdGES",
-            "KQoGdGFyZ2V0GAIgASgLMhkuY29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhEhcK",
-            "D2NoZXNzTW92ZVJlc3VsdBgDIAEoBRIPCgdjb3VudGVyGAQgASgFIhIKEEJh",
-            "dHRsZU1hcFJlcXVlc3QiUQoRQmF0dGxlTWFwUmVzcG9uc2USKwoIY2hlc3NN",
-            "YXAYASADKAsyGS5jb20udmlvbGV0LnJwYy5DaGVzc0RhdGESDwoHY291bnRl",
-            "chgCIAEoBSIXChVDaGVja0dhbWVTdGF0ZVJlcXVlc3QiKwoWQ2hlY2tHYW1l",
-            "U3RhdGVSZXNwb25zZRIRCglyb29tVG9rZW4YASABKAkiLAoXRW50ZXJCYXR0",
-            "bGVGaWVsZFJlcXVlc3QSEQoJcm9vbVRva2VuGAEgASgJItwBChhFbnRlckJh",
-            "dHRsZUZpZWxkUmVzcG9uc2USKgoIcm9vbURhdGEYASABKAsyGC5jb20udmlv",
-            "bGV0LnJwYy5Sb29tRGF0YRIuCgpwbGF5ZXJMaXN0GAIgAygLMhouY29tLnZp",
-            "b2xldC5ycGMuUGxheWVySW5mbxIrCghjaGVzc01hcBgDIAMoCzIZLmNvbS52",
-            "aW9sZXQucnBjLkNoZXNzRGF0YRIPCgdjb3VudGVyGAQgASgFEhIKCnJvdW5k",
-            "T3JkZXIYBSABKAUSEgoKcmVtYWluVGltZRgGIAEoBSISChBTdXJyZW5kZXJS",
-            "ZXF1ZXN0IigKEVN1cnJlbmRlclJlc3BvbnNlEhMKC2lzU3VycmVuZGVyGAEg",
-            "ASgIIlMKFlNlbmRDaGF0TWVzc2FnZVJlcXVlc3QSDwoHdG9XaGVyZRgBIAEo",
-            "BRIoCgNtc2cYAiABKAsyGy5jb20udmlvbGV0LnJwYy5NZXNzYWdlRGF0YSIZ",
-            "ChdTZW5kQ2hhdE1lc3NhZ2VSZXNwb25zZWIGcHJvdG8z"));
+            "b20udmlvbGV0LnJwYy5DaGVzc0RhdGESDgoGcm9vbUlkGAMgASgFIiwKE1Jl",
+            "YWR5SW5Sb29tUmVzcG9uc2USFQoNaXNDaGFuZ2VTdGF0ZRgBIAEoCCIiChBM",
+            "ZWF2ZVJvb21SZXF1ZXN0Eg4KBnJvb21JZBgBIAEoBSIkChFMZWF2ZVJvb21S",
+            "ZXNwb25zZRIPCgdpc0xlYXZlGAEgASgIImgKEE1vdmVDaGVzc1JlcXVlc3QS",
+            "KQoGc291cmNlGAEgASgLMhkuY29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhEikK",
+            "BnRhcmdldBgCIAEoCzIZLmNvbS52aW9sZXQucnBjLkNoZXNzRGF0YSKTAQoR",
+            "TW92ZUNoZXNzUmVzcG9uc2USKQoGc291cmNlGAEgASgLMhkuY29tLnZpb2xl",
+            "dC5ycGMuQ2hlc3NEYXRhEikKBnRhcmdldBgCIAEoCzIZLmNvbS52aW9sZXQu",
+            "cnBjLkNoZXNzRGF0YRIXCg9jaGVzc01vdmVSZXN1bHQYAyABKAUSDwoHY291",
+            "bnRlchgEIAEoBSISChBCYXR0bGVNYXBSZXF1ZXN0IlEKEUJhdHRsZU1hcFJl",
+            "c3BvbnNlEisKCGNoZXNzTWFwGAEgAygLMhkuY29tLnZpb2xldC5ycGMuQ2hl",
+            "c3NEYXRhEg8KB2NvdW50ZXIYAiABKAUiFwoVQ2hlY2tHYW1lU3RhdGVSZXF1",
+            "ZXN0IisKFkNoZWNrR2FtZVN0YXRlUmVzcG9uc2USEQoJcm9vbVRva2VuGAEg",
+            "ASgJIiwKF0VudGVyQmF0dGxlRmllbGRSZXF1ZXN0EhEKCXJvb21Ub2tlbhgB",
+            "IAEoCSLcAQoYRW50ZXJCYXR0bGVGaWVsZFJlc3BvbnNlEioKCHJvb21EYXRh",
+            "GAEgASgLMhguY29tLnZpb2xldC5ycGMuUm9vbURhdGESLgoKcGxheWVyTGlz",
+            "dBgCIAMoCzIaLmNvbS52aW9sZXQucnBjLlBsYXllckluZm8SKwoIY2hlc3NN",
+            "YXAYAyADKAsyGS5jb20udmlvbGV0LnJwYy5DaGVzc0RhdGESDwoHY291bnRl",
+            "chgEIAEoBRISCgpyb3VuZE9yZGVyGAUgASgFEhIKCnJlbWFpblRpbWUYBiAB",
+            "KAUiEgoQU3VycmVuZGVyUmVxdWVzdCIoChFTdXJyZW5kZXJSZXNwb25zZRIT",
+            "Cgtpc1N1cnJlbmRlchgBIAEoCCJTChZTZW5kQ2hhdE1lc3NhZ2VSZXF1ZXN0",
+            "Eg8KB3RvV2hlcmUYASABKAUSKAoDbXNnGAIgASgLMhsuY29tLnZpb2xldC5y",
+            "cGMuTWVzc2FnZURhdGEiGQoXU2VuZENoYXRNZXNzYWdlUmVzcG9uc2ViBnBy",
+            "b3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Com.Violet.Rpc.StructReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -75,7 +76,7 @@ namespace Com.Violet.Rpc {
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.GetRoomListResponse), global::Com.Violet.Rpc.GetRoomListResponse.Parser, new[]{ "RoomList" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterRoomRequest), global::Com.Violet.Rpc.EnterRoomRequest.Parser, new[]{ "RoomId", "Password" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterRoomResponse), global::Com.Violet.Rpc.EnterRoomResponse.Parser, new[]{ "PlayerList" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ReadyInRoomRequest), global::Com.Violet.Rpc.ReadyInRoomRequest.Parser, new[]{ "IsReady", "ChessMap" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ReadyInRoomRequest), global::Com.Violet.Rpc.ReadyInRoomRequest.Parser, new[]{ "IsReady", "ChessMap", "RoomId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ReadyInRoomResponse), global::Com.Violet.Rpc.ReadyInRoomResponse.Parser, new[]{ "IsChangeState" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.LeaveRoomRequest), global::Com.Violet.Rpc.LeaveRoomRequest.Parser, new[]{ "RoomId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.LeaveRoomResponse), global::Com.Violet.Rpc.LeaveRoomResponse.Parser, new[]{ "IsLeave" }, null, null, null),
@@ -1575,6 +1576,7 @@ namespace Com.Violet.Rpc {
     public ReadyInRoomRequest(ReadyInRoomRequest other) : this() {
       isReady_ = other.isReady_;
       chessMap_ = other.chessMap_.Clone();
+      roomId_ = other.roomId_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1603,6 +1605,17 @@ namespace Com.Violet.Rpc {
       get { return chessMap_; }
     }
 
+    /// <summary>Field number for the "roomId" field.</summary>
+    public const int RoomIdFieldNumber = 3;
+    private int roomId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int RoomId {
+      get { return roomId_; }
+      set {
+        roomId_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as ReadyInRoomRequest);
@@ -1618,6 +1631,7 @@ namespace Com.Violet.Rpc {
       }
       if (IsReady != other.IsReady) return false;
       if(!chessMap_.Equals(other.chessMap_)) return false;
+      if (RoomId != other.RoomId) return false;
       return true;
     }
 
@@ -1626,6 +1640,7 @@ namespace Com.Violet.Rpc {
       int hash = 1;
       if (IsReady != false) hash ^= IsReady.GetHashCode();
       hash ^= chessMap_.GetHashCode();
+      if (RoomId != 0) hash ^= RoomId.GetHashCode();
       return hash;
     }
 
@@ -1641,6 +1656,10 @@ namespace Com.Violet.Rpc {
         output.WriteBool(IsReady);
       }
       chessMap_.WriteTo(output, _repeated_chessMap_codec);
+      if (RoomId != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(RoomId);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1650,6 +1669,9 @@ namespace Com.Violet.Rpc {
         size += 1 + 1;
       }
       size += chessMap_.CalculateSize(_repeated_chessMap_codec);
+      if (RoomId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(RoomId);
+      }
       return size;
     }
 
@@ -1662,6 +1684,9 @@ namespace Com.Violet.Rpc {
         IsReady = other.IsReady;
       }
       chessMap_.Add(other.chessMap_);
+      if (other.RoomId != 0) {
+        RoomId = other.RoomId;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1678,6 +1703,10 @@ namespace Com.Violet.Rpc {
           }
           case 18: {
             chessMap_.AddEntriesFrom(input, _repeated_chessMap_codec);
+            break;
+          }
+          case 24: {
+            RoomId = input.ReadInt32();
             break;
           }
         }

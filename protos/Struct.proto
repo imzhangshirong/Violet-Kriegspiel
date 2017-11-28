@@ -22,7 +22,7 @@ message PlayerInfo{
   int32 level = 3;
   int32 zoneId = 4;
   int32 state = 5; //enum PlayerState
-  int32 gameRemainTime = 6; //倒计时时间，默认-1
+  int32 gameRemainTime = 6; //倒计时时间，默认-1 
   int32 roundOrder = 7; //当前的回合顺序
 }
 

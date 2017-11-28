@@ -59,6 +59,7 @@ message EnterRoomResponse{
 message ReadyInRoomRequest{
   bool isReady = 1;
   repeated ChessData chessMap = 2;
+  int32 roomId = 3;
 }
 
 message ReadyInRoomResponse{
