@@ -16,12 +16,23 @@ public class UIGamePanel : UIViewBase
     public GameObject m_ChatButton;
     public UIWChessPlayerState m_EnemyState;
     public UIWChessPlayerState m_MyselfState;
-
+    public UIWRoundState m_roundOver;
 
     public GameObject m_FireGameStart;
+    public GameObject m_ChatMsgInput;
+
+    public GameObject m_MyselfMsgShow;
+    public GameObject m_EnemyMsgShow;
+
 
     private bool m_MyChessIsMoving;
     private GameObject m_ChessHero;
+    static string[] MsgContent = {
+        "快点吧，等的我花都谢了",
+        "投降吧！我赢定了！",
+        "我看你这是在为难我胖虎:-)",
+        "Emmm...",
+    };
     public override void OnInit()
     {
         base.OnInit();
@@ -40,17 +51,25 @@ public class UIGamePanel : UIViewBase
         });
 
         BindEvent("_roundTimeUp", delegate (object content) {
-            NextGameRound();
+            //SkipRound();
         });
         BindEvent("_enemyRoundTimeUp", delegate (object content) {
-            NextGameRound();
+            //NextGameRound();
         });
 
         //注册响应Push事件
-        BindEvent("#NET_PlayerStateChage",OnReceivPlayerStateChage);
-        BindEvent("#NET_GameStateChage",OnReceivGameStateChage);
+        BindEvent("#NET_PlayerStateChange",OnReceivPlayerStateChange);
+        BindEvent("#NET_GameStateChange",OnReceivGameStateChange);
         BindEvent("#NET_ChessMove", OnReceiveChessMove);
-        BindEvent("#NET_ChatMessagePush", OnReceiveChatMsg);
+        BindEvent("#NET_ChatMessage", OnReceiveChatMsg);
+
+        //消息列表
+        BindEvent("_input_msg", delegate (object content) {
+            GameObject go = (GameObject)content;
+            NClickEvent eclick = go.GetComponent<NClickEvent>();
+            SendMsg(MsgContent[eclick.identify]);
+            m_ChatMsgInput.SetActive(false);
+        });
     }
 
     
@@ -59,16 +78,33 @@ public class UIGamePanel : UIViewBase
     {
         base.OnOpen(intent);
         Debuger.Log("GamePanel Open");
-        App.Package.ChessGame.AddChessFromData(App.Package.ChessGame.MyselfChessSetting);
 
-        App.Package.ChessGame.AddChessFromData(
-            App.Package.ChessGame.ParseChessDataFromString(ChessAgainst.DefaultUnknowChess,"0/0")
-        );
+        m_EnemyFied.transform.DestroyChildren();
+        m_MyselfFied.transform.DestroyChildren();
+
+        if (App.Package.ChessGame.IsGameStart)
+        {
+            //恢复之前的游戏
+            StartGameRound();
+        }
+        else
+        {
+            App.Package.ChessGame.AddChessFromData(App.Package.ChessGame.MyselfChessSetting);
+            App.Package.ChessGame.AddChessFromData(
+                App.Package.ChessGame.ParseChessDataFromString(ChessAgainst.DefaultUnknowChess, "0/0")
+            );
+            App.Package.Player.playerInfo.GameRemainTime = Config.Game.WaitingReady;
+        }
         UpdateChessMap();
-        App.Package.Player.playerInfo.GameRemainTime = Config.Game.WaitingReady;
-        m_MyselfState.UpdateState(App.Package.Player.playerInfo);
-        m_EnemyState.UpdateState(App.Package.ChessGame.EnemyPlayerList[0]);
+        UpdatePlayer();
 
+    }
+
+    public override void OnClose()
+    {
+        base.OnClose();
+        m_EnemyFied.transform.DestroyChildren();
+        m_MyselfFied.transform.DestroyChildren();
     }
 
     public void UpdateChessMap()
@@ -111,6 +147,11 @@ public class UIGamePanel : UIViewBase
             ChessHeroData place = App.Package.ChessGame.GetChessHeroDataById(placeUI.chessId);
             if (move.group == ChessHeroGroup.Myself && place.group == ChessHeroGroup.Myself) //只有自己的才可以拖拽
             {
+                if(move.heroTypeId == 1 && ChessAgainst.IsFirstRow(place.point))
+                {
+                    Common.UI.OpenTips("炸弹不可以放第一排哦！");
+                    return;
+                }
                 if((move.heroTypeId == 11 && !ChessAgainst.IsStronghold(place.point)) || (place.heroTypeId == 11 && !ChessAgainst.IsStronghold(move.point)))
                 {
                     Common.UI.OpenTips("军旗只能在大本营中哦！");
@@ -157,7 +198,39 @@ public class UIGamePanel : UIViewBase
                 ChessHeroData heroChoosed = App.Package.ChessGame.GetChessHeroDataById(App.Package.ChessGame.MyselfChooseChessId);
                 if (heroChoosed.group == ChessHeroGroup.Myself)
                 {
-                    RequestToMove(heroChoosed, point);
+                    if (ChessAgainst.IsStronghold(heroChoosed.point))
+                        Common.UI.OpenTips("大本营的棋子无法移动！");
+                    else
+                    {
+                        ChessMoveData moveData = ChessAgainst.ChessHeroCanMoveTo(heroChoosed, point);
+                        if (moveData.crashType > 0)
+                        {
+                            if(moveData.crashType == 1)
+                            {
+                                switch (moveData.crashHero.heroTypeId)
+                                {
+                                    case 0:
+                                        Common.UI.OpenTips("地雷无法移动！");
+                                        break;
+                                    case 11:
+                                        Common.UI.OpenTips("军旗无法移动！");
+                                        break;
+                                    default:
+                                        Common.UI.OpenTips("嗷！走不过去啊！");
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                Common.UI.OpenTips("嗷！走不过去啊！");
+                            }
+                        }
+                        else
+                        {
+                            RequestToMove(heroChoosed, point,null, moveData);
+                        }
+                        
+                    }
                 }
             }
         }
@@ -169,7 +242,7 @@ public class UIGamePanel : UIViewBase
             }
             else
             {
-                Common.UI.OpenTips("赶紧布兵吧！你还没有准备呢");
+                Common.UI.OpenTips("赶紧布兵吧！你还没有准备呢\n长按拖动可以交换棋子！");
             }
         }
     }
@@ -238,24 +311,60 @@ public class UIGamePanel : UIViewBase
                     uiChess.willTie.SetActive(false);
                 }
             }
-
-            ChessHeroData heroChoosed = App.Package.ChessGame.GetChessHeroDataById(App.Package.ChessGame.MyselfChooseChessId);
+            
+                
             if (App.Package.ChessGame.MyselfChooseChessId > -1)
             {
+                ChessHeroData heroChoosed = App.Package.ChessGame.GetChessHeroDataById(App.Package.ChessGame.MyselfChooseChessId);
                 if (heroChoosed.group == ChessHeroGroup.Myself && group != ChessHeroGroup.Myself)//之前有选择自己,当前非己方的棋
                 {
                     if (App.Package.ChessGame.IsGameStart)//游戏开始了之后才能走并吃子
                     {
-                        if (ChessAgainst.IsBarrack(hero.point))
+                        Debuger.Log(hero.point);
+                        if (ChessAgainst.IsBarrack(hero.point) && hero.point.y>5)//敌方的军营
                         {
                             Common.UI.OpenTips("敌军在行营里，不要浪啊~");
                         }
                         else
                         {
-                            RequestToMove(heroChoosed, hero.point, hero);
+                            if (ChessAgainst.IsStronghold(heroChoosed.point))
+                            {
+                                Common.UI.OpenTips("大本营的棋子无法移动！");
+                            }
+                            else
+                            {
+                                ChessMoveData moveData = ChessAgainst.ChessHeroCanMoveTo(heroChoosed, hero.point);
+                                if (moveData.crashType > 0)
+                                {
+                                    if (moveData.crashType == 1)
+                                    {
+                                        switch (moveData.crashHero.heroTypeId)
+                                        {
+                                            case 0:
+                                                Common.UI.OpenTips("地雷无法移动！");
+                                                break;
+                                            case 11:
+                                                Common.UI.OpenTips("军旗无法移动！");
+                                                break;
+                                            default:
+                                                Common.UI.OpenTips("嗷！走不过去啊！");
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Common.UI.OpenTips("嗷！走不过去啊！");
+                                    }
+                                }
+                                else
+                                {
+                                    RequestToMove(heroChoosed, hero.point, hero, moveData);
+                                }
+                            }
                         }
                     }
                 }
+                
             }
             App.Package.ChessGame.MyselfChooseChessId = id;
         }
@@ -267,7 +376,7 @@ public class UIGamePanel : UIViewBase
             }
             else
             {
-                Common.UI.OpenTips("赶紧布兵吧！你还没有准备呢");
+                Common.UI.OpenTips("赶紧布兵吧！你还没有准备呢\n长按拖动可以交换棋子！");
             }
             
         }
@@ -289,7 +398,7 @@ public class UIGamePanel : UIViewBase
         hero.gameObject.transform.localPosition = GetChessLocalPosition(hero.point);
     }
 
-    void RequestToMove(ChessHeroData heroChoosed, ChessPoint moveToPoint, ChessHeroData hero = null) {
+    void RequestToMove(ChessHeroData heroChoosed, ChessPoint moveToPoint, ChessHeroData hero, ChessMoveData moveData) {
         m_MyChessIsMoving = true;
         MoveChessRequest request = new MoveChessRequest();
         request.Source = ChessHeroDataToChessData(App.Package.Player.playerInfo, heroChoosed);
@@ -307,13 +416,15 @@ public class UIGamePanel : UIViewBase
         App.Manager.Network.Request("MoveChess", request, delegate (IMessage responseData) {
             MoveChessResponse response = (MoveChessResponse)responseData;
             int result = response.ChessMoveResult;
+            //强制回合同步
+            App.Package.ChessGame.GameRoundCounter = response.Counter - 1;
             if (hero == null)
             {
-                StartCoroutine(TweenMoveChess(heroChoosed, moveToPoint,(ChessMoveResult)result));
+                StartCoroutine(TweenMoveChess(heroChoosed, moveToPoint,(ChessMoveResult)result, moveData));
             }
             else
             {
-                StartCoroutine(TweenMoveChessAndBeat(heroChoosed, hero, (ChessMoveResult)result));
+                StartCoroutine(TweenMoveChessAndBeat(heroChoosed, hero, (ChessMoveResult)result, moveData));
             }
             if (response.Counter == App.Package.ChessGame.GameRoundCounter + 1)
             {
@@ -338,54 +449,86 @@ public class UIGamePanel : UIViewBase
         return chessData;
     }
 
+    void SkipRound()
+    {
+        MoveChessRequest request = new MoveChessRequest();
+        request.Source = new ChessData();
+        request.Source.ChessRemoteId = -1;
+        App.Manager.Network.Request("MoveChess", request, delegate (IMessage responseData) {
+            MoveChessResponse response = (MoveChessResponse)responseData;
+            //强制同步
+            App.Package.ChessGame.GameRoundCounter = response.Counter - 1;
+            if (response.Counter == App.Package.ChessGame.GameRoundCounter + 1)
+            {
+                NextGameRound();
+            }
+            else
+            {
+                ChessDataHasProblem();
+            }
+        }, true, false, false);
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="chessData"></param>
+    /// <param name="forceTrans">是否强制坐标转换</param>
+    /// <returns></returns>
+    ChessHeroData ChessDataToChessHeroData(ChessData chessData,bool forceTrans = false)
+    {
+        ChessHeroData chess = new ChessHeroData();
+        
+        chess.group = App.Package.ChessGame.GetGroup(chessData.Belong);
+        chess.heroTypeId = chessData.ChessType;
+        chess.realChessType = chess.heroTypeId;
+        chess.remoteId = chessData.ChessRemoteId;
+        chess.point = new ChessPoint(chessData.Point.X,chessData.Point.Y);
+        chess.belong = chessData.Belong;
+        if (chess.group != ChessHeroGroup.Myself || forceTrans)
+        {
+            chess.point.x = 4 - chess.point.x;
+            chess.point.y = 11 - chess.point.y;
+        }
+        return chess;
+    }
+
     void ForceExitGame()
     {
-        Common.UI.BackPage();
-        Common.UI.BackPage();
+        Common.UI.BackPage("UILobbyPanel");
     }
 
     void ChessDataHasProblem()
     {
+        Debuger.Error("ChessDataErro!!!! counter:"+App.Package.ChessGame.GameRoundCounter);
         Common.UI.OpenAlert("错误", "数据异常！", "确定", delegate () {
             ForceExitGame();
         });
     }
 
-    IEnumerator TweenMoveChess(ChessHeroData heroChoosed, ChessPoint moveToPoint,ChessMoveResult result)
+    IEnumerator TweenMoveChess(ChessHeroData heroChoosed, ChessPoint moveToPoint,ChessMoveResult result,ChessMoveData moveData)
     {
         m_MyChessIsMoving = true;
-        ChessMoveData moveData = ChessAgainst.ChessHeroCanMoveTo(heroChoosed, moveToPoint);
         //if((ChessMoveResult.CANNOT_MOVE == result && moveData.crashType > 0) || (ChessMoveResult.CAN_MOVE == result && moveData.crashType == 0))
-        {
-            if (moveData.crashType > 0)
+        //{
+            float dur = 0.2f / moveData.points.Length;
+            for (int i = 0; i < moveData.points.Length; i++)
             {
-                Common.UI.OpenTips("嗷！走不过去啊！");
-                Debuger.Warn("ChessHeroItem Cant MoveTo " + moveToPoint.ToString() + " : " + moveData.crashType);
-            }
-            else
-            {
-                float dur = 0.2f / moveData.points.Length;
-                for (int i = 0; i < moveData.points.Length; i++)
-                {
-                    ChessMoveTo(heroChoosed, moveData.points[i]);
-                    yield return new WaitForSeconds(dur);
+                ChessMoveTo(heroChoosed, moveData.points[i]);
+                yield return new WaitForSeconds(dur);
 
-                }
-                heroChoosed.point = moveToPoint;
-                Debuger.Warn("ChessHeroItem MoveTo " + moveToPoint.ToString());
             }
+            heroChoosed.point = moveToPoint;
             m_MyChessIsMoving = false;
-        }
+        //}
         /*else
         {
             ChessDataHasProblem();
         }*/
     }
 
-    IEnumerator TweenMoveChessAndBeat(ChessHeroData heroChoosed, ChessHeroData hero, ChessMoveResult resultR)
+    IEnumerator TweenMoveChessAndBeat(ChessHeroData heroChoosed, ChessHeroData hero, ChessMoveResult resultR, ChessMoveData moveData)
     {
         m_MyChessIsMoving = true;
-        ChessMoveData moveData = ChessAgainst.ChessHeroCanMoveTo(heroChoosed, hero.point);
         if((resultR == ChessMoveResult.CANNOT_MOVE && moveData.crashType <= 0) || (resultR == ChessMoveResult.CAN_MOVE && moveData.crashType > 0))
         {
             ChessDataHasProblem();
@@ -436,8 +579,34 @@ public class UIGamePanel : UIViewBase
                 {
                     //App.Package.ChessGame.MyselfChooseChessId = -1;
                 }
-                App.Package.ChessGame.MyselfChooseChessId = -1;
-                Debuger.Warn("ChessHeroItem MoveToBeat " + hero.point.ToString() + " Beat:" + result);
+                int cid = -1;
+                bool resultS;
+                if(heroChoosed.group == ChessHeroGroup.Myself)
+                {
+                    cid = heroChoosed.realChessType;
+                    resultS = result == ChessMoveResult.WIN;
+                    if (cid > 0 && cid < 11 && cid != 1)
+                    {
+                        m_roundOver.SetState(cid, resultS);
+                    }
+                }
+                else
+                {
+                    cid = hero.realChessType;
+                    resultS = result != ChessMoveResult.WIN;
+                    if (cid > 0 && cid < 11 && cid != 1)
+                    {
+                        if(cid == heroChoosed.realChessType || heroChoosed.realChessType == 1)//同归于尽
+                        {
+                            m_roundOver.SetState(cid, false);
+                        }
+                        else
+                            m_roundOver.SetState(cid, resultS);
+                    }
+                }
+                
+                App.Package.ChessGame.MyselfChooseChessId = heroChoosed.id;
+                Push("_chessHeroChoosed", heroChoosed.id);
                 m_MyChessIsMoving = false;
             }
         }
@@ -530,11 +699,11 @@ public class UIGamePanel : UIViewBase
 
     void StartGameRound()
     {
-        App.Package.ChessGame.GameRoundCounter = -1;
+        App.Package.ChessGame.GameRoundCounter--;
         NextGameRound();
     }
 
-    void NextGameRound()
+    void NextGameRound(int roundTime = 0)
     {
         App.Package.ChessGame.GameRoundCounter++;
         int cur = App.Package.ChessGame.GameRoundCounter % App.Package.ChessGame.AllPlayerList.Count;
@@ -546,7 +715,10 @@ public class UIGamePanel : UIViewBase
             }
             else
             {
-                App.Package.ChessGame.AllPlayerList[i].GameRemainTime = Config.Game.WaitingRound;
+                if (App.Package.ChessGame.AllPlayerList[i].GameRemainTime == 0)
+                {
+                    App.Package.ChessGame.AllPlayerList[i].GameRemainTime = (roundTime == 0) ? Config.Game.WaitingRound : roundTime;
+                }
             }
         }
         UpdatePlayer();
@@ -562,10 +734,24 @@ public class UIGamePanel : UIViewBase
     IEnumerator HideFireState(){
         yield return new WaitForSeconds(1.5f);
         m_FireGameStart.SetActive(false);
+        Common.UI.OpenTips("赶紧布兵吧！长按拖动可以交换棋子！");
     }
 
     void GameEnd(bool result){
-
+        if (result)
+        {
+            Common.UI.OpenAlert("胜利", "恭喜！你赢了", "确定", () => {
+                ForceExitGame();
+            });
+            AudioSource.PlayClipAtPoint(App.Manager.Resource.Load<AudioClip>("Sound/round_win"),Vector3.zero);
+        }
+        else
+        {
+            Common.UI.OpenAlert("失败", "对面可真强。。。啊", "确定", () => {
+                ForceExitGame();
+            });
+            AudioSource.PlayClipAtPoint(App.Manager.Resource.Load<AudioClip>("Sound/round_lose"), Vector3.zero);
+        }
     }
 
     /// <summary>
@@ -591,12 +777,54 @@ public class UIGamePanel : UIViewBase
         });
     }
 
+    void ShowMsg(MessageData msg)
+    {
+        GameObject goShow;
+        if(msg.UserId == App.Package.Player.playerInfo.UserId && msg.ZoneId == App.Package.Player.playerInfo.ZoneId)
+        {
+            goShow = m_MyselfMsgShow;
+        }
+        else
+        {
+            goShow = m_EnemyMsgShow;
+        }
+        goShow.transform.Find("Label").GetComponent<UILabel>().text = msg.Content;
+        goShow.SetActive(true);
+        TweenAlpha eff = goShow.GetComponent<TweenAlpha>();
+        eff.StopAllCoroutines();
+        eff.ResetToBeginning();
+        eff.PlayForward();
+        eff.StartCoroutine(HideMsg(goShow,eff));
+    }
+
+    IEnumerator HideMsg(GameObject msgShow, TweenAlpha eff)
+    {
+        yield return new WaitForSeconds(2.7f);
+        eff.PlayReverse();
+        yield return new WaitForSeconds(0.3f);
+        msgShow.SetActive(false);
+    }
+
+    void SendMsg(string msg)
+    {
+        SendChatMessageRequest request = new SendChatMessageRequest();
+        request.Msg = new MessageData();
+        request.Msg.Content = msg;
+        request.Msg.UserId = App.Package.Player.playerInfo.UserId;
+        request.Msg.UserName = App.Package.Player.playerInfo.UserName;
+        request.Msg.Level = App.Package.Player.playerInfo.Level;
+        request.Msg.ZoneId = App.Package.Player.playerInfo.ZoneId;
+        App.Manager.Network.Request("SendChatMessage", request, delegate (IMessage responseData) {
+            SendChatMessageResponse response = (SendChatMessageResponse)responseData;
+        },true,false,false);
+    }
+
     /// <summary>
     /// 聊天语句选择
     /// </summary>
     public void OnChatClick()
     {
-        Common.UI.OpenAlert("提示", "暂未开启，敬请期待！","好的",null);
+        m_ChatMsgInput.SetActive(true);
     }
     /// <summary>
     /// 投降
@@ -605,15 +833,25 @@ public class UIGamePanel : UIViewBase
     {
         Common.UI.OpenAlert("提示", "游戏还在继续，确认投降吗？",
             "确认", delegate (){
-                Debuger.Log(1111);
+
+                ConfirmSurrender();
             },
-            "不服", delegate () {
-                Debuger.Log(222);
-            });
+            "不服", null);
     }
 
 
-
+    void ConfirmSurrender()
+    {
+        SurrenderRequest request = new SurrenderRequest();
+        App.Manager.Network.Request("Surrender", request, delegate (IMessage responseData) {
+            SurrenderResponse response = (SurrenderResponse)responseData;
+            if (response.IsSurrender)
+            {
+                Common.UI.OpenTips("发起投降");
+            }
+            
+        });
+    }
     
 
     /// <summary>
@@ -621,14 +859,67 @@ public class UIGamePanel : UIViewBase
     /// </summary>
     void OnReceiveChatMsg(object data)
     {
-
+        ChatMessagePush push = (ChatMessagePush)data;
+        ShowMsg(push.Msg);
     }
     /// <summary>
     /// 走子情况
     /// </summary>
     void OnReceiveChessMove(object data)
     {
+        ChessMovePush push = (ChessMovePush)data;
+        ChessData source = push.Source;
+        ChessData target = push.Target;
+        ChessMoveResult result = (ChessMoveResult)push.ChessMoveResult;
+        ChessHeroData sourceReal = App.Package.ChessGame.GetChessHeroDataByRemoteId(source.ChessRemoteId);
+        //强制回合同步
+        App.Package.ChessGame.GameRoundCounter = push.Counter - 1;
+        if(target!=null){
+            ChessHeroData targetReal = App.Package.ChessGame.GetChessHeroDataByRemoteId(target.ChessRemoteId);
+            
+            if (sourceReal==null || (targetReal==null && result != ChessMoveResult.CAN_MOVE && result != ChessMoveResult.CANNOT_MOVE) || push.Counter != App.Package.ChessGame.GameRoundCounter+1)
+            {
+                ChessDataHasProblem();
+                return;
+            }
+            ChessHeroData fake = ChessDataToChessHeroData(target, true);
+            if (targetReal != null)
+            {
+                fake = targetReal;
+            }
+            ChessMoveData moveData = ChessAgainst.ChessHeroCanMoveTo(sourceReal, fake.point);
+            switch (result)
+            {
+                case ChessMoveResult.LOSE:
+                    fake.heroTypeId = 12;
+                    StartCoroutine(TweenMoveChessAndBeat(sourceReal, fake, result, moveData));
+                    NextGameRound();
+                    break;
+                case ChessMoveResult.WIN:
+                    fake.heroTypeId = -2;
+                    StartCoroutine(TweenMoveChessAndBeat(sourceReal, fake, result, moveData));
+                    NextGameRound();
+                    break;
+                case ChessMoveResult.TIE:
+                    fake.heroTypeId = -3;
+                    StartCoroutine(TweenMoveChessAndBeat(sourceReal, fake, result, moveData));
+                    NextGameRound();
+                    break;
+                case ChessMoveResult.CAN_MOVE:
+                    StartCoroutine(TweenMoveChess(sourceReal, fake.point, result, moveData));
+                    NextGameRound();
+                    break;
+                case ChessMoveResult.CANNOT_MOVE:
+                    break;
 
+            }
+        }
+        else{
+            NextGameRound();
+            Debuger.Error("skip");
+        }
+        
+        
     }
     /// <summary>
     /// 同步棋盘和比赛信息，在网络不稳定或者重连的时候触发
@@ -638,9 +929,9 @@ public class UIGamePanel : UIViewBase
 
     }
 
-    void OnReceivPlayerStateChage(object data)
+    void OnReceivPlayerStateChange(object data)
     {
-        PlayerStateChagePush push = (PlayerStateChagePush)data;
+        PlayerStateChangePush push = (PlayerStateChangePush)data;
         Debuger.Log(push.PlayerInfo.UserName + (PlayerState)push.PlayerInfo.State);
         for (int i=0;i< App.Package.ChessGame.EnemyPlayerList.Count; i++)
         {
@@ -655,9 +946,9 @@ public class UIGamePanel : UIViewBase
         UpdatePlayer(ChessHeroGroup.Enemy);
         
     }
-    void OnReceivGameStateChage(object data)
+    void OnReceivGameStateChange(object data)
     {
-        GameStateChagePush push = (GameStateChagePush) data;
+        GameStateChangePush push = (GameStateChangePush) data;
 
         switch((GameState)push.State){
             case GameState.READYING:{

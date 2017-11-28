@@ -15,8 +15,8 @@ var Struct_pb = require('./Struct_pb.js');
 goog.exportSymbol('proto.com.violet.rpc.ChatMessagePush', null, global);
 goog.exportSymbol('proto.com.violet.rpc.ChessMovePush', null, global);
 goog.exportSymbol('proto.com.violet.rpc.EnterBattleFieldPush', null, global);
-goog.exportSymbol('proto.com.violet.rpc.GameStateChagePush', null, global);
-goog.exportSymbol('proto.com.violet.rpc.PlayerStateChagePush', null, global);
+goog.exportSymbol('proto.com.violet.rpc.GameStateChangePush', null, global);
+goog.exportSymbol('proto.com.violet.rpc.PlayerStateChangePush', null, global);
 goog.exportSymbol('proto.com.violet.rpc.RoomStateChangePush', null, global);
 
 /**
@@ -465,12 +465,12 @@ proto.com.violet.rpc.EnterBattleFieldPush.prototype.setRoomid = function(value) 
  * @extends {jspb.Message}
  * @constructor
  */
-proto.com.violet.rpc.PlayerStateChagePush = function(opt_data) {
+proto.com.violet.rpc.PlayerStateChangePush = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.com.violet.rpc.PlayerStateChagePush, jspb.Message);
+goog.inherits(proto.com.violet.rpc.PlayerStateChangePush, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.com.violet.rpc.PlayerStateChagePush.displayName = 'proto.com.violet.rpc.PlayerStateChagePush';
+  proto.com.violet.rpc.PlayerStateChangePush.displayName = 'proto.com.violet.rpc.PlayerStateChangePush';
 }
 
 
@@ -485,8 +485,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.com.violet.rpc.PlayerStateChagePush.prototype.toObject = function(opt_includeInstance) {
-  return proto.com.violet.rpc.PlayerStateChagePush.toObject(opt_includeInstance, this);
+proto.com.violet.rpc.PlayerStateChangePush.prototype.toObject = function(opt_includeInstance) {
+  return proto.com.violet.rpc.PlayerStateChangePush.toObject(opt_includeInstance, this);
 };
 
 
@@ -495,11 +495,11 @@ proto.com.violet.rpc.PlayerStateChagePush.prototype.toObject = function(opt_incl
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.com.violet.rpc.PlayerStateChagePush} msg The msg instance to transform.
+ * @param {!proto.com.violet.rpc.PlayerStateChangePush} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.com.violet.rpc.PlayerStateChagePush.toObject = function(includeInstance, msg) {
+proto.com.violet.rpc.PlayerStateChangePush.toObject = function(includeInstance, msg) {
   var f, obj = {
     playerinfo: (f = msg.getPlayerinfo()) && Struct_pb.PlayerInfo.toObject(includeInstance, f)
   };
@@ -515,23 +515,23 @@ proto.com.violet.rpc.PlayerStateChagePush.toObject = function(includeInstance, m
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.com.violet.rpc.PlayerStateChagePush}
+ * @return {!proto.com.violet.rpc.PlayerStateChangePush}
  */
-proto.com.violet.rpc.PlayerStateChagePush.deserializeBinary = function(bytes) {
+proto.com.violet.rpc.PlayerStateChangePush.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.com.violet.rpc.PlayerStateChagePush;
-  return proto.com.violet.rpc.PlayerStateChagePush.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.com.violet.rpc.PlayerStateChangePush;
+  return proto.com.violet.rpc.PlayerStateChangePush.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.com.violet.rpc.PlayerStateChagePush} msg The message object to deserialize into.
+ * @param {!proto.com.violet.rpc.PlayerStateChangePush} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.com.violet.rpc.PlayerStateChagePush}
+ * @return {!proto.com.violet.rpc.PlayerStateChangePush}
  */
-proto.com.violet.rpc.PlayerStateChagePush.deserializeBinaryFromReader = function(msg, reader) {
+proto.com.violet.rpc.PlayerStateChangePush.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -556,9 +556,9 @@ proto.com.violet.rpc.PlayerStateChagePush.deserializeBinaryFromReader = function
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.com.violet.rpc.PlayerStateChagePush.prototype.serializeBinary = function() {
+proto.com.violet.rpc.PlayerStateChangePush.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.com.violet.rpc.PlayerStateChagePush.serializeBinaryToWriter(this, writer);
+  proto.com.violet.rpc.PlayerStateChangePush.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -566,11 +566,11 @@ proto.com.violet.rpc.PlayerStateChagePush.prototype.serializeBinary = function()
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.com.violet.rpc.PlayerStateChagePush} message
+ * @param {!proto.com.violet.rpc.PlayerStateChangePush} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.com.violet.rpc.PlayerStateChagePush.serializeBinaryToWriter = function(message, writer) {
+proto.com.violet.rpc.PlayerStateChangePush.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getPlayerinfo();
   if (f != null) {
@@ -587,19 +587,19 @@ proto.com.violet.rpc.PlayerStateChagePush.serializeBinaryToWriter = function(mes
  * optional PlayerInfo playerInfo = 1;
  * @return {?proto.com.violet.rpc.PlayerInfo}
  */
-proto.com.violet.rpc.PlayerStateChagePush.prototype.getPlayerinfo = function() {
+proto.com.violet.rpc.PlayerStateChangePush.prototype.getPlayerinfo = function() {
   return /** @type{?proto.com.violet.rpc.PlayerInfo} */ (
     jspb.Message.getWrapperField(this, Struct_pb.PlayerInfo, 1));
 };
 
 
 /** @param {?proto.com.violet.rpc.PlayerInfo|undefined} value */
-proto.com.violet.rpc.PlayerStateChagePush.prototype.setPlayerinfo = function(value) {
+proto.com.violet.rpc.PlayerStateChangePush.prototype.setPlayerinfo = function(value) {
   jspb.Message.setWrapperField(this, 1, value);
 };
 
 
-proto.com.violet.rpc.PlayerStateChagePush.prototype.clearPlayerinfo = function() {
+proto.com.violet.rpc.PlayerStateChangePush.prototype.clearPlayerinfo = function() {
   this.setPlayerinfo(undefined);
 };
 
@@ -608,7 +608,7 @@ proto.com.violet.rpc.PlayerStateChagePush.prototype.clearPlayerinfo = function()
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.com.violet.rpc.PlayerStateChagePush.prototype.hasPlayerinfo = function() {
+proto.com.violet.rpc.PlayerStateChangePush.prototype.hasPlayerinfo = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
@@ -624,19 +624,19 @@ proto.com.violet.rpc.PlayerStateChagePush.prototype.hasPlayerinfo = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.com.violet.rpc.GameStateChagePush = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.com.violet.rpc.GameStateChagePush.repeatedFields_, null);
+proto.com.violet.rpc.GameStateChangePush = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.com.violet.rpc.GameStateChangePush.repeatedFields_, null);
 };
-goog.inherits(proto.com.violet.rpc.GameStateChagePush, jspb.Message);
+goog.inherits(proto.com.violet.rpc.GameStateChangePush, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.com.violet.rpc.GameStateChagePush.displayName = 'proto.com.violet.rpc.GameStateChagePush';
+  proto.com.violet.rpc.GameStateChangePush.displayName = 'proto.com.violet.rpc.GameStateChangePush';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.com.violet.rpc.GameStateChagePush.repeatedFields_ = [3];
+proto.com.violet.rpc.GameStateChangePush.repeatedFields_ = [3];
 
 
 
@@ -651,8 +651,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.com.violet.rpc.GameStateChagePush.prototype.toObject = function(opt_includeInstance) {
-  return proto.com.violet.rpc.GameStateChagePush.toObject(opt_includeInstance, this);
+proto.com.violet.rpc.GameStateChangePush.prototype.toObject = function(opt_includeInstance) {
+  return proto.com.violet.rpc.GameStateChangePush.toObject(opt_includeInstance, this);
 };
 
 
@@ -661,11 +661,11 @@ proto.com.violet.rpc.GameStateChagePush.prototype.toObject = function(opt_includ
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.com.violet.rpc.GameStateChagePush} msg The msg instance to transform.
+ * @param {!proto.com.violet.rpc.GameStateChangePush} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.com.violet.rpc.GameStateChagePush.toObject = function(includeInstance, msg) {
+proto.com.violet.rpc.GameStateChangePush.toObject = function(includeInstance, msg) {
   var f, obj = {
     state: jspb.Message.getFieldWithDefault(msg, 1, 0),
     result: jspb.Message.getFieldWithDefault(msg, 2, 0),
@@ -685,23 +685,23 @@ proto.com.violet.rpc.GameStateChagePush.toObject = function(includeInstance, msg
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.com.violet.rpc.GameStateChagePush}
+ * @return {!proto.com.violet.rpc.GameStateChangePush}
  */
-proto.com.violet.rpc.GameStateChagePush.deserializeBinary = function(bytes) {
+proto.com.violet.rpc.GameStateChangePush.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.com.violet.rpc.GameStateChagePush;
-  return proto.com.violet.rpc.GameStateChagePush.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.com.violet.rpc.GameStateChangePush;
+  return proto.com.violet.rpc.GameStateChangePush.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.com.violet.rpc.GameStateChagePush} msg The message object to deserialize into.
+ * @param {!proto.com.violet.rpc.GameStateChangePush} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.com.violet.rpc.GameStateChagePush}
+ * @return {!proto.com.violet.rpc.GameStateChangePush}
  */
-proto.com.violet.rpc.GameStateChagePush.deserializeBinaryFromReader = function(msg, reader) {
+proto.com.violet.rpc.GameStateChangePush.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -738,9 +738,9 @@ proto.com.violet.rpc.GameStateChagePush.deserializeBinaryFromReader = function(m
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.com.violet.rpc.GameStateChagePush.prototype.serializeBinary = function() {
+proto.com.violet.rpc.GameStateChangePush.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.com.violet.rpc.GameStateChagePush.serializeBinaryToWriter(this, writer);
+  proto.com.violet.rpc.GameStateChangePush.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -748,11 +748,11 @@ proto.com.violet.rpc.GameStateChagePush.prototype.serializeBinary = function() {
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.com.violet.rpc.GameStateChagePush} message
+ * @param {!proto.com.violet.rpc.GameStateChangePush} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.com.violet.rpc.GameStateChagePush.serializeBinaryToWriter = function(message, writer) {
+proto.com.violet.rpc.GameStateChangePush.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getState();
   if (f !== 0) {
@@ -790,13 +790,13 @@ proto.com.violet.rpc.GameStateChagePush.serializeBinaryToWriter = function(messa
  * optional int32 state = 1;
  * @return {number}
  */
-proto.com.violet.rpc.GameStateChagePush.prototype.getState = function() {
+proto.com.violet.rpc.GameStateChangePush.prototype.getState = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
 /** @param {number} value */
-proto.com.violet.rpc.GameStateChagePush.prototype.setState = function(value) {
+proto.com.violet.rpc.GameStateChangePush.prototype.setState = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -805,13 +805,13 @@ proto.com.violet.rpc.GameStateChagePush.prototype.setState = function(value) {
  * optional int32 result = 2;
  * @return {number}
  */
-proto.com.violet.rpc.GameStateChagePush.prototype.getResult = function() {
+proto.com.violet.rpc.GameStateChangePush.prototype.getResult = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /** @param {number} value */
-proto.com.violet.rpc.GameStateChagePush.prototype.setResult = function(value) {
+proto.com.violet.rpc.GameStateChangePush.prototype.setResult = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -820,14 +820,14 @@ proto.com.violet.rpc.GameStateChagePush.prototype.setResult = function(value) {
  * repeated ChessData chessMap = 3;
  * @return {!Array.<!proto.com.violet.rpc.ChessData>}
  */
-proto.com.violet.rpc.GameStateChagePush.prototype.getChessmapList = function() {
+proto.com.violet.rpc.GameStateChangePush.prototype.getChessmapList = function() {
   return /** @type{!Array.<!proto.com.violet.rpc.ChessData>} */ (
     jspb.Message.getRepeatedWrapperField(this, Struct_pb.ChessData, 3));
 };
 
 
 /** @param {!Array.<!proto.com.violet.rpc.ChessData>} value */
-proto.com.violet.rpc.GameStateChagePush.prototype.setChessmapList = function(value) {
+proto.com.violet.rpc.GameStateChangePush.prototype.setChessmapList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 3, value);
 };
 
@@ -837,12 +837,12 @@ proto.com.violet.rpc.GameStateChagePush.prototype.setChessmapList = function(val
  * @param {number=} opt_index
  * @return {!proto.com.violet.rpc.ChessData}
  */
-proto.com.violet.rpc.GameStateChagePush.prototype.addChessmap = function(opt_value, opt_index) {
+proto.com.violet.rpc.GameStateChangePush.prototype.addChessmap = function(opt_value, opt_index) {
   return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.com.violet.rpc.ChessData, opt_index);
 };
 
 
-proto.com.violet.rpc.GameStateChagePush.prototype.clearChessmapList = function() {
+proto.com.violet.rpc.GameStateChangePush.prototype.clearChessmapList = function() {
   this.setChessmapList([]);
 };
 
@@ -851,13 +851,13 @@ proto.com.violet.rpc.GameStateChagePush.prototype.clearChessmapList = function()
  * optional int32 counter = 4;
  * @return {number}
  */
-proto.com.violet.rpc.GameStateChagePush.prototype.getCounter = function() {
+proto.com.violet.rpc.GameStateChangePush.prototype.getCounter = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /** @param {number} value */
-proto.com.violet.rpc.GameStateChagePush.prototype.setCounter = function(value) {
+proto.com.violet.rpc.GameStateChangePush.prototype.setCounter = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
@@ -912,7 +912,8 @@ proto.com.violet.rpc.ChessMovePush.toObject = function(includeInstance, msg) {
     source: (f = msg.getSource()) && Struct_pb.ChessData.toObject(includeInstance, f),
     target: (f = msg.getTarget()) && Struct_pb.ChessData.toObject(includeInstance, f),
     chessmoveresult: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    counter: jspb.Message.getFieldWithDefault(msg, 4, 0)
+    counter: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    operator: (f = msg.getOperator()) && Struct_pb.PlayerInfo.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -966,6 +967,11 @@ proto.com.violet.rpc.ChessMovePush.deserializeBinaryFromReader = function(msg, r
     case 4:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setCounter(value);
+      break;
+    case 5:
+      var value = new Struct_pb.PlayerInfo;
+      reader.readMessage(value,Struct_pb.PlayerInfo.deserializeBinaryFromReader);
+      msg.setOperator(value);
       break;
     default:
       reader.skipField();
@@ -1024,6 +1030,14 @@ proto.com.violet.rpc.ChessMovePush.serializeBinaryToWriter = function(message, w
     writer.writeInt32(
       4,
       f
+    );
+  }
+  f = message.getOperator();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      Struct_pb.PlayerInfo.serializeBinaryToWriter
     );
   }
 };
@@ -1116,6 +1130,36 @@ proto.com.violet.rpc.ChessMovePush.prototype.getCounter = function() {
 /** @param {number} value */
 proto.com.violet.rpc.ChessMovePush.prototype.setCounter = function(value) {
   jspb.Message.setField(this, 4, value);
+};
+
+
+/**
+ * optional PlayerInfo operator = 5;
+ * @return {?proto.com.violet.rpc.PlayerInfo}
+ */
+proto.com.violet.rpc.ChessMovePush.prototype.getOperator = function() {
+  return /** @type{?proto.com.violet.rpc.PlayerInfo} */ (
+    jspb.Message.getWrapperField(this, Struct_pb.PlayerInfo, 5));
+};
+
+
+/** @param {?proto.com.violet.rpc.PlayerInfo|undefined} value */
+proto.com.violet.rpc.ChessMovePush.prototype.setOperator = function(value) {
+  jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+proto.com.violet.rpc.ChessMovePush.prototype.clearOperator = function() {
+  this.setOperator(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.com.violet.rpc.ChessMovePush.prototype.hasOperator = function() {
+  return jspb.Message.getField(this, 5) != null;
 };
 
 

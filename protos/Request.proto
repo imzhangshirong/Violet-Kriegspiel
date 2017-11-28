@@ -93,10 +93,12 @@ message BattleMapRequest{//请求整个棋盘的数据
 
 message BattleMapResponse{
   repeated ChessData chessMap = 1; //棋子布局数据
-  int32 counter = 2; //计数器
+  repeated PlayerInfo playerList = 2;
+  int32 counter = 3; //计数器
 }
 
-message CheckGameStateRequest{
+
+message CheckGameStateRequest{//检测是否在游戏房间内
 
 }
 
@@ -104,17 +106,14 @@ message CheckGameStateResponse{
   string roomToken = 1;//用于断线重连直接进入房间
 }
 
-message EnterBattleFieldRequest{
+message EnterBattleFieldRequest{//通过房间Token进入指定房间
   string roomToken = 1;
 }
 
 message EnterBattleFieldResponse{
-  RoomData roomData = 1;
+  repeated ChessData chessMap = 1; //棋子布局数据
   repeated PlayerInfo playerList = 2;
-  repeated ChessData chessMap = 3; //棋子布局数据
-  int32 counter = 4; //计数器
-  int32 roundOrder = 5;//我方回合顺序位置，从0开始
-  int32 remainTime = 6;//倒计时
+  int32 counter = 3; //计数器
 }
 
 message SurrenderRequest{

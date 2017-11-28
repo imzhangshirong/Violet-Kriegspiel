@@ -14,12 +14,12 @@ message EnterBattleFieldPush{
   int32 roomId = 4;
 }
 
-message PlayerStateChagePush{//敌人状态改变
+message PlayerStateChangePush{//敌人状态改变
   PlayerInfo playerInfo = 1;
   
 }
 
-message GameStateChagePush{//游戏状态改变：布子，布子完成，游戏结束
+message GameStateChangePush{//游戏状态改变：布子，布子完成，游戏结束
   int32 state = 1; //enum GameState
   int32 result = 2; //enum GameResult
   repeated ChessData chessMap = 3;
@@ -31,6 +31,7 @@ message ChessMovePush{
   ChessData target = 2;
   int32 chessMoveResult = 3; //enum ChessMoveResult
   int32 counter = 4;//计数器
+  PlayerInfo operator = 5; //走子的人
 }
 
 message ChatMessagePush{

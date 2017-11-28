@@ -7,17 +7,18 @@ using System.IO;
 public class Debuger{
 	private FileInfo logFile;
     private static Debuger m_Instance;
-	public Debuger() {
+
+    public Debuger() {
 #if LOGFILE
 		//注意目录
 		string dir = null;
-	#if UNITY_ANDROID    
+#if UNITY_ANDROID
 			dir = "jar:file://Assets/Logs/";    
-	#elif UNITY_IPHONE    
+#elif UNITY_IPHONE
 			dir = "Assets/Logs/";    
-	#elif UNITY_STANDALONE_WIN || UNITY_EDITOR
+#elif UNITY_STANDALONE_WIN || UNITY_EDITOR
 			dir = "Assets/Logs/";
-	#endif
+#endif
 		string logName = dir + "debug.log";
 		logFile = new FileInfo(logName);
 		if (logFile.Exists)
@@ -31,7 +32,7 @@ public class Debuger{
 		}
 		Application.RegisterLogCallback(OnLog); 
 #endif
-	}
+    }
     public static void Init()
     {
         if (m_Instance == null)
@@ -41,7 +42,9 @@ public class Debuger{
     }
 	private void OnLog(string condition, string stackTrace, LogType type)
 	{
+#if LOGFILE
 		string tag = string.Empty;
+        string color = "";
 		switch (type)
 		{
 			case LogType.Assert:
@@ -49,20 +52,23 @@ public class Debuger{
 				break;
 			case LogType.Error:
 				tag = "E";
-				break;
+                color = "[FF0000]";
+                break;
 			case LogType.Log:
 				tag = "I";
 				break;
 			case LogType.Warning:
-				tag = "W";
+                color = "[FFCC00]";
+                tag = "W";
 				break;
 			case LogType.Exception:
 				tag = "EX";
 				break;
 		}
 		LogToFile(tag, condition, stackTrace);
-	}
-	public static void Log(string format, params object[] msgs)
+#endif
+    }
+    public static void Log(string format, params object[] msgs)
 	{
 		string msg = System.DateTime.Now.ToString("MM-dd HH:mm:ss") + "(" + Time.time + "):" + string.Format(format, msgs);
 #if DEBUG

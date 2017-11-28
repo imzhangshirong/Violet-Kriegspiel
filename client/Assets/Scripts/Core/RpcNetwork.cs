@@ -502,11 +502,12 @@ public class RpcNetwork
                             Debuger.Error(rpc.msg+":Timeout");
                         });
                         rpc.state = RpcState.Timeout;
-                        if(m_RpcUIMap.ContainsKey(rpc.uniqueName)){
+                        if (rpc.autoRetry)
+                        {
+                            Resend(rpc);
+                        }
+                        if (m_RpcUIMap.ContainsKey(rpc.uniqueName)){
                             RpcRequestUIData uiData = m_RpcUIMap[rpc.uniqueName];
-                            if(rpc.autoRetry){
-                                Resend(rpc);
-                            }
                             if(uiData.needRetry){
                                 App.Manager.Thread.RunOnMainThread(()=>{
                                     Common.UI.OpenRetry();

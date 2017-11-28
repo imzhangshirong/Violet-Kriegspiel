@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using UnityEngine;
 using Com.Violet.Rpc;
 using Google.Protobuf;
 
@@ -12,9 +13,10 @@ public class UIMainPanel : UIViewBase
     public UIInput rpcInput;
     public UIInput ipInput;
     public UIInput portInput;
+    bool debugOpened = false;
     public override void OnInit()
 	{
-		
+
 	}
 
     public void OnSetIp()
@@ -22,6 +24,7 @@ public class UIMainPanel : UIViewBase
         try
         {
             Config.ServerHost = ipInput.value;
+            PlayerPrefs.SetString("hostIp",ipInput.value);
             Config.ServerHostPort = int.Parse(portInput.value);
             RpcNetwork.Instance.Init();
             Common.UI.OpenTips("Set IP Config");
@@ -37,7 +40,25 @@ public class UIMainPanel : UIViewBase
 	{
 		base.OnOpen(intent);
 		Debuger.Log("MainPanel Open");
-	}
+        string ip = PlayerPrefs.GetString("hostIp");
+        if (ip != "")ipInput.value = ip;
+        FieldRoadStation s1= new FieldRoadStation(){
+            type = FieldRoadStationType.Rail,
+            point = new ChessPoint(1,5),
+        };
+        FieldRoadStation s2= new FieldRoadStation(){
+            type = FieldRoadStationType.Barrack,
+            point = new ChessPoint(1,6),
+        };
+        Debuger.Warn(ChessAgainst.IsBarrack(new ChessPoint(1,7)));
+        Debuger.Warn(ChessAgainst.InRailArea(new ChessPoint(0,7)));
+        Debuger.Warn(ChessAgainst.InRailArea(new ChessPoint(1,6)));
+        Debuger.Warn(ChessAgainst.InRailArea(new ChessPoint(1,10)));
+        Debuger.Warn(ChessAgainst.InRailArea(new ChessPoint(4,6)));
+        Debuger.Warn(ChessAgainst.IsConnected(s1,s2));
+
+        //App.Manager.UI.ReplaceView("UIGamePanel");
+    }
 	public void NextPage()
 	{
         //进入游戏测试

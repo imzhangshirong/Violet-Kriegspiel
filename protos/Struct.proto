@@ -40,7 +40,7 @@ message ChessPoint{
   int32 y = 2;
 }
 
-message RoomData{
+message RoomData{//房间列表里的房间信息
   int32 roomId = 1;
   string roomName = 2;
 }
