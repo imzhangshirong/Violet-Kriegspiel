@@ -11,7 +11,7 @@ message EnterBattleFieldPush{
   repeated PlayerInfo playerList = 1;
   int32 roundOrder = 2;//回合顺序位置，从0开始，0先手
   repeated ChessData chessSetting = 3;//我方上次的摆子设置
-  int32 roomId = 4;
+  string roomId = 4;
 }
 
 message PlayerStateChangePush{//敌人状态改变

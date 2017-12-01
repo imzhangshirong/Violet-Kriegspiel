@@ -393,7 +393,7 @@ public class UIGamePanel : UIViewBase
         {
             hero.gameObject.transform.parent = m_MyselfFied.transform;
         }
-        hero.point = point;
+        hero.point = point.Clone();
         hero.gameObject.transform.localScale = Vector3.one;
         hero.gameObject.transform.localPosition = GetChessLocalPosition(hero.point);
     }
@@ -752,6 +752,7 @@ public class UIGamePanel : UIViewBase
             });
             AudioSource.PlayClipAtPoint(App.Manager.Resource.Load<AudioClip>("Sound/round_lose"), Vector3.zero);
         }
+        App.Package.ChessGame.RoomId = "";//清除RoomId
     }
 
     /// <summary>

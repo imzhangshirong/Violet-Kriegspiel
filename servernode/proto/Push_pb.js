@@ -245,7 +245,7 @@ proto.com.violet.rpc.EnterBattleFieldPush.toObject = function(includeInstance, m
     roundorder: jspb.Message.getFieldWithDefault(msg, 2, 0),
     chesssettingList: jspb.Message.toObjectList(msg.getChesssettingList(),
     Struct_pb.ChessData.toObject, includeInstance),
-    roomid: jspb.Message.getFieldWithDefault(msg, 4, 0)
+    roomid: jspb.Message.getFieldWithDefault(msg, 4, "")
   };
 
   if (includeInstance) {
@@ -297,7 +297,7 @@ proto.com.violet.rpc.EnterBattleFieldPush.deserializeBinaryFromReader = function
       msg.addChesssetting(value);
       break;
     case 4:
-      var value = /** @type {number} */ (reader.readInt32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setRoomid(value);
       break;
     default:
@@ -353,8 +353,8 @@ proto.com.violet.rpc.EnterBattleFieldPush.serializeBinaryToWriter = function(mes
     );
   }
   f = message.getRoomid();
-  if (f !== 0) {
-    writer.writeInt32(
+  if (f.length > 0) {
+    writer.writeString(
       4,
       f
     );
@@ -440,15 +440,15 @@ proto.com.violet.rpc.EnterBattleFieldPush.prototype.clearChesssettingList = func
 
 
 /**
- * optional int32 roomId = 4;
- * @return {number}
+ * optional string roomId = 4;
+ * @return {string}
  */
 proto.com.violet.rpc.EnterBattleFieldPush.prototype.getRoomid = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
-/** @param {number} value */
+/** @param {string} value */
 proto.com.violet.rpc.EnterBattleFieldPush.prototype.setRoomid = function(value) {
   jspb.Message.setField(this, 4, value);
 };

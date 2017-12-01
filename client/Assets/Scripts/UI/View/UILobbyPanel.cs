@@ -14,12 +14,12 @@ public class UILobbyPanel : UIViewBase
 	public override void OnOpen(Intent intent)
 	{
 		base.OnOpen(intent);
-        CheckGameState();
+        //CheckGameState();
 
     }
 
 	public override void OnRefresh(){
-		CheckGameState();
+		//CheckGameState();
 	}
 
 	public void FindEnemyClick(){
@@ -43,11 +43,12 @@ public class UILobbyPanel : UIViewBase
         CheckGameStateRequest request = new CheckGameStateRequest();
         App.Manager.Network.Request("CheckGameState", request, delegate (IMessage responseData) {
             CheckGameStateResponse response = (CheckGameStateResponse)responseData;
-            if (response.RoomToken != "")
+            if (response.RoomId != "")
             {
                 Common.UI.OpenTips("正在恢复战场...");
                 EnterBattleFieldRequest nRequest = new EnterBattleFieldRequest();
-                nRequest.RoomToken = response.RoomToken;
+                nRequest.RoomId = response.RoomId;
+				App.Package.ChessGame.RoomId = response.RoomId;
                 App.Manager.Network.Request("EnterBattleField", nRequest, delegate (IMessage nResponseData) {
                     Common.UI.OpenTips("战斗还在继续，刻不容缓!");
                     EnterBattleFieldResponse nResponse = (EnterBattleFieldResponse)nResponseData;
