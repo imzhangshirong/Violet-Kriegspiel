@@ -28,7 +28,7 @@ namespace Com.Violet.Rpc {
             "dXNoEi4KCnBsYXllckxpc3QYASADKAsyGi5jb20udmlvbGV0LnJwYy5QbGF5",
             "ZXJJbmZvEhIKCnJvdW5kT3JkZXIYAiABKAUSLwoMY2hlc3NTZXR0aW5nGAMg",
             "AygLMhkuY29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhEg4KBnJvb21JZBgEIAEo",
-            "BSJHChVQbGF5ZXJTdGF0ZUNoYW5nZVB1c2gSLgoKcGxheWVySW5mbxgBIAEo",
+            "CSJHChVQbGF5ZXJTdGF0ZUNoYW5nZVB1c2gSLgoKcGxheWVySW5mbxgBIAEo",
             "CzIaLmNvbS52aW9sZXQucnBjLlBsYXllckluZm8icgoTR2FtZVN0YXRlQ2hh",
             "bmdlUHVzaBINCgVzdGF0ZRgBIAEoBRIOCgZyZXN1bHQYAiABKAUSKwoIY2hl",
             "c3NNYXAYAyADKAsyGS5jb20udmlvbGV0LnJwYy5DaGVzc0RhdGESDwoHY291",
@@ -240,12 +240,12 @@ namespace Com.Violet.Rpc {
 
     /// <summary>Field number for the "roomId" field.</summary>
     public const int RoomIdFieldNumber = 4;
-    private int roomId_;
+    private string roomId_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int RoomId {
+    public string RoomId {
       get { return roomId_; }
       set {
-        roomId_ = value;
+        roomId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -275,7 +275,7 @@ namespace Com.Violet.Rpc {
       hash ^= playerList_.GetHashCode();
       if (RoundOrder != 0) hash ^= RoundOrder.GetHashCode();
       hash ^= chessSetting_.GetHashCode();
-      if (RoomId != 0) hash ^= RoomId.GetHashCode();
+      if (RoomId.Length != 0) hash ^= RoomId.GetHashCode();
       return hash;
     }
 
@@ -292,9 +292,9 @@ namespace Com.Violet.Rpc {
         output.WriteInt32(RoundOrder);
       }
       chessSetting_.WriteTo(output, _repeated_chessSetting_codec);
-      if (RoomId != 0) {
-        output.WriteRawTag(32);
-        output.WriteInt32(RoomId);
+      if (RoomId.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(RoomId);
       }
     }
 
@@ -306,8 +306,8 @@ namespace Com.Violet.Rpc {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(RoundOrder);
       }
       size += chessSetting_.CalculateSize(_repeated_chessSetting_codec);
-      if (RoomId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(RoomId);
+      if (RoomId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomId);
       }
       return size;
     }
@@ -322,7 +322,7 @@ namespace Com.Violet.Rpc {
         RoundOrder = other.RoundOrder;
       }
       chessSetting_.Add(other.chessSetting_);
-      if (other.RoomId != 0) {
+      if (other.RoomId.Length != 0) {
         RoomId = other.RoomId;
       }
     }
@@ -347,8 +347,8 @@ namespace Com.Violet.Rpc {
             chessSetting_.AddEntriesFrom(input, _repeated_chessSetting_codec);
             break;
           }
-          case 32: {
-            RoomId = input.ReadInt32();
+          case 34: {
+            RoomId = input.ReadString();
             break;
           }
         }

@@ -115,4 +115,13 @@ public class UIMainPanel : UIViewBase
         Debuger.Log("send cancel");
         Common.UI.BackPage();
     }
+    void OnClick()
+    {
+        if(Input.touchCount>0){
+            for(int i=0;i<Input.touchCount;i++){
+                Debuger.Warn("Touch:"+Input.touches[i].position.ToString());
+            }
+        }
+        Debuger.Warn("Mouse:"+Input.mousePosition.ToString());
+    }
 }

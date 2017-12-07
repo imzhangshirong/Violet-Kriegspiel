@@ -37,9 +37,9 @@ namespace Com.Violet.Rpc {
             "AiABKAkiQwoRRW50ZXJSb29tUmVzcG9uc2USLgoKcGxheWVyTGlzdBgBIAMo",
             "CzIaLmNvbS52aW9sZXQucnBjLlBsYXllckluZm8iYgoSUmVhZHlJblJvb21S",
             "ZXF1ZXN0Eg8KB2lzUmVhZHkYASABKAgSKwoIY2hlc3NNYXAYAiADKAsyGS5j",
-            "b20udmlvbGV0LnJwYy5DaGVzc0RhdGESDgoGcm9vbUlkGAMgASgFIiwKE1Jl",
+            "b20udmlvbGV0LnJwYy5DaGVzc0RhdGESDgoGcm9vbUlkGAMgASgJIiwKE1Jl",
             "YWR5SW5Sb29tUmVzcG9uc2USFQoNaXNDaGFuZ2VTdGF0ZRgBIAEoCCIiChBM",
-            "ZWF2ZVJvb21SZXF1ZXN0Eg4KBnJvb21JZBgBIAEoBSIkChFMZWF2ZVJvb21S",
+            "ZWF2ZVJvb21SZXF1ZXN0Eg4KBnJvb21JZBgBIAEoCSIkChFMZWF2ZVJvb21S",
             "ZXNwb25zZRIPCgdpc0xlYXZlGAEgASgIImgKEE1vdmVDaGVzc1JlcXVlc3QS",
             "KQoGc291cmNlGAEgASgLMhkuY29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhEikK",
             "BnRhcmdldBgCIAEoCzIZLmNvbS52aW9sZXQucnBjLkNoZXNzRGF0YSKTAQoR",
@@ -50,16 +50,16 @@ namespace Com.Violet.Rpc {
             "ZXNwb25zZRIrCghjaGVzc01hcBgBIAMoCzIZLmNvbS52aW9sZXQucnBjLkNo",
             "ZXNzRGF0YRIuCgpwbGF5ZXJMaXN0GAIgAygLMhouY29tLnZpb2xldC5ycGMu",
             "UGxheWVySW5mbxIPCgdjb3VudGVyGAMgASgFIhcKFUNoZWNrR2FtZVN0YXRl",
-            "UmVxdWVzdCIrChZDaGVja0dhbWVTdGF0ZVJlc3BvbnNlEhEKCXJvb21Ub2tl",
-            "bhgBIAEoCSIsChdFbnRlckJhdHRsZUZpZWxkUmVxdWVzdBIRCglyb29tVG9r",
-            "ZW4YASABKAkiiAEKGEVudGVyQmF0dGxlRmllbGRSZXNwb25zZRIrCghjaGVz",
-            "c01hcBgBIAMoCzIZLmNvbS52aW9sZXQucnBjLkNoZXNzRGF0YRIuCgpwbGF5",
-            "ZXJMaXN0GAIgAygLMhouY29tLnZpb2xldC5ycGMuUGxheWVySW5mbxIPCgdj",
-            "b3VudGVyGAMgASgFIhIKEFN1cnJlbmRlclJlcXVlc3QiKAoRU3VycmVuZGVy",
-            "UmVzcG9uc2USEwoLaXNTdXJyZW5kZXIYASABKAgiUwoWU2VuZENoYXRNZXNz",
-            "YWdlUmVxdWVzdBIPCgd0b1doZXJlGAEgASgFEigKA21zZxgCIAEoCzIbLmNv",
-            "bS52aW9sZXQucnBjLk1lc3NhZ2VEYXRhIhkKF1NlbmRDaGF0TWVzc2FnZVJl",
-            "c3BvbnNlYgZwcm90bzM="));
+            "UmVxdWVzdCIoChZDaGVja0dhbWVTdGF0ZVJlc3BvbnNlEg4KBnJvb21JZBgB",
+            "IAEoCSIpChdFbnRlckJhdHRsZUZpZWxkUmVxdWVzdBIOCgZyb29tSWQYASAB",
+            "KAkiiAEKGEVudGVyQmF0dGxlRmllbGRSZXNwb25zZRIrCghjaGVzc01hcBgB",
+            "IAMoCzIZLmNvbS52aW9sZXQucnBjLkNoZXNzRGF0YRIuCgpwbGF5ZXJMaXN0",
+            "GAIgAygLMhouY29tLnZpb2xldC5ycGMuUGxheWVySW5mbxIPCgdjb3VudGVy",
+            "GAMgASgFIhIKEFN1cnJlbmRlclJlcXVlc3QiKAoRU3VycmVuZGVyUmVzcG9u",
+            "c2USEwoLaXNTdXJyZW5kZXIYASABKAgiUwoWU2VuZENoYXRNZXNzYWdlUmVx",
+            "dWVzdBIPCgd0b1doZXJlGAEgASgFEigKA21zZxgCIAEoCzIbLmNvbS52aW9s",
+            "ZXQucnBjLk1lc3NhZ2VEYXRhIhkKF1NlbmRDaGF0TWVzc2FnZVJlc3BvbnNl",
+            "YgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Com.Violet.Rpc.StructReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -84,8 +84,8 @@ namespace Com.Violet.Rpc {
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.BattleMapRequest), global::Com.Violet.Rpc.BattleMapRequest.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.BattleMapResponse), global::Com.Violet.Rpc.BattleMapResponse.Parser, new[]{ "ChessMap", "PlayerList", "Counter" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.CheckGameStateRequest), global::Com.Violet.Rpc.CheckGameStateRequest.Parser, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.CheckGameStateResponse), global::Com.Violet.Rpc.CheckGameStateResponse.Parser, new[]{ "RoomToken" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterBattleFieldRequest), global::Com.Violet.Rpc.EnterBattleFieldRequest.Parser, new[]{ "RoomToken" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.CheckGameStateResponse), global::Com.Violet.Rpc.CheckGameStateResponse.Parser, new[]{ "RoomId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterBattleFieldRequest), global::Com.Violet.Rpc.EnterBattleFieldRequest.Parser, new[]{ "RoomId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterBattleFieldResponse), global::Com.Violet.Rpc.EnterBattleFieldResponse.Parser, new[]{ "ChessMap", "PlayerList", "Counter" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.SurrenderRequest), global::Com.Violet.Rpc.SurrenderRequest.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.SurrenderResponse), global::Com.Violet.Rpc.SurrenderResponse.Parser, new[]{ "IsSurrender" }, null, null, null),
@@ -1606,12 +1606,12 @@ namespace Com.Violet.Rpc {
 
     /// <summary>Field number for the "roomId" field.</summary>
     public const int RoomIdFieldNumber = 3;
-    private int roomId_;
+    private string roomId_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int RoomId {
+    public string RoomId {
       get { return roomId_; }
       set {
-        roomId_ = value;
+        roomId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -1639,7 +1639,7 @@ namespace Com.Violet.Rpc {
       int hash = 1;
       if (IsReady != false) hash ^= IsReady.GetHashCode();
       hash ^= chessMap_.GetHashCode();
-      if (RoomId != 0) hash ^= RoomId.GetHashCode();
+      if (RoomId.Length != 0) hash ^= RoomId.GetHashCode();
       return hash;
     }
 
@@ -1655,9 +1655,9 @@ namespace Com.Violet.Rpc {
         output.WriteBool(IsReady);
       }
       chessMap_.WriteTo(output, _repeated_chessMap_codec);
-      if (RoomId != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(RoomId);
+      if (RoomId.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(RoomId);
       }
     }
 
@@ -1668,8 +1668,8 @@ namespace Com.Violet.Rpc {
         size += 1 + 1;
       }
       size += chessMap_.CalculateSize(_repeated_chessMap_codec);
-      if (RoomId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(RoomId);
+      if (RoomId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomId);
       }
       return size;
     }
@@ -1683,7 +1683,7 @@ namespace Com.Violet.Rpc {
         IsReady = other.IsReady;
       }
       chessMap_.Add(other.chessMap_);
-      if (other.RoomId != 0) {
+      if (other.RoomId.Length != 0) {
         RoomId = other.RoomId;
       }
     }
@@ -1704,8 +1704,8 @@ namespace Com.Violet.Rpc {
             chessMap_.AddEntriesFrom(input, _repeated_chessMap_codec);
             break;
           }
-          case 24: {
-            RoomId = input.ReadInt32();
+          case 26: {
+            RoomId = input.ReadString();
             break;
           }
         }
@@ -1868,12 +1868,12 @@ namespace Com.Violet.Rpc {
 
     /// <summary>Field number for the "roomId" field.</summary>
     public const int RoomIdFieldNumber = 1;
-    private int roomId_;
+    private string roomId_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int RoomId {
+    public string RoomId {
       get { return roomId_; }
       set {
-        roomId_ = value;
+        roomId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -1897,7 +1897,7 @@ namespace Com.Violet.Rpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (RoomId != 0) hash ^= RoomId.GetHashCode();
+      if (RoomId.Length != 0) hash ^= RoomId.GetHashCode();
       return hash;
     }
 
@@ -1908,17 +1908,17 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (RoomId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(RoomId);
+      if (RoomId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(RoomId);
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (RoomId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(RoomId);
+      if (RoomId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomId);
       }
       return size;
     }
@@ -1928,7 +1928,7 @@ namespace Com.Violet.Rpc {
       if (other == null) {
         return;
       }
-      if (other.RoomId != 0) {
+      if (other.RoomId.Length != 0) {
         RoomId = other.RoomId;
       }
     }
@@ -1941,8 +1941,8 @@ namespace Com.Violet.Rpc {
           default:
             input.SkipLastField();
             break;
-          case 8: {
-            RoomId = input.ReadInt32();
+          case 10: {
+            RoomId = input.ReadString();
             break;
           }
         }
@@ -2818,7 +2818,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public CheckGameStateResponse(CheckGameStateResponse other) : this() {
-      roomToken_ = other.roomToken_;
+      roomId_ = other.roomId_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2826,17 +2826,17 @@ namespace Com.Violet.Rpc {
       return new CheckGameStateResponse(this);
     }
 
-    /// <summary>Field number for the "roomToken" field.</summary>
-    public const int RoomTokenFieldNumber = 1;
-    private string roomToken_ = "";
+    /// <summary>Field number for the "roomId" field.</summary>
+    public const int RoomIdFieldNumber = 1;
+    private string roomId_ = "";
     /// <summary>
     ///用于断线重连直接进入房间
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string RoomToken {
-      get { return roomToken_; }
+    public string RoomId {
+      get { return roomId_; }
       set {
-        roomToken_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        roomId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -2853,14 +2853,14 @@ namespace Com.Violet.Rpc {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (RoomToken != other.RoomToken) return false;
+      if (RoomId != other.RoomId) return false;
       return true;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (RoomToken.Length != 0) hash ^= RoomToken.GetHashCode();
+      if (RoomId.Length != 0) hash ^= RoomId.GetHashCode();
       return hash;
     }
 
@@ -2871,17 +2871,17 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (RoomToken.Length != 0) {
+      if (RoomId.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(RoomToken);
+        output.WriteString(RoomId);
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (RoomToken.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomToken);
+      if (RoomId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomId);
       }
       return size;
     }
@@ -2891,8 +2891,8 @@ namespace Com.Violet.Rpc {
       if (other == null) {
         return;
       }
-      if (other.RoomToken.Length != 0) {
-        RoomToken = other.RoomToken;
+      if (other.RoomId.Length != 0) {
+        RoomId = other.RoomId;
       }
     }
 
@@ -2905,7 +2905,7 @@ namespace Com.Violet.Rpc {
             input.SkipLastField();
             break;
           case 10: {
-            RoomToken = input.ReadString();
+            RoomId = input.ReadString();
             break;
           }
         }
@@ -2941,7 +2941,7 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public EnterBattleFieldRequest(EnterBattleFieldRequest other) : this() {
-      roomToken_ = other.roomToken_;
+      roomId_ = other.roomId_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2949,14 +2949,14 @@ namespace Com.Violet.Rpc {
       return new EnterBattleFieldRequest(this);
     }
 
-    /// <summary>Field number for the "roomToken" field.</summary>
-    public const int RoomTokenFieldNumber = 1;
-    private string roomToken_ = "";
+    /// <summary>Field number for the "roomId" field.</summary>
+    public const int RoomIdFieldNumber = 1;
+    private string roomId_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string RoomToken {
-      get { return roomToken_; }
+    public string RoomId {
+      get { return roomId_; }
       set {
-        roomToken_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        roomId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -2973,14 +2973,14 @@ namespace Com.Violet.Rpc {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (RoomToken != other.RoomToken) return false;
+      if (RoomId != other.RoomId) return false;
       return true;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (RoomToken.Length != 0) hash ^= RoomToken.GetHashCode();
+      if (RoomId.Length != 0) hash ^= RoomId.GetHashCode();
       return hash;
     }
 
@@ -2991,17 +2991,17 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (RoomToken.Length != 0) {
+      if (RoomId.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(RoomToken);
+        output.WriteString(RoomId);
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (RoomToken.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomToken);
+      if (RoomId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomId);
       }
       return size;
     }
@@ -3011,8 +3011,8 @@ namespace Com.Violet.Rpc {
       if (other == null) {
         return;
       }
-      if (other.RoomToken.Length != 0) {
-        RoomToken = other.RoomToken;
+      if (other.RoomId.Length != 0) {
+        RoomId = other.RoomId;
       }
     }
 
@@ -3025,7 +3025,7 @@ namespace Com.Violet.Rpc {
             input.SkipLastField();
             break;
           case 10: {
-            RoomToken = input.ReadString();
+            RoomId = input.ReadString();
             break;
           }
         }
