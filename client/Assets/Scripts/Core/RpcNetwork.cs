@@ -640,6 +640,7 @@ public class RpcNetwork
                 IMessage resRpc = Activator.CreateInstance(type) as IMessage;
                 resRpc.MergeFrom(response.Data);
                 App.Manager.Thread.RunOnMainThread(()=>{
+                    Debuger.Warn("RecievePush:"+response.Rpc);
                     m_Listener.Invoke(response.Rpc, resRpc);//分发给注册的Listener
                 });
             }

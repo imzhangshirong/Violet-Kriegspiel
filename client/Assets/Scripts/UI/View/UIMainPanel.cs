@@ -56,6 +56,7 @@ public class UIMainPanel : UIViewBase
         Debuger.Warn(ChessAgainst.InRailArea(new ChessPoint(1,10)));
         Debuger.Warn(ChessAgainst.InRailArea(new ChessPoint(4,6)));
         //App.Manager.UI.ReplaceView("UIGamePanel");
+        //OnSetIp();
     }
 	public void NextPage()
 	{
