@@ -66,7 +66,9 @@ public class RpcNetwork
     {
         if (m_socket.Connected)
         {
-            Debuger.Log(rpc.msg + " start send");
+            App.Manager.Thread.RunOnMainThread(()=>{
+                Debuger.Log(rpc.msg + " start send");
+            });
             m_socket.BeginSend(rpc.sendData, 0, rpc.sendData.Length, SocketFlags.None, Sent, m_socket);
         }
     }
@@ -135,12 +137,11 @@ public class RpcNetwork
     }
     
     static void Resend(RPC rpc){
-        m_RpcMap.Remove(rpc.uniqueName);
-        UpdateUniqueIdMax(rpc.msg);
-        rpc.unique = GetUniqueIdMax(rpc.msg) + 1;
+        App.Manager.Thread.RunOnMainThread(()=>{
+            Debuger.Error("Resend:"+rpc.msg);
+        });
         rpc.timestamp = DateTime.Now.Ticks;
         rpc.state = RpcState.Waiting;
-        AddNewRequest(rpc);
         Send(rpc);
     }
     static int GetUniqueIdMax(string rpcName)
@@ -167,6 +168,7 @@ public class RpcNetwork
     static void AddNewRequest(RPC rpcData){
         lock (m_RpcMap)
         {
+
             //加入列队
             if(!m_RpcMap.ContainsKey(rpcData.uniqueName)){
                 m_RpcMap.Add(rpcData.uniqueName,rpcData);
@@ -492,36 +494,42 @@ public class RpcNetwork
 
     
     private void TimeTick(){
+        List<string> timeoutNeedRemove = new List<string>();
         while(true){
             {
                 foreach(var item in m_RpcMap){
                     RPC rpc = item.Value;
                     if(rpc.isTimeout()){
-                        App.Manager.Thread.RunOnMainThread(()=>{
-                            Debuger.Error(rpc.msg+":Timeout");
-                        });
                         rpc.state = RpcState.Timeout;
-                        if (rpc.autoRetry)
-                        {
-                            Resend(rpc);
-                        }
                         if (m_RpcUIMap.ContainsKey(rpc.uniqueName)){
                             RpcRequestUIData uiData = m_RpcUIMap[rpc.uniqueName];
                             if(uiData.needRetry){
                                 App.Manager.Thread.RunOnMainThread(()=>{
                                     Common.UI.OpenRetry();
                                 });
-                                
                             }
                         }
-                        else{
-                            lock(m_RpcMap){
-                                m_RpcMap.Remove(rpc.uniqueName);
-                            }
-                            
+                        if (rpc.autoRetry)
+                        {
+                            Resend(rpc);
+                        }
+                    }
+                    if(rpc.state==RpcState.Timeout){
+                        timeoutNeedRemove.Add(item.Key);
+                    }
+                }
+                //清除无效的超时Rpc
+                for(int i=0;i<timeoutNeedRemove.Count;i++){
+                    lock(m_RpcMap){
+                        m_RpcMap.Remove(timeoutNeedRemove[i]);
+                    }
+                    if(m_RpcUIMap.ContainsKey(timeoutNeedRemove[i])){
+                        lock(m_RpcUIMap){
+                            m_RpcUIMap.Remove(timeoutNeedRemove[i]);
                         }
                     }
                 }
+                timeoutNeedRemove.Clear();
             }
             Thread.Sleep(1000);
         }
