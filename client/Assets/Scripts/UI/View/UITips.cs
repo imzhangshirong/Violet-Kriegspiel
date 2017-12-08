@@ -28,17 +28,11 @@ public class UITips : UIViewBase
     }
     void StartShow(string msg)
     {
-        if (!isShowing)
-        {
-            isShowing = true;
-            label.text = msg;
-            tween.enabled = true;
-            tween.PlayForward();
-        }
-        else
-        {
-            m_MsgList.Add(msg);
-        }
+        StopAllCoroutines();
+        label.text = msg;
+        tween.enabled = true;
+        tween.ResetToBeginning();
+        tween.PlayForward();
     }
     public override void OnRefresh()
     {
@@ -46,20 +40,6 @@ public class UITips : UIViewBase
     }
     public void ReadyClose()
     {
-        if (nextDisable)
-        {
-            gameObject.SetActive(false);
-            nextDisable = false;
-            tween.enabled = false;
-            isShowing = false;
-            if (m_MsgList.Count > 0)
-            {
-                gameObject.SetActive(true);
-                StartShow(m_MsgList[0]);
-                m_MsgList.RemoveAt(0);
-            }
-            return;
-        }
         StartCoroutine(holdAndTweenBack());
     }
     IEnumerator holdAndTweenBack()
