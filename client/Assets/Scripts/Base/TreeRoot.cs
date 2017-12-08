@@ -13,6 +13,7 @@ public class TreeRoot : MonoBehaviour
 	{
         if (m_LeafList.IndexOf(leaf) == -1)
         {
+
             m_LeafList.Add(leaf);
         }
 	}
@@ -33,7 +34,6 @@ public class TreeRoot : MonoBehaviour
             TreeLeaf leaf = m_LeafList[i];
             if (leaf.IsActive())
             {
-
                 leaf.OnMessage(msg, content);
             }
         }

@@ -16,8 +16,9 @@ public class UIViewBase : TreeLeaf
 			return m_panel;
 		}
 	}
-	void Awake()
+	public virtual void Awake()
 	{
+		base.Awake();
 		m_panel = GetComponent<UIPanel>();
 	}
 	public virtual void OnRefresh()

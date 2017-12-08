@@ -11,7 +11,7 @@ public class TreeLeaf : MonoBehaviour
 	//private Dictionary<string,>
 	public TreeRoot treeRoot;
     private Dictionary<string, MessageListener> m_ListenerMap = new Dictionary<string, MessageListener>();
-	void Start()
+	public virtual void  Awake()
 	{
 		if (treeRoot == null)
 		{
@@ -23,7 +23,7 @@ public class TreeLeaf : MonoBehaviour
     {
         treeRoot.Remove(this);
     }
-    public void Push(string msg, object content)
+    public void Push(string msg, object content = null)
 	{
 		if(treeRoot == null){
 			Debuger.Warn(this.gameObject.name + ":leaf hasn't TreeRoot.");

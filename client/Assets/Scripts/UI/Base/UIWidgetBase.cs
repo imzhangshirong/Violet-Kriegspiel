@@ -7,9 +7,9 @@ using UnityEngine;
 public class UIWidgetBase : TreeLeaf
 {
 
-	void Awake()
+	public virtual void Awake()
 	{
-		
+		base.Awake();
 	}
 	public virtual void OnRefresh()
 	{

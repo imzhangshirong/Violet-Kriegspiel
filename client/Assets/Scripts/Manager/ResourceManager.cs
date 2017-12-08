@@ -16,7 +16,7 @@ public class ResourceManager : Manager
 	public T Load<T>(string path) where T : UnityEngine.Object
 	{
 		string fullPath = path;
-        Debuger.Log(fullPath);
+        //Debuger.Log(fullPath);
 		T asset = null;
 		if (m_resourseMap.ContainsKey(fullPath))
 		{

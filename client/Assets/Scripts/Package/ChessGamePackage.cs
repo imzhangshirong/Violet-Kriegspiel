@@ -20,6 +20,12 @@ public class ChessGamePackage : Package<ChessGamePackage>
             return m_roundOrder;
         }
     }
+    public List<FieldRoadStation> MapRoadStations{
+        get{
+            return m_MapRoadStations;
+        }
+    }
+
     List<PlayerInfo> m_EnemyPlayerList = new List<PlayerInfo>();
     public List<PlayerInfo> EnemyPlayerList
     {
@@ -162,26 +168,17 @@ public class ChessGamePackage : Package<ChessGamePackage>
         {
             for (int j = 0; j < 5; j++)
             {
-                if(ChessAgainst.IsBarrack(new ChessPoint(j,i)))//当前为军营，木有铁路
+                FieldRoadStation roadStation = new FieldRoadStation();
+                roadStation.point = new ChessPoint(j, i);
+                if (ChessAgainst.InRailArea(roadStation.point))
                 {
-                    FieldRoadStation roadStation = new FieldRoadStation();
-                    roadStation.point = new ChessPoint(j, i);
-                    roadStation.forbidChessHeros = new int[] { 100 };
+                    roadStation.type = FieldRoadStationType.Rail;
+                }
+                else if(ChessAgainst.IsBarrack(roadStation.point)){
                     roadStation.type = FieldRoadStationType.Barrack;
-                    roadStation.id = m_MapRoadStations.Count;
-                    m_MapRoadStations.Add(roadStation);
                 }
-                else
-                {
-                    FieldRoadStation roadStation = new FieldRoadStation();
-                    roadStation.point = new ChessPoint(j, i);
-                    if (ChessAgainst.InRailArea(roadStation.point))
-                    {
-                        roadStation.type = FieldRoadStationType.Rail;
-                    }
-                    roadStation.id = m_MapRoadStations.Count;
-                    m_MapRoadStations.Add(roadStation);
-                }
+                roadStation.id = m_MapRoadStations.Count;
+                m_MapRoadStations.Add(roadStation);
             }
         }
         List<int> connetedIds = new List<int>();
@@ -440,18 +437,11 @@ public class ChessGamePackage : Package<ChessGamePackage>
         }
         return null;
     }
-    public FieldRoadStation GetFeildRoadStationByPoint(ChessPoint point)
+    public FieldRoadStation GetFieldRoadStationByPoint(ChessPoint point)
     {
-        foreach (var item in m_MapRoadStations)
-        {
-            if (item.point.Equals(point))
-            {
-                return item;
-            }
-        }
-        return null;
+        return GetFieldRoadStationById(point.x+point.y*5);
     }
-    public FieldRoadStation GetFeildRoadStationById(int id)
+    public FieldRoadStation GetFieldRoadStationById(int id)
     {
         return m_MapRoadStations[id];
     }
@@ -512,6 +502,7 @@ public class FieldRoadStation
     public ChessPoint point;//起点
     public int[] forbidChessHeros = new int[0];//禁止通过的子，100为敌方所有棋子,负数为敌方某一类棋子
     public int[] connectedPointIds = new int[0];//终点
+    public GameObject gameObject;
     public FieldRoadStationType type = FieldRoadStationType.Way;
 }
 
@@ -534,7 +525,7 @@ public class FieldRoadPath
         for (int i = 0; i < pathStations.Count; i++)
         {
             if (i > 0) re += "->";
-            re += App.Package.ChessGame.GetFeildRoadStationById(pathStations[i]).point.ToString();
+            re += App.Package.ChessGame.GetFieldRoadStationById(pathStations[i]).point.ToString();
         }
         return re;
     }
@@ -543,7 +534,7 @@ public class FieldRoadPath
         ChessPoint[] points = new ChessPoint[pathStations.Count];
         for (int i = 0; i < points.Length; i++)
         {
-            points[i] = App.Package.ChessGame.GetFeildRoadStationById(pathStations[i]).point;
+            points[i] = App.Package.ChessGame.GetFieldRoadStationById(pathStations[i]).point;
         }
         return points;
     }

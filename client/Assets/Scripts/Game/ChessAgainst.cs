@@ -11,8 +11,8 @@ public class ChessAgainst : MonoBehaviour
     public static ChessMoveData ChessHeroCanMoveTo(ChessHeroData heroData,ChessPoint point)
     {
         ChessMoveData moveData = new ChessMoveData();
-        FieldRoadStation roadStationS = App.Package.ChessGame.GetFeildRoadStationByPoint(heroData.point);
-        FieldRoadStation roadStationT = App.Package.ChessGame.GetFeildRoadStationByPoint(point);
+        FieldRoadStation roadStationS = App.Package.ChessGame.GetFieldRoadStationByPoint(heroData.point);
+        FieldRoadStation roadStationT = App.Package.ChessGame.GetFieldRoadStationByPoint(point);
         if (ChessHeroCanMove(heroData))//检测棋子本身，地雷、军旗不能走
         {
             //检测目的地是否禁止
@@ -29,7 +29,7 @@ public class ChessAgainst : MonoBehaviour
             ///
             for (int i = 0; i < roadStationS.connectedPointIds.Length; i++)
             {
-                FieldRoadStation roadStation = App.Package.ChessGame.GetFeildRoadStationById(roadStationS.connectedPointIds[i]);
+                FieldRoadStation roadStation = App.Package.ChessGame.GetFieldRoadStationById(roadStationS.connectedPointIds[i]);
                 if (roadStation == roadStationT)
                 {
                     moveData.crashType = 0;
@@ -169,11 +169,11 @@ public class ChessAgainst : MonoBehaviour
             if (path.pathStations.Count < currentR) break;
             int startId = path.pathStations[path.pathStations.Count - 1];
             if (startId == roadStationT.id) continue;//找到的不找了
-            roadStationS = App.Package.ChessGame.GetFeildRoadStationById(startId);
+            roadStationS = App.Package.ChessGame.GetFieldRoadStationById(startId);
             for (int j = 0; j < roadStationS.connectedPointIds.Length; j++)
             {
                 int id = roadStationS.connectedPointIds[j];
-                FieldRoadStation roadStationC = App.Package.ChessGame.GetFeildRoadStationById(id);
+                FieldRoadStation roadStationC = App.Package.ChessGame.GetFieldRoadStationById(id);
                 if (roadStationC.type == FieldRoadStationType.Rail)
                 {
                     if (path.pathStations.IndexOf(id) == -1)

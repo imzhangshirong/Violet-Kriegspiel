@@ -14,12 +14,12 @@ public class UILobbyPanel : UIViewBase
 	public override void OnOpen(Intent intent)
 	{
 		base.OnOpen(intent);
-        //CheckGameState();
+        CheckGameState();
 
     }
 
 	public override void OnRefresh(){
-		//CheckGameState();
+		CheckGameState();
 	}
 
 	public void FindEnemyClick(){
