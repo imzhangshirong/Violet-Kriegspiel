@@ -367,6 +367,9 @@ public class RpcNetwork
                 {
                     lock (m_messageQueue)
                     {
+                        App.Manager.Thread.RunOnMainThread(()=>{
+                            Debuger.Warn("Buffer:"+buffer.Length);
+                        });
                         m_messageQueue.Add(buffer);
                     }
                 }
