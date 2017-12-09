@@ -7,10 +7,11 @@ message RoomStateChangePush{//房间状态发生变化，对方退出
   repeated PlayerInfo playerList = 1;
 }
 
-message EnterBattleFieldPush{//双方准备就绪进入游戏的push
+message EnterBattleFieldPush{
   repeated PlayerInfo playerList = 1;
   int32 roundOrder = 2;//回合顺序位置，从0开始，0先手
   repeated ChessData chessSetting = 3;//我方上次的摆子设置
+  string roomId = 4;
 }
 
 message PlayerStateChangePush{//敌人状态改变

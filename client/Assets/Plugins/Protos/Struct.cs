@@ -583,7 +583,7 @@ namespace Com.Violet.Rpc {
     public const int GameRemainTimeFieldNumber = 6;
     private int gameRemainTime_;
     /// <summary>
-    ///倒计时时间，默认-1
+    ///倒计时时间，默认-1 
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int GameRemainTime {

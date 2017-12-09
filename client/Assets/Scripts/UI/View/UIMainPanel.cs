@@ -55,9 +55,8 @@ public class UIMainPanel : UIViewBase
         Debuger.Warn(ChessAgainst.InRailArea(new ChessPoint(1,6)));
         Debuger.Warn(ChessAgainst.InRailArea(new ChessPoint(1,10)));
         Debuger.Warn(ChessAgainst.InRailArea(new ChessPoint(4,6)));
-        Debuger.Warn(ChessAgainst.IsConnected(s1,s2));
-
         //App.Manager.UI.ReplaceView("UIGamePanel");
+        //OnSetIp();
     }
 	public void NextPage()
 	{
@@ -114,5 +113,14 @@ public class UIMainPanel : UIViewBase
     {
         Debuger.Log("send cancel");
         Common.UI.BackPage();
+    }
+    void OnClick()
+    {
+        if(Input.touchCount>0){
+            for(int i=0;i<Input.touchCount;i++){
+                Debuger.Warn("Touch:"+Input.touches[i].position.ToString());
+            }
+        }
+        Debuger.Warn("Mouse:"+Input.mousePosition.ToString());
     }
 }

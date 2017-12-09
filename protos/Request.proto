@@ -59,6 +59,7 @@ message EnterRoomResponse{
 message ReadyInRoomRequest{
   bool isReady = 1;
   repeated ChessData chessMap = 2;
+  string roomId = 3;
 }
 
 message ReadyInRoomResponse{
@@ -66,7 +67,7 @@ message ReadyInRoomResponse{
 }
 
 message LeaveRoomRequest{
-  int32 roomId = 1;
+  string roomId = 1;
 }
 
 message LeaveRoomResponse{
@@ -102,11 +103,11 @@ message CheckGameStateRequest{//检测是否在游戏房间内
 }
 
 message CheckGameStateResponse{
-  string roomToken = 1;//用于断线重连直接进入房间
+  string roomId = 1;//用于断线重连直接进入房间
 }
 
 message EnterBattleFieldRequest{//通过房间Token进入指定房间
-  string roomToken = 1;
+  string roomId = 1;
 }
 
 message EnterBattleFieldResponse{

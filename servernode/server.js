@@ -543,7 +543,6 @@ RpcServer.on("Login",function(requestData){
     let user = getUserByName(request.getUsername());
     if(user!=null){
         if(user.pass==request.getPassword()){
-            let PlayerInfo = RpcServer.getRpc("PlayerInfo","");
             let playerInfo = getRpcPlayerInfo(user);
             user.token = requestData.token;
             console.log("login:"+user.userName+":"+user.token);
@@ -568,7 +567,6 @@ RpcServer.on("Login",function(requestData){
         };
         user.token = requestData.token;
         UserData.push(user);
-        let PlayerInfo = RpcServer.getRpc("PlayerInfo","");
         let playerInfo = getRpcPlayerInfo(user);
         console.log("add & login:"+user.userName+":"+user.token);
         response.setPlayerinfo(playerInfo);
@@ -637,6 +635,8 @@ RpcServer.on("ReadyInRoom",function(requestData){
             let tempList = request.getChessmapList();
             for(let i = 0;i<tempList.length;i++){
                 tempList[i].setBelong(user.zoneId+"/"+user.userId);
+                let point = tempList[i].getPoint();
+                console.log(point.getX()+","+point.getY()+"=>"+tempList[i].getChesstype());
             }
             for(let i = 0;i<room.users.length;i++){
                 if(room.users[i].token == user.token){
@@ -826,10 +826,10 @@ RpcServer.on("CheckGameState",function(requestData){
     if(user!=null){
         let room = getRoomByUser(user);
         if(room!=null){
-            response.setRoomtoken(room.token);
+            response.setRoomid(room.roomId);
         }
         else{
-            response.setRoomtoken("");//不在房间里
+            response.setRoomid("");//不在房间里
         }
     }
     else{
@@ -846,7 +846,7 @@ RpcServer.on("EnterBattleField",function(requestData){
     if(user!=null){
         let room = getRoomByUser(user);
         if(room!=null){
-            if(room.token == request.getRoomtoken()){
+            if(room.roomId == request.getRoomid()){
                 let playerList = [];
                 for(let i=0;i<room.users.length;i++){
                     playerList.push(getRpcPlayerInfo(room.users[i]));

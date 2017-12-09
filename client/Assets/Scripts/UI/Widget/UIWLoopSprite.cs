@@ -38,7 +38,6 @@ public class UIWLoopSprite : MonoBehaviour
 				}
 			}
 		}
-		Debuger.Log("MAx:"+max+"|"+prex);
 		StartCoroutine(ChangeSprite());
 	}
 

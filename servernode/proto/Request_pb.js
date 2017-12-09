@@ -1905,7 +1905,8 @@ proto.com.violet.rpc.ReadyInRoomRequest.toObject = function(includeInstance, msg
   var f, obj = {
     isready: jspb.Message.getFieldWithDefault(msg, 1, false),
     chessmapList: jspb.Message.toObjectList(msg.getChessmapList(),
-    Struct_pb.ChessData.toObject, includeInstance)
+    Struct_pb.ChessData.toObject, includeInstance),
+    roomid: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -1951,6 +1952,10 @@ proto.com.violet.rpc.ReadyInRoomRequest.deserializeBinaryFromReader = function(m
       reader.readMessage(value,Struct_pb.ChessData.deserializeBinaryFromReader);
       msg.addChessmap(value);
       break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRoomid(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -1993,6 +1998,13 @@ proto.com.violet.rpc.ReadyInRoomRequest.serializeBinaryToWriter = function(messa
       2,
       f,
       Struct_pb.ChessData.serializeBinaryToWriter
+    );
+  }
+  f = message.getRoomid();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
     );
   }
 };
@@ -2043,6 +2055,21 @@ proto.com.violet.rpc.ReadyInRoomRequest.prototype.addChessmap = function(opt_val
 
 proto.com.violet.rpc.ReadyInRoomRequest.prototype.clearChessmapList = function() {
   this.setChessmapList([]);
+};
+
+
+/**
+ * optional string roomId = 3;
+ * @return {string}
+ */
+proto.com.violet.rpc.ReadyInRoomRequest.prototype.getRoomid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.com.violet.rpc.ReadyInRoomRequest.prototype.setRoomid = function(value) {
+  jspb.Message.setField(this, 3, value);
 };
 
 
@@ -2237,7 +2264,7 @@ proto.com.violet.rpc.LeaveRoomRequest.prototype.toObject = function(opt_includeI
  */
 proto.com.violet.rpc.LeaveRoomRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    roomid: jspb.Message.getFieldWithDefault(msg, 1, 0)
+    roomid: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -2275,7 +2302,7 @@ proto.com.violet.rpc.LeaveRoomRequest.deserializeBinaryFromReader = function(msg
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setRoomid(value);
       break;
     default:
@@ -2308,8 +2335,8 @@ proto.com.violet.rpc.LeaveRoomRequest.prototype.serializeBinary = function() {
 proto.com.violet.rpc.LeaveRoomRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getRoomid();
-  if (f !== 0) {
-    writer.writeInt32(
+  if (f.length > 0) {
+    writer.writeString(
       1,
       f
     );
@@ -2318,15 +2345,15 @@ proto.com.violet.rpc.LeaveRoomRequest.serializeBinaryToWriter = function(message
 
 
 /**
- * optional int32 roomId = 1;
- * @return {number}
+ * optional string roomId = 1;
+ * @return {string}
  */
 proto.com.violet.rpc.LeaveRoomRequest.prototype.getRoomid = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
-/** @param {number} value */
+/** @param {string} value */
 proto.com.violet.rpc.LeaveRoomRequest.prototype.setRoomid = function(value) {
   jspb.Message.setField(this, 1, value);
 };
@@ -3456,7 +3483,7 @@ proto.com.violet.rpc.CheckGameStateResponse.prototype.toObject = function(opt_in
  */
 proto.com.violet.rpc.CheckGameStateResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    roomtoken: jspb.Message.getFieldWithDefault(msg, 1, "")
+    roomid: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -3495,7 +3522,7 @@ proto.com.violet.rpc.CheckGameStateResponse.deserializeBinaryFromReader = functi
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setRoomtoken(value);
+      msg.setRoomid(value);
       break;
     default:
       reader.skipField();
@@ -3526,7 +3553,7 @@ proto.com.violet.rpc.CheckGameStateResponse.prototype.serializeBinary = function
  */
 proto.com.violet.rpc.CheckGameStateResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getRoomtoken();
+  f = message.getRoomid();
   if (f.length > 0) {
     writer.writeString(
       1,
@@ -3537,16 +3564,16 @@ proto.com.violet.rpc.CheckGameStateResponse.serializeBinaryToWriter = function(m
 
 
 /**
- * optional string roomToken = 1;
+ * optional string roomId = 1;
  * @return {string}
  */
-proto.com.violet.rpc.CheckGameStateResponse.prototype.getRoomtoken = function() {
+proto.com.violet.rpc.CheckGameStateResponse.prototype.getRoomid = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /** @param {string} value */
-proto.com.violet.rpc.CheckGameStateResponse.prototype.setRoomtoken = function(value) {
+proto.com.violet.rpc.CheckGameStateResponse.prototype.setRoomid = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -3598,7 +3625,7 @@ proto.com.violet.rpc.EnterBattleFieldRequest.prototype.toObject = function(opt_i
  */
 proto.com.violet.rpc.EnterBattleFieldRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    roomtoken: jspb.Message.getFieldWithDefault(msg, 1, "")
+    roomid: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -3637,7 +3664,7 @@ proto.com.violet.rpc.EnterBattleFieldRequest.deserializeBinaryFromReader = funct
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setRoomtoken(value);
+      msg.setRoomid(value);
       break;
     default:
       reader.skipField();
@@ -3668,7 +3695,7 @@ proto.com.violet.rpc.EnterBattleFieldRequest.prototype.serializeBinary = functio
  */
 proto.com.violet.rpc.EnterBattleFieldRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getRoomtoken();
+  f = message.getRoomid();
   if (f.length > 0) {
     writer.writeString(
       1,
@@ -3679,16 +3706,16 @@ proto.com.violet.rpc.EnterBattleFieldRequest.serializeBinaryToWriter = function(
 
 
 /**
- * optional string roomToken = 1;
+ * optional string roomId = 1;
  * @return {string}
  */
-proto.com.violet.rpc.EnterBattleFieldRequest.prototype.getRoomtoken = function() {
+proto.com.violet.rpc.EnterBattleFieldRequest.prototype.getRoomid = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /** @param {string} value */
-proto.com.violet.rpc.EnterBattleFieldRequest.prototype.setRoomtoken = function(value) {
+proto.com.violet.rpc.EnterBattleFieldRequest.prototype.setRoomid = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 

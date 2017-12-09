@@ -40,15 +40,17 @@ RpcServer.on("connection", function (client) {
             if (requestData != null && _bindRpcList[requestData.msg] != null) {
                 requestData.token = clientItemC.token;
                 let result = _bindRpcList[requestData.msg](requestData);
-                let binaryData = returnData(result, requestData);
-                if(binaryData!=null){
-                    let bufferArraySend = buildSocketBinaryData({
-                        version: 1,
-                        dataLength: binaryData.length,
-                        data: binaryData,
-                    });
-                    //console.log(bufferArraySend);
-                    if (result != null) client.write(new Buffer(bufferArraySend));
+                if(result!=null){
+                    let binaryData = returnData(result, requestData);
+                    if(binaryData!=null){
+                        let bufferArraySend = buildSocketBinaryData({
+                            version: 1,
+                            dataLength: binaryData.length,
+                            data: binaryData,
+                        });
+                        //console.log(bufferArraySend);
+                        if (result != null) client.write(new Buffer(bufferArraySend));
+                    }
                 }
             }
         });
