@@ -15,4 +15,8 @@ public class NTableCell : MonoBehaviour
     {
         m_TableView.BindEvent(msg, listener);
     }
+    public virtual void OnDraw(int index,object data)
+    {
+        ((UILabel)GetComponentInChildren<UILabel>()).text = (string)data;
+    }
 }
