@@ -57,12 +57,14 @@ message MessageData{
 
 message HistoryStep{//历史走子记录
   int32 counter = 1;
-  ChessPath path = 2;
-  int32 result = 3;
+  ChessData source = 2;
+  ChessData target = 3;
+  ChessDataPath path = 4;
+  int32 result = 5;
 }
 
-message ChessPath{//走子路径
-  repeated ChessData chessData = 1;
+message ChessDataPath{//走子路径
+  repeated ChessPoint chessPoints = 1;
 }
 
 

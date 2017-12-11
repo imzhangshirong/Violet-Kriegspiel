@@ -36,16 +36,29 @@ public class NTableView : TreeLeaf
         {
             //offset = (m_Orienatation == TableViewOrienatation.Vertical) ? availableCells[0].height: availableCells[0].width;
         }
-        m_ScrollView.onMomentumMove += ScrollMoving;
-        m_ScrollView.onDragStarted += DragStarted;
-        m_ScrollView.onDragFinished += DragFinished;
-        defualtMinSize = Mathf.Abs(m_end.transform.localPosition.y - m_start.transform.localPosition.y);
+        
+        
+
         VisibleProcess();
         m_start.SetActive(true);
         m_start.transform.localPosition = ((m_Orienatation == TableViewOrienatation.Vertical) ? Vector3.down : Vector3.right);
         m_end.SetActive(true);
         m_end.transform.localPosition = ((m_Orienatation==TableViewOrienatation.Vertical)?Vector3.down:Vector3.right)*(defualtMinSize-1);
         NotifyUpdate();
+        m_ScrollView.onMomentumMove += ScrollMoving;
+        m_ScrollView.onDragStarted += DragStarted;
+        m_ScrollView.onDragFinished += DragFinished;
+    }
+
+    void GetMiniSize()
+    {
+        defualtMinSize = Mathf.Abs((m_Orienatation == TableViewOrienatation.Vertical) ? (m_end.transform.localPosition.y - m_start.transform.localPosition.y) : (m_end.transform.localPosition.x - m_start.transform.localPosition.x));
+    }
+
+    public void ResetPosition()
+    {
+        m_ScrollView.ResetPosition();
+        ScrollMoving();
     }
 
     void DragStarted()
@@ -68,7 +81,7 @@ public class NTableView : TreeLeaf
         SetCell();
     }
 
-    void SetCell()
+    void SetCell(bool update = false)
     {
         if (listData == null) return;
         List<NTableCell> needHide = new List<NTableCell>();
@@ -87,6 +100,7 @@ public class NTableView : TreeLeaf
             {
                 if (!hasItem.ContainsKey(index))
                 {
+                    if(update) visibleCells[i].OnDraw(index, listData[index]);
                     hasItem.Add(index, true);
                 }
                 else
@@ -101,7 +115,6 @@ public class NTableView : TreeLeaf
             availableCells.Add(needHide[i]);
             visibleCells.Remove(needHide[i]);
         }
-
         for (int i = topItemIndex; i <= n; i++)
         {
             if (!hasItem.ContainsKey(i) && availableCells.Count > 0)
@@ -118,28 +131,45 @@ public class NTableView : TreeLeaf
 
     void VisibleProcess()
     {
+        if (defualtMinSize <= 0) GetMiniSize();
         float start = (m_Orienatation == TableViewOrienatation.Vertical) ? -m_ScrollPanel.clipOffset.y : m_ScrollPanel.clipOffset.x;
         float panelSize = (m_Orienatation == TableViewOrienatation.Vertical) ? m_ScrollPanel.GetViewSize().y : m_ScrollPanel.GetViewSize().x;
-        offset = (panelSize - size) / 2;
-        topItemIndex = (int)(start / (size+cellSpace))-1;
-        if (topItemIndex < 0) topItemIndex = 0;
-        visibleItemCount = (int)(panelSize / (size + cellSpace)) + 2;
+        offset = (panelSize - size) / 2 - ((m_Orienatation == TableViewOrienatation.Vertical) ? m_ScrollPanel.clipSoftness.y : m_ScrollPanel.clipSoftness.x);
         transform.localPosition = ((m_Orienatation == TableViewOrienatation.Vertical) ? Vector3.up : Vector3.left) * offset;
+        visibleItemCount = (int)(panelSize / (size + cellSpace)) + 2;
+        topItemIndex = (int)(start / (size + cellSpace)) - 1;
+        if (listData == null)
+        {
+            topItemIndex = -1;
+            visibleItemCount = 0;
+        }
+        else
+        {
+            if (topItemIndex + visibleItemCount >= listData.Count)
+            {
+                topItemIndex = listData.Count - visibleItemCount;
+            }
+            if (topItemIndex < 0) topItemIndex = 0;
+        }
     }
 
     /// <summary>
     /// ÉèÖÃdata
     /// </summary>
     /// <param name="list"></param>
-    public void SetData<T>(IList<T> list)
+    public void SetData<T>(IList<T> list,bool updateImmediately = false)
     {
+        if (defualtMinSize <= 0) GetMiniSize();
         listData = new List<object>();
         for(int i = 0; i < list.Count; i++)
         {
             listData.Add((object)list[i]);
         }
-        m_end.transform.localPosition = ((m_Orienatation == TableViewOrienatation.Vertical) ? Vector3.down : Vector3.right) * (list.Count * (size + cellSpace) - 1 - ((list.Count>0)?cellSpace:0));
-        ScrollMoving();
+        float area = list.Count * (size + cellSpace) - 1 - ((list.Count > 0) ? cellSpace : 0);
+        if (area < defualtMinSize) area = defualtMinSize;
+        m_end.transform.localPosition = ((m_Orienatation == TableViewOrienatation.Vertical) ? Vector3.down : Vector3.right) * area;
+        VisibleProcess();
+        SetCell(updateImmediately);
     }
     /// <summary>
     /// ¸üÐÂview
@@ -147,8 +177,7 @@ public class NTableView : TreeLeaf
     public void NotifyUpdate()
     {
         VisibleProcess();
-        visibleCells.Clear();
-        SetCell();
+        SetCell(true);
     }
 }
 public enum TableViewOrienatation

@@ -30,7 +30,12 @@ public class ResourceManager : Manager
         m_resourseMap.Add(fullPath, asset);
 		return asset;
 	}
-	public GameObject LoadUI(string name)
+    public GameObject LoadGame(string name)
+    {
+
+        return Load<GameObject>(Config.GameResourcePath + "/" + name);
+    }
+    public GameObject LoadUI(string name)
 	{
         
         return Load<GameObject>(Config.UIResourcePath + "/" + name);

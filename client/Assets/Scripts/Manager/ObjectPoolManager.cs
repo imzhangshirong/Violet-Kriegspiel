@@ -127,7 +127,7 @@ public class ObjectPoolManager : Manager
         return null;
     }
 
-    public void Releasse(string name, GameObject instanceObject)
+    public void Release(string name, GameObject instanceObject)
     {
         if (m_ObjectMap.ContainsKey(name))
         {
@@ -151,6 +151,11 @@ public class ObjectPoolManager : Manager
             }
             
         }
+    }
+
+    public void Release(GameObject instanceObject)
+    {
+        Release(instanceObject.name, instanceObject);
     }
 
     IEnumerator AutoClean(string name)

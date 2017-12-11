@@ -132,3 +132,11 @@ message SendChatMessageRequest{
 message SendChatMessageResponse{
 
 }
+
+message GetHistoryStepsRequest{
+  string roomId = 1;
+}
+
+message GetHistoryStepsResponse{
+  repeated HistoryStep steps = 1;
+}

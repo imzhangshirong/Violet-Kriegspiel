@@ -52,6 +52,10 @@ public class UIManager : Manager
 				break;
 			}
 		}
+        if(viewStyle == UIViewStyle.Window)//window允许多个
+        {
+            App.Manager.ObjectPool.RegisteObject(name, Config.UIResourcePath + "/" + resourceName, 0, 64, 8f);
+        }
 		m_UIDataRegisted.Add(new UIData(name, resourceName, layoutStyle, viewStyle));
 	}
     private void Awake()
@@ -152,7 +156,7 @@ public class UIManager : Manager
         if (m_UIDataMap.ContainsKey(name))
         {
             if (App.Manager.ObjectPool.HasRegisted(name))
-                App.Manager.ObjectPool.Releasse(name, m_UIDataMap[name].gameObject);//对象池注册的交给对象池管理
+                App.Manager.ObjectPool.Release(name, m_UIDataMap[name].gameObject);//对象池注册的交给对象池管理
             else
                 Destroy(m_UIDataMap[name].gameObject);//销毁
         }
@@ -192,7 +196,6 @@ public class UIManager : Manager
 					m_StackOverView.Remove(m_UIData);
 					if (m_StackOverView.Count > 0)
 					{
-						ActiveView(m_StackOverView[m_StackOverView.Count - 1],false);
 						m_topOverView = m_StackOverView[m_StackOverView.Count - 1].name;
 					}
 					else
@@ -206,15 +209,6 @@ public class UIManager : Manager
 				ActiveView(item);
 			}
 			m_UIData.hidenOverView.Clear();
-            //所有overView都在Window之下
-            for(int i = m_StackPage.Count - 1; i >= 0; i--)
-            {
-                if(m_StackPage[i].viewStyle == UIViewStyle.Page)
-                {
-                    AutoDepthOverView(m_basePageDepth - (m_StackPage.Count - i) * Config.ViewLevelDepth);
-                    break;
-                }
-            }
 		}
 	}
 	public void HideOverViewByPage(string name)
@@ -244,11 +238,13 @@ public class UIManager : Manager
             foreach(var item in m_UIDataMap)
             {
                 UIData m_UIData = item.Value;
+                Debuger.Error(m_UIData.name + "=>" + m_UIData.viewStyle);
                 if (m_UIData.viewStyle == UIViewStyle.OverView)
                 {
                     UIData m_UIDataPage = m_UIDataMap[m_topPage];
                     if (m_UIData.gameObject.activeSelf)
                     {
+                        Debuger.Error(m_UIData.name + "=>" + m_UIData.viewStyle);
                         m_UIDataPage.hidenOverView.Add(m_UIData);
                         m_UIData.gameObject.SetActive(false);
 
@@ -272,6 +268,36 @@ public class UIManager : Manager
             }
         }
     }
+    private void AutoDepth()
+    {
+        m_basePageDepth = Config.PageBaseDepth;
+        int overViewAllDepth = Config.OverViewLevelBaseDepth + m_StackOverView.Count * Config.OverViewLevelDepth;
+        bool hasWindow = false;
+        for(int i = 0; i < m_StackPage.Count; i++)
+        {
+            UIPanel panel = m_StackPage[i].gameObject.GetComponent<UIPanel>();
+            if (panel != null)
+            {
+                if (m_StackPage[i].viewStyle == UIViewStyle.Page)
+                {
+                    panel.depth = m_basePageDepth;
+                }
+                else if (m_StackPage[i].viewStyle == UIViewStyle.Window && !hasWindow)
+                {
+                    m_basePageDepth -= Config.ViewLevelDepth;
+                    AutoDepthOverView(m_basePageDepth);
+                    m_basePageDepth += overViewAllDepth;
+                    hasWindow = true;
+                    panel.depth = m_basePageDepth;
+                }
+                m_basePageDepth += Config.ViewLevelDepth;
+            }
+        }
+        if (!hasWindow)
+        {
+            AutoDepthOverView(m_basePageDepth);
+        }
+    }
     private void HideView(UIData view)
 	{
 		if (view == null) return;
@@ -291,49 +317,16 @@ public class UIManager : Manager
 		if (view == null) return;
 		UIViewBase baseView = view.gameObject.GetComponent<UIViewBase>();
 		UIPanel panel = view.gameObject.GetComponent<UIPanel>();
-		if (baseView != null) baseView.OnInit();
-		if (baseView == null && panel == null)
+		if (panel == null)
 		{
 			Debuger.Error(view.name + " need UIViewBase or UIPanel!");
 			return;
 		}
-		
-		switch (view.viewStyle)
-		{
-			case UIViewStyle.Page:
-            case UIViewStyle.Window:
-                if (panel != null)
-				{
-					panel.depth = m_basePageDepth;
-				}
-				m_basePageDepth += Config.ViewLevelDepth;
-                //所有overView都在Window之下
-                for (int i = m_StackPage.Count - 1; i >= 0; i--)
-                {
-                    if (m_StackPage[i].viewStyle == UIViewStyle.Page)
-                    {
-                        AutoDepthOverView(m_basePageDepth - (m_StackPage.Count - i) * Config.ViewLevelDepth);
-                        break;
-                    }
-                }
-                break;
-			case UIViewStyle.OverView:
-                //所有overView都在Window之下
-                for (int i = m_StackPage.Count - 1; i >= 0; i--)
-                {
-                    if (m_StackPage[i].viewStyle == UIViewStyle.Page)
-                    {
-                        AutoDepthOverView(m_basePageDepth - (m_StackPage.Count - i) * Config.ViewLevelDepth);
-                        break;
-                    }
-                }
-				break;
-            case UIViewStyle.Tips:
-                if (panel != null)
-                {
-                    panel.depth = (m_basePageDepth + Config.OverViewLevelDepth * (m_StackOverView.Count)) * 2;
-                }
-                break;
+        AutoDepth();
+        if (baseView != null) baseView.OnInit();
+        if (view.viewStyle == UIViewStyle.Tips)
+        {
+            panel.depth = m_basePageDepth + Config.ViewLevelDepth;
         }
         view.gameObject.SetActive(true);
         if (baseView != null) baseView.OnOpen(intent);
@@ -348,7 +341,7 @@ public class UIManager : Manager
                 UIViewBase baseView = TopView.gameObject.GetComponent<UIViewBase>();
                 if (baseView != null) baseView.OnClose();
                 m_StackPage.Remove(TopView);
-                App.Manager.ObjectPool.Releasse(TopView.name, TopView.gameObject);
+                App.Manager.ObjectPool.Release(TopView.name, TopView.gameObject);
                 if (m_StackPage.Count > 0)
                 {
                     ActiveView(m_StackPage[m_StackPage.Count - 1],false);

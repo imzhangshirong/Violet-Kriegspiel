@@ -29,6 +29,7 @@ public class UIGamePanel : UIViewBase
 
     private bool m_MyChessIsMoving;
     private GameObject m_ChessHero;
+    private ChessPoint[] m_lastPath;
     static string[] MsgContent = {
         "快点吧，等的我花都谢了",
         "投降吧！我赢定了！",
@@ -41,7 +42,7 @@ public class UIGamePanel : UIViewBase
         App.Manager.UI.HideAllOverViewByPage();
 
         //加载
-        m_ChessHero = App.Manager.Resource.LoadUI("Game/ChessHero");
+        m_ChessHero = App.Manager.Resource.LoadGame("ChessHero");
 
         //注册消息事件
         BindEvent("_chessClick", OnChessClick);
@@ -432,9 +433,7 @@ public class UIGamePanel : UIViewBase
         else
         {
             request.Target = new ChessData();
-            request.Target.Point = new Com.Violet.Rpc.ChessPoint();
-            request.Target.Point.X = moveToPoint.x;
-            request.Target.Point.Y = moveToPoint.y;
+            request.Target.Point = moveToPoint.ParseToRpc();
         }
         App.Manager.Network.Request("MoveChess", request, delegate (IMessage responseData) {
             MoveChessResponse response = (MoveChessResponse)responseData;
@@ -466,9 +465,7 @@ public class UIGamePanel : UIViewBase
         chessData.ChessRemoteId = chessHero.remoteId;
         chessData.Belong = playerInfo.ZoneId + "/" + playerInfo.UserId;
         chessData.Group = (int)chessHero.group;
-        chessData.Point = new Com.Violet.Rpc.ChessPoint();
-        chessData.Point.X = chessHero.point.x;
-        chessData.Point.Y = chessHero.point.y;
+        chessData.Point = chessHero.point.ParseToRpc();
         return chessData;
     }
 
@@ -505,7 +502,7 @@ public class UIGamePanel : UIViewBase
         chess.heroTypeId = chessData.ChessType;
         chess.realChessType = chess.heroTypeId;
         chess.remoteId = chessData.ChessRemoteId;
-        chess.point = new ChessPoint(chessData.Point.X,chessData.Point.Y);
+        chess.point = ChessPoint.ParseFromRpc(chessData.Point);
         chess.belong = chessData.Belong;
         if (chess.group != ChessHeroGroup.Myself || forceTrans)
         {
@@ -528,21 +525,32 @@ public class UIGamePanel : UIViewBase
         });
     }
 
-    IEnumerator TweenMoveChess(ChessHeroData heroChoosed, ChessPoint moveToPoint,ChessMoveResult result,ChessMoveData moveData)
+    IEnumerator TweenMoveChess(ChessHeroData heroChoosed, ChessPoint moveToPoint, ChessMoveResult result, ChessMoveData moveData)
     {
         m_MyChessIsMoving = true;
-        
+
         //if((ChessMoveResult.CANNOT_MOVE == result && moveData.crashType > 0) || (ChessMoveResult.CAN_MOVE == result && moveData.crashType == 0))
         //{
             Push("_cleanArrow");
+            m_lastPath = moveData.points;
             float dur = 0.2f / moveData.points.Length;
             for (int i = 1; i < moveData.points.Length; i++)
             {
-                ShowChessMoveTo(heroChoosed.point,moveData.points[i]);
+                ShowChessMoveTo(heroChoosed.point, moveData.points[i]);
                 ChessMoveTo(heroChoosed, moveData.points[i]);
                 yield return new WaitForSeconds(dur);
 
             }
+            //加入历史走子
+            App.Package.ChessGame.ChessHistorySteps.Insert(0,
+                App.Package.ChessGame.BuildHistoryStep(
+                    App.Package.ChessGame.GameRoundCounter,
+                    heroChoosed,
+                    moveToPoint,
+                    App.Package.ChessGame.BuildChessDataPathFromPoints(moveData.points),
+                    (int)result
+                )
+            );
             heroChoosed.point = moveToPoint;
             m_MyChessIsMoving = false;
         //}
@@ -570,6 +578,7 @@ public class UIGamePanel : UIViewBase
             else
             {
                 Push("_cleanArrow");
+                m_lastPath = moveData.points;
                 ChessMoveResult result = resultR;//ChessAgainst.ChessCanBeat(heroChoosed, hero);
                 float dur = 0.4f / moveData.points.Length;
                 for (int i = 1; i < moveData.points.Length - 1; i++)
@@ -578,6 +587,16 @@ public class UIGamePanel : UIViewBase
                     ChessMoveTo(heroChoosed, moveData.points[i]);
                     yield return new WaitForSeconds(dur);
                 }
+                //加入历史走子
+                App.Package.ChessGame.ChessHistorySteps.Insert(0,
+                    App.Package.ChessGame.BuildHistoryStep(
+                        App.Package.ChessGame.GameRoundCounter,
+                        heroChoosed,
+                        hero,
+                        App.Package.ChessGame.BuildChessDataPathFromPoints(moveData.points),
+                        (int)result
+                    )
+                );
                 switch (result)
                 {
                     case ChessMoveResult.LOSE:

@@ -28,7 +28,7 @@ public class Global : MonoBehaviour
         App.Instance.AddManager<GameManager>(GameManager.Name);
 
         //注册对象池////
-        App.Manager.ObjectPool.RegisteObject("UIAlertWindow", Config.UIResourcePath + "/UIAlertWindow", 0, 64, 8f);
+        App.Manager.ObjectPool.RegisteObject("Arrow", Config.GameResourcePath + "/Arrow", 0, 64, 8f);
 
         //注册UI////
         //特殊UI注册

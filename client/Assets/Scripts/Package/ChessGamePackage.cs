@@ -25,7 +25,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
             return m_MapRoadStations;
         }
     }
-
+    public List<HistoryStep> ChessHistorySteps = new List<HistoryStep>();
     List<PlayerInfo> m_EnemyPlayerList = new List<PlayerInfo>();
     public List<PlayerInfo> EnemyPlayerList
     {
@@ -226,6 +226,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
         int baseId = 0;
         for(int i=0;i<chessList.Count;i++){
             ChessData chess = chessList[i];
+            Debuger.Warn(chess.Belong + ":" + chess.Point.X + "," + chess.Point.Y + "|" + chess.ChessType);
             ChessHeroData heroData = new ChessHeroData();
             ChessHeroGroup group;
             baseId = GetBaseId(chess.Belong);
@@ -368,9 +369,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
                 ChessData chess = new ChessData();
                 chess.ChessRemoteId = item.Value.remoteId;
                 chess.Group = (int)item.Value.group;
-                chess.Point = new Com.Violet.Rpc.ChessPoint();
-                chess.Point.X = item.Value.point.x;
-                chess.Point.Y = item.Value.point.y;
+                chess.Point = item.Value.point.ParseToRpc();
                 chess.ChessType = item.Value.heroTypeId;
                 list.Add(chess);
             }
@@ -451,7 +450,66 @@ public class ChessGamePackage : Package<ChessGamePackage>
         base.Release();
     }
 
-    
+    public ChessPoint[] ChessDataPathToPoints(ChessDataPath path)
+    {
+        ChessPoint[] re = new ChessPoint[path.ChessPoints.Count];
+        for(int i=0;i< path.ChessPoints.Count; i++)
+        {
+            re[i] = new ChessPoint(path.ChessPoints[i].X, path.ChessPoints[i].Y);
+        }
+        return re;
+    }
+
+    public ChessDataPath BuildChessDataPathFromPoints(ChessPoint[] points)
+    {
+        ChessDataPath re = new ChessDataPath();
+        
+        for (int i = 0; i < points.Length; i++)
+        {
+            re.ChessPoints.Add(points[i].ParseToRpc());
+        }
+        return re;
+    }
+
+    public HistoryStep BuildHistoryStep(int counter,ChessData source,ChessData target, ChessDataPath path, int result)
+    {
+        HistoryStep re = new HistoryStep();
+        re.Counter = counter;
+        re.Source = source;
+        re.Target = target;
+        re.Path = path;
+        re.Result = result;
+        return re;
+    }
+
+    public HistoryStep BuildHistoryStep(int counter, ChessHeroData source, ChessHeroData target, ChessDataPath path, int result)
+    {
+        ChessData s = new ChessData();
+        s.ChessRemoteId = source.remoteId;
+        s.Belong = source.belong;
+        s.ChessType = source.realChessType;
+        s.Point = source.point.ParseToRpc();
+
+        ChessData t = new ChessData();
+        t.ChessRemoteId = target.remoteId;
+        t.Belong = target.belong;
+        t.ChessType = target.realChessType;
+        t.Point = target.point.ParseToRpc();
+        return BuildHistoryStep(counter,s,t,path,result);
+    }
+    public HistoryStep BuildHistoryStep(int counter, ChessHeroData source, ChessPoint targetPoint, ChessDataPath path, int result)
+    {
+        ChessData s = new ChessData();
+        s.ChessRemoteId = source.remoteId;
+        s.Belong = source.belong;
+        s.ChessType = source.realChessType;
+        s.Point = source.point.ParseToRpc();
+
+        ChessData t = new ChessData();
+        t.Point = targetPoint.ParseToRpc();
+        return BuildHistoryStep(counter, s, t, path, result);
+    }
+
 }
 
 public class ChessHeroData
@@ -478,6 +536,17 @@ public class ChessPoint
 {
     public int x;
     public int y;
+    public Com.Violet.Rpc.ChessPoint ParseToRpc()
+    {
+        Com.Violet.Rpc.ChessPoint p = new Com.Violet.Rpc.ChessPoint();
+        p.X = x;
+        p.Y = y;
+        return p;
+    }
+    static public ChessPoint ParseFromRpc (Com.Violet.Rpc.ChessPoint point)
+    {
+        return new ChessPoint(point.X, point.Y);
+    }
     public ChessPoint(int x, int y)
     {
         this.x = x;

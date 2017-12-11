@@ -59,7 +59,9 @@ namespace Com.Violet.Rpc {
             "c2USEwoLaXNTdXJyZW5kZXIYASABKAgiUwoWU2VuZENoYXRNZXNzYWdlUmVx",
             "dWVzdBIPCgd0b1doZXJlGAEgASgFEigKA21zZxgCIAEoCzIbLmNvbS52aW9s",
             "ZXQucnBjLk1lc3NhZ2VEYXRhIhkKF1NlbmRDaGF0TWVzc2FnZVJlc3BvbnNl",
-            "YgZwcm90bzM="));
+            "IigKFkdldEhpc3RvcnlTdGVwc1JlcXVlc3QSDgoGcm9vbUlkGAEgASgJIkUK",
+            "F0dldEhpc3RvcnlTdGVwc1Jlc3BvbnNlEioKBXN0ZXBzGAEgAygLMhsuY29t",
+            "LnZpb2xldC5ycGMuSGlzdG9yeVN0ZXBiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Com.Violet.Rpc.StructReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -90,7 +92,9 @@ namespace Com.Violet.Rpc {
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.SurrenderRequest), global::Com.Violet.Rpc.SurrenderRequest.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.SurrenderResponse), global::Com.Violet.Rpc.SurrenderResponse.Parser, new[]{ "IsSurrender" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.SendChatMessageRequest), global::Com.Violet.Rpc.SendChatMessageRequest.Parser, new[]{ "ToWhere", "Msg" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.SendChatMessageResponse), global::Com.Violet.Rpc.SendChatMessageResponse.Parser, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.SendChatMessageResponse), global::Com.Violet.Rpc.SendChatMessageResponse.Parser, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.GetHistoryStepsRequest), global::Com.Violet.Rpc.GetHistoryStepsRequest.Parser, new[]{ "RoomId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.GetHistoryStepsResponse), global::Com.Violet.Rpc.GetHistoryStepsResponse.Parser, new[]{ "Steps" }, null, null, null)
           }));
     }
     #endregion
@@ -3637,6 +3641,232 @@ namespace Com.Violet.Rpc {
           default:
             input.SkipLastField();
             break;
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class GetHistoryStepsRequest : pb::IMessage<GetHistoryStepsRequest> {
+    private static readonly pb::MessageParser<GetHistoryStepsRequest> _parser = new pb::MessageParser<GetHistoryStepsRequest>(() => new GetHistoryStepsRequest());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<GetHistoryStepsRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[28]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetHistoryStepsRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetHistoryStepsRequest(GetHistoryStepsRequest other) : this() {
+      roomId_ = other.roomId_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetHistoryStepsRequest Clone() {
+      return new GetHistoryStepsRequest(this);
+    }
+
+    /// <summary>Field number for the "roomId" field.</summary>
+    public const int RoomIdFieldNumber = 1;
+    private string roomId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string RoomId {
+      get { return roomId_; }
+      set {
+        roomId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as GetHistoryStepsRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(GetHistoryStepsRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (RoomId != other.RoomId) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (RoomId.Length != 0) hash ^= RoomId.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (RoomId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(RoomId);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (RoomId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomId);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(GetHistoryStepsRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.RoomId.Length != 0) {
+        RoomId = other.RoomId;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 10: {
+            RoomId = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class GetHistoryStepsResponse : pb::IMessage<GetHistoryStepsResponse> {
+    private static readonly pb::MessageParser<GetHistoryStepsResponse> _parser = new pb::MessageParser<GetHistoryStepsResponse>(() => new GetHistoryStepsResponse());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<GetHistoryStepsResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Com.Violet.Rpc.RequestReflection.Descriptor.MessageTypes[29]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetHistoryStepsResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetHistoryStepsResponse(GetHistoryStepsResponse other) : this() {
+      steps_ = other.steps_.Clone();
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetHistoryStepsResponse Clone() {
+      return new GetHistoryStepsResponse(this);
+    }
+
+    /// <summary>Field number for the "steps" field.</summary>
+    public const int StepsFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::Com.Violet.Rpc.HistoryStep> _repeated_steps_codec
+        = pb::FieldCodec.ForMessage(10, global::Com.Violet.Rpc.HistoryStep.Parser);
+    private readonly pbc::RepeatedField<global::Com.Violet.Rpc.HistoryStep> steps_ = new pbc::RepeatedField<global::Com.Violet.Rpc.HistoryStep>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Com.Violet.Rpc.HistoryStep> Steps {
+      get { return steps_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as GetHistoryStepsResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(GetHistoryStepsResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!steps_.Equals(other.steps_)) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= steps_.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      steps_.WriteTo(output, _repeated_steps_codec);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += steps_.CalculateSize(_repeated_steps_codec);
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(GetHistoryStepsResponse other) {
+      if (other == null) {
+        return;
+      }
+      steps_.Add(other.steps_);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 10: {
+            steps_.AddEntriesFrom(input, _repeated_steps_codec);
+            break;
+          }
         }
       }
     }

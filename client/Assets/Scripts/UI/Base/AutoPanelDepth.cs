@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class AutoPanelDepth : MonoBehaviour
 {
-    private int offsetDepth = -1;
+    [HideInInspector]
+    public int offsetDepth = -1;
     private bool init = false;
     UIPanel panel;
     public UIPanel rootPanel;

@@ -12,7 +12,7 @@ var goog = jspb;
 var global = Function('return this')();
 
 goog.exportSymbol('proto.com.violet.rpc.ChessData', null, global);
-goog.exportSymbol('proto.com.violet.rpc.ChessPath', null, global);
+goog.exportSymbol('proto.com.violet.rpc.ChessDataPath', null, global);
 goog.exportSymbol('proto.com.violet.rpc.ChessPoint', null, global);
 goog.exportSymbol('proto.com.violet.rpc.HistoryStep', null, global);
 goog.exportSymbol('proto.com.violet.rpc.MessageData', null, global);
@@ -1775,8 +1775,10 @@ proto.com.violet.rpc.HistoryStep.prototype.toObject = function(opt_includeInstan
 proto.com.violet.rpc.HistoryStep.toObject = function(includeInstance, msg) {
   var f, obj = {
     counter: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    path: (f = msg.getPath()) && proto.com.violet.rpc.ChessPath.toObject(includeInstance, f),
-    result: jspb.Message.getFieldWithDefault(msg, 3, 0)
+    source: (f = msg.getSource()) && proto.com.violet.rpc.ChessData.toObject(includeInstance, f),
+    target: (f = msg.getTarget()) && proto.com.violet.rpc.ChessData.toObject(includeInstance, f),
+    path: (f = msg.getPath()) && proto.com.violet.rpc.ChessDataPath.toObject(includeInstance, f),
+    result: jspb.Message.getFieldWithDefault(msg, 5, 0)
   };
 
   if (includeInstance) {
@@ -1818,11 +1820,21 @@ proto.com.violet.rpc.HistoryStep.deserializeBinaryFromReader = function(msg, rea
       msg.setCounter(value);
       break;
     case 2:
-      var value = new proto.com.violet.rpc.ChessPath;
-      reader.readMessage(value,proto.com.violet.rpc.ChessPath.deserializeBinaryFromReader);
-      msg.setPath(value);
+      var value = new proto.com.violet.rpc.ChessData;
+      reader.readMessage(value,proto.com.violet.rpc.ChessData.deserializeBinaryFromReader);
+      msg.setSource(value);
       break;
     case 3:
+      var value = new proto.com.violet.rpc.ChessData;
+      reader.readMessage(value,proto.com.violet.rpc.ChessData.deserializeBinaryFromReader);
+      msg.setTarget(value);
+      break;
+    case 4:
+      var value = new proto.com.violet.rpc.ChessDataPath;
+      reader.readMessage(value,proto.com.violet.rpc.ChessDataPath.deserializeBinaryFromReader);
+      msg.setPath(value);
+      break;
+    case 5:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setResult(value);
       break;
@@ -1862,18 +1874,34 @@ proto.com.violet.rpc.HistoryStep.serializeBinaryToWriter = function(message, wri
       f
     );
   }
-  f = message.getPath();
+  f = message.getSource();
   if (f != null) {
     writer.writeMessage(
       2,
       f,
-      proto.com.violet.rpc.ChessPath.serializeBinaryToWriter
+      proto.com.violet.rpc.ChessData.serializeBinaryToWriter
+    );
+  }
+  f = message.getTarget();
+  if (f != null) {
+    writer.writeMessage(
+      3,
+      f,
+      proto.com.violet.rpc.ChessData.serializeBinaryToWriter
+    );
+  }
+  f = message.getPath();
+  if (f != null) {
+    writer.writeMessage(
+      4,
+      f,
+      proto.com.violet.rpc.ChessDataPath.serializeBinaryToWriter
     );
   }
   f = message.getResult();
   if (f !== 0) {
     writer.writeInt32(
-      3,
+      5,
       f
     );
   }
@@ -1896,18 +1924,78 @@ proto.com.violet.rpc.HistoryStep.prototype.setCounter = function(value) {
 
 
 /**
- * optional ChessPath path = 2;
- * @return {?proto.com.violet.rpc.ChessPath}
+ * optional ChessData source = 2;
+ * @return {?proto.com.violet.rpc.ChessData}
  */
-proto.com.violet.rpc.HistoryStep.prototype.getPath = function() {
-  return /** @type{?proto.com.violet.rpc.ChessPath} */ (
-    jspb.Message.getWrapperField(this, proto.com.violet.rpc.ChessPath, 2));
+proto.com.violet.rpc.HistoryStep.prototype.getSource = function() {
+  return /** @type{?proto.com.violet.rpc.ChessData} */ (
+    jspb.Message.getWrapperField(this, proto.com.violet.rpc.ChessData, 2));
 };
 
 
-/** @param {?proto.com.violet.rpc.ChessPath|undefined} value */
-proto.com.violet.rpc.HistoryStep.prototype.setPath = function(value) {
+/** @param {?proto.com.violet.rpc.ChessData|undefined} value */
+proto.com.violet.rpc.HistoryStep.prototype.setSource = function(value) {
   jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+proto.com.violet.rpc.HistoryStep.prototype.clearSource = function() {
+  this.setSource(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.com.violet.rpc.HistoryStep.prototype.hasSource = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * optional ChessData target = 3;
+ * @return {?proto.com.violet.rpc.ChessData}
+ */
+proto.com.violet.rpc.HistoryStep.prototype.getTarget = function() {
+  return /** @type{?proto.com.violet.rpc.ChessData} */ (
+    jspb.Message.getWrapperField(this, proto.com.violet.rpc.ChessData, 3));
+};
+
+
+/** @param {?proto.com.violet.rpc.ChessData|undefined} value */
+proto.com.violet.rpc.HistoryStep.prototype.setTarget = function(value) {
+  jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+proto.com.violet.rpc.HistoryStep.prototype.clearTarget = function() {
+  this.setTarget(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.com.violet.rpc.HistoryStep.prototype.hasTarget = function() {
+  return jspb.Message.getField(this, 3) != null;
+};
+
+
+/**
+ * optional ChessDataPath path = 4;
+ * @return {?proto.com.violet.rpc.ChessDataPath}
+ */
+proto.com.violet.rpc.HistoryStep.prototype.getPath = function() {
+  return /** @type{?proto.com.violet.rpc.ChessDataPath} */ (
+    jspb.Message.getWrapperField(this, proto.com.violet.rpc.ChessDataPath, 4));
+};
+
+
+/** @param {?proto.com.violet.rpc.ChessDataPath|undefined} value */
+proto.com.violet.rpc.HistoryStep.prototype.setPath = function(value) {
+  jspb.Message.setWrapperField(this, 4, value);
 };
 
 
@@ -1921,22 +2009,22 @@ proto.com.violet.rpc.HistoryStep.prototype.clearPath = function() {
  * @return {!boolean}
  */
 proto.com.violet.rpc.HistoryStep.prototype.hasPath = function() {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 4) != null;
 };
 
 
 /**
- * optional int32 result = 3;
+ * optional int32 result = 5;
  * @return {number}
  */
 proto.com.violet.rpc.HistoryStep.prototype.getResult = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
 };
 
 
 /** @param {number} value */
 proto.com.violet.rpc.HistoryStep.prototype.setResult = function(value) {
-  jspb.Message.setField(this, 3, value);
+  jspb.Message.setField(this, 5, value);
 };
 
 
@@ -1951,19 +2039,19 @@ proto.com.violet.rpc.HistoryStep.prototype.setResult = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.com.violet.rpc.ChessPath = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.com.violet.rpc.ChessPath.repeatedFields_, null);
+proto.com.violet.rpc.ChessDataPath = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.com.violet.rpc.ChessDataPath.repeatedFields_, null);
 };
-goog.inherits(proto.com.violet.rpc.ChessPath, jspb.Message);
+goog.inherits(proto.com.violet.rpc.ChessDataPath, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.com.violet.rpc.ChessPath.displayName = 'proto.com.violet.rpc.ChessPath';
+  proto.com.violet.rpc.ChessDataPath.displayName = 'proto.com.violet.rpc.ChessDataPath';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.com.violet.rpc.ChessPath.repeatedFields_ = [1];
+proto.com.violet.rpc.ChessDataPath.repeatedFields_ = [1];
 
 
 
@@ -1978,8 +2066,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.com.violet.rpc.ChessPath.prototype.toObject = function(opt_includeInstance) {
-  return proto.com.violet.rpc.ChessPath.toObject(opt_includeInstance, this);
+proto.com.violet.rpc.ChessDataPath.prototype.toObject = function(opt_includeInstance) {
+  return proto.com.violet.rpc.ChessDataPath.toObject(opt_includeInstance, this);
 };
 
 
@@ -1988,14 +2076,14 @@ proto.com.violet.rpc.ChessPath.prototype.toObject = function(opt_includeInstance
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.com.violet.rpc.ChessPath} msg The msg instance to transform.
+ * @param {!proto.com.violet.rpc.ChessDataPath} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.com.violet.rpc.ChessPath.toObject = function(includeInstance, msg) {
+proto.com.violet.rpc.ChessDataPath.toObject = function(includeInstance, msg) {
   var f, obj = {
-    chessdataList: jspb.Message.toObjectList(msg.getChessdataList(),
-    proto.com.violet.rpc.ChessData.toObject, includeInstance)
+    chesspointsList: jspb.Message.toObjectList(msg.getChesspointsList(),
+    proto.com.violet.rpc.ChessPoint.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -2009,23 +2097,23 @@ proto.com.violet.rpc.ChessPath.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.com.violet.rpc.ChessPath}
+ * @return {!proto.com.violet.rpc.ChessDataPath}
  */
-proto.com.violet.rpc.ChessPath.deserializeBinary = function(bytes) {
+proto.com.violet.rpc.ChessDataPath.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.com.violet.rpc.ChessPath;
-  return proto.com.violet.rpc.ChessPath.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.com.violet.rpc.ChessDataPath;
+  return proto.com.violet.rpc.ChessDataPath.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.com.violet.rpc.ChessPath} msg The message object to deserialize into.
+ * @param {!proto.com.violet.rpc.ChessDataPath} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.com.violet.rpc.ChessPath}
+ * @return {!proto.com.violet.rpc.ChessDataPath}
  */
-proto.com.violet.rpc.ChessPath.deserializeBinaryFromReader = function(msg, reader) {
+proto.com.violet.rpc.ChessDataPath.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -2033,9 +2121,9 @@ proto.com.violet.rpc.ChessPath.deserializeBinaryFromReader = function(msg, reade
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new proto.com.violet.rpc.ChessData;
-      reader.readMessage(value,proto.com.violet.rpc.ChessData.deserializeBinaryFromReader);
-      msg.addChessdata(value);
+      var value = new proto.com.violet.rpc.ChessPoint;
+      reader.readMessage(value,proto.com.violet.rpc.ChessPoint.deserializeBinaryFromReader);
+      msg.addChesspoints(value);
       break;
     default:
       reader.skipField();
@@ -2050,9 +2138,9 @@ proto.com.violet.rpc.ChessPath.deserializeBinaryFromReader = function(msg, reade
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.com.violet.rpc.ChessPath.prototype.serializeBinary = function() {
+proto.com.violet.rpc.ChessDataPath.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.com.violet.rpc.ChessPath.serializeBinaryToWriter(this, writer);
+  proto.com.violet.rpc.ChessDataPath.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -2060,51 +2148,51 @@ proto.com.violet.rpc.ChessPath.prototype.serializeBinary = function() {
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.com.violet.rpc.ChessPath} message
+ * @param {!proto.com.violet.rpc.ChessDataPath} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.com.violet.rpc.ChessPath.serializeBinaryToWriter = function(message, writer) {
+proto.com.violet.rpc.ChessDataPath.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getChessdataList();
+  f = message.getChesspointsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      proto.com.violet.rpc.ChessData.serializeBinaryToWriter
+      proto.com.violet.rpc.ChessPoint.serializeBinaryToWriter
     );
   }
 };
 
 
 /**
- * repeated ChessData chessData = 1;
- * @return {!Array.<!proto.com.violet.rpc.ChessData>}
+ * repeated ChessPoint chessPoints = 1;
+ * @return {!Array.<!proto.com.violet.rpc.ChessPoint>}
  */
-proto.com.violet.rpc.ChessPath.prototype.getChessdataList = function() {
-  return /** @type{!Array.<!proto.com.violet.rpc.ChessData>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.com.violet.rpc.ChessData, 1));
+proto.com.violet.rpc.ChessDataPath.prototype.getChesspointsList = function() {
+  return /** @type{!Array.<!proto.com.violet.rpc.ChessPoint>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.com.violet.rpc.ChessPoint, 1));
 };
 
 
-/** @param {!Array.<!proto.com.violet.rpc.ChessData>} value */
-proto.com.violet.rpc.ChessPath.prototype.setChessdataList = function(value) {
+/** @param {!Array.<!proto.com.violet.rpc.ChessPoint>} value */
+proto.com.violet.rpc.ChessDataPath.prototype.setChesspointsList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.com.violet.rpc.ChessData=} opt_value
+ * @param {!proto.com.violet.rpc.ChessPoint=} opt_value
  * @param {number=} opt_index
- * @return {!proto.com.violet.rpc.ChessData}
+ * @return {!proto.com.violet.rpc.ChessPoint}
  */
-proto.com.violet.rpc.ChessPath.prototype.addChessdata = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.com.violet.rpc.ChessData, opt_index);
+proto.com.violet.rpc.ChessDataPath.prototype.addChesspoints = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.com.violet.rpc.ChessPoint, opt_index);
 };
 
 
-proto.com.violet.rpc.ChessPath.prototype.clearChessdataList = function() {
-  this.setChessdataList([]);
+proto.com.violet.rpc.ChessDataPath.prototype.clearChesspointsList = function() {
+  this.setChesspointsList([]);
 };
 
 

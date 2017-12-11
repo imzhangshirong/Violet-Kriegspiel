@@ -36,10 +36,13 @@ namespace Com.Violet.Rpc {
             "b21EYXRhEg4KBnJvb21JZBgBIAEoBRIQCghyb29tTmFtZRgCIAEoCSJyCgtN",
             "ZXNzYWdlRGF0YRIOCgZ1c2VySWQYASABKAUSDgoGem9uZUlkGAIgASgFEhAK",
             "CHVzZXJOYW1lGAMgASgJEg0KBWxldmVsGAQgASgFEhEKCXRpbWVzdGFtcBgF",
-            "IAEoAxIPCgdjb250ZW50GAYgASgJIlcKC0hpc3RvcnlTdGVwEg8KB2NvdW50",
-            "ZXIYASABKAUSJwoEcGF0aBgCIAEoCzIZLmNvbS52aW9sZXQucnBjLkNoZXNz",
-            "UGF0aBIOCgZyZXN1bHQYAyABKAUiOQoJQ2hlc3NQYXRoEiwKCWNoZXNzRGF0",
-            "YRgBIAMoCzIZLmNvbS52aW9sZXQucnBjLkNoZXNzRGF0YWIGcHJvdG8z"));
+            "IAEoAxIPCgdjb250ZW50GAYgASgJIrEBCgtIaXN0b3J5U3RlcBIPCgdjb3Vu",
+            "dGVyGAEgASgFEikKBnNvdXJjZRgCIAEoCzIZLmNvbS52aW9sZXQucnBjLkNo",
+            "ZXNzRGF0YRIpCgZ0YXJnZXQYAyABKAsyGS5jb20udmlvbGV0LnJwYy5DaGVz",
+            "c0RhdGESKwoEcGF0aBgEIAEoCzIdLmNvbS52aW9sZXQucnBjLkNoZXNzRGF0",
+            "YVBhdGgSDgoGcmVzdWx0GAUgASgFIkAKDUNoZXNzRGF0YVBhdGgSLwoLY2hl",
+            "c3NQb2ludHMYASADKAsyGi5jb20udmlvbGV0LnJwYy5DaGVzc1BvaW50YgZw",
+            "cm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -50,8 +53,8 @@ namespace Com.Violet.Rpc {
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ChessPoint), global::Com.Violet.Rpc.ChessPoint.Parser, new[]{ "X", "Y" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.RoomData), global::Com.Violet.Rpc.RoomData.Parser, new[]{ "RoomId", "RoomName" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.MessageData), global::Com.Violet.Rpc.MessageData.Parser, new[]{ "UserId", "ZoneId", "UserName", "Level", "Timestamp", "Content" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.HistoryStep), global::Com.Violet.Rpc.HistoryStep.Parser, new[]{ "Counter", "Path", "Result" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ChessPath), global::Com.Violet.Rpc.ChessPath.Parser, new[]{ "ChessData" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.HistoryStep), global::Com.Violet.Rpc.HistoryStep.Parser, new[]{ "Counter", "Source", "Target", "Path", "Result" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ChessDataPath), global::Com.Violet.Rpc.ChessDataPath.Parser, new[]{ "ChessPoints" }, null, null, null)
           }));
     }
     #endregion
@@ -1607,6 +1610,8 @@ namespace Com.Violet.Rpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public HistoryStep(HistoryStep other) : this() {
       counter_ = other.counter_;
+      Source = other.source_ != null ? other.Source.Clone() : null;
+      Target = other.target_ != null ? other.Target.Clone() : null;
       Path = other.path_ != null ? other.Path.Clone() : null;
       result_ = other.result_;
     }
@@ -1627,11 +1632,33 @@ namespace Com.Violet.Rpc {
       }
     }
 
-    /// <summary>Field number for the "path" field.</summary>
-    public const int PathFieldNumber = 2;
-    private global::Com.Violet.Rpc.ChessPath path_;
+    /// <summary>Field number for the "source" field.</summary>
+    public const int SourceFieldNumber = 2;
+    private global::Com.Violet.Rpc.ChessData source_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Com.Violet.Rpc.ChessPath Path {
+    public global::Com.Violet.Rpc.ChessData Source {
+      get { return source_; }
+      set {
+        source_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "target" field.</summary>
+    public const int TargetFieldNumber = 3;
+    private global::Com.Violet.Rpc.ChessData target_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Com.Violet.Rpc.ChessData Target {
+      get { return target_; }
+      set {
+        target_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "path" field.</summary>
+    public const int PathFieldNumber = 4;
+    private global::Com.Violet.Rpc.ChessDataPath path_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Com.Violet.Rpc.ChessDataPath Path {
       get { return path_; }
       set {
         path_ = value;
@@ -1639,7 +1666,7 @@ namespace Com.Violet.Rpc {
     }
 
     /// <summary>Field number for the "result" field.</summary>
-    public const int ResultFieldNumber = 3;
+    public const int ResultFieldNumber = 5;
     private int result_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int Result {
@@ -1663,6 +1690,8 @@ namespace Com.Violet.Rpc {
         return true;
       }
       if (Counter != other.Counter) return false;
+      if (!object.Equals(Source, other.Source)) return false;
+      if (!object.Equals(Target, other.Target)) return false;
       if (!object.Equals(Path, other.Path)) return false;
       if (Result != other.Result) return false;
       return true;
@@ -1672,6 +1701,8 @@ namespace Com.Violet.Rpc {
     public override int GetHashCode() {
       int hash = 1;
       if (Counter != 0) hash ^= Counter.GetHashCode();
+      if (source_ != null) hash ^= Source.GetHashCode();
+      if (target_ != null) hash ^= Target.GetHashCode();
       if (path_ != null) hash ^= Path.GetHashCode();
       if (Result != 0) hash ^= Result.GetHashCode();
       return hash;
@@ -1688,12 +1719,20 @@ namespace Com.Violet.Rpc {
         output.WriteRawTag(8);
         output.WriteInt32(Counter);
       }
-      if (path_ != null) {
+      if (source_ != null) {
         output.WriteRawTag(18);
+        output.WriteMessage(Source);
+      }
+      if (target_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(Target);
+      }
+      if (path_ != null) {
+        output.WriteRawTag(34);
         output.WriteMessage(Path);
       }
       if (Result != 0) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(40);
         output.WriteInt32(Result);
       }
     }
@@ -1703,6 +1742,12 @@ namespace Com.Violet.Rpc {
       int size = 0;
       if (Counter != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Counter);
+      }
+      if (source_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Source);
+      }
+      if (target_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Target);
       }
       if (path_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Path);
@@ -1721,9 +1766,21 @@ namespace Com.Violet.Rpc {
       if (other.Counter != 0) {
         Counter = other.Counter;
       }
+      if (other.source_ != null) {
+        if (source_ == null) {
+          source_ = new global::Com.Violet.Rpc.ChessData();
+        }
+        Source.MergeFrom(other.Source);
+      }
+      if (other.target_ != null) {
+        if (target_ == null) {
+          target_ = new global::Com.Violet.Rpc.ChessData();
+        }
+        Target.MergeFrom(other.Target);
+      }
       if (other.path_ != null) {
         if (path_ == null) {
-          path_ = new global::Com.Violet.Rpc.ChessPath();
+          path_ = new global::Com.Violet.Rpc.ChessDataPath();
         }
         Path.MergeFrom(other.Path);
       }
@@ -1745,13 +1802,27 @@ namespace Com.Violet.Rpc {
             break;
           }
           case 18: {
+            if (source_ == null) {
+              source_ = new global::Com.Violet.Rpc.ChessData();
+            }
+            input.ReadMessage(source_);
+            break;
+          }
+          case 26: {
+            if (target_ == null) {
+              target_ = new global::Com.Violet.Rpc.ChessData();
+            }
+            input.ReadMessage(target_);
+            break;
+          }
+          case 34: {
             if (path_ == null) {
-              path_ = new global::Com.Violet.Rpc.ChessPath();
+              path_ = new global::Com.Violet.Rpc.ChessDataPath();
             }
             input.ReadMessage(path_);
             break;
           }
-          case 24: {
+          case 40: {
             Result = input.ReadInt32();
             break;
           }
@@ -1764,10 +1835,10 @@ namespace Com.Violet.Rpc {
   /// <summary>
   ///走子路径
   /// </summary>
-  public sealed partial class ChessPath : pb::IMessage<ChessPath> {
-    private static readonly pb::MessageParser<ChessPath> _parser = new pb::MessageParser<ChessPath>(() => new ChessPath());
+  public sealed partial class ChessDataPath : pb::IMessage<ChessDataPath> {
+    private static readonly pb::MessageParser<ChessDataPath> _parser = new pb::MessageParser<ChessDataPath>(() => new ChessDataPath());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<ChessPath> Parser { get { return _parser; } }
+    public static pb::MessageParser<ChessDataPath> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -1780,53 +1851,53 @@ namespace Com.Violet.Rpc {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ChessPath() {
+    public ChessDataPath() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ChessPath(ChessPath other) : this() {
-      chessData_ = other.chessData_.Clone();
+    public ChessDataPath(ChessDataPath other) : this() {
+      chessPoints_ = other.chessPoints_.Clone();
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ChessPath Clone() {
-      return new ChessPath(this);
+    public ChessDataPath Clone() {
+      return new ChessDataPath(this);
     }
 
-    /// <summary>Field number for the "chessData" field.</summary>
-    public const int ChessDataFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::Com.Violet.Rpc.ChessData> _repeated_chessData_codec
-        = pb::FieldCodec.ForMessage(10, global::Com.Violet.Rpc.ChessData.Parser);
-    private readonly pbc::RepeatedField<global::Com.Violet.Rpc.ChessData> chessData_ = new pbc::RepeatedField<global::Com.Violet.Rpc.ChessData>();
+    /// <summary>Field number for the "chessPoints" field.</summary>
+    public const int ChessPointsFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::Com.Violet.Rpc.ChessPoint> _repeated_chessPoints_codec
+        = pb::FieldCodec.ForMessage(10, global::Com.Violet.Rpc.ChessPoint.Parser);
+    private readonly pbc::RepeatedField<global::Com.Violet.Rpc.ChessPoint> chessPoints_ = new pbc::RepeatedField<global::Com.Violet.Rpc.ChessPoint>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::Com.Violet.Rpc.ChessData> ChessData {
-      get { return chessData_; }
+    public pbc::RepeatedField<global::Com.Violet.Rpc.ChessPoint> ChessPoints {
+      get { return chessPoints_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as ChessPath);
+      return Equals(other as ChessDataPath);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(ChessPath other) {
+    public bool Equals(ChessDataPath other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if(!chessData_.Equals(other.chessData_)) return false;
+      if(!chessPoints_.Equals(other.chessPoints_)) return false;
       return true;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      hash ^= chessData_.GetHashCode();
+      hash ^= chessPoints_.GetHashCode();
       return hash;
     }
 
@@ -1837,22 +1908,22 @@ namespace Com.Violet.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      chessData_.WriteTo(output, _repeated_chessData_codec);
+      chessPoints_.WriteTo(output, _repeated_chessPoints_codec);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      size += chessData_.CalculateSize(_repeated_chessData_codec);
+      size += chessPoints_.CalculateSize(_repeated_chessPoints_codec);
       return size;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(ChessPath other) {
+    public void MergeFrom(ChessDataPath other) {
       if (other == null) {
         return;
       }
-      chessData_.Add(other.chessData_);
+      chessPoints_.Add(other.chessPoints_);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1864,7 +1935,7 @@ namespace Com.Violet.Rpc {
             input.SkipLastField();
             break;
           case 10: {
-            chessData_.AddEntriesFrom(input, _repeated_chessData_codec);
+            chessPoints_.AddEntriesFrom(input, _repeated_chessPoints_codec);
             break;
           }
         }

@@ -32,20 +32,20 @@ public class UIWChessItem : UIWidgetBase
         float dx = (toPoint.x-x)*128;
         float dy = (toPoint.y-y)*64;
         float rotateA = Mathf.Atan2(dy,dx);
-        GameObject arrowGo = App.Manager.Resource.Load<GameObject>("UI/Game/Arrow");
-        arrowGo = Instantiate(arrowGo);
+        GameObject arrowGo = App.Manager.ObjectPool.Instantiate("Arrow");
         arrowGo.name = "Arrow";
         arrowGo.transform.SetParent(this.gameObject.transform);
         arrowGo.transform.localScale = Vector3.one;
         arrowGo.transform.localPosition = Vector3.zero;
-        arrowGo.transform.Rotate(0,0,rotateA/Mathf.PI*180-90);
+        arrowGo.transform.localRotation = Quaternion.Euler(0, 0, rotateA / Mathf.PI * 180 - 90);
+        arrowGo.SetActive(true);
     }
     
     void CleanArrow(object content){
         for(int i=transform.childCount-1;i>=0;i--){
             GameObject go = transform.GetChild(i).gameObject;
             if(go.name=="Arrow"){
-                Destroy(go);
+                App.Manager.ObjectPool.Release(go);
             }
         }
     }
