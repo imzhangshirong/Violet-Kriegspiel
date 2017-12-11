@@ -16,5 +16,6 @@ module.exports = {
         waitingFindEnemy : 45,//匹配等待秒数
         waitingReady : 30,//准备等待秒数
         waitingRound : 30,//回合等待秒数
+        debugMode : false,
     }
 }

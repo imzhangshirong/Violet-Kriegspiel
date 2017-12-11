@@ -122,7 +122,7 @@ public class MockManager : Manager
         response.PlayerInfo.ZoneId = 1;
         response.PlayerInfo.State = (int)PlayerState.UNKNOW;
         response.ServerTime = DateTime.Now.Ticks / 10000;
-        Debuger.Log("userLogin:" + requestRpc.UserName);
+        Debugger.Log("userLogin:" + requestRpc.UserName);
         callback(response);
     }
     void FindEnemyResponse(IMessage request, RpcResponse callback)

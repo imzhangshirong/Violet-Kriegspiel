@@ -80,7 +80,7 @@ public class UIManager : Manager
 		ml_Center = GameObject.Find(Config.UIRootPath + "_CenterAnchor").transform;
 		if (ml_Center == null)
 		{
-			Debuger.Log("null");
+			Debugger.Log("null");
 		}
 	}
 	private UIData GetUIData(string name)
@@ -294,6 +294,7 @@ public class UIManager : Manager
         if (!hasWindow)
         {
             AutoDepthOverView(m_basePageDepth);
+            m_basePageDepth += overViewAllDepth;
         }
     }
     private void HideView(UIData view)
@@ -317,7 +318,7 @@ public class UIManager : Manager
 		UIPanel panel = view.gameObject.GetComponent<UIPanel>();
 		if (panel == null)
 		{
-			Debuger.Error(view.name + " need UIViewBase or UIPanel!");
+			Debugger.Error(view.name + " need UIViewBase or UIPanel!");
 			return;
 		}
         AutoDepth();
@@ -392,7 +393,7 @@ public class UIManager : Manager
 			UIViewBase baseView = m_UIData.gameObject.GetComponent<UIViewBase>();
 			if (baseView == null)
 			{
-				Debuger.Error(name + " need UIViewBase!");
+				Debugger.Error(name + " need UIViewBase!");
 				return;
 			}
 			baseView.OnClose();

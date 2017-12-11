@@ -179,10 +179,10 @@ function createMatchRoom(users_){
                         autoReady(curRoom,user);//自动准备
                     }
                 }
-                console.log(user.userName+"|"+user.state+"|"+curRoom.counter+"|"+user.gameRemainTime);
+                //console.log(user.userName+"|"+user.state+"|"+curRoom.counter+"|"+user.gameRemainTime);
                 
             }
-            console.log("-------------------");
+            //console.log("-------------------");
         },1000);
         let playerInfoMap = {};
         //更新状态
@@ -322,7 +322,7 @@ function startGame(room){
             room.users[i].state = 3;
         }
         //更新棋子remoteId
-        let baseId = Math.floor(Math.random()*10000);
+        let baseId = 1+Math.floor(Math.random()*10000);
         let chessMap = [];
         for(let i=0;i<room.chessMap.length;i++){
             for(let j=0;j<room.chessMap[i].length;j++){
@@ -344,7 +344,7 @@ function startGame(room){
                 let chess = item;
                 if(item.getBelong()!=belong){//不是自己的都隐藏
                     chess = chess.clone();
-                    //chess.setChesstype(-1);
+                    if(!Config.Game.debugMode)chess.setChesstype(-1);
                 }
                 chessMapSend.push(chess);
             });
@@ -416,7 +416,7 @@ function autoSkip(room,user){
     let source = new ChessData();
     let target = null;
     let result = 0;
-    source.setChessremoteid(-1);
+    source.setChessremoteid(0);
     //设置当前可用时间
     room.users[room.counter%room.users.length].gameRemainTime = Config.Game.waitingRound;
     pushMoveChess(room,user,source,target,result,true);
@@ -646,10 +646,12 @@ RpcServer.on("ReadyInRoom",function(requestData){
             }
             console.log("room:" + room.roomId + " user:" + user.userName + " > ready");
             response.setIschangestate(true);
-            user.state = 2;
-            setTimeout(function(){
-                userReady(room,user);
-            },100);
+            if(user.state==1){
+                user.state = 2;
+                setTimeout(function(){
+                    userReady(room,user);
+                },100);
+            }
         }
         else{
             requestData.errorCode = 21;
@@ -801,7 +803,7 @@ RpcServer.on("BattleMap",function(requestData){
                 let chess = item;
                 if(item.getBelong()!=belong){//不是自己的都隐藏
                     chess = chess.clone();
-                    //chess.setChesstype(-1);
+                    if(!Config.Game.debugMode)chess.setChesstype(-1);
                 }
                 chessMapSend.push(chess);
             });
@@ -867,7 +869,7 @@ RpcServer.on("EnterBattleField",function(requestData){
                     let chess = item;
                     if(item.getBelong()!=belong){//不是自己的都隐藏
                         chess = chess.clone();
-                        //chess.setChesstype(-1);
+                        if(!Config.Game.debugMode)chess.setChesstype(-1);
                     }
                     chessMapSend.push(chess);
                 });

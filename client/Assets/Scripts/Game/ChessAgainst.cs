@@ -145,7 +145,7 @@ public class ChessAgainst : MonoBehaviour
             ChessHeroData heroData = App.Package.ChessGame.GetChessHeroDataByPoint(points[i]);
             if (heroData != null && heroData.state == ChessHeroState.Alive)
             {
-                Debuger.Error(points[i]);
+                Debugger.Error(points[i]);
                 return heroData;
             }
         }

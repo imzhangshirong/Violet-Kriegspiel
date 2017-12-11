@@ -31,7 +31,7 @@ public class UIMainPanel : UIViewBase
         }
         catch(Exception e)
         {
-            Debuger.Error(e.Message);
+            Debugger.Error(e.Message);
         }
         
     }
@@ -39,7 +39,7 @@ public class UIMainPanel : UIViewBase
 	public override void OnOpen(Intent intent)
 	{
 		base.OnOpen(intent);
-		Debuger.Log("MainPanel Open");
+		Debugger.Log("MainPanel Open");
         string ip = PlayerPrefs.GetString("hostIp");
         if (ip != "")ipInput.value = ip;
         FieldRoadStation s1= new FieldRoadStation(){
@@ -50,11 +50,11 @@ public class UIMainPanel : UIViewBase
             type = FieldRoadStationType.Barrack,
             point = new ChessPoint(1,6),
         };
-        Debuger.Warn(ChessAgainst.IsBarrack(new ChessPoint(1,7)));
-        Debuger.Warn(ChessAgainst.InRailArea(new ChessPoint(0,7)));
-        Debuger.Warn(ChessAgainst.InRailArea(new ChessPoint(1,6)));
-        Debuger.Warn(ChessAgainst.InRailArea(new ChessPoint(1,10)));
-        Debuger.Warn(ChessAgainst.InRailArea(new ChessPoint(4,6)));
+        Debugger.Warn(ChessAgainst.IsBarrack(new ChessPoint(1,7)));
+        Debugger.Warn(ChessAgainst.InRailArea(new ChessPoint(0,7)));
+        Debugger.Warn(ChessAgainst.InRailArea(new ChessPoint(1,6)));
+        Debugger.Warn(ChessAgainst.InRailArea(new ChessPoint(1,10)));
+        Debugger.Warn(ChessAgainst.InRailArea(new ChessPoint(4,6)));
         //App.Manager.UI.ReplaceView("UIGamePanel");
         //OnSetIp();
     }
@@ -68,12 +68,12 @@ public class UIMainPanel : UIViewBase
 	public override void OnRefresh()
 	{
 		base.OnRefresh();
-		Debuger.Log("MainPanel Refresh");
+		Debugger.Log("MainPanel Refresh");
 	}
 	public override void OnClose()
 	{
 		base.OnClose();
-		Debuger.Log("MainPanel close");
+		Debugger.Log("MainPanel close");
 	}
     public void RPC_TEST()
     {
@@ -88,7 +88,7 @@ public class UIMainPanel : UIViewBase
     public void SIMPLE_TEST()
     {
         Common.UI.OpenAlert("Confirm", "Will Send String \""+ rpcInput.value + "\" To Server", "OK", Test, "Cancel", Nagetive, false);
-        //Debuger.Log("send string:" + rpcInput.value);
+        //Debugger.Log("send string:" + rpcInput.value);
         //RpcNetwork.SendUnEncode(rpcInput.value);
     }
     void Test()
@@ -100,27 +100,27 @@ public class UIMainPanel : UIViewBase
     {
         try
         {
-            Debuger.Log("send string:" + rpcInput.value);
+            Debugger.Log("send string:" + rpcInput.value);
             RpcNetwork.SendUnEncode(rpcInput.value);
         }
         catch(Exception e)
         {
-            Debuger.Warn(e.StackTrace);
+            Debugger.Warn(e.StackTrace);
         }
         Common.UI.BackPage();
     }
     void Nagetive()
     {
-        Debuger.Log("send cancel");
+        Debugger.Log("send cancel");
         Common.UI.BackPage();
     }
     void OnClick()
     {
         if(Input.touchCount>0){
             for(int i=0;i<Input.touchCount;i++){
-                Debuger.Warn("Touch:"+Input.touches[i].position.ToString());
+                Debugger.Warn("Touch:"+Input.touches[i].position.ToString());
             }
         }
-        Debuger.Warn("Mouse:"+Input.mousePosition.ToString());
+        Debugger.Warn("Mouse:"+Input.mousePosition.ToString());
     }
 }

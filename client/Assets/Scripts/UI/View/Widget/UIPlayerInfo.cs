@@ -11,14 +11,14 @@ public class UIPlayerInfo : UIViewBase
     public override void OnInit()
 	{
 		base.OnInit();
-		Debuger.Log("UIPlayerInfoPanel Init");
+		Debugger.Log("UIPlayerInfoPanel Init");
         
     }
     public override void OnOpen(Intent intent)
 	{
 		base.OnOpen(intent);
 		UpdateData();
-		Debuger.Log("UIPlayerInfoPanel Open");
+		Debugger.Log("UIPlayerInfoPanel Open");
 	}
 
 	public void UpdateData(){

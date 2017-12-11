@@ -10,7 +10,7 @@ public class Global : MonoBehaviour
     //初始化基础模块
     void Awake()
     {
-        Debuger.Init();
+        Debugger.Init();
         DontDestroyOnLoad(gameObject);
         //加载Manager////
 
@@ -65,10 +65,10 @@ public class Global : MonoBehaviour
         App.Manager.Network.RegisteErrorCode(31, () => {
             Common.UI.OpenAlert("错误", "数据错误", "确认", null);
         });
-        Debuger.Log("Inited");
+        Debugger.Log("Inited");
     }
     void OnApplicationQuit()
     {
-        Debuger.Log("Destroied");
+        Debugger.Log("Destroied");
     }
 }

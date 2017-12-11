@@ -1922,7 +1922,7 @@ public class UIRichTextLabel : UIWidget
         for (int i = 0; i < richItems.Count; i++)
         {
             RichTextItem item = richItems[i];
-            Debuger.Log(item.area.xMin + "|" + item.area.xMax + "|" + item.area.yMin + "|" + item.area.yMax);
+            Debugger.Log(item.area.xMin + "|" + item.area.xMax + "|" + item.area.yMin + "|" + item.area.yMax);
             float x = pos.x + item.area.xMin - item.area.width / 2;
             float y = pos.y - item.area.yMin + item.area.height / 2 - finalFontSize;
             GameObject go = null;

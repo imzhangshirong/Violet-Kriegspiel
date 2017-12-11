@@ -67,7 +67,7 @@ public class RpcNetwork
         if (m_socket.Connected)
         {
             App.Manager.Thread.RunOnMainThread(()=>{
-                Debuger.Log(rpc.msg + " start send");
+                Debugger.Log(rpc.msg + " start send");
             });
             m_socket.BeginSend(rpc.sendData, 0, rpc.sendData.Length, SocketFlags.None, Sent, m_socket);
         }
@@ -138,7 +138,7 @@ public class RpcNetwork
     
     static void Resend(RPC rpc){
         App.Manager.Thread.RunOnMainThread(()=>{
-            Debuger.Error("Resend:"+rpc.msg);
+            Debugger.Error("Resend:"+rpc.msg);
         });
         rpc.timestamp = DateTime.Now.Ticks;
         rpc.state = RpcState.Waiting;
@@ -284,7 +284,7 @@ public class RpcNetwork
         {
             
             App.Manager.Thread.RunOnMainThread(() => {
-                Debuger.Log("Network Connecting");
+                Debugger.Log("Network Connecting");
             });
             IPAddress[] addr = Dns.GetHostAddresses(Config.ServerHost);
             var clientEndPoint = new IPEndPoint(addr[0], Config.ServerHostPort);
@@ -310,7 +310,7 @@ public class RpcNetwork
                         catch (Exception e)
                         {
                             App.Manager.Thread.RunOnMainThread(() => {
-                                Debuger.Error(e.ToString());
+                                Debugger.Error(e.ToString());
                             });
                             Disconnect();
                         }
@@ -320,7 +320,7 @@ public class RpcNetwork
             catch (Exception e)
             {
                 App.Manager.Thread.RunOnMainThread(() => {
-                    Debuger.Error(e.ToString());
+                    Debugger.Error(e.ToString());
                 });
             }
         }
@@ -347,7 +347,7 @@ public class RpcNetwork
         }
         catch(Exception e)
         {
-            Debuger.Warn(e.ToString());
+            Debugger.Warn(e.ToString());
         }
 
     }
@@ -368,7 +368,7 @@ public class RpcNetwork
                     lock (m_messageQueue)
                     {
                         App.Manager.Thread.RunOnMainThread(()=>{
-                            Debuger.Warn("Buffer:"+buffer.Length);
+                            Debugger.Warn("Buffer:"+buffer.Length);
                         });
                         m_messageQueue.Add(buffer);
                     }
@@ -479,7 +479,7 @@ public class RpcNetwork
         catch(Exception e)
         {
             App.Manager.Thread.RunOnMainThread(() => {
-                Debuger.Error(e.ToString());
+                Debugger.Error(e.ToString());
             });
         }
         if (!m_socket.Connected)
@@ -569,7 +569,7 @@ public class RpcNetwork
                     if (uiData.needErrorCodeAlert)
                     {
                         App.Manager.Thread.RunOnMainThread(()=>{
-                            Debuger.Log("Receive Rpc:"+response.Code);
+                            Debugger.Log("Receive Rpc:"+response.Code);
                         });
                         if (App.Manager.Network.HasRegistedErrorCode(response.Code))
                             App.Manager.Thread.RunOnMainThread(() =>
@@ -643,7 +643,7 @@ public class RpcNetwork
                 IMessage resRpc = Activator.CreateInstance(type) as IMessage;
                 resRpc.MergeFrom(response.Data);
                 App.Manager.Thread.RunOnMainThread(()=>{
-                    Debuger.Warn("RecievePush:"+response.Rpc);
+                    Debugger.Warn("RecievePush:"+response.Rpc);
                     m_Listener.Invoke(response.Rpc, resRpc);//分发给注册的Listener
                 });
             }
@@ -657,7 +657,7 @@ public class RpcNetwork
             m_isReady = true;
             App.Manager.Thread.RunOnMainThread(() =>
             {
-                Debuger.Log("Connected");
+                Debugger.Log("Connected");
             });
             //开始监听
             m_isQueue = true;
@@ -673,12 +673,12 @@ public class RpcNetwork
     private void Disconnect()
     {
         App.Manager.Thread.RunOnMainThread(() => {
-            Debuger.Log("Disconnected");
+            Debugger.Log("Disconnected");
         });
         while (!m_socket.Connected)
         {
             App.Manager.Thread.RunOnMainThread(() => {
-                Debuger.Log("Reconnecting:"+ m_socket.Connected);
+                Debugger.Log("Reconnecting:"+ m_socket.Connected);
             });
             Thread.Sleep(1000);
             Init(true);
@@ -691,7 +691,7 @@ public class RpcNetwork
         Connected(null);
         ResendAll();
         App.Manager.Thread.RunOnMainThread(() => {
-            Debuger.Log("Reconnected");
+            Debugger.Log("Reconnected");
         });
     }
     private static void Sent(IAsyncResult ar)

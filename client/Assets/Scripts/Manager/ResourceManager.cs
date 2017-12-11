@@ -16,7 +16,7 @@ public class ResourceManager : Manager
 	public T Load<T>(string path) where T : UnityEngine.Object
 	{
 		string fullPath = path;
-        //Debuger.Log(fullPath);
+        //Debugger.Log(fullPath);
 		T asset = null;
 		if (m_resourseMap.ContainsKey(fullPath))
 		{
@@ -25,7 +25,7 @@ public class ResourceManager : Manager
         asset = Resources.Load<T>(path);
         if (asset == null)
         {
-            Debuger.Error(fullPath + " not exist!");
+            Debugger.Error(fullPath + " not exist!");
         }
         m_resourseMap.Add(fullPath, asset);
 		return asset;

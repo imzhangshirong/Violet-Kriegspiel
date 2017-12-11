@@ -111,6 +111,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
         m_EnemyPlayerList.Sort(SortPlayerListByRoundOrder);
         m_ChessData.Clear();
         ChessDataIds.Clear();
+        ChessHistorySteps.Clear();
         MyselfChessSetting = new List<ChessData>(push.ChessSetting);
         m_roundOrder = push.RoundOrder;
         m_IsEnemyReady = false;
@@ -192,7 +193,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
                     if (ChessAgainst.IsConnected(m_MapRoadStations[i], m_MapRoadStations[j]))
                     {
                         connetedIds.Add(j);
-                        //Debuger.Warn(m_MapRoadStations[i].point.ToString()+" => "+ m_MapRoadStations[j].point.ToString());
+                        //Debugger.Warn(m_MapRoadStations[i].point.ToString()+" => "+ m_MapRoadStations[j].point.ToString());
                     }
                 }
             }
@@ -226,7 +227,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
         int baseId = 0;
         for(int i=0;i<chessList.Count;i++){
             ChessData chess = chessList[i];
-            Debuger.Warn(chess.Belong + ":" + chess.Point.X + "," + chess.Point.Y + "|" + chess.ChessType);
+            Debugger.Warn(chess.Belong + ":" + chess.Point.X + "," + chess.Point.Y + "|" + chess.ChessType);
             ChessHeroData heroData = new ChessHeroData();
             ChessHeroGroup group;
             baseId = GetBaseId(chess.Belong);

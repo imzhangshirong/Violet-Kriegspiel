@@ -54,13 +54,13 @@ public class HistoryTableCell : NTableCell
             }
             else
             {
-                if (stepData.Result == (int)ChessMoveResult.WIN)
+                if (stepData.Result == (int)ChessMoveResult.WIN || stepData.Result == (int)ChessMoveResult.TIE)
                 {
-                    item += "敌方走子,我方 [11B0FF]" + ChessAgainst.ChessHeroNameDefine[stepData.Target.ChessType] + "[-] [FFC300]胜利";
+                    item += "敌方走子,我方 [11B0FF]" + ChessAgainst.ChessHeroNameDefine[stepData.Target.ChessType] + "[-] [999999]阵亡";
                 }
                 else
                 {
-                    item += "敌方走子,我方 [11B0FF]" + ChessAgainst.ChessHeroNameDefine[stepData.Target.ChessType] + "[-] [999999]阵亡";
+                    item += "敌方走子,我方 [11B0FF]" + ChessAgainst.ChessHeroNameDefine[stepData.Target.ChessType] + "[-] [FFC300]胜利";
                 }
             }
         }

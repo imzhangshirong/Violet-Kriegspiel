@@ -15,7 +15,7 @@ public class TreeLeaf : MonoBehaviour
 	{
 		if (treeRoot == null)
 		{
-			Debuger.Warn(this.gameObject.name + ":leaf hasn't TreeRoot.");
+			Debugger.Warn(this.gameObject.name + ":leaf hasn't TreeRoot.");
 		}
         treeRoot.Bind(this);
 	}
@@ -26,7 +26,7 @@ public class TreeLeaf : MonoBehaviour
     public void Push(string msg, object content = null)
 	{
 		if(treeRoot == null){
-			Debuger.Warn(this.gameObject.name + ":leaf hasn't TreeRoot.");
+			Debugger.Warn(this.gameObject.name + ":leaf hasn't TreeRoot.");
 		}
         treeRoot.Broadcast(this, msg, content);
 	}

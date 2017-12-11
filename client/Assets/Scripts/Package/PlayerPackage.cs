@@ -12,7 +12,7 @@ public class PlayerPackage : Package<PlayerPackage>
         //throw new NotImplementedException();
         LoginResponse responseData = (LoginResponse)data;
         playerInfo = responseData.PlayerInfo;
-        Debuger.Warn("User:"+playerInfo.UserName+" LoginSet:"+playerInfo.ZoneId+"/"+playerInfo.UserId);
+        Debugger.Warn("User:"+playerInfo.UserName+" LoginSet:"+playerInfo.ZoneId+"/"+playerInfo.UserId);
     }
 
     public override void Release()

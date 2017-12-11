@@ -26,6 +26,8 @@ public class UIGamePanel : UIViewBase
     public GameObject m_MyselfMsgShow;
     public GameObject m_EnemyMsgShow;
 
+    public GameObject m_HistoryTrigger;
+    public GameObject m_HistoryPanel;
 
     private bool m_MyChessIsMoving;
     private GameObject m_ChessHero;
@@ -68,7 +70,7 @@ public class UIGamePanel : UIViewBase
         BindEvent("#NET_ChessMove", OnReceiveChessMove);
         BindEvent("#NET_ChatMessage", OnReceiveChatMsg);
 
-        //消息列表
+        //消息列表temp
         BindEvent("_input_msg", delegate (object content) {
             GameObject go = (GameObject)content;
             NClickEvent eclick = go.GetComponent<NClickEvent>();
@@ -91,7 +93,13 @@ public class UIGamePanel : UIViewBase
     public override void OnOpen(Intent intent)
     {
         base.OnOpen(intent);
-        Debuger.Log("GamePanel Open");
+        Debugger.Log("GamePanel Open");
+
+        m_HistoryTrigger.SetActive(true);
+        m_HistoryPanel.SetActive(false);
+        m_roundOver.gameObject.SetActive(false);
+        m_EnemyMsgShow.SetActive(false);
+        m_MyselfMsgShow.SetActive(false);
 
         m_EnemyFied.transform.DestroyChildren();
         m_MyselfFied.transform.DestroyChildren();
@@ -145,7 +153,7 @@ public class UIGamePanel : UIViewBase
     public override void OnRefresh()
     {
         base.OnRefresh();
-        Debuger.Log("GamePanel Refresh");
+        Debugger.Log("GamePanel Refresh");
     }
 
     void InitFieldRoadStations(){
@@ -220,7 +228,7 @@ public class UIGamePanel : UIViewBase
             Intent intent = (Intent)content;
             ChessPoint point = (ChessPoint)intent.Value("point");
             GameObject go = (GameObject)intent.Value("gameObject");
-            //Debuger.Warn("ChessItem Click:" + id +"|"+ App.Package.ChessGame.MyselfChooseChessId + "|" +App.Package.ChessGame.GetFieldRoadStationByPoint(point).type);
+            //Debugger.Warn("ChessItem Click:" + id +"|"+ App.Package.ChessGame.MyselfChooseChessId + "|" +App.Package.ChessGame.GetFieldRoadStationByPoint(point).type);
             if (App.Package.ChessGame.MyselfChooseChessId > -1)
             {
                 ChessHeroData heroChoosed = App.Package.ChessGame.GetChessHeroDataById(App.Package.ChessGame.MyselfChooseChessId);
@@ -460,17 +468,17 @@ public class UIGamePanel : UIViewBase
             int result = response.ChessMoveResult;
             //强制回合同步
             App.Package.ChessGame.GameRoundCounter = response.Counter - 1;
-            if (hero == null)
-            {
-                StartCoroutine(TweenMoveChess(heroChoosed, moveToPoint,(ChessMoveResult)result, moveData));
-            }
-            else
-            {
-                StartCoroutine(TweenMoveChessAndBeat(heroChoosed, hero, (ChessMoveResult)result, moveData));
-            }
+            
             if (response.Counter == App.Package.ChessGame.GameRoundCounter + 1)
             {
-                NextGameRound();
+                if (hero == null)
+                {
+                    StartCoroutine(TweenMoveChess(heroChoosed, moveToPoint, (ChessMoveResult)result, moveData));
+                }
+                else
+                {
+                    StartCoroutine(TweenMoveChessAndBeat(heroChoosed, hero, (ChessMoveResult)result, moveData));
+                }
             }
             else
             {
@@ -539,7 +547,7 @@ public class UIGamePanel : UIViewBase
 
     void ChessDataHasProblem()
     {
-        Debuger.Error("ChessDataErro!!!! counter:"+App.Package.ChessGame.GameRoundCounter);
+        Debugger.Error("ChessDataErro!!!! counter:"+App.Package.ChessGame.GameRoundCounter);
         Common.UI.OpenAlert("错误", "数据异常！", "确定", delegate () {
             ForceExitGame();
         });
@@ -571,8 +579,11 @@ public class UIGamePanel : UIViewBase
                     (int)result
                 )
             );
+            Push("_updateHistory");
+
             heroChoosed.point = moveToPoint;
             m_MyChessIsMoving = false;
+            NextGameRound();
         //}
         /*else
         {
@@ -592,7 +603,7 @@ public class UIGamePanel : UIViewBase
             if (moveData.crashType > 0)
             {
                 App.Package.ChessGame.MyselfChooseChessId = hero.id;
-                Debuger.Warn("ChessHeroItem Cant MoveTo " + hero.point.ToString() + " : " + moveData.crashType);
+                Debugger.Warn("ChessHeroItem Cant MoveTo " + hero.point.ToString() + " : " + moveData.crashType);
                 m_MyChessIsMoving = false;
             }
             else
@@ -617,6 +628,7 @@ public class UIGamePanel : UIViewBase
                         (int)result
                     )
                 );
+                Push("_updateHistory");
                 switch (result)
                 {
                     case ChessMoveResult.LOSE:
@@ -660,21 +672,27 @@ public class UIGamePanel : UIViewBase
                 else
                 {
                     cid = hero.realChessType;
-                    resultS = result != ChessMoveResult.WIN;
+                    resultS = result == ChessMoveResult.WIN;
                     if (cid > 0 && cid < 11 && cid != 1)
                     {
-                        if(cid == heroChoosed.realChessType || heroChoosed.realChessType == 1)//同归于尽
+                        switch (result)
                         {
-                            m_roundOver.SetState(cid, false);
+                            case ChessMoveResult.WIN:
+                            case ChessMoveResult.TIE:
+                                m_roundOver.SetState(cid, false);
+                                break;
+                            case ChessMoveResult.LOSE:
+                                m_roundOver.SetState(cid, true);
+                                break;
+
                         }
-                        else
-                            m_roundOver.SetState(cid, resultS);
                     }
                 }
                 
                 App.Package.ChessGame.MyselfChooseChessId = heroChoosed.id;
                 Push("_chessHeroChoosed", heroChoosed.id);
                 m_MyChessIsMoving = false;
+                NextGameRound();
             }
         }
     }
@@ -718,7 +736,7 @@ public class UIGamePanel : UIViewBase
             }
             else
             {
-                Debuger.Error("初始化棋子位置错误！");
+                Debugger.Error("初始化棋子位置错误！");
             }
         }
     }
@@ -961,21 +979,17 @@ public class UIGamePanel : UIViewBase
                 case ChessMoveResult.LOSE:
                     fake.heroTypeId = 12;
                     StartCoroutine(TweenMoveChessAndBeat(sourceReal, fake, result, moveData));
-                    NextGameRound();
                     break;
                 case ChessMoveResult.WIN:
                     fake.heroTypeId = -2;
                     StartCoroutine(TweenMoveChessAndBeat(sourceReal, fake, result, moveData));
-                    NextGameRound();
                     break;
                 case ChessMoveResult.TIE:
                     fake.heroTypeId = -3;
                     StartCoroutine(TweenMoveChessAndBeat(sourceReal, fake, result, moveData));
-                    NextGameRound();
                     break;
                 case ChessMoveResult.CAN_MOVE:
                     StartCoroutine(TweenMoveChess(sourceReal, fake.point, result, moveData));
-                    NextGameRound();
                     break;
                 case ChessMoveResult.CANNOT_MOVE:
                     break;
@@ -984,7 +998,7 @@ public class UIGamePanel : UIViewBase
         }
         else{
             NextGameRound();
-            Debuger.Error("skip");
+            Debugger.Error("skip");
         }
         
         
@@ -1000,7 +1014,7 @@ public class UIGamePanel : UIViewBase
     void OnReceivPlayerStateChange(object data)
     {
         PlayerStateChangePush push = (PlayerStateChangePush)data;
-        Debuger.Log(push.PlayerInfo.UserName + (PlayerState)push.PlayerInfo.State);
+        Debugger.Log(push.PlayerInfo.UserName + (PlayerState)push.PlayerInfo.State);
         for (int i=0;i< App.Package.ChessGame.EnemyPlayerList.Count; i++)
         {
             PlayerInfo playerInfo = App.Package.ChessGame.EnemyPlayerList[i];
@@ -1046,7 +1060,7 @@ public class UIGamePanel : UIViewBase
                 break;
             }
         }
-        Debuger.Warn("enemyState");
+        Debugger.Warn("enemyState");
         
     }
 }

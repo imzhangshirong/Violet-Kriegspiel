@@ -12,7 +12,12 @@ public class UIWChessHistory : UIWidgetBase
     public UILabel EnemyChessNum;
     private void Start()
     {
+        table.BindEvent("_updateHistory", OnUpdateData);
+    }
 
+    void OnUpdateData(object content)
+    {
+        OnEnable();
     }
 
     private void OnEnable()
