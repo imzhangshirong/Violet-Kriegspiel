@@ -33,7 +33,7 @@ public class Global : MonoBehaviour
         //注册UI////
         //特殊UI注册
         App.Manager.UI.RegisteUI("UITips", "UITips", UILayoutStyle.Center, UIViewStyle.Tips);
-        App.Manager.UI.RegisteUI("UIWaitingPanel", "UIWaitingPanel", UILayoutStyle.Center, UIViewStyle.Tips);
+        App.Manager.UI.RegisteUI("UIWaitingPanel", "UIWaitingPanel", UILayoutStyle.Center, UIViewStyle.OverView);
         App.Manager.UI.RegisteUI("UIAlertWindow", "UIAlertWindow", UILayoutStyle.Center, UIViewStyle.Window);
         //挂件注册
         App.Manager.UI.RegisteUI("UIPlayerInfo", "Widget/UIPlayerInfo", UILayoutStyle.Top, UIViewStyle.OverView);

@@ -47,7 +47,5 @@ public class UITips : UIViewBase
         yield return new WaitForSeconds(stayTime);
         tween.PlayReverse();
         nextDisable = true;
-        yield return new WaitForSeconds(tween.duration);
-        Common.UI.BackPage();
     }
 }
