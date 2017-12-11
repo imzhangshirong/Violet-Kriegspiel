@@ -55,9 +55,15 @@ message MessageData{
 }
 
 
+message HistoryStep{//历史走子记录
+  int32 counter = 1;
+  ChessPath path = 2;
+  int32 result = 3;
+}
 
-
-
+message ChessPath{//走子路径
+  repeated ChessData chessData = 1;
+}
 
 
 

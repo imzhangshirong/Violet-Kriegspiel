@@ -533,7 +533,7 @@ RpcServer.on("Hello",function(requestData){
     let Message = RpcServer.getRpc("Hello","Response");
     let response = new Message();
     response.setGreet("Hello,"+request.getContent());
-    return response;
+    return null;
 });
 RpcServer.on("Login",function(requestData){
     let request = requestData.rpc;

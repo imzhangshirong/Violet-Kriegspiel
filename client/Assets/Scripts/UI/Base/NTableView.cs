@@ -70,6 +70,7 @@ public class NTableView : TreeLeaf
 
     void SetCell()
     {
+        if (listData == null) return;
         List<NTableCell> needHide = new List<NTableCell>();
         Dictionary<int, bool> hasItem = new Dictionary<int, bool>();
         int n = topItemIndex + visibleItemCount;

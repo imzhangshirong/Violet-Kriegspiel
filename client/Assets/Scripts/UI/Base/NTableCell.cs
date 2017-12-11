@@ -17,6 +17,6 @@ public class NTableCell : MonoBehaviour
     }
     public virtual void OnDraw(int index,object data)
     {
-        ((UILabel)GetComponentInChildren<UILabel>()).text = (string)data;
+
     }
 }

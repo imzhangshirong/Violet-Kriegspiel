@@ -215,7 +215,7 @@ public class ChessAgainst : MonoBehaviour
         {
             if (heroT.heroTypeId == 0) return ChessMoveResult.WIN;//敌方地雷
         }
-        if (heroT.heroTypeId == 0) return ChessMoveResult.TIE;//敌方地雷
+        if (heroT.heroTypeId == 0) return ChessMoveResult.LOSE;//敌方地雷
         if (heroT.heroTypeId == 11) return ChessMoveResult.WIN;//敌方军旗
         if(heroT.heroTypeId > heroS.heroTypeId)
         {

@@ -46,7 +46,7 @@ public class Common
             App.Manager.UI.CloseView("UIWaitingPanel");
         }
         public static void OpenRetry(){
-
+            OpenTips("网络不给力，正在重试...");
         }
     }
     
