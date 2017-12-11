@@ -238,13 +238,11 @@ public class UIManager : Manager
             foreach(var item in m_UIDataMap)
             {
                 UIData m_UIData = item.Value;
-                Debuger.Error(m_UIData.name + "=>" + m_UIData.viewStyle);
                 if (m_UIData.viewStyle == UIViewStyle.OverView)
                 {
                     UIData m_UIDataPage = m_UIDataMap[m_topPage];
                     if (m_UIData.gameObject.activeSelf)
                     {
-                        Debuger.Error(m_UIData.name + "=>" + m_UIData.viewStyle);
                         m_UIDataPage.hidenOverView.Add(m_UIData);
                         m_UIData.gameObject.SetActive(false);
 

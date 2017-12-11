@@ -52,6 +52,8 @@ public class UIGamePanel : UIViewBase
         BindEvent("_readyTimeUp", delegate (object content) {
             OnReadyClick();
         });
+        BindEvent("_triggerHistory", OnHistoryTrigger);
+        BindEvent("_showHistoryPath", OnShowHistoryPath);
 
         BindEvent("_roundTimeUp", delegate (object content) {
             //SkipRound();
@@ -76,6 +78,15 @@ public class UIGamePanel : UIViewBase
     }
 
     
+    void OnHistoryTrigger(object content)
+    {
+        if (m_lastPath != null) ShowChessMovePath(m_lastPath);
+    }
+    void OnShowHistoryPath(object content)
+    {
+        ChessDataPath path = (ChessDataPath)content;
+        ShowChessMovePath(App.Package.ChessGame.ChessDataPathToPoints(path));
+    }
 
     public override void OnOpen(Intent intent)
     {
@@ -420,6 +431,15 @@ public class UIGamePanel : UIViewBase
         FieldRoadStation station = App.Package.ChessGame.GetFieldRoadStationByPoint(point1);
         UIWChessItem uiItem = station.gameObject.GetComponent<UIWChessItem>();
         uiItem.SetArrow(point2);
+    }
+
+    private void ShowChessMovePath(ChessPoint[] points)
+    {
+        Push("_cleanArrow");
+        for (int i = 0; i<points.Length-1; i++)
+        {
+            ShowChessMoveTo(points[i], points[i + 1]);
+        }
     }
 
     void RequestToMove(ChessHeroData heroChoosed, ChessPoint moveToPoint, ChessHeroData hero, ChessMoveData moveData) {

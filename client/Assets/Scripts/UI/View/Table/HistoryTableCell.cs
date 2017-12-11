@@ -69,6 +69,6 @@ public class HistoryTableCell : NTableCell
     }
     void OnClick()
     {
-
+        Push("_showHistoryPath", stepData.Path);
     }
 }
