@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<!-- servlet  -->
+	<bean id="baseServlet" class="common.BaseServlet">
+		<property name="rpcNum" value="0"></property>
+		<property name="ensignService" ref="ensignService"></property>
+	</bean>
+	<bean id="Hello" class="ensign.servlet.HelloServlet"
+		parent="baseServlet">
+		<property name="rpcNum" value="1"></property>
+	</bean>
+	<bean id="FindEnemy" class="ensign.servlet.FindEnemyServlet"
+		parent="baseServlet">
+		<property name="rpcNum" value="2"></property>
+	</bean>
+	<bean id="ReadyInRoom" class="ensign.servlet.ReadyInRoomServlet"
+		parent="baseServlet">
+		<property name="rpcNum" value="3"></property>
+	</bean>
+	<bean id="MoveChess" class="ensign.servlet.MoveChessServlet"
+		parent="baseServlet">
+		<property name="rpcNum" value="4"></property>
+	</bean>
+	<bean id="CancelFindEnemy" class="ensign.servlet.CancelFindEnemyServlet"
+		parent="baseServlet">
+		<property name="rpcNum" value="5"></property>
+	</bean>
+	<bean id="Login" class="ensign.servlet.LoginServlet"
+		parent="baseServlet">
+		<property name="rpcNum" value="6"></property>
+	</bean>
+	
+	<!-- service  -->
+	<bean id="baseService" class="common.BaseService" >
+		<property name="ensignService" ref="ensignService"></property>
+	</bean>
+	<bean id="ensignService" class="ensign.service.EnsignService" parent = "baseService"/>
+</beans>

@@ -12,18 +12,19 @@
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
 			connectionURL="jdbc:mysql://192.168.90.110:3306/ensign" userId="root"
 			password="123456" />
-		<javaModelGenerator targetPackage="pojo"
-			targetProject="E:\longweideworkspace\ensign\src\main\java" >
+		<javaModelGenerator targetPackage="ensign.pojo"
+			targetProject="E:\git\Git\Violet\serverjava\ensign\auto" >
 			<property name="constructorBased" value="true"/>
 			</javaModelGenerator>
-		<sqlMapGenerator targetPackage="mapper"
-			targetProject="E:\longweideworkspace\ensign\src\main\java" />
-		<javaClientGenerator targetPackage="dao"
-			targetProject="E:\longweideworkspace\ensign\src\main\java" type="XMLMAPPER">
+		<sqlMapGenerator targetPackage="ensign.mapper"
+			targetProject="E:\git\Git\Violet\serverjava\ensign\auto" />
+		<javaClientGenerator targetPackage="ensign.dao"
+			targetProject="E:\git\Git\Violet\serverjava\ensign\auto" type="XMLMAPPER">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<table domainObjectName="User" tableName="user"
+		
+		<table domainObjectName="User" tableName="USER"
 		
 			enableSelectByPrimaryKey="true"
 			enableSelectByExample="false"
