@@ -52,16 +52,17 @@ namespace Com.Violet.Rpc {
             "UGxheWVySW5mbxIPCgdjb3VudGVyGAMgASgFIhcKFUNoZWNrR2FtZVN0YXRl",
             "UmVxdWVzdCIoChZDaGVja0dhbWVTdGF0ZVJlc3BvbnNlEg4KBnJvb21JZBgB",
             "IAEoCSIpChdFbnRlckJhdHRsZUZpZWxkUmVxdWVzdBIOCgZyb29tSWQYASAB",
-            "KAkiiAEKGEVudGVyQmF0dGxlRmllbGRSZXNwb25zZRIrCghjaGVzc01hcBgB",
+            "KAkirgEKGEVudGVyQmF0dGxlRmllbGRSZXNwb25zZRIrCghjaGVzc01hcBgB",
             "IAMoCzIZLmNvbS52aW9sZXQucnBjLkNoZXNzRGF0YRIuCgpwbGF5ZXJMaXN0",
             "GAIgAygLMhouY29tLnZpb2xldC5ycGMuUGxheWVySW5mbxIPCgdjb3VudGVy",
-            "GAMgASgFIhIKEFN1cnJlbmRlclJlcXVlc3QiKAoRU3VycmVuZGVyUmVzcG9u",
-            "c2USEwoLaXNTdXJyZW5kZXIYASABKAgiUwoWU2VuZENoYXRNZXNzYWdlUmVx",
-            "dWVzdBIPCgd0b1doZXJlGAEgASgFEigKA21zZxgCIAEoCzIbLmNvbS52aW9s",
-            "ZXQucnBjLk1lc3NhZ2VEYXRhIhkKF1NlbmRDaGF0TWVzc2FnZVJlc3BvbnNl",
-            "IigKFkdldEhpc3RvcnlTdGVwc1JlcXVlc3QSDgoGcm9vbUlkGAEgASgJIkUK",
-            "F0dldEhpc3RvcnlTdGVwc1Jlc3BvbnNlEioKBXN0ZXBzGAEgAygLMhsuY29t",
-            "LnZpb2xldC5ycGMuSGlzdG9yeVN0ZXBiBnByb3RvMw=="));
+            "GAMgASgFEhEKCXJlYWR5VGltZRgEIAEoBRIRCglyb3VuZFRpbWUYBSABKAUi",
+            "EgoQU3VycmVuZGVyUmVxdWVzdCIoChFTdXJyZW5kZXJSZXNwb25zZRITCgtp",
+            "c1N1cnJlbmRlchgBIAEoCCJTChZTZW5kQ2hhdE1lc3NhZ2VSZXF1ZXN0Eg8K",
+            "B3RvV2hlcmUYASABKAUSKAoDbXNnGAIgASgLMhsuY29tLnZpb2xldC5ycGMu",
+            "TWVzc2FnZURhdGEiGQoXU2VuZENoYXRNZXNzYWdlUmVzcG9uc2UiKAoWR2V0",
+            "SGlzdG9yeVN0ZXBzUmVxdWVzdBIOCgZyb29tSWQYASABKAkiRQoXR2V0SGlz",
+            "dG9yeVN0ZXBzUmVzcG9uc2USKgoFc3RlcHMYASADKAsyGy5jb20udmlvbGV0",
+            "LnJwYy5IaXN0b3J5U3RlcGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Com.Violet.Rpc.StructReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -88,7 +89,7 @@ namespace Com.Violet.Rpc {
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.CheckGameStateRequest), global::Com.Violet.Rpc.CheckGameStateRequest.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.CheckGameStateResponse), global::Com.Violet.Rpc.CheckGameStateResponse.Parser, new[]{ "RoomId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterBattleFieldRequest), global::Com.Violet.Rpc.EnterBattleFieldRequest.Parser, new[]{ "RoomId" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterBattleFieldResponse), global::Com.Violet.Rpc.EnterBattleFieldResponse.Parser, new[]{ "ChessMap", "PlayerList", "Counter" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterBattleFieldResponse), global::Com.Violet.Rpc.EnterBattleFieldResponse.Parser, new[]{ "ChessMap", "PlayerList", "Counter", "ReadyTime", "RoundTime" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.SurrenderRequest), global::Com.Violet.Rpc.SurrenderRequest.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.SurrenderResponse), global::Com.Violet.Rpc.SurrenderResponse.Parser, new[]{ "IsSurrender" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.SendChatMessageRequest), global::Com.Violet.Rpc.SendChatMessageRequest.Parser, new[]{ "ToWhere", "Msg" }, null, null, null),
@@ -3065,6 +3066,8 @@ namespace Com.Violet.Rpc {
       chessMap_ = other.chessMap_.Clone();
       playerList_ = other.playerList_.Clone();
       counter_ = other.counter_;
+      readyTime_ = other.readyTime_;
+      roundTime_ = other.roundTime_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3109,6 +3112,34 @@ namespace Com.Violet.Rpc {
       }
     }
 
+    /// <summary>Field number for the "readyTime" field.</summary>
+    public const int ReadyTimeFieldNumber = 4;
+    private int readyTime_;
+    /// <summary>
+    ///准备的时间
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int ReadyTime {
+      get { return readyTime_; }
+      set {
+        readyTime_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "roundTime" field.</summary>
+    public const int RoundTimeFieldNumber = 5;
+    private int roundTime_;
+    /// <summary>
+    ///每回合时间
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int RoundTime {
+      get { return roundTime_; }
+      set {
+        roundTime_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as EnterBattleFieldResponse);
@@ -3125,6 +3156,8 @@ namespace Com.Violet.Rpc {
       if(!chessMap_.Equals(other.chessMap_)) return false;
       if(!playerList_.Equals(other.playerList_)) return false;
       if (Counter != other.Counter) return false;
+      if (ReadyTime != other.ReadyTime) return false;
+      if (RoundTime != other.RoundTime) return false;
       return true;
     }
 
@@ -3134,6 +3167,8 @@ namespace Com.Violet.Rpc {
       hash ^= chessMap_.GetHashCode();
       hash ^= playerList_.GetHashCode();
       if (Counter != 0) hash ^= Counter.GetHashCode();
+      if (ReadyTime != 0) hash ^= ReadyTime.GetHashCode();
+      if (RoundTime != 0) hash ^= RoundTime.GetHashCode();
       return hash;
     }
 
@@ -3150,6 +3185,14 @@ namespace Com.Violet.Rpc {
         output.WriteRawTag(24);
         output.WriteInt32(Counter);
       }
+      if (ReadyTime != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(ReadyTime);
+      }
+      if (RoundTime != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(RoundTime);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3159,6 +3202,12 @@ namespace Com.Violet.Rpc {
       size += playerList_.CalculateSize(_repeated_playerList_codec);
       if (Counter != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Counter);
+      }
+      if (ReadyTime != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ReadyTime);
+      }
+      if (RoundTime != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(RoundTime);
       }
       return size;
     }
@@ -3172,6 +3221,12 @@ namespace Com.Violet.Rpc {
       playerList_.Add(other.playerList_);
       if (other.Counter != 0) {
         Counter = other.Counter;
+      }
+      if (other.ReadyTime != 0) {
+        ReadyTime = other.ReadyTime;
+      }
+      if (other.RoundTime != 0) {
+        RoundTime = other.RoundTime;
       }
     }
 
@@ -3193,6 +3248,14 @@ namespace Com.Violet.Rpc {
           }
           case 24: {
             Counter = input.ReadInt32();
+            break;
+          }
+          case 32: {
+            ReadyTime = input.ReadInt32();
+            break;
+          }
+          case 40: {
+            RoundTime = input.ReadInt32();
             break;
           }
         }

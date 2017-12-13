@@ -114,6 +114,8 @@ message EnterBattleFieldResponse{
   repeated ChessData chessMap = 1; //棋子布局数据
   repeated PlayerInfo playerList = 2;
   int32 counter = 3; //计数器
+  int32 readyTime = 4;//准备的时间
+  int32 roundTime = 5;//每回合时间
 }
 
 message SurrenderRequest{

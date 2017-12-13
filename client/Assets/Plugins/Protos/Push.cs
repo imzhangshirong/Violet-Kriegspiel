@@ -24,26 +24,27 @@ namespace Com.Violet.Rpc {
           string.Concat(
             "CgpQdXNoLnByb3RvEg5jb20udmlvbGV0LnJwYxoMU3RydWN0LnByb3RvIkUK",
             "E1Jvb21TdGF0ZUNoYW5nZVB1c2gSLgoKcGxheWVyTGlzdBgBIAMoCzIaLmNv",
-            "bS52aW9sZXQucnBjLlBsYXllckluZm8imwEKFEVudGVyQmF0dGxlRmllbGRQ",
+            "bS52aW9sZXQucnBjLlBsYXllckluZm8iwQEKFEVudGVyQmF0dGxlRmllbGRQ",
             "dXNoEi4KCnBsYXllckxpc3QYASADKAsyGi5jb20udmlvbGV0LnJwYy5QbGF5",
             "ZXJJbmZvEhIKCnJvdW5kT3JkZXIYAiABKAUSLwoMY2hlc3NTZXR0aW5nGAMg",
             "AygLMhkuY29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhEg4KBnJvb21JZBgEIAEo",
-            "CSJHChVQbGF5ZXJTdGF0ZUNoYW5nZVB1c2gSLgoKcGxheWVySW5mbxgBIAEo",
-            "CzIaLmNvbS52aW9sZXQucnBjLlBsYXllckluZm8icgoTR2FtZVN0YXRlQ2hh",
-            "bmdlUHVzaBINCgVzdGF0ZRgBIAEoBRIOCgZyZXN1bHQYAiABKAUSKwoIY2hl",
-            "c3NNYXAYAyADKAsyGS5jb20udmlvbGV0LnJwYy5DaGVzc0RhdGESDwoHY291",
-            "bnRlchgEIAEoBSK9AQoNQ2hlc3NNb3ZlUHVzaBIpCgZzb3VyY2UYASABKAsy",
-            "GS5jb20udmlvbGV0LnJwYy5DaGVzc0RhdGESKQoGdGFyZ2V0GAIgASgLMhku",
-            "Y29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhEhcKD2NoZXNzTW92ZVJlc3VsdBgD",
-            "IAEoBRIPCgdjb3VudGVyGAQgASgFEiwKCG9wZXJhdG9yGAUgASgLMhouY29t",
-            "LnZpb2xldC5ycGMuUGxheWVySW5mbyJOCg9DaGF0TWVzc2FnZVB1c2gSEQoJ",
-            "ZnJvbVdoZXJlGAEgASgFEigKA21zZxgCIAEoCzIbLmNvbS52aW9sZXQucnBj",
-            "Lk1lc3NhZ2VEYXRhYgZwcm90bzM="));
+            "CRIRCglyZWFkeVRpbWUYBSABKAUSEQoJcm91bmRUaW1lGAYgASgFIkcKFVBs",
+            "YXllclN0YXRlQ2hhbmdlUHVzaBIuCgpwbGF5ZXJJbmZvGAEgASgLMhouY29t",
+            "LnZpb2xldC5ycGMuUGxheWVySW5mbyJyChNHYW1lU3RhdGVDaGFuZ2VQdXNo",
+            "Eg0KBXN0YXRlGAEgASgFEg4KBnJlc3VsdBgCIAEoBRIrCghjaGVzc01hcBgD",
+            "IAMoCzIZLmNvbS52aW9sZXQucnBjLkNoZXNzRGF0YRIPCgdjb3VudGVyGAQg",
+            "ASgFIr0BCg1DaGVzc01vdmVQdXNoEikKBnNvdXJjZRgBIAEoCzIZLmNvbS52",
+            "aW9sZXQucnBjLkNoZXNzRGF0YRIpCgZ0YXJnZXQYAiABKAsyGS5jb20udmlv",
+            "bGV0LnJwYy5DaGVzc0RhdGESFwoPY2hlc3NNb3ZlUmVzdWx0GAMgASgFEg8K",
+            "B2NvdW50ZXIYBCABKAUSLAoIb3BlcmF0b3IYBSABKAsyGi5jb20udmlvbGV0",
+            "LnJwYy5QbGF5ZXJJbmZvIk4KD0NoYXRNZXNzYWdlUHVzaBIRCglmcm9tV2hl",
+            "cmUYASABKAUSKAoDbXNnGAIgASgLMhsuY29tLnZpb2xldC5ycGMuTWVzc2Fn",
+            "ZURhdGFiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Com.Violet.Rpc.StructReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.RoomStateChangePush), global::Com.Violet.Rpc.RoomStateChangePush.Parser, new[]{ "PlayerList" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterBattleFieldPush), global::Com.Violet.Rpc.EnterBattleFieldPush.Parser, new[]{ "PlayerList", "RoundOrder", "ChessSetting", "RoomId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterBattleFieldPush), global::Com.Violet.Rpc.EnterBattleFieldPush.Parser, new[]{ "PlayerList", "RoundOrder", "ChessSetting", "RoomId", "ReadyTime", "RoundTime" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.PlayerStateChangePush), global::Com.Violet.Rpc.PlayerStateChangePush.Parser, new[]{ "PlayerInfo" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.GameStateChangePush), global::Com.Violet.Rpc.GameStateChangePush.Parser, new[]{ "State", "Result", "ChessMap", "Counter" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ChessMovePush), global::Com.Violet.Rpc.ChessMovePush.Parser, new[]{ "Source", "Target", "ChessMoveResult", "Counter", "Operator" }, null, null, null),
@@ -194,6 +195,8 @@ namespace Com.Violet.Rpc {
       roundOrder_ = other.roundOrder_;
       chessSetting_ = other.chessSetting_.Clone();
       roomId_ = other.roomId_;
+      readyTime_ = other.readyTime_;
+      roundTime_ = other.roundTime_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -249,6 +252,34 @@ namespace Com.Violet.Rpc {
       }
     }
 
+    /// <summary>Field number for the "readyTime" field.</summary>
+    public const int ReadyTimeFieldNumber = 5;
+    private int readyTime_;
+    /// <summary>
+    ///准备的时间
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int ReadyTime {
+      get { return readyTime_; }
+      set {
+        readyTime_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "roundTime" field.</summary>
+    public const int RoundTimeFieldNumber = 6;
+    private int roundTime_;
+    /// <summary>
+    ///每回合时间
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int RoundTime {
+      get { return roundTime_; }
+      set {
+        roundTime_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as EnterBattleFieldPush);
@@ -266,6 +297,8 @@ namespace Com.Violet.Rpc {
       if (RoundOrder != other.RoundOrder) return false;
       if(!chessSetting_.Equals(other.chessSetting_)) return false;
       if (RoomId != other.RoomId) return false;
+      if (ReadyTime != other.ReadyTime) return false;
+      if (RoundTime != other.RoundTime) return false;
       return true;
     }
 
@@ -276,6 +309,8 @@ namespace Com.Violet.Rpc {
       if (RoundOrder != 0) hash ^= RoundOrder.GetHashCode();
       hash ^= chessSetting_.GetHashCode();
       if (RoomId.Length != 0) hash ^= RoomId.GetHashCode();
+      if (ReadyTime != 0) hash ^= ReadyTime.GetHashCode();
+      if (RoundTime != 0) hash ^= RoundTime.GetHashCode();
       return hash;
     }
 
@@ -296,6 +331,14 @@ namespace Com.Violet.Rpc {
         output.WriteRawTag(34);
         output.WriteString(RoomId);
       }
+      if (ReadyTime != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(ReadyTime);
+      }
+      if (RoundTime != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(RoundTime);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -308,6 +351,12 @@ namespace Com.Violet.Rpc {
       size += chessSetting_.CalculateSize(_repeated_chessSetting_codec);
       if (RoomId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomId);
+      }
+      if (ReadyTime != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ReadyTime);
+      }
+      if (RoundTime != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(RoundTime);
       }
       return size;
     }
@@ -324,6 +373,12 @@ namespace Com.Violet.Rpc {
       chessSetting_.Add(other.chessSetting_);
       if (other.RoomId.Length != 0) {
         RoomId = other.RoomId;
+      }
+      if (other.ReadyTime != 0) {
+        ReadyTime = other.ReadyTime;
+      }
+      if (other.RoundTime != 0) {
+        RoundTime = other.RoundTime;
       }
     }
 
@@ -349,6 +404,14 @@ namespace Com.Violet.Rpc {
           }
           case 34: {
             RoomId = input.ReadString();
+            break;
+          }
+          case 40: {
+            ReadyTime = input.ReadInt32();
+            break;
+          }
+          case 48: {
+            RoundTime = input.ReadInt32();
             break;
           }
         }
