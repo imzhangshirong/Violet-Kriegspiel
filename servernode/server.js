@@ -535,7 +535,7 @@ setInterval(function(){
 },Config.cleanClientItemTimeout);
 
 RpcServer.on("_clientOffline",function(token){
-
+    removeFromPlayGround(token);
 });
 
 
