@@ -20,4 +20,8 @@ public class PlayerPackage : Package<PlayerPackage>
         base.Release();
     }
 
+    public string GetBelong()
+    {
+        return playerInfo.ZoneId + "/" + playerInfo.UserId;
+    }
 }

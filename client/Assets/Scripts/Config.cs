@@ -28,9 +28,9 @@ public class Config
     public static readonly int OverViewLevelBaseDepth = 100;
 
     public class Game{
-        public static readonly int WaitingFindEnemy = 45;//匹配等待秒数
-        public static readonly int WaitingReady = 60;//准备等待秒数
-        public static readonly int WaitingRound = 30;//回合等待秒数
+        public static int WaitingFindEnemy = 45;//匹配等待秒数
+        public static int WaitingReady = 60;//准备等待秒数
+        public static int WaitingRound = 30;//回合等待秒数
     }
 
 }

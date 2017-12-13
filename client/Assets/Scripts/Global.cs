@@ -54,7 +54,10 @@ public class Global : MonoBehaviour
 
         //注册RPC ErrorCode处理////
         App.Manager.Network.RegisteErrorCode(1, () => {
-            Common.UI.OpenAlert("错误", "用户不存在", "确认", null);
+            Common.UI.OpenAlert("错误", "用户不存在，或登录凭证过期", "确认", delegate()
+            {
+                Common.UI.BackPage("UILoginPanel");
+            });
         });
         App.Manager.Network.RegisteErrorCode(11, () => {
             Common.UI.OpenAlert("错误", "已经在匹配名单里", "确认", null);

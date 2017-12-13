@@ -801,12 +801,11 @@ public class UIGamePanel : UIViewBase
             }
             else
             {
-                if (App.Package.ChessGame.AllPlayerList[i].GameRemainTime == 0)
-                {
-                    App.Package.ChessGame.AllPlayerList[i].GameRemainTime = (roundTime == 0) ? Config.Game.WaitingRound : roundTime;
-                }
+                App.Package.ChessGame.AllPlayerList[i].GameRemainTime = (roundTime == 0) ? Config.Game.WaitingRound : roundTime;
+                Debugger.Log(App.Package.ChessGame.AllPlayerList[i].UserName + ":" + App.Package.ChessGame.AllPlayerList[i].GameRemainTime);
             }
         }
+        
         UpdatePlayer();
     }
     void GameStart(){
@@ -998,9 +997,15 @@ public class UIGamePanel : UIViewBase
         }
         else{
             NextGameRound();
+            if(source.Belong ==App.Package.Player.GetBelong()) {
+                Common.UI.OpenTips("超时跳过");
+            }
+            else
+            {
+                Common.UI.OpenTips("敌方超时跳过");
+            }
             Debugger.Error("skip");
         }
-        
         
     }
     /// <summary>

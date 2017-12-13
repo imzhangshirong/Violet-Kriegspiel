@@ -3780,7 +3780,9 @@ proto.com.violet.rpc.EnterBattleFieldResponse.toObject = function(includeInstanc
     Struct_pb.ChessData.toObject, includeInstance),
     playerlistList: jspb.Message.toObjectList(msg.getPlayerlistList(),
     Struct_pb.PlayerInfo.toObject, includeInstance),
-    counter: jspb.Message.getFieldWithDefault(msg, 3, 0)
+    counter: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    readytime: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    roundtime: jspb.Message.getFieldWithDefault(msg, 5, 0)
   };
 
   if (includeInstance) {
@@ -3831,6 +3833,14 @@ proto.com.violet.rpc.EnterBattleFieldResponse.deserializeBinaryFromReader = func
       var value = /** @type {number} */ (reader.readInt32());
       msg.setCounter(value);
       break;
+    case 4:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setReadytime(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setRoundtime(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -3880,6 +3890,20 @@ proto.com.violet.rpc.EnterBattleFieldResponse.serializeBinaryToWriter = function
   if (f !== 0) {
     writer.writeInt32(
       3,
+      f
+    );
+  }
+  f = message.getReadytime();
+  if (f !== 0) {
+    writer.writeInt32(
+      4,
+      f
+    );
+  }
+  f = message.getRoundtime();
+  if (f !== 0) {
+    writer.writeInt32(
+      5,
       f
     );
   }
@@ -3960,6 +3984,36 @@ proto.com.violet.rpc.EnterBattleFieldResponse.prototype.getCounter = function() 
 /** @param {number} value */
 proto.com.violet.rpc.EnterBattleFieldResponse.prototype.setCounter = function(value) {
   jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional int32 readyTime = 4;
+ * @return {number}
+ */
+proto.com.violet.rpc.EnterBattleFieldResponse.prototype.getReadytime = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/** @param {number} value */
+proto.com.violet.rpc.EnterBattleFieldResponse.prototype.setReadytime = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+/**
+ * optional int32 roundTime = 5;
+ * @return {number}
+ */
+proto.com.violet.rpc.EnterBattleFieldResponse.prototype.getRoundtime = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/** @param {number} value */
+proto.com.violet.rpc.EnterBattleFieldResponse.prototype.setRoundtime = function(value) {
+  jspb.Message.setField(this, 5, value);
 };
 
 

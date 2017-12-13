@@ -27,6 +27,7 @@ RpcServer.on("connection", function (client) {
         console.log("access in:"+clients.length+"|"+clients[clients.length-1].token);
         client.on("data", function (data) {
             let socketData = parseSocketBinaryData(data);
+            if(socketData==null)return;
             let requestData = dealResquest(socketData.data);
             if(requestData==null)return;
             let clientItemT = getClientItemByToken(requestData.header.getToken());
@@ -36,6 +37,7 @@ RpcServer.on("connection", function (client) {
                 clientItemC.client = null;
                 console.log("acceptToken:"+clientItemT.token);
             }
+            
             requestData.client = client;
             if (requestData != null && _bindRpcList[requestData.msg] != null) {
                 requestData.token = clientItemC.token;

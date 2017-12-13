@@ -107,6 +107,8 @@ public class ChessGamePackage : Package<ChessGamePackage>
         base.Init(data);
         EnterBattleFieldPush push = (EnterBattleFieldPush)data;
         App.Package.ChessGame.RoomId = push.RoomId;
+        Config.Game.WaitingReady = push.ReadyTime;
+        Config.Game.WaitingRound = push.RoundTime;
         m_EnemyPlayerList = new List<PlayerInfo>(push.PlayerList);
         m_EnemyPlayerList.Sort(SortPlayerListByRoundOrder);
         m_ChessData.Clear();
@@ -125,6 +127,8 @@ public class ChessGamePackage : Package<ChessGamePackage>
     
     public void Recover(EnterBattleFieldResponse response)
     {
+        Config.Game.WaitingReady = response.ReadyTime;
+        Config.Game.WaitingRound = response.RoundTime;
         m_EnemyPlayerList = new List<PlayerInfo>();
         for(int i = 0; i < response.PlayerList.Count; i++)
         {

@@ -42,6 +42,7 @@ public class UIWChessPlayerState : UIWidgetBase
                     {
                         roundState.SetActive(true);
                         roundTimer.SetRemainTime(playerData.GameRemainTime);
+                        Debugger.Log("roundTime:" + playerData.GameRemainTime);
                     }
                     if (roundEffect) roundEffect.SetActive(true);
                 }

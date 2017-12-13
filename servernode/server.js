@@ -179,10 +179,10 @@ function createMatchRoom(users_){
                         autoReady(curRoom,user);//自动准备
                     }
                 }
-                //console.log(user.userName+"|"+user.state+"|"+curRoom.counter+"|"+user.gameRemainTime);
+                console.log(user.userName+"|"+user.state+"|"+curRoom.counter+"|"+user.gameRemainTime);
                 
             }
-            //console.log("-------------------");
+            console.log("-------------------");
         },1000);
         let playerInfoMap = {};
         //更新状态
@@ -208,6 +208,8 @@ function createMatchRoom(users_){
             });
             push.setPlayerlistList(playerList);
             push.setRoundorder(i);//返回自己的回合顺序
+            push.setReadytime(Config.Game.waitingReady);
+            push.setRoundtime(Config.Game.waitingRound);
             push.setChesssettingList(curRoom.chessMap[i]);//之前的棋子布局
             RpcServer.push(client,"EnterBattleField",push);
         }
@@ -350,7 +352,6 @@ function startGame(room){
             });
             push.setState(room.gameState);
             push.setResult(0);
-            
             push.setChessmapList(chessMapSend);
             let clientItem = RpcServer.getClientItemByToken(user.token);
             RpcServer.push(clientItem,"GameStateChange",push);
@@ -414,6 +415,7 @@ function autoSkip(room,user){
     let response = new Message();
     room.counter++;
     let source = new ChessData();
+    source.setBelong(user.zoneId+"/"+user.userId);
     let target = null;
     let result = 0;
     source.setChessremoteid(0);
@@ -875,6 +877,8 @@ RpcServer.on("EnterBattleField",function(requestData){
                 });
                 response.setChessmapList(chessMapSend);
                 response.setCounter(room.counter);
+                response.setReadytime(Config.Game.waitingReady);
+                response.setRoundtime(Config.Game.waitingRound);
             }
             else{
                 requestData.errorCode = 41;//房间错误

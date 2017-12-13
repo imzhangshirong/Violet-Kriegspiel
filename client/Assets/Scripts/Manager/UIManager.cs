@@ -165,7 +165,7 @@ public class UIManager : Manager
     /// 关闭View
     /// </summary>
     /// <param name="name"></param>
-    public void CloseView(string name)
+    public void CloseView(string name,bool wakeUp = true)
 	{
 		if (m_UIDataMap.ContainsKey(name))
 		{
@@ -180,7 +180,7 @@ public class UIManager : Manager
                     m_StackPage.Remove(m_UIData);
 					if (m_StackPage.Count > 0)
 					{
-						ActiveView(m_StackPage[m_StackPage.Count - 1],m_UIData.viewStyle == UIViewStyle.Page);
+						if(wakeUp)ActiveView(m_StackPage[m_StackPage.Count - 1],m_UIData.viewStyle == UIViewStyle.Page);
 						m_topPage = m_StackPage[m_StackPage.Count - 1].name;
                         m_topViewData = m_StackPage[m_StackPage.Count - 1];
 
@@ -203,10 +203,6 @@ public class UIManager : Manager
 						m_topOverView = null;
 					}
 					break;
-			}
-			foreach(var item in m_UIData.hidenOverView)
-			{
-				ActiveView(item);
 			}
 			m_UIData.hidenOverView.Clear();
 		}
@@ -330,7 +326,7 @@ public class UIManager : Manager
         view.gameObject.SetActive(true);
         if (baseView != null) baseView.OnOpen(intent);
 	}
-	public void PageBack(string toPage = "")
+	public void PageBack(string toPage = "",bool wakeUp = true)
 	{
         if(toPage == "")
         {
@@ -343,7 +339,7 @@ public class UIManager : Manager
                 App.Manager.ObjectPool.Release(TopView.name, TopView.gameObject);
                 if (m_StackPage.Count > 0)
                 {
-                    ActiveView(m_StackPage[m_StackPage.Count - 1],false);
+                    if(wakeUp) ActiveView(m_StackPage[m_StackPage.Count - 1],false);
                     m_topPage = m_StackPage[m_StackPage.Count - 1].name;
                     m_topViewData = m_StackPage[m_StackPage.Count - 1];
 
@@ -354,17 +350,28 @@ public class UIManager : Manager
                     m_topViewData = null;
 
                 }
-                m_basePageDepth -= Config.ViewLevelDepth;
             }
             else
             {
-                CloseView(m_topPage);
-                m_basePageDepth -= Config.ViewLevelDepth;
-                //恢复之前隐藏状态
                 UIData m_UIData = m_UIDataMap[m_topPage];
-                foreach (var item in m_UIData.hidenOverView)
+                CloseView(m_topPage,wakeUp);
+                //恢复之前隐藏状态
+                m_UIData = m_UIDataMap[m_topPage];
+                if (wakeUp)
                 {
-                    HideView(item);
+                    for (int i = m_StackOverView.Count - 1; i >= 0; i--)
+                    {
+                        if (m_UIData.hidenOverView.IndexOf(m_StackOverView[i]) == -1)
+                        {
+                            Debugger.Log("active:"+m_StackOverView[i].name);
+                            ActiveView(m_StackOverView[i]);
+                        }
+                        else if (m_StackOverView[i].gameObject.activeSelf)
+                        {
+                            Debugger.Log("hide:" + m_StackOverView[i].name);
+                            HideView(m_StackOverView[i]);
+                        }
+                    }
                 }
             }
         }
@@ -374,14 +381,16 @@ public class UIManager : Manager
             {
                 if (m_StackPage[i].name == toPage)
                 {
-                    for(int j = 0;j< m_StackPage.Count - i; j++)
+                    for(int j = 2;j< m_StackPage.Count - i; j++)
                     {
-                        PageBack();
+                        PageBack("", false);
                     }
+                    PageBack();
                     break;
                 }
             }
         }
+
 		
 	}
 	public void ReplaceView(string name, Intent intent = null)
@@ -451,12 +460,16 @@ public class UIManager : Manager
 				case UIViewStyle.OverView:
 					m_StackOverView.Add(m_UIData);
 					m_topOverView = name;
-					break;
+                    //之前的页面全部是隐藏此overView的
+                    for (int i = m_StackPage.Count - 2; i >= 0; i--)
+                    {
+                        m_StackPage[i].hidenOverView.Add(m_UIData);
+                    }
+                    break;
                 case UIViewStyle.Tips:
                     break;
             }
 			InitView(m_UIData, intent);
-			
 		}
 	}
     
