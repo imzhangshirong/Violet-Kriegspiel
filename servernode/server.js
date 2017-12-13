@@ -171,12 +171,12 @@ function createMatchRoom(users_){
                         if(user.gameRemainTime<=0){
                             user.gameRemainTime=0;
                             curRoom.skipCounter[i]++;
-                            /*if(curRoom.skipCounter[i]>=Config.Game.maxSkip){
+                            if(curRoom.skipCounter[i]>=Config.Game.maxSkip){
                                 endGame(curRoom,user);
                             }
-                            else{*/
+                            else{
                                 autoSkip(curRoom,user);//自动跳过
-                            //}
+                            }
                         }
                     }
                 }
