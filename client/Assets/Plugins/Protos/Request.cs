@@ -40,29 +40,31 @@ namespace Com.Violet.Rpc {
             "b20udmlvbGV0LnJwYy5DaGVzc0RhdGESDgoGcm9vbUlkGAMgASgJIiwKE1Jl",
             "YWR5SW5Sb29tUmVzcG9uc2USFQoNaXNDaGFuZ2VTdGF0ZRgBIAEoCCIiChBM",
             "ZWF2ZVJvb21SZXF1ZXN0Eg4KBnJvb21JZBgBIAEoCSIkChFMZWF2ZVJvb21S",
-            "ZXNwb25zZRIPCgdpc0xlYXZlGAEgASgIImgKEE1vdmVDaGVzc1JlcXVlc3QS",
-            "KQoGc291cmNlGAEgASgLMhkuY29tLnZpb2xldC5ycGMuQ2hlc3NEYXRhEikK",
-            "BnRhcmdldBgCIAEoCzIZLmNvbS52aW9sZXQucnBjLkNoZXNzRGF0YSKTAQoR",
-            "TW92ZUNoZXNzUmVzcG9uc2USKQoGc291cmNlGAEgASgLMhkuY29tLnZpb2xl",
-            "dC5ycGMuQ2hlc3NEYXRhEikKBnRhcmdldBgCIAEoCzIZLmNvbS52aW9sZXQu",
-            "cnBjLkNoZXNzRGF0YRIXCg9jaGVzc01vdmVSZXN1bHQYAyABKAUSDwoHY291",
-            "bnRlchgEIAEoBSISChBCYXR0bGVNYXBSZXF1ZXN0IoEBChFCYXR0bGVNYXBS",
-            "ZXNwb25zZRIrCghjaGVzc01hcBgBIAMoCzIZLmNvbS52aW9sZXQucnBjLkNo",
-            "ZXNzRGF0YRIuCgpwbGF5ZXJMaXN0GAIgAygLMhouY29tLnZpb2xldC5ycGMu",
-            "UGxheWVySW5mbxIPCgdjb3VudGVyGAMgASgFIhcKFUNoZWNrR2FtZVN0YXRl",
-            "UmVxdWVzdCIoChZDaGVja0dhbWVTdGF0ZVJlc3BvbnNlEg4KBnJvb21JZBgB",
-            "IAEoCSIpChdFbnRlckJhdHRsZUZpZWxkUmVxdWVzdBIOCgZyb29tSWQYASAB",
-            "KAkirgEKGEVudGVyQmF0dGxlRmllbGRSZXNwb25zZRIrCghjaGVzc01hcBgB",
-            "IAMoCzIZLmNvbS52aW9sZXQucnBjLkNoZXNzRGF0YRIuCgpwbGF5ZXJMaXN0",
-            "GAIgAygLMhouY29tLnZpb2xldC5ycGMuUGxheWVySW5mbxIPCgdjb3VudGVy",
-            "GAMgASgFEhEKCXJlYWR5VGltZRgEIAEoBRIRCglyb3VuZFRpbWUYBSABKAUi",
-            "EgoQU3VycmVuZGVyUmVxdWVzdCIoChFTdXJyZW5kZXJSZXNwb25zZRITCgtp",
-            "c1N1cnJlbmRlchgBIAEoCCJTChZTZW5kQ2hhdE1lc3NhZ2VSZXF1ZXN0Eg8K",
-            "B3RvV2hlcmUYASABKAUSKAoDbXNnGAIgASgLMhsuY29tLnZpb2xldC5ycGMu",
-            "TWVzc2FnZURhdGEiGQoXU2VuZENoYXRNZXNzYWdlUmVzcG9uc2UiKAoWR2V0",
-            "SGlzdG9yeVN0ZXBzUmVxdWVzdBIOCgZyb29tSWQYASABKAkiRQoXR2V0SGlz",
-            "dG9yeVN0ZXBzUmVzcG9uc2USKgoFc3RlcHMYASADKAsyGy5jb20udmlvbGV0",
-            "LnJwYy5IaXN0b3J5U3RlcGIGcHJvdG8z"));
+            "ZXNwb25zZRIPCgdpc0xlYXZlGAEgASgIIpUBChBNb3ZlQ2hlc3NSZXF1ZXN0",
+            "EikKBnNvdXJjZRgBIAEoCzIZLmNvbS52aW9sZXQucnBjLkNoZXNzRGF0YRIp",
+            "CgZ0YXJnZXQYAiABKAsyGS5jb20udmlvbGV0LnJwYy5DaGVzc0RhdGESKwoE",
+            "cGF0aBgDIAEoCzIdLmNvbS52aW9sZXQucnBjLkNoZXNzRGF0YVBhdGgikwEK",
+            "EU1vdmVDaGVzc1Jlc3BvbnNlEikKBnNvdXJjZRgBIAEoCzIZLmNvbS52aW9s",
+            "ZXQucnBjLkNoZXNzRGF0YRIpCgZ0YXJnZXQYAiABKAsyGS5jb20udmlvbGV0",
+            "LnJwYy5DaGVzc0RhdGESFwoPY2hlc3NNb3ZlUmVzdWx0GAMgASgFEg8KB2Nv",
+            "dW50ZXIYBCABKAUiEgoQQmF0dGxlTWFwUmVxdWVzdCKBAQoRQmF0dGxlTWFw",
+            "UmVzcG9uc2USKwoIY2hlc3NNYXAYASADKAsyGS5jb20udmlvbGV0LnJwYy5D",
+            "aGVzc0RhdGESLgoKcGxheWVyTGlzdBgCIAMoCzIaLmNvbS52aW9sZXQucnBj",
+            "LlBsYXllckluZm8SDwoHY291bnRlchgDIAEoBSIXChVDaGVja0dhbWVTdGF0",
+            "ZVJlcXVlc3QiKAoWQ2hlY2tHYW1lU3RhdGVSZXNwb25zZRIOCgZyb29tSWQY",
+            "ASABKAkiKQoXRW50ZXJCYXR0bGVGaWVsZFJlcXVlc3QSDgoGcm9vbUlkGAEg",
+            "ASgJIuEBChhFbnRlckJhdHRsZUZpZWxkUmVzcG9uc2USKwoIY2hlc3NNYXAY",
+            "ASADKAsyGS5jb20udmlvbGV0LnJwYy5DaGVzc0RhdGESLgoKcGxheWVyTGlz",
+            "dBgCIAMoCzIaLmNvbS52aW9sZXQucnBjLlBsYXllckluZm8SDwoHY291bnRl",
+            "chgDIAEoBRIRCglyZWFkeVRpbWUYBCABKAUSEQoJcm91bmRUaW1lGAUgASgF",
+            "EjEKDGhpc3RvcnlTdGVwcxgGIAMoCzIbLmNvbS52aW9sZXQucnBjLkhpc3Rv",
+            "cnlTdGVwIhIKEFN1cnJlbmRlclJlcXVlc3QiKAoRU3VycmVuZGVyUmVzcG9u",
+            "c2USEwoLaXNTdXJyZW5kZXIYASABKAgiUwoWU2VuZENoYXRNZXNzYWdlUmVx",
+            "dWVzdBIPCgd0b1doZXJlGAEgASgFEigKA21zZxgCIAEoCzIbLmNvbS52aW9s",
+            "ZXQucnBjLk1lc3NhZ2VEYXRhIhkKF1NlbmRDaGF0TWVzc2FnZVJlc3BvbnNl",
+            "IigKFkdldEhpc3RvcnlTdGVwc1JlcXVlc3QSDgoGcm9vbUlkGAEgASgJIkUK",
+            "F0dldEhpc3RvcnlTdGVwc1Jlc3BvbnNlEioKBXN0ZXBzGAEgAygLMhsuY29t",
+            "LnZpb2xldC5ycGMuSGlzdG9yeVN0ZXBiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Com.Violet.Rpc.StructReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -82,14 +84,14 @@ namespace Com.Violet.Rpc {
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ReadyInRoomResponse), global::Com.Violet.Rpc.ReadyInRoomResponse.Parser, new[]{ "IsChangeState" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.LeaveRoomRequest), global::Com.Violet.Rpc.LeaveRoomRequest.Parser, new[]{ "RoomId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.LeaveRoomResponse), global::Com.Violet.Rpc.LeaveRoomResponse.Parser, new[]{ "IsLeave" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.MoveChessRequest), global::Com.Violet.Rpc.MoveChessRequest.Parser, new[]{ "Source", "Target" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.MoveChessRequest), global::Com.Violet.Rpc.MoveChessRequest.Parser, new[]{ "Source", "Target", "Path" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.MoveChessResponse), global::Com.Violet.Rpc.MoveChessResponse.Parser, new[]{ "Source", "Target", "ChessMoveResult", "Counter" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.BattleMapRequest), global::Com.Violet.Rpc.BattleMapRequest.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.BattleMapResponse), global::Com.Violet.Rpc.BattleMapResponse.Parser, new[]{ "ChessMap", "PlayerList", "Counter" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.CheckGameStateRequest), global::Com.Violet.Rpc.CheckGameStateRequest.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.CheckGameStateResponse), global::Com.Violet.Rpc.CheckGameStateResponse.Parser, new[]{ "RoomId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterBattleFieldRequest), global::Com.Violet.Rpc.EnterBattleFieldRequest.Parser, new[]{ "RoomId" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterBattleFieldResponse), global::Com.Violet.Rpc.EnterBattleFieldResponse.Parser, new[]{ "ChessMap", "PlayerList", "Counter", "ReadyTime", "RoundTime" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterBattleFieldResponse), global::Com.Violet.Rpc.EnterBattleFieldResponse.Parser, new[]{ "ChessMap", "PlayerList", "Counter", "ReadyTime", "RoundTime", "HistorySteps" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.SurrenderRequest), global::Com.Violet.Rpc.SurrenderRequest.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.SurrenderResponse), global::Com.Violet.Rpc.SurrenderResponse.Parser, new[]{ "IsSurrender" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.SendChatMessageRequest), global::Com.Violet.Rpc.SendChatMessageRequest.Parser, new[]{ "ToWhere", "Msg" }, null, null, null),
@@ -2102,6 +2104,7 @@ namespace Com.Violet.Rpc {
     public MoveChessRequest(MoveChessRequest other) : this() {
       Source = other.source_ != null ? other.Source.Clone() : null;
       Target = other.target_ != null ? other.Target.Clone() : null;
+      Path = other.path_ != null ? other.Path.Clone() : null;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2131,6 +2134,20 @@ namespace Com.Violet.Rpc {
       }
     }
 
+    /// <summary>Field number for the "path" field.</summary>
+    public const int PathFieldNumber = 3;
+    private global::Com.Violet.Rpc.ChessDataPath path_;
+    /// <summary>
+    ///走子路线
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Com.Violet.Rpc.ChessDataPath Path {
+      get { return path_; }
+      set {
+        path_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as MoveChessRequest);
@@ -2146,6 +2163,7 @@ namespace Com.Violet.Rpc {
       }
       if (!object.Equals(Source, other.Source)) return false;
       if (!object.Equals(Target, other.Target)) return false;
+      if (!object.Equals(Path, other.Path)) return false;
       return true;
     }
 
@@ -2154,6 +2172,7 @@ namespace Com.Violet.Rpc {
       int hash = 1;
       if (source_ != null) hash ^= Source.GetHashCode();
       if (target_ != null) hash ^= Target.GetHashCode();
+      if (path_ != null) hash ^= Path.GetHashCode();
       return hash;
     }
 
@@ -2172,6 +2191,10 @@ namespace Com.Violet.Rpc {
         output.WriteRawTag(18);
         output.WriteMessage(Target);
       }
+      if (path_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(Path);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2182,6 +2205,9 @@ namespace Com.Violet.Rpc {
       }
       if (target_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Target);
+      }
+      if (path_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Path);
       }
       return size;
     }
@@ -2202,6 +2228,12 @@ namespace Com.Violet.Rpc {
           target_ = new global::Com.Violet.Rpc.ChessData();
         }
         Target.MergeFrom(other.Target);
+      }
+      if (other.path_ != null) {
+        if (path_ == null) {
+          path_ = new global::Com.Violet.Rpc.ChessDataPath();
+        }
+        Path.MergeFrom(other.Path);
       }
     }
 
@@ -2225,6 +2257,13 @@ namespace Com.Violet.Rpc {
               target_ = new global::Com.Violet.Rpc.ChessData();
             }
             input.ReadMessage(target_);
+            break;
+          }
+          case 26: {
+            if (path_ == null) {
+              path_ = new global::Com.Violet.Rpc.ChessDataPath();
+            }
+            input.ReadMessage(path_);
             break;
           }
         }
@@ -3068,6 +3107,7 @@ namespace Com.Violet.Rpc {
       counter_ = other.counter_;
       readyTime_ = other.readyTime_;
       roundTime_ = other.roundTime_;
+      historySteps_ = other.historySteps_.Clone();
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3140,6 +3180,19 @@ namespace Com.Violet.Rpc {
       }
     }
 
+    /// <summary>Field number for the "historySteps" field.</summary>
+    public const int HistoryStepsFieldNumber = 6;
+    private static readonly pb::FieldCodec<global::Com.Violet.Rpc.HistoryStep> _repeated_historySteps_codec
+        = pb::FieldCodec.ForMessage(50, global::Com.Violet.Rpc.HistoryStep.Parser);
+    private readonly pbc::RepeatedField<global::Com.Violet.Rpc.HistoryStep> historySteps_ = new pbc::RepeatedField<global::Com.Violet.Rpc.HistoryStep>();
+    /// <summary>
+    ///走子记录
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Com.Violet.Rpc.HistoryStep> HistorySteps {
+      get { return historySteps_; }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as EnterBattleFieldResponse);
@@ -3158,6 +3211,7 @@ namespace Com.Violet.Rpc {
       if (Counter != other.Counter) return false;
       if (ReadyTime != other.ReadyTime) return false;
       if (RoundTime != other.RoundTime) return false;
+      if(!historySteps_.Equals(other.historySteps_)) return false;
       return true;
     }
 
@@ -3169,6 +3223,7 @@ namespace Com.Violet.Rpc {
       if (Counter != 0) hash ^= Counter.GetHashCode();
       if (ReadyTime != 0) hash ^= ReadyTime.GetHashCode();
       if (RoundTime != 0) hash ^= RoundTime.GetHashCode();
+      hash ^= historySteps_.GetHashCode();
       return hash;
     }
 
@@ -3193,6 +3248,7 @@ namespace Com.Violet.Rpc {
         output.WriteRawTag(40);
         output.WriteInt32(RoundTime);
       }
+      historySteps_.WriteTo(output, _repeated_historySteps_codec);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3209,6 +3265,7 @@ namespace Com.Violet.Rpc {
       if (RoundTime != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(RoundTime);
       }
+      size += historySteps_.CalculateSize(_repeated_historySteps_codec);
       return size;
     }
 
@@ -3228,6 +3285,7 @@ namespace Com.Violet.Rpc {
       if (other.RoundTime != 0) {
         RoundTime = other.RoundTime;
       }
+      historySteps_.Add(other.historySteps_);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3256,6 +3314,10 @@ namespace Com.Violet.Rpc {
           }
           case 40: {
             RoundTime = input.ReadInt32();
+            break;
+          }
+          case 50: {
+            historySteps_.AddEntriesFrom(input, _repeated_historySteps_codec);
             break;
           }
         }

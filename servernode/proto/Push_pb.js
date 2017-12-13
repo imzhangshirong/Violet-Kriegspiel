@@ -967,7 +967,8 @@ proto.com.violet.rpc.ChessMovePush.toObject = function(includeInstance, msg) {
     target: (f = msg.getTarget()) && Struct_pb.ChessData.toObject(includeInstance, f),
     chessmoveresult: jspb.Message.getFieldWithDefault(msg, 3, 0),
     counter: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    operator: (f = msg.getOperator()) && Struct_pb.PlayerInfo.toObject(includeInstance, f)
+    operator: (f = msg.getOperator()) && Struct_pb.PlayerInfo.toObject(includeInstance, f),
+    path: (f = msg.getPath()) && Struct_pb.ChessDataPath.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -1026,6 +1027,11 @@ proto.com.violet.rpc.ChessMovePush.deserializeBinaryFromReader = function(msg, r
       var value = new Struct_pb.PlayerInfo;
       reader.readMessage(value,Struct_pb.PlayerInfo.deserializeBinaryFromReader);
       msg.setOperator(value);
+      break;
+    case 6:
+      var value = new Struct_pb.ChessDataPath;
+      reader.readMessage(value,Struct_pb.ChessDataPath.deserializeBinaryFromReader);
+      msg.setPath(value);
       break;
     default:
       reader.skipField();
@@ -1092,6 +1098,14 @@ proto.com.violet.rpc.ChessMovePush.serializeBinaryToWriter = function(message, w
       5,
       f,
       Struct_pb.PlayerInfo.serializeBinaryToWriter
+    );
+  }
+  f = message.getPath();
+  if (f != null) {
+    writer.writeMessage(
+      6,
+      f,
+      Struct_pb.ChessDataPath.serializeBinaryToWriter
     );
   }
 };
@@ -1214,6 +1228,36 @@ proto.com.violet.rpc.ChessMovePush.prototype.clearOperator = function() {
  */
 proto.com.violet.rpc.ChessMovePush.prototype.hasOperator = function() {
   return jspb.Message.getField(this, 5) != null;
+};
+
+
+/**
+ * optional ChessDataPath path = 6;
+ * @return {?proto.com.violet.rpc.ChessDataPath}
+ */
+proto.com.violet.rpc.ChessMovePush.prototype.getPath = function() {
+  return /** @type{?proto.com.violet.rpc.ChessDataPath} */ (
+    jspb.Message.getWrapperField(this, Struct_pb.ChessDataPath, 6));
+};
+
+
+/** @param {?proto.com.violet.rpc.ChessDataPath|undefined} value */
+proto.com.violet.rpc.ChessMovePush.prototype.setPath = function(value) {
+  jspb.Message.setWrapperField(this, 6, value);
+};
+
+
+proto.com.violet.rpc.ChessMovePush.prototype.clearPath = function() {
+  this.setPath(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.com.violet.rpc.ChessMovePush.prototype.hasPath = function() {
+  return jspb.Message.getField(this, 6) != null;
 };
 
 

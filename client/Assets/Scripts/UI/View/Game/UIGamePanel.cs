@@ -31,7 +31,6 @@ public class UIGamePanel : UIViewBase
 
     private bool m_MyChessIsMoving;
     private GameObject m_ChessHero;
-    private ChessPoint[] m_lastPath;
     static string[] MsgContent = {
         "快点吧，等的我花都谢了",
         "投降吧！我赢定了！",
@@ -82,7 +81,7 @@ public class UIGamePanel : UIViewBase
     
     void OnHistoryTrigger(object content)
     {
-        if (m_lastPath != null) ShowChessMovePath(m_lastPath);
+        if (App.Package.ChessGame.LastPath != null) ShowChessMovePath(App.Package.ChessGame.LastPath);
     }
     void OnShowHistoryPath(object content)
     {
@@ -107,7 +106,7 @@ public class UIGamePanel : UIViewBase
         if (App.Package.ChessGame.IsGameStart)
         {
             //恢复之前的游戏
-            StartGameRound();
+            StartGameRound(false);
         }
         else
         {
@@ -464,6 +463,7 @@ public class UIGamePanel : UIViewBase
             request.Target = new ChessData();
             request.Target.Point = moveToPoint.ParseToRpc();
         }
+        request.Path = App.Package.ChessGame.BuildChessDataPathFromPoints(moveData.points);
         App.Manager.Network.Request("MoveChess", request, delegate (IMessage responseData) {
             MoveChessResponse response = (MoveChessResponse)responseData;
             int result = response.ChessMoveResult;
@@ -561,7 +561,7 @@ public class UIGamePanel : UIViewBase
         //if((ChessMoveResult.CANNOT_MOVE == result && moveData.crashType > 0) || (ChessMoveResult.CAN_MOVE == result && moveData.crashType == 0))
         //{
             Push("_cleanArrow");
-            m_lastPath = moveData.points;
+            App.Package.ChessGame.LastPath = moveData.points;
             float dur = 0.2f / moveData.points.Length;
             for (int i = 1; i < moveData.points.Length; i++)
             {
@@ -610,7 +610,7 @@ public class UIGamePanel : UIViewBase
             else
             {
                 Push("_cleanArrow");
-                m_lastPath = moveData.points;
+                App.Package.ChessGame.LastPath = moveData.points;
                 ChessMoveResult result = resultR;//ChessAgainst.ChessCanBeat(heroChoosed, hero);
                 float dur = 0.4f / moveData.points.Length;
                 for (int i = 1; i < moveData.points.Length - 1; i++)
@@ -707,7 +707,7 @@ public class UIGamePanel : UIViewBase
         for (int i = 0; i < chessHeroDatas.Count; i++)
         {
             ChessHeroData heroData = chessHeroDatas[i];
-            if (!ChessAgainst.IsBarrack(heroData.point))//不在军营里
+            if (!ChessAgainst.IsBarrack(heroData.point) || App.Package.ChessGame.GameRoundCounter>0)//不在军营里
             {
                 GameObject go = Instantiate(m_ChessHero);
                 UIWChessHeroItem chessHeroItem = go.GetComponent<UIWChessHeroItem>();
@@ -716,15 +716,14 @@ public class UIGamePanel : UIViewBase
                 chessHeroItem.chessHeroId = heroData.heroTypeId;
                 treeRoot.Bind(chessHeroItem);//绑定到TreeRoot
                 chessHeroItem.chessId = heroData.id;
+                go.transform.parent = (heroData.point.y > 5) ? m_EnemyFied.transform : m_MyselfFied.transform;
                 switch (group)
                 {
                     case ChessHeroGroup.Myself:
-                        go.transform.parent = m_MyselfFied.transform;
                         chessHeroItem.state = ChessHeroState.Alive;
                         chessHeroItem.labelState = ChessHeroLabelState.Show;
                         break;
                     case ChessHeroGroup.Enemy:
-                        go.transform.parent = m_EnemyFied.transform;
                         chessHeroItem.state = ChessHeroState.Alive;
                         chessHeroItem.labelState = (heroData.heroTypeId >= 0)? ChessHeroLabelState.Show: ChessHeroLabelState.Hide;//小于0为未知棋子，应该隐藏
                         break;
@@ -783,13 +782,18 @@ public class UIGamePanel : UIViewBase
         return p1.RoundOrder - p2.RoundOrder;
     }
 
-    void StartGameRound()
+    void StartGameRound(bool first = true)
     {
+        if (!first && App.Package.ChessGame.ChessHistorySteps.Count>0)
+        {
+            App.Package.ChessGame.LastPath = App.Package.ChessGame.ChessDataPathToPoints(App.Package.ChessGame.ChessHistorySteps[0].Path);
+            ShowChessMovePath(App.Package.ChessGame.LastPath);
+        }
         App.Package.ChessGame.GameRoundCounter--;
-        NextGameRound();
+        NextGameRound(first);
     }
 
-    void NextGameRound(int roundTime = 0)
+    void NextGameRound(bool first = true)
     {
         App.Package.ChessGame.GameRoundCounter++;
         int cur = App.Package.ChessGame.GameRoundCounter % App.Package.ChessGame.AllPlayerList.Count;
@@ -801,7 +805,7 @@ public class UIGamePanel : UIViewBase
             }
             else
             {
-                App.Package.ChessGame.AllPlayerList[i].GameRemainTime = (roundTime == 0) ? Config.Game.WaitingRound : roundTime;
+                if(first) App.Package.ChessGame.AllPlayerList[i].GameRemainTime = Config.Game.WaitingRound;
                 Debugger.Log(App.Package.ChessGame.AllPlayerList[i].UserName + ":" + App.Package.ChessGame.AllPlayerList[i].GameRemainTime);
             }
         }
@@ -967,12 +971,15 @@ public class UIGamePanel : UIViewBase
                 ChessDataHasProblem();
                 return;
             }
-            ChessHeroData fake = ChessDataToChessHeroData(target, true);
+            ChessHeroData fake = ChessDataToChessHeroData(target, true);//翻转
             if (targetReal != null)
             {
                 fake = targetReal;
             }
-            ChessMoveData moveData = ChessAgainst.ChessHeroCanMoveTo(sourceReal, fake.point);
+            //ChessMoveData moveData = ChessAgainst.ChessHeroCanMoveTo(sourceReal, fake.point);
+            ChessMoveData moveData = new ChessMoveData();
+            moveData.crashType = 0;
+            moveData.points = App.Package.ChessGame.ChessDataPathToPoints(push.Path, sourceReal.group);
             switch (result)
             {
                 case ChessMoveResult.LOSE:

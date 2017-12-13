@@ -78,6 +78,7 @@ message LeaveRoomResponse{
 message MoveChessRequest{//走子请求
   ChessData source = 1;
   ChessData target = 2;
+  ChessDataPath path = 3;//走子路线
 }
 
 message MoveChessResponse{
@@ -116,6 +117,7 @@ message EnterBattleFieldResponse{
   int32 counter = 3; //计数器
   int32 readyTime = 4;//准备的时间
   int32 roundTime = 5;//每回合时间
+  repeated HistoryStep historySteps = 6;//走子记录
 }
 
 message SurrenderRequest{

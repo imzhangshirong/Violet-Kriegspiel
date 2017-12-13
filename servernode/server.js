@@ -158,6 +158,8 @@ function createMatchRoom(users_){
             gameState:0,
             died : [],//已经死了的棋子
             token : md5(roomId), //用于直接进入房间
+            history : [],
+            skipCounter : [],//记录跳过次数
         }
         let curRoom = RoomCenter[roomId];
         curRoom.timer = setInterval(function(){
@@ -168,7 +170,13 @@ function createMatchRoom(users_){
                         user.gameRemainTime--;
                         if(user.gameRemainTime<=0){
                             user.gameRemainTime=0;
-                            autoSkip(curRoom,user);//自动跳过
+                            curRoom.skipCounter[i]++;
+                            /*if(curRoom.skipCounter[i]>=Config.Game.maxSkip){
+                                endGame(curRoom,user);
+                            }
+                            else{*/
+                                autoSkip(curRoom,user);//自动跳过
+                            //}
                         }
                     }
                 }
@@ -194,6 +202,7 @@ function createMatchRoom(users_){
             removeFromPlayGround(user.token);
             playerInfoMap[user.token]=getRpcPlayerInfo(user);
             curRoom.chessMap[i] = parseUserChessData(user);
+            curRoom.skipCounter.push(0);
         }
         let Message = RpcServer.getRpc("EnterBattleField","Push");
         for(let i=0;i<users.length;i++){
@@ -239,7 +248,7 @@ function endGame(room,loseUser){
             RpcServer.push(client,"GameStateChange",push);
         });
     }
-
+    clearInterval(room.timer);//清除计时器
     //更新用户状态
     room.users.map(function(user){
         user.state = 0;
@@ -247,7 +256,6 @@ function endGame(room,loseUser){
     for(let key in RoomCenter){
         let room_ = RoomCenter[key];
         if(room.roomId==room_.roomId){
-            clearInterval(room.timer);//清除计时器
             delete RoomCenter[key];
             break;
         }
@@ -391,7 +399,7 @@ function removeRoom(id){
     }
 }
 
-function pushMoveChess(room,userFrom,source,target,result,all){
+function pushMoveChess(room,userFrom,source,target,result,path,all){
     let Message = RpcServer.getRpc("ChessMove","Push");
     let push = new Message();
     let chess = source.clone();
@@ -400,6 +408,7 @@ function pushMoveChess(room,userFrom,source,target,result,all){
     push.setTarget(target);
     push.setCounter(room.counter);
     push.setChessmoveresult(result);
+    push.setPath(path);
     for(let i=0;i<room.users.length;i++){
         let user = room.users[i];
         if(user.token!=userFrom.token || all){
@@ -421,7 +430,7 @@ function autoSkip(room,user){
     source.setChessremoteid(0);
     //设置当前可用时间
     room.users[room.counter%room.users.length].gameRemainTime = Config.Game.waitingRound;
-    pushMoveChess(room,user,source,target,result,true);
+    pushMoveChess(room,user,source,target,result,null,true);
 }
 
 function autoReady(room,user){
@@ -687,8 +696,10 @@ RpcServer.on("MoveChess",function(requestData){
                 console.log("room:" + room.roomId + " user:" + user.userName + " > move:"+remoteIdS+"("+pointS.getX()+","+pointS.getY()+")->("+pointT.getX()+","+pointT.getY()+")");
                 let realChessS = getChessDataByRemoteId(room,remoteIdS);
                 if(realChessS!=null){
+                    let path = request.getPath();
+                    let realChessT = null;
                     if(remoteIdT!=null && remoteIdT!=""){
-                        let realChessT = getChessDataByRemoteId(room,remoteIdT);
+                        realChessT = getChessDataByRemoteId(room,remoteIdT);
                         if(realChessT!=null){
                             response.setSource(source);
                             response.setTarget(target);
@@ -722,6 +733,7 @@ RpcServer.on("MoveChess",function(requestData){
                         }
                     }
                     else{//检测是否可以移动
+                        realChessS.setPoint(target.getPoint())//更新位置状态
                         result = 4;
                         response.setSource(source);
                         response.setTarget(target);
@@ -729,8 +741,24 @@ RpcServer.on("MoveChess",function(requestData){
                         response.setChessmoveresult(result);
                     }
                     if(requestData.errorCode==0){
-                        pushMoveChess(room,user,source,target,result,false);
+                        let HistoryStep = RpcServer.getRpc("HistoryStep","");
+                        let historyStep = new HistoryStep();
+                        historyStep.setCounter(room.counter-1);
+                        historyStep.setSource(realChessS);
+                        if(realChessT!=null){
+                            historyStep.setTarget(realChessT);
+                        }
+                        else{
+                            historyStep.setTarget(target);
+                        }
+                        historyStep.setResult(result);
+                        historyStep.setPath(path);
+                        room.history.push(historyStep);
+                        pushMoveChess(room,user,source,target,result,path,false);
                     }
+                }
+                else{
+                    requestData.errorCode = 31;
                 }
             }
             else{
@@ -879,6 +907,20 @@ RpcServer.on("EnterBattleField",function(requestData){
                 response.setCounter(room.counter);
                 response.setReadytime(Config.Game.waitingReady);
                 response.setRoundtime(Config.Game.waitingRound);
+                let historySend = [];
+                for(let i=0;i<room.history.length;i++){
+                    let step = room.history[i].clone();
+                    let source = step.getSource();
+                    if(source.getBelong()!=belong){
+                        source.setChesstype(-1);
+                    }
+                    let target = step.getTarget();
+                    if(target.getChessremoteid()!="" && target.getBelong()!=belong){
+                        target.setChesstype(-1);
+                    }
+                    historySend.push(step);
+                }
+                response.setHistorystepsList(historySend);
             }
             else{
                 requestData.errorCode = 41;//房间错误

@@ -59,6 +59,7 @@ public class ChessAgainst : MonoBehaviour
                             moveData.crashType = 0;
                             moveData.crashHero = null;
                             moveData.points = points;
+                            Debugger.Log("point!!!!" + points.Length);
                             return moveData;
                         }
                         else
@@ -366,7 +367,6 @@ public class ChessAgainst : MonoBehaviour
         }
         return true;
     }
-
 }
 public enum PlayerState{
   UNKNOW = 0,

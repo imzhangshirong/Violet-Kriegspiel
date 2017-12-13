@@ -2553,7 +2553,8 @@ proto.com.violet.rpc.MoveChessRequest.prototype.toObject = function(opt_includeI
 proto.com.violet.rpc.MoveChessRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     source: (f = msg.getSource()) && Struct_pb.ChessData.toObject(includeInstance, f),
-    target: (f = msg.getTarget()) && Struct_pb.ChessData.toObject(includeInstance, f)
+    target: (f = msg.getTarget()) && Struct_pb.ChessData.toObject(includeInstance, f),
+    path: (f = msg.getPath()) && Struct_pb.ChessDataPath.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -2600,6 +2601,11 @@ proto.com.violet.rpc.MoveChessRequest.deserializeBinaryFromReader = function(msg
       reader.readMessage(value,Struct_pb.ChessData.deserializeBinaryFromReader);
       msg.setTarget(value);
       break;
+    case 3:
+      var value = new Struct_pb.ChessDataPath;
+      reader.readMessage(value,Struct_pb.ChessDataPath.deserializeBinaryFromReader);
+      msg.setPath(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -2643,6 +2649,14 @@ proto.com.violet.rpc.MoveChessRequest.serializeBinaryToWriter = function(message
       2,
       f,
       Struct_pb.ChessData.serializeBinaryToWriter
+    );
+  }
+  f = message.getPath();
+  if (f != null) {
+    writer.writeMessage(
+      3,
+      f,
+      Struct_pb.ChessDataPath.serializeBinaryToWriter
     );
   }
 };
@@ -2705,6 +2719,36 @@ proto.com.violet.rpc.MoveChessRequest.prototype.clearTarget = function() {
  */
 proto.com.violet.rpc.MoveChessRequest.prototype.hasTarget = function() {
   return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * optional ChessDataPath path = 3;
+ * @return {?proto.com.violet.rpc.ChessDataPath}
+ */
+proto.com.violet.rpc.MoveChessRequest.prototype.getPath = function() {
+  return /** @type{?proto.com.violet.rpc.ChessDataPath} */ (
+    jspb.Message.getWrapperField(this, Struct_pb.ChessDataPath, 3));
+};
+
+
+/** @param {?proto.com.violet.rpc.ChessDataPath|undefined} value */
+proto.com.violet.rpc.MoveChessRequest.prototype.setPath = function(value) {
+  jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+proto.com.violet.rpc.MoveChessRequest.prototype.clearPath = function() {
+  this.setPath(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.com.violet.rpc.MoveChessRequest.prototype.hasPath = function() {
+  return jspb.Message.getField(this, 3) != null;
 };
 
 
@@ -3745,7 +3789,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.com.violet.rpc.EnterBattleFieldResponse.repeatedFields_ = [1,2];
+proto.com.violet.rpc.EnterBattleFieldResponse.repeatedFields_ = [1,2,6];
 
 
 
@@ -3782,7 +3826,9 @@ proto.com.violet.rpc.EnterBattleFieldResponse.toObject = function(includeInstanc
     Struct_pb.PlayerInfo.toObject, includeInstance),
     counter: jspb.Message.getFieldWithDefault(msg, 3, 0),
     readytime: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    roundtime: jspb.Message.getFieldWithDefault(msg, 5, 0)
+    roundtime: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    historystepsList: jspb.Message.toObjectList(msg.getHistorystepsList(),
+    Struct_pb.HistoryStep.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -3840,6 +3886,11 @@ proto.com.violet.rpc.EnterBattleFieldResponse.deserializeBinaryFromReader = func
     case 5:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setRoundtime(value);
+      break;
+    case 6:
+      var value = new Struct_pb.HistoryStep;
+      reader.readMessage(value,Struct_pb.HistoryStep.deserializeBinaryFromReader);
+      msg.addHistorysteps(value);
       break;
     default:
       reader.skipField();
@@ -3905,6 +3956,14 @@ proto.com.violet.rpc.EnterBattleFieldResponse.serializeBinaryToWriter = function
     writer.writeInt32(
       5,
       f
+    );
+  }
+  f = message.getHistorystepsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      6,
+      f,
+      Struct_pb.HistoryStep.serializeBinaryToWriter
     );
   }
 };
@@ -4014,6 +4073,37 @@ proto.com.violet.rpc.EnterBattleFieldResponse.prototype.getRoundtime = function(
 /** @param {number} value */
 proto.com.violet.rpc.EnterBattleFieldResponse.prototype.setRoundtime = function(value) {
   jspb.Message.setField(this, 5, value);
+};
+
+
+/**
+ * repeated HistoryStep historySteps = 6;
+ * @return {!Array.<!proto.com.violet.rpc.HistoryStep>}
+ */
+proto.com.violet.rpc.EnterBattleFieldResponse.prototype.getHistorystepsList = function() {
+  return /** @type{!Array.<!proto.com.violet.rpc.HistoryStep>} */ (
+    jspb.Message.getRepeatedWrapperField(this, Struct_pb.HistoryStep, 6));
+};
+
+
+/** @param {!Array.<!proto.com.violet.rpc.HistoryStep>} value */
+proto.com.violet.rpc.EnterBattleFieldResponse.prototype.setHistorystepsList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 6, value);
+};
+
+
+/**
+ * @param {!proto.com.violet.rpc.HistoryStep=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.com.violet.rpc.HistoryStep}
+ */
+proto.com.violet.rpc.EnterBattleFieldResponse.prototype.addHistorysteps = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 6, opt_value, proto.com.violet.rpc.HistoryStep, opt_index);
+};
+
+
+proto.com.violet.rpc.EnterBattleFieldResponse.prototype.clearHistorystepsList = function() {
+  this.setHistorystepsList([]);
 };
 
 

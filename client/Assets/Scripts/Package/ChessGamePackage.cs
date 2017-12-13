@@ -26,6 +26,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
         }
     }
     public List<HistoryStep> ChessHistorySteps = new List<HistoryStep>();
+    public ChessPoint[] LastPath;
     List<PlayerInfo> m_EnemyPlayerList = new List<PlayerInfo>();
     public List<PlayerInfo> EnemyPlayerList
     {
@@ -121,6 +122,7 @@ public class ChessGamePackage : Package<ChessGamePackage>
         m_IsReadyGame = false;
         m_CanDragChess = true;
         GameRoundCounter = 0;
+        LastPath = null;
         App.Package.Player.playerInfo.State = (int)PlayerState.UNREADY;
         if(m_MapRoadStations==null || m_MapRoadStations.Count==0)InitFieldMap();
     }
@@ -142,6 +144,22 @@ public class ChessGamePackage : Package<ChessGamePackage>
                 
             }
         }
+        ChessHistorySteps = new List<HistoryStep>(response.HistorySteps);
+        string belong = App.Package.Player.GetBelong();
+        //需要翻转
+        for (int i = 0; i < ChessHistorySteps.Count; i++)
+        {
+            HistoryStep step = ChessHistorySteps[i];
+            if (step.Source.Belong!= belong)
+            {
+                for(int j = 0; j < step.Path.ChessPoints.Count; j++)
+                {
+                    step.Path.ChessPoints[j].X = 4 - step.Path.ChessPoints[j].X;
+                    step.Path.ChessPoints[j].Y = 11 - step.Path.ChessPoints[j].Y;
+                }
+            }
+        }
+        ChessHistorySteps.Sort(SortHistory);
         m_EnemyPlayerList.Sort(SortPlayerListByRoundOrder);
         AllPlayerList = new List<PlayerInfo>(m_EnemyPlayerList);
         AllPlayerList.Add(App.Package.Player.playerInfo);
@@ -154,10 +172,14 @@ public class ChessGamePackage : Package<ChessGamePackage>
         m_IsReadyGame = false;
         m_CanDragChess = false;
         GameRoundCounter = response.Counter;
-        App.Package.ChessGame.AddChessFromData(new List<ChessData>(response.ChessMap));
+        AddChessFromData(new List<ChessData>(response.ChessMap));
         if (m_MapRoadStations == null || m_MapRoadStations.Count == 0) InitFieldMap();
     }
 
+    int SortHistory(HistoryStep a, HistoryStep b)
+    {
+        return b.Counter - a.Counter;
+    }
 
     int SortPlayerListByRoundOrder(PlayerInfo p1, PlayerInfo p2)
     {
@@ -236,16 +258,8 @@ public class ChessGamePackage : Package<ChessGamePackage>
             ChessHeroGroup group;
             baseId = GetBaseId(chess.Belong);
             group = (ChessHeroGroup)(baseId/100);
-            switch (group)
-            {
-                case ChessHeroGroup.Myself:
-                    heroData.point = new ChessPoint(chess.Point.X, chess.Point.Y);
-                    break;
-                case ChessHeroGroup.Enemy://敌人要翻转
-                    heroData.point = new ChessPoint(4-chess.Point.X, 11-chess.Point.Y);
-                    break;
-            }
-            
+            heroData.point = ChessPoint.ParseFromRpc(chess.Point);
+            if (group != ChessHeroGroup.Myself) heroData.point.Reverse();//敌人要翻转
             heroData.heroTypeId = chess.ChessType;
             heroData.realChessType = heroData.heroTypeId;
             heroData.id = map[group]+baseId;
@@ -455,12 +469,13 @@ public class ChessGamePackage : Package<ChessGamePackage>
         base.Release();
     }
 
-    public ChessPoint[] ChessDataPathToPoints(ChessDataPath path)
+    public ChessPoint[] ChessDataPathToPoints(ChessDataPath path,ChessHeroGroup group = ChessHeroGroup.Myself)
     {
         ChessPoint[] re = new ChessPoint[path.ChessPoints.Count];
         for(int i=0;i< path.ChessPoints.Count; i++)
         {
-            re[i] = new ChessPoint(path.ChessPoints[i].X, path.ChessPoints[i].Y);
+            re[i] = ChessPoint.ParseFromRpc(path.ChessPoints[i]);
+            if (group != ChessHeroGroup.Myself) re[i].Reverse();
         }
         return re;
     }
@@ -568,6 +583,11 @@ public class ChessPoint
     public ChessPoint Clone()
     {
         return new ChessPoint(x, y);
+    }
+    public void Reverse()
+    {
+        x = 4 - x;
+        y = 11 - y;
     }
 }
 public class FieldRoadStation

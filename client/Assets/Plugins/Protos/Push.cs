@@ -33,11 +33,12 @@ namespace Com.Violet.Rpc {
             "LnZpb2xldC5ycGMuUGxheWVySW5mbyJyChNHYW1lU3RhdGVDaGFuZ2VQdXNo",
             "Eg0KBXN0YXRlGAEgASgFEg4KBnJlc3VsdBgCIAEoBRIrCghjaGVzc01hcBgD",
             "IAMoCzIZLmNvbS52aW9sZXQucnBjLkNoZXNzRGF0YRIPCgdjb3VudGVyGAQg",
-            "ASgFIr0BCg1DaGVzc01vdmVQdXNoEikKBnNvdXJjZRgBIAEoCzIZLmNvbS52",
+            "ASgFIuoBCg1DaGVzc01vdmVQdXNoEikKBnNvdXJjZRgBIAEoCzIZLmNvbS52",
             "aW9sZXQucnBjLkNoZXNzRGF0YRIpCgZ0YXJnZXQYAiABKAsyGS5jb20udmlv",
             "bGV0LnJwYy5DaGVzc0RhdGESFwoPY2hlc3NNb3ZlUmVzdWx0GAMgASgFEg8K",
             "B2NvdW50ZXIYBCABKAUSLAoIb3BlcmF0b3IYBSABKAsyGi5jb20udmlvbGV0",
-            "LnJwYy5QbGF5ZXJJbmZvIk4KD0NoYXRNZXNzYWdlUHVzaBIRCglmcm9tV2hl",
+            "LnJwYy5QbGF5ZXJJbmZvEisKBHBhdGgYBiABKAsyHS5jb20udmlvbGV0LnJw",
+            "Yy5DaGVzc0RhdGFQYXRoIk4KD0NoYXRNZXNzYWdlUHVzaBIRCglmcm9tV2hl",
             "cmUYASABKAUSKAoDbXNnGAIgASgLMhsuY29tLnZpb2xldC5ycGMuTWVzc2Fn",
             "ZURhdGFiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
@@ -47,7 +48,7 @@ namespace Com.Violet.Rpc {
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.EnterBattleFieldPush), global::Com.Violet.Rpc.EnterBattleFieldPush.Parser, new[]{ "PlayerList", "RoundOrder", "ChessSetting", "RoomId", "ReadyTime", "RoundTime" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.PlayerStateChangePush), global::Com.Violet.Rpc.PlayerStateChangePush.Parser, new[]{ "PlayerInfo" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.GameStateChangePush), global::Com.Violet.Rpc.GameStateChangePush.Parser, new[]{ "State", "Result", "ChessMap", "Counter" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ChessMovePush), global::Com.Violet.Rpc.ChessMovePush.Parser, new[]{ "Source", "Target", "ChessMoveResult", "Counter", "Operator" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ChessMovePush), global::Com.Violet.Rpc.ChessMovePush.Parser, new[]{ "Source", "Target", "ChessMoveResult", "Counter", "Operator", "Path" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Violet.Rpc.ChatMessagePush), global::Com.Violet.Rpc.ChatMessagePush.Parser, new[]{ "FromWhere", "Msg" }, null, null, null)
           }));
     }
@@ -777,6 +778,7 @@ namespace Com.Violet.Rpc {
       chessMoveResult_ = other.chessMoveResult_;
       counter_ = other.counter_;
       Operator = other.operator_ != null ? other.Operator.Clone() : null;
+      Path = other.path_ != null ? other.Path.Clone() : null;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -848,6 +850,20 @@ namespace Com.Violet.Rpc {
       }
     }
 
+    /// <summary>Field number for the "path" field.</summary>
+    public const int PathFieldNumber = 6;
+    private global::Com.Violet.Rpc.ChessDataPath path_;
+    /// <summary>
+    ///走子路线
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Com.Violet.Rpc.ChessDataPath Path {
+      get { return path_; }
+      set {
+        path_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as ChessMovePush);
@@ -866,6 +882,7 @@ namespace Com.Violet.Rpc {
       if (ChessMoveResult != other.ChessMoveResult) return false;
       if (Counter != other.Counter) return false;
       if (!object.Equals(Operator, other.Operator)) return false;
+      if (!object.Equals(Path, other.Path)) return false;
       return true;
     }
 
@@ -877,6 +894,7 @@ namespace Com.Violet.Rpc {
       if (ChessMoveResult != 0) hash ^= ChessMoveResult.GetHashCode();
       if (Counter != 0) hash ^= Counter.GetHashCode();
       if (operator_ != null) hash ^= Operator.GetHashCode();
+      if (path_ != null) hash ^= Path.GetHashCode();
       return hash;
     }
 
@@ -907,6 +925,10 @@ namespace Com.Violet.Rpc {
         output.WriteRawTag(42);
         output.WriteMessage(Operator);
       }
+      if (path_ != null) {
+        output.WriteRawTag(50);
+        output.WriteMessage(Path);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -926,6 +948,9 @@ namespace Com.Violet.Rpc {
       }
       if (operator_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Operator);
+      }
+      if (path_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Path);
       }
       return size;
     }
@@ -958,6 +983,12 @@ namespace Com.Violet.Rpc {
           operator_ = new global::Com.Violet.Rpc.PlayerInfo();
         }
         Operator.MergeFrom(other.Operator);
+      }
+      if (other.path_ != null) {
+        if (path_ == null) {
+          path_ = new global::Com.Violet.Rpc.ChessDataPath();
+        }
+        Path.MergeFrom(other.Path);
       }
     }
 
@@ -996,6 +1027,13 @@ namespace Com.Violet.Rpc {
               operator_ = new global::Com.Violet.Rpc.PlayerInfo();
             }
             input.ReadMessage(operator_);
+            break;
+          }
+          case 50: {
+            if (path_ == null) {
+              path_ = new global::Com.Violet.Rpc.ChessDataPath();
+            }
+            input.ReadMessage(path_);
             break;
           }
         }

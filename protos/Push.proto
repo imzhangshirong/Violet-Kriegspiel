@@ -34,6 +34,7 @@ message ChessMovePush{
   int32 chessMoveResult = 3; //enum ChessMoveResult
   int32 counter = 4;//计数器
   PlayerInfo operator = 5; //走子的人
+  ChessDataPath path = 6;//走子路线
 }
 
 message ChatMessagePush{
