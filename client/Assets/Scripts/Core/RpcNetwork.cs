@@ -678,9 +678,10 @@ public class RpcNetwork
         while (!m_socket.Connected)
         {
             App.Manager.Thread.RunOnMainThread(() => {
+                Common.UI.OpenTips("连接断开，正在重连...");
                 Debugger.Log("Reconnecting:"+ m_socket.Connected);
             });
-            Thread.Sleep(1000);
+            Thread.Sleep(5000);
             Init(true);
         }
         Reconnected();

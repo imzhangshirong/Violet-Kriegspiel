@@ -54,19 +54,28 @@ public class Global : MonoBehaviour
 
         //注册RPC ErrorCode处理////
         App.Manager.Network.RegisteErrorCode(1, () => {
-            Common.UI.OpenAlert("错误", "用户不存在，或登录凭证过期", "确认", delegate()
+            Common.UI.OpenAlert("错误", "用户数据错误，或登录凭证过期", "确认", delegate()
             {
                 Common.UI.BackPage("UILoginPanel");
             });
         });
         App.Manager.Network.RegisteErrorCode(11, () => {
-            Common.UI.OpenAlert("错误", "已经在匹配名单里", "确认", null);
+            Common.UI.OpenAlert("提示", "已经在匹配名单里", "确认", delegate()
+            {
+                App.Manager.UI.ReplaceView("UIFindEnemyPanel");
+            });
         });
         App.Manager.Network.RegisteErrorCode(21, () => {
-            Common.UI.OpenAlert("错误", "用户不在房间内", "确认", null);
+            Common.UI.OpenAlert("错误", "用户不在房间内", "确认", delegate ()
+            {
+                Common.UI.BackPage("UILobbyPanel");
+            });
         });
         App.Manager.Network.RegisteErrorCode(31, () => {
-            Common.UI.OpenAlert("错误", "数据错误", "确认", null);
+            Common.UI.OpenAlert("错误", "数据错误", "确认", delegate ()
+            {
+                Common.UI.BackPage("UILobbyPanel");
+            });
         });
         Debugger.Log("Inited");
     }

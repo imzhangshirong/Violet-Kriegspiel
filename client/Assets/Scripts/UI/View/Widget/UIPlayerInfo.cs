@@ -26,4 +26,9 @@ public class UIPlayerInfo : UIViewBase
 		userName.text = playerInfo.UserName;
 		userLevel.text = "Level." + playerInfo.Level;
 	}
+
+    public void DestroyGame()
+    {
+        Application.Quit();
+    }
 }

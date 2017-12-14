@@ -28,6 +28,7 @@ public class UIMainPanel : UIViewBase
             Config.ServerHostPort = int.Parse(portInput.value);
             RpcNetwork.Instance.Init();
             Common.UI.OpenTips("Set IP Config");
+            NextPage();
         }
         catch(Exception e)
         {
@@ -42,20 +43,6 @@ public class UIMainPanel : UIViewBase
 		Debugger.Log("MainPanel Open");
         string ip = PlayerPrefs.GetString("hostIp");
         if (ip != "")ipInput.value = ip;
-        FieldRoadStation s1= new FieldRoadStation(){
-            type = FieldRoadStationType.Rail,
-            point = new ChessPoint(1,5),
-        };
-        FieldRoadStation s2= new FieldRoadStation(){
-            type = FieldRoadStationType.Barrack,
-            point = new ChessPoint(1,6),
-        };
-        Debugger.Warn(ChessAgainst.IsBarrack(new ChessPoint(1,7)));
-        Debugger.Warn(ChessAgainst.InRailArea(new ChessPoint(0,7)));
-        Debugger.Warn(ChessAgainst.InRailArea(new ChessPoint(1,6)));
-        Debugger.Warn(ChessAgainst.InRailArea(new ChessPoint(1,10)));
-        Debugger.Warn(ChessAgainst.InRailArea(new ChessPoint(4,6)));
-        //App.Manager.UI.ReplaceView("UIGamePanel");
         //OnSetIp();
     }
 	public void NextPage()
@@ -122,5 +109,19 @@ public class UIMainPanel : UIViewBase
             }
         }
         Debugger.Warn("Mouse:"+Input.mousePosition.ToString());
+    }
+    public void SetLocal()
+    {
+        Config.ServerHost = "192.168.80.15";
+        Config.ServerHostPort = 8000;
+        RpcNetwork.Instance.Init();
+        NextPage();
+    }
+    public void SetRemote()
+    {
+        Config.ServerHost = "123.207.122.248";
+        Config.ServerHostPort = 8000;
+        RpcNetwork.Instance.Init();
+        NextPage();
     }
 }
